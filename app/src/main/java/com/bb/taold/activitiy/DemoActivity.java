@@ -58,7 +58,7 @@ public class DemoActivity extends BaseActivity{
 
     }
 
-    Bitmap bitmap;
+    Bitmap  bitmap;
     @Override
     public void initdata() {
         View viewGroup= LayoutInflater.from(DemoActivity.this).inflate(R.layout.signature2, null);
