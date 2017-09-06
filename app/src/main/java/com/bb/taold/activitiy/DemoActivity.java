@@ -27,7 +27,7 @@ import butterknife.BindView;
 
 public class DemoActivity extends BaseActivity{
 
-
+    //测试Demo
 
     @BindView(R.id.iv_jp)
     ImageView iv_jp;
