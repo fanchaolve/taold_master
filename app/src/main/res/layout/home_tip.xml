@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:paddingLeft="@dimen/x36"
+        android:paddingRight="@dimen/x36"
+        android:layout_height="22dp"
+        android:background="@drawable/c2b_shengji"
+        android:gravity="center"
+        android:text="@string/updateperson"
+        android:textAppearance="@style/TextAppear.Theme.white_Size14" />
+
+</LinearLayout>

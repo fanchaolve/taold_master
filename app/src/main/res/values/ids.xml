@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="banner_indicatorId" type="id" />
+
+    <item name="rg_zfbid" type="id" />
+    <item name="rg_wxid" type="id" />
+    <item name="rg_llid" type="id" />
+</resources>
