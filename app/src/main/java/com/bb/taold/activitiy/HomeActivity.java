@@ -20,7 +20,7 @@ public class HomeActivity extends BaseActivity{
 
 
     @BindView(R.id.bb)
-    BottomBar bb;
+    BottomBar   bb;
 
     private HomeFragment homeFragment;
     @Override
