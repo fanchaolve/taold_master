@@ -2,6 +2,7 @@ package com.bb.taold.activitiy.login;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
@@ -52,7 +53,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
     @Override
     protected void onResume() {
         super.onResume();
-
+        Log.i("","");
 
     }
 
