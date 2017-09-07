@@ -25,10 +25,12 @@ import java.util.Date;
 
 import butterknife.BindView;
 
-
 public class DemoActivity extends BaseActivity{
 
     //测试Demo
+
+    //测试demo2
+    //测试demo3
 
     @BindView(R.id.iv_jp)
     ImageView iv_jp;
