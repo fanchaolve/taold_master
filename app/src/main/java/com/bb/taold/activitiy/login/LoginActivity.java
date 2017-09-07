@@ -175,7 +175,7 @@ public class LoginActivity extends BaseActivity {
         toast = new Toast(LoginActivity.this);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(view);
-        toast.setGravity(Gravity.TOP, 0, 60);
+        toast.setGravity(Gravity.CENTER, 0, -60);
         toast.show();
     }
 
