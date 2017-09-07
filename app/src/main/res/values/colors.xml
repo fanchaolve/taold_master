@@ -60,7 +60,8 @@
 
     <!-- 常用 -->
     <color name="white">#FFFFFF</color>
-    <color name="font_normal">#111111</color>
+    <color name="black">#000000</color>
+    <color name="font_normal">#444444</color>
     <color name="color_hint">#999999</color>
     <color name="color_line">#e4e4e4</color>
 

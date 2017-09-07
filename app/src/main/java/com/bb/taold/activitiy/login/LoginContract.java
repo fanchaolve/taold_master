@@ -24,8 +24,7 @@ public interface LoginContract {
         void loginSuccess();
 
 
-        boolean isverTel();
-        boolean isverpassword();
+        boolean isverTel(String userPhone);
 
 
 
