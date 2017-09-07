@@ -37,7 +37,10 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        //startPage();
+        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -121,32 +124,18 @@ public class WelcomeActivity extends BaseActivity {
             }
         };
         permissionUtil.setListener(listener);
-        permissionUtil.ReadPhoneContactsTask();
+//        permissionUtil.ReadPhoneContactsTask();
 
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-    }
 
     private void initLocationService() {
 
     }
 
 
-    /***
-     * Stop location service
-     */
-    @Override
-    protected void onStop() {
-        super.onStop();
-//        // TODO Auto-generated method stub
 
-    }
 
 
     @Override
@@ -156,10 +145,6 @@ public class WelcomeActivity extends BaseActivity {
 
 
     private  void updateVersionCheck(){
-        Call<Result_Api<String>> call=service.user_login("13656714459","2760","116.405994,39.93242");
-        call.enqueue(postCallback);
-
-
 
 
     }

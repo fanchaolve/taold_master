@@ -26,6 +26,10 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
 
     private boolean isTip = true;
 
+    private int flag = 0;//通过数字来判断返回的是哪个接口的返回值
+
+
+
     private V view;
 
 //    private Class<T> clazz;
@@ -59,7 +63,7 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
         }
         Result_Api api = response.body();
         if (api != null) {
-            if (Constants.SUCCESS.equalsIgnoreCase(api.getError())) {
+            if (api.isSuccess()) {
 //                if (api.getOutput() == null) {
 //                    failCallback();
 //                    throw new JsonIOException("解析出错或者数据格式返回错误");
@@ -71,7 +75,7 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
             } else if (view != null) {
                 failCallback();
                 if (isTip)
-                    view.showMsg(api.getMsg());
+                    view.showMsg(api.getText());
 
             }else {
                 failCallback();
@@ -92,5 +96,13 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
         }
         Log.i("fancl", t.getMessage());
         failCallback();
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 }

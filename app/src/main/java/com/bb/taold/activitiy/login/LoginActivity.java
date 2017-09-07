@@ -43,6 +43,9 @@ public class LoginActivity extends BaseActivity {
 
     private PostCallback postCallback;//接口返回接受
 
+    private String mobile_bding_code;//获取验证码之后的手机号码
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,10 +76,10 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 //判断验证码是否为空
-                if(!(TextUtils.isEmpty(mEtCode.getText().toString()) || TextUtils.isEmpty(mEtMobile.getText().toString()))){
+                if (!(TextUtils.isEmpty(mEtCode.getText().toString()) || TextUtils.isEmpty(mEtMobile.getText().toString()))) {
                     mTvConfirm.setAlpha(1f);
                     mTvConfirm.setClickable(true);
-                }else{
+                } else {
                     mTvConfirm.setAlpha(0.6f);
                     mTvConfirm.setClickable(false);
                 }
@@ -97,10 +100,10 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 //判断验证码是否为空
-                if(!(TextUtils.isEmpty(mEtCode.getText().toString()) || TextUtils.isEmpty(mEtMobile.getText().toString()))){
+                if (!(TextUtils.isEmpty(mEtCode.getText().toString()) || TextUtils.isEmpty(mEtMobile.getText().toString()))) {
                     mTvConfirm.setAlpha(1f);
                     mTvConfirm.setClickable(true);
-                }else{
+                } else {
                     mTvConfirm.setAlpha(0.6f);
                     mTvConfirm.setClickable(false);
                 }
@@ -116,10 +119,21 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initdata() {
-        postCallback=new PostCallback() {
+        postCallback = new PostCallback() {
             @Override
             public void successCallback(Result_Api api) {
 
+                if (api.isSuccess()) {
+
+                    if (getFlag() == 0) {//验证码
+
+                    }
+
+                    if (getFlag() == 1) {//登录
+
+                    }
+
+                }
             }
 
             @Override
@@ -150,12 +164,19 @@ public class LoginActivity extends BaseActivity {
             return;
         }
         //判断短信验证码是否正确
-        if (mEtCode.getText().length() != 6) {
+        if (mEtCode.getText().length() != 4) {
             ToastView("请输入正确的短信验证码");
             return;
         }
 
-        Call<Result_Api<String>> call=service.user_login("13656714459","","116.405994-39.93242");
+//        if(!etMobileStr.equalsIgnoreCase(mobile_bding_code)) {
+//
+//            return;
+//        }
+
+        Call<Result_Api<String>> call = service.user_login(
+                etMobileStr, mEtCode.getText().toString(), "116.405994-39.93242");
+        postCallback.setFlag(1);
         call.enqueue(postCallback);
     }
 
@@ -186,8 +207,9 @@ public class LoginActivity extends BaseActivity {
             }
         };
         mTimer.schedule(task, 0, 1000);
-
-        Call<Result_Api> call=service.sms_sendLoginSmsCode("13656714459");
+        Call<Result_Api> call = service.sms_sendLoginSmsCode(mEtMobile.getText().toString().trim());
+        postCallback.setFlag(0);
+        mobile_bding_code = mEtMobile.getText().toString().trim();
         call.enqueue(postCallback);
     }
 
@@ -200,7 +222,7 @@ public class LoginActivity extends BaseActivity {
         Toast toast = null;
         LayoutInflater inflater = LayoutInflater.from(LoginActivity.this);
         View view = inflater.inflate(R.layout.dialog_login_tip, null);
-        RelativeLayout rl_bgd = (RelativeLayout)view.findViewById(R.id.rl_bgd);
+        RelativeLayout rl_bgd = (RelativeLayout) view.findViewById(R.id.rl_bgd);
         rl_bgd.setBackground(getResources().getDrawable(R.drawable.bg_login_tip));
         rl_bgd.setAlpha(0.8f);
         TextView t = (TextView) view.findViewById(R.id.tv_tiptext);
@@ -228,7 +250,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.tv_getcode:
                 //判断手机号格式
-                if(TextUtils.isEmpty(mEtMobile.getText().toString()) || !isverTel(mEtMobile.getText().toString())){
+                if (TextUtils.isEmpty(mEtMobile.getText().toString()) || !isverTel(mEtMobile.getText().toString())) {
                     ToastView("手机号输入有误");
                     return;
                 }

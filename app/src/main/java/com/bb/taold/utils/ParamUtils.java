@@ -19,7 +19,7 @@ import okhttp3.RequestBody;
  * <p>
  * 包名：com.bb.taold.utils
  * <p>
- * 说明：TODO
+ * 说明：封装了服务端的系统参数和应用参数
  * <p>
  * 作者：fancl
  * <p>
@@ -47,15 +47,8 @@ public class ParamUtils {
         HttpUrl url = request.url();
         String url_param = url.encodedQuery();
         Request.Builder requestBuilder = request.newBuilder();
-        String[] url_params = url_param.split("&");//参数切割
-        if (url_params.length > 0) {
-            for (String s : url_params) {
-                if (s.indexOf("=") > -1) {
-                    String[] p = s.split("=");
-                    params.put(p[0], p[1]);
-                }
-            }
-        }
+        String[] url_params = splist(url_param, "&");//参数切割
+        iterator(url_params);
         String sign = SignUtils.sign(params, Constants.SECRET);
         params.put("sign", sign);
         requestBuilder.method(request.method(), null);
@@ -69,17 +62,18 @@ public class ParamUtils {
         HttpUrl url = request.url();
         String url_param = url.encodedQuery();
         Request.Builder requestBuilder = request.newBuilder();
-        String[] key_value = url_param.split("=");//method添加
-        params.put(key_value[0], key_value[1]);
+        String[] key_value = splist(url_param,"=");//method添加
+        params.put(key_value[0], key_value[1]);//切出method 添加到map
 
-        if (request.body() != null && request.body() instanceof FormBody) {
+        if (request.body() != null && request.body() instanceof FormBody) {//formencode
             FormBody formBody = (FormBody) request.body();
-            for (int i = 0; i < formBody.size(); i++) {
+            for (int i = 0; i < formBody.size(); i++) {//post filed字段添加到map
                 params.put(formBody.name(i), formBody.value(i));
             }
         }
         String sign = SignUtils.sign(params, Constants.SECRET);
         params.put("sign", sign);
+        Log.i("fancl", "sign:" + sign);
         RequestBody body = generateMultipartRequestBody(MEDIA_TYPE_JSON, params);
         requestBuilder.url(GenApiHashUrl.apiUrl + url.encodedPath());
         requestBuilder.method(request.method(), body);
@@ -106,6 +100,27 @@ public class ParamUtils {
         RequestBody body = RequestBody.create(type, builder.toString().getBytes());
 
         return body;
+    }
+
+    //切割
+    private String[] splist(String value, String key) {
+        if (value != null && key != null && value.indexOf(key) > -1) {
+            return value.split(key);
+        }
+        return new String[]{};
+    }
+
+    //遍历添加到map
+    private void iterator(String[] its) {
+        if (its.length > 0 && params != null) {
+            for (String s : its) {
+                if (s.indexOf("=") > -1) {
+                    String[] p = s.split("=");
+                    params.put(p[0], p[1]);
+                }
+            }
+        }
+
     }
 
 
