@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -22,6 +23,7 @@ import com.bb.taold.base.p.BasePresenter;
 import com.bb.taold.base.v.BaseView;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.InstanceUtil;
+import com.bb.taold.utils.PermissionUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
@@ -40,6 +42,7 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
     private boolean isCheck = true;//检测是否第一次
     public ApiService service = RetrofitFactory.getINSTANCE().create(ApiService.class);
 
+    protected PermissionUtil permissionUtil;
 
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
@@ -189,5 +192,13 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
     @Override
     public void updateLoading() {
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // EasyPermissions handles the request result.
+        permissionUtil.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
