@@ -5,29 +5,21 @@ package com.bb.taold.api;
  */
 public class Result_Api<T> {
 
-    private String error;//返回code字段
+    /**
+     * {"status":"SUCCESS","text":"成功","description":null,"t":null,"success":true}
+     */
 
-    private String msg;//返回msg
+    private String status;//返回code字段
+
+    private String text;//返回msg
+
+    private String description;//
 
     private boolean success;//
 
     private T data;
 
-    public String getError() {
-        return error;
-    }
 
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public boolean isSuccess() {
         return success;
@@ -43,5 +35,29 @@ public class Result_Api<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

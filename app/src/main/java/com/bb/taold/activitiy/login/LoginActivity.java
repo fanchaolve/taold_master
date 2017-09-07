@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bb.taold.R;
+import com.bb.taold.api.PostCallback;
+import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 
 import java.util.ArrayList;
@@ -21,8 +23,9 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
-public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> implements LoginContract.View {
+public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.et_mobile)
     EditText mEtMobile;
@@ -37,6 +40,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
     public Timer mTimer;
     //定时器时间
     public int countLen = 60;
+
+    private PostCallback postCallback;//接口返回接受
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +116,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
 
     @Override
     public void initdata() {
+        postCallback=new PostCallback() {
+            @Override
+            public void successCallback(Result_Api api) {
 
+            }
+
+            @Override
+            public void failCallback() {
+
+            }
+        };
     }
 
     /**
@@ -139,6 +154,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
             ToastView("请输入正确的短信验证码");
             return;
         }
+
+        Call<Result_Api<String>> call=service.user_login("13656714459","","116.405994-39.93242");
+        call.enqueue(postCallback);
     }
 
     /**
@@ -168,6 +186,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
             }
         };
         mTimer.schedule(task, 0, 1000);
+
+        Call<Result_Api> call=service.sms_sendLoginSmsCode("13656714459");
+        call.enqueue(postCallback);
     }
 
     /**
@@ -219,7 +240,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
         }
     }
 
-    @Override
+
     public void loginSuccess() {
 
     }
@@ -230,7 +251,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
      * @param phoneNum
      * @return
      */
-    @Override
+
     public boolean isverTel(String phoneNum) {
         if (mEtMobile.getText().length() != 11) {
             //长度不为11

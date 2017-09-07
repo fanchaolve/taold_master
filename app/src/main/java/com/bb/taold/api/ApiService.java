@@ -6,7 +6,9 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 /**
@@ -28,5 +30,28 @@ public interface ApiService {
     Call<Result_Api<String>> login(@Field("mobile") String mobile,
                                                  @Field("zpwd") String zpwd,
                                                  @Field("appkey") String appkey);
+
+
+    /**
+     * 会员登陆
+     * @param mobile 电话
+     * @param code  验证码
+     * @param lonLat 经纬
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=user.login")
+    Call<Result_Api<String>> user_login(@Field("mobile") String mobile,
+                                   @Field("code") String code,
+                                   @Field("lonLat") String lonLat);
+
+
+    /**
+     * 短信验证码
+     * @param mobile 手机号码
+     * @return
+     */
+    @GET("/gateway?method=sms.sendLoginSmsCode")
+    Call<Result_Api> sms_sendLoginSmsCode(@Query("mobile") String mobile);
 
 }

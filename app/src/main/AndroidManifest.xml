@@ -76,6 +76,15 @@
 
         </activity>
 
+
+
+
+
+        <!-- 友盟统计 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59afb0381c5dd028800013f5"/>
+
     </application>
 
 </manifest>

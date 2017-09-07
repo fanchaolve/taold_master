@@ -2,11 +2,23 @@ package com.bb.taold.api;
 
 import android.util.Log;
 
+import com.bb.taold.bean.Tostring_TreeMap;
+import com.bb.taold.utils.Constants;
+import com.bb.taold.utils.MD5Util;
+import com.bb.taold.utils.ParamUtils;
+import com.bb.taold.utils.SignUtils;
+import com.bb.taold.utils.TimeUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
+import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -23,62 +35,34 @@ import okio.Buffer;
 public class BasicParamsInterceptor implements Interceptor {
 
 
-
-    //public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/x-www-form-urlencoded;charset=utf-8");
-    public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json;charset=UTF-8");
+    //public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json;charset=UTF-8");
 
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        Request.Builder requestBuilder = request.newBuilder();
-        HttpUrl url = request.url();
-        String params = url.encodedQuery();
+
+        ParamUtils paramUtils = new ParamUtils();
+        if (request.method().equalsIgnoreCase("GET")) {//get 请求
+            request = paramUtils.get_method(request);
+        } else {
+            request = paramUtils.post_method(request);
+        }
 
 
-
-
-
-//
-//        JSONObject jsonObject = new JSONObject();
 //        if (request.body() instanceof FormBody) {
 //            FormBody oldFormBody = (FormBody) request.body();
 //            for (int i = 0; i < oldFormBody.size(); i++) {
-//                try {
-//                    jsonObject.put(oldFormBody.name(i), oldFormBody.value(i));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        } else {
-//            try {
-//                jsonObject = new JSONObject(bodyToString(request.body()));
-//            } catch (JSONException e) {
-//                e.printStackTrace();
+//               params.put(oldFormBody.encodedName(i),oldFormBody.encodedValue(i));
 //            }
 //        }
+
+//        String sign= SignUtils.sign(params,"lU9ZCkpxiL9PW86QevPXhs");
 //
-//        String sign = MD5Util.MD5(jsonObject.toString() + GenApiHashUrl.md5_key).toLowerCase();
-////        treeMap.put("input", jsonObject.toString());
-////        treeMap.put("sign", sign);
-////        treeMap.put("method",params.substring(7,params.indexOf('&')));
-//
-//        JSONObject js = new JSONObject();
-//        try {
-//            js.put("input", jsonObject.toString());
-//            js.put("sign", sign);
-//            js.put("method", params.substring(7, params.indexOf('&')));
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, js.toString().getBytes());
-//        Log.i("OkHttp", js.toString());
-//        // RequestBody body = generateMultipartRequestBody(MEDIA_TYPE_JSON, treeMap);
-//        requestBuilder.method(request.method(), body);
+//        params.put("sign",sign);
+//        RequestBody body = generateMultipartRequestBody(MEDIA_TYPE_JSON, params);
+//        requestBuilder.method(request.method(), null);
+//        requestBuilder.url(GenApiHashUrl.apiUrl+url.encodedPath()+"?"+params.toString());
 //        request = requestBuilder.build();
-//        Log.i("OkHttp", request.headers().toString());
-
-
-
 
         return chain.proceed(request);
     }

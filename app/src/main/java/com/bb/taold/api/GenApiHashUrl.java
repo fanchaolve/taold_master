@@ -16,8 +16,7 @@ import java.net.URL;
 
 public class GenApiHashUrl {
     private static GenApiHashUrl INSTANCE = null;
-    public static final String apiUrl_kl = "https://kl.zhongmakj.com/";
-    public static final String apiUrl_kb = "https://kb.zhongmakj.com/";
+    public static final String apiUrl = "http://59.110.228.218:5555";
     public static final String md5_key = "md5_key";
     public static final String uploadUrl = "";
 
@@ -125,7 +124,7 @@ public class GenApiHashUrl {
 
             byte[] data = params.getBytes();
 
-            URL url = new URL(apiUrl_kb);
+            URL url = new URL(apiUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoInput(true); //允许输入流，即允许下载
             conn.setDoOutput(true); //允许输出流，即允许上传

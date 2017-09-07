@@ -180,27 +180,9 @@ public class StringUtils {
         return true;
     }
 
-    public static String idTostring(int id) {
-        for (int i = 0; i < Constants.idType_keys.length; i++) {
-            if (Constants.idType_keys[i] == id) {
 
-                return Constants.idTypes[i];
-            }
-        }
 
-        return Constants.idTypes[0];
-    }
 
-    public static String reationTostring(int id) {
-        for (int i = 0; i < Constants.beinsurer1_listkey.length; i++) {
-            if (Constants.beinsurer1_listkey[i] == id) {
-
-                return Constants.beinsurer1_listvalue[i];
-            }
-        }
-
-        return Constants.beinsurer1_listvalue[0];
-    }
 
    
 }

@@ -156,7 +156,7 @@ public class WelcomeActivity extends BaseActivity {
 
 
     private  void updateVersionCheck(){
-        Call<Result_Api<VersionBean>> call=service.getUpgradeInfo("1.0","0","II");
+        Call<Result_Api<String>> call=service.user_login("13656714459","2760","116.405994,39.93242");
         call.enqueue(postCallback);
 
 

@@ -65,7 +65,7 @@ public class RetrofitFactory {
                         };
                     }
                 })
-                .baseUrl(GenApiHashUrl.apiUrl_kb)
+                .baseUrl(GenApiHashUrl.apiUrl)
                 .build();
 
     }

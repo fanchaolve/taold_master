@@ -15,11 +15,14 @@ import android.widget.Toast;
 
 import com.bb.taold.MyApplication;
 import com.bb.taold.activitiy.login.LoginActivity;
+import com.bb.taold.api.ApiService;
+import com.bb.taold.api.RetrofitFactory;
 import com.bb.taold.base.m.BaseModel;
 import com.bb.taold.base.p.BasePresenter;
 import com.bb.taold.base.v.BaseView;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.InstanceUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -35,6 +38,7 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
     private Unbinder unbinder;
 
     private boolean isCheck = true;//检测是否第一次
+    public ApiService service = RetrofitFactory.getINSTANCE().create(ApiService.class);
 
 
     public void setContentView(int layoutResID) {
@@ -66,9 +70,19 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
 
     }
 
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override
