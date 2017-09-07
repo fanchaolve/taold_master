@@ -17,7 +17,7 @@ import com.bb.taold.base.p.BasePresenter;
 import com.bb.taold.base.v.BaseView;
 import com.bb.taold.utils.InstanceUtil;
 
-import butterknife.Unbinder;
+//import butterknife.Unbinder;
 
 /**
  * 懒惰式加载fragment基础类
@@ -38,7 +38,7 @@ public abstract class BaseLazyFragment<P extends BasePresenter, M extends BaseMo
 
     public P mPresenter;
     public Context mContext;
-    private Unbinder unbinder;
+//    private Unbinder unbinder;
 
     private boolean mUserVisible = false;
 
@@ -99,8 +99,8 @@ public abstract class BaseLazyFragment<P extends BasePresenter, M extends BaseMo
         super.onDestroyView();
         mViewCreated = false;
 
-        if (unbinder != null)
-            unbinder.unbind();
+//        if (unbinder != null)
+//            unbinder.unbind();
     }
 
     @Override

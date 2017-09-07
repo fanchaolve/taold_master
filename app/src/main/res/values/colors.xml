@@ -3,7 +3,6 @@
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#2dce8f</color>
-    <color name="white">#ffffff</color>
     <color name="colorTextBg">#3eaaef</color>
     <color name="colorUnIndetifyBg">#9a9aff</color>
     <color name="colorTextSub">#1d825b</color>
@@ -57,4 +56,12 @@
 
 
     <color name="partTranslucent">#39000000</color>
+
+
+    <!-- 常用 -->
+    <color name="white">#FFFFFF</color>
+    <color name="font_normal">#111111</color>
+    <color name="color_hint">#999999</color>
+    <color name="color_line">#e4e4e4</color>
+
 </resources>
