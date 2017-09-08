@@ -36,38 +36,16 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
     @BindView(R.id.tab3)
     LinearLayout tab3;
 
-    @BindView(R.id.tab4)
-    LinearLayout tab4;
-
-    @BindView(R.id.tab5)
-    LinearLayout tab5;
-
 
     @BindView(R.id.ivTab1)
     ImageView ivTab1;
-    @BindView(R.id.tvTab1)
-    TextView tvTab1;
 
 
     @BindView(R.id.ivTab2)
     ImageView ivTab2;
-    @BindView(R.id.tvTab2)
-    TextView tvTab2;
 
     @BindView(R.id.ivTab3)
     ImageView ivTab3;
-    @BindView(R.id.tvTab3)
-    TextView tvTab3;
-
-    @BindView(R.id.ivTab4)
-    ImageView ivTab4;
-    @BindView(R.id.tvTab4)
-    TextView tvTab4;
-
-    @BindView(R.id.ivTab5)
-    ImageView ivTab5;
-    @BindView(R.id.tvTab5)
-    TextView tvTab5;
 
 
     public BottomBar(Context context, AttributeSet attrs) {
@@ -95,9 +73,6 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
         tab1.setOnClickListener(this);
         tab2.setOnClickListener(this);
         tab3.setOnClickListener(this);
-        tab4.setOnClickListener(this);
-        tab5.setOnClickListener(this);
-
 
     }
 
@@ -113,23 +88,14 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
             case R.id.tab3:
                 changeTab(2);
                 break;
-            case R.id.tab4:
-                changeTab(3);
-                break;
-            case R.id.tab5:
-                changeTab(4);
-                break;
-
         }
     }
 
     private void setbottombcdefail() {
 
-        tvTab1.setTextAppearance(mContext, R.style.TextAppear_Theme_A4_Size11);
-        tvTab2.setTextAppearance(mContext, R.style.TextAppear_Theme_A4_Size11);
-        tvTab3.setTextAppearance(mContext, R.style.TextAppear_Theme_A4_Size11);
-        tvTab4.setTextAppearance(mContext, R.style.TextAppear_Theme_A4_Size11);
-        tvTab5.setTextAppearance(mContext, R.style.TextAppear_Theme_A4_Size11);
+        ivTab1.setImageResource(R.drawable.btn_loan_nor);
+        ivTab2.setImageResource(R.drawable.btn_bill_nor);
+        ivTab3.setImageResource(R.drawable.btn_mine_nor);
 
     }
 
@@ -139,27 +105,15 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
             setbottombcdefail();
             switch (tab) {
                 case 0:
-//                    ivTab1.setImageResource(R.drawable.shouyexuanzhongzhuangtai);
-                    tvTab1.setTextAppearance(mContext, R.style.TextAppear_Theme_A1_Size11);
+                    ivTab1.setImageResource(R.drawable.btn_loan_sel);
                     break;
                 case 1:
-                    //ivTab2.setImageResource(R.drawable.shangcheng);
-                    tvTab2.setTextAppearance(mContext, R.style.TextAppear_Theme_A1_Size11);
+                    ivTab2.setImageResource(R.drawable.btn_bill_sel);
                     break;
                 case 2:
-                   // ivTab3.setImageResource(R.drawable.faxian);
-                    tvTab3.setTextAppearance(mContext, R.style.TextAppear_Theme_A1_Size11);
+                    ivTab3.setImageResource(R.drawable.btn_mine_sel);
                     break;
 
-                case 3:
-                    //ivTab4.setImageResource(R.drawable.classroom);
-                    tvTab4.setTextAppearance(mContext, R.style.TextAppear_Theme_A1_Size11);
-                    break;
-
-                case 4:
-                    //ivTab5.setImageResource(R.drawable.my);
-                    tvTab5.setTextAppearance(mContext, R.style.TextAppear_Theme_A1_Size11);
-                    break;
                 default:
                     break;
             }

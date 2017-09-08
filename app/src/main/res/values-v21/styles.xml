@@ -7,9 +7,10 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme" parent="Base.AppTheme.NoActionBar">
-        <item name="android:windowAnimationStyle">@style/Animation</item>
-        <item name="colorPrimaryDark">@color/bg_A4</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
         
     </style>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.bb.taold.activitiy.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.HomeActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
@@ -174,10 +176,12 @@ public class LoginActivity extends BaseActivity {
 //            return;
 //        }
 
-        Call<Result_Api<String>> call = service.user_login(
-                etMobileStr, mEtCode.getText().toString(), "116.405994-39.93242");
-        postCallback.setFlag(1);
-        call.enqueue(postCallback);
+//        Call<Result_Api<String>> call = service.user_login(
+//                etMobileStr, mEtCode.getText().toString(), "116.405994-39.93242");
+//        postCallback.setFlag(1);
+//        call.enqueue(postCallback);
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 
     /**

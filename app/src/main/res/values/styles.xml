@@ -296,6 +296,11 @@
         <item name="android:textColor">@color/font_normal</item>
     </style>
 
+    <style name="TextAppear.Theme.font111111_Size16" parent="android:TextAppearance.Theme">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/color_111111</item>
+    </style>
+
     <style name="TextAppear.Theme.font40_Size13" parent="android:TextAppearance.Theme">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/colorAccent</item>
@@ -309,7 +314,7 @@
 
     <style name="TextAppear.Theme.font40_Size14" parent="android:TextAppearance.Theme">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/font_normal</item>
     </style>
 
 
@@ -390,7 +395,6 @@
         <item name="android:windowIsTranslucent">false</item>
     </style>
 
-
     <style name="bottom_dialog" parent="android:style/Theme.Dialog">
         <!-- 设置无边框 -->
         <item name="android:windowFrame">@null</item>
@@ -404,6 +408,21 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <!-- Dialog进入及退出动画 -->
         <item name="android:windowAnimationStyle">@style/Animation_Bottom_Dialog</item>
+    </style>
+
+    <style name="processDialog" parent="@android:style/Theme.Dialog">
+
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimAmount">0.5</item>
     </style>
     <style name="Animation_Bottom_Dialog">
         <item name="android:windowEnterAnimation">@anim/bottom_dialog_enter</item>

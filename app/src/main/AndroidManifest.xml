@@ -57,14 +57,12 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
             android:name="com.bb.taold.activitiy.HomeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity

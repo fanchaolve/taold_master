@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import com.bb.taold.R;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.fragment.HomeFragment;
+import com.bb.taold.fragment.LoanFragment;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.widget.BottomBar;
 
@@ -22,7 +23,9 @@ public class HomeActivity extends BaseActivity{
     @BindView(R.id.bb)
     BottomBar   bb;
 
-    private HomeFragment homeFragment;
+    //借款页
+    private LoanFragment loanFragment;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_home;
@@ -39,7 +42,18 @@ public class HomeActivity extends BaseActivity{
         bb.setListener(new BottomBar.ChangeListener() {
             @Override
             public void changeTab2(int tab) {
-
+                final FragmentTransaction transaction = obtainFragmentTransaction();
+                hideFragments(transaction);
+                switch (tab){
+                    case 0:
+                        if(loanFragment == null){
+                            loanFragment = new LoanFragment();
+                            transaction.add(R.id.tab_content, loanFragment, HomeFragment.class.getName());
+                        }else{
+                            transaction.show(loanFragment);
+                        }
+                }
+                transaction.commit();
             }
         });
 
@@ -68,25 +82,9 @@ public class HomeActivity extends BaseActivity{
      * @param transaction 用于对Fragment执行操作的事务
      */
     private void hideFragments(FragmentTransaction transaction) {
-//        if (homeFragment != null) {
-//            transaction.hide(homeFragment);
-//        }
-//        if (classFragment != null) {
-//            transaction.hide(classFragment);
-//        }
-//        if (mallFragment != null) {
-//            transaction.hide(mallFragment);
-//        }
-//
-//        if (findFragment != null) {
-//            transaction.hide(findFragment);
-//        }
-//
-//        if (mineFragment != null) {
-//            transaction.hide(mineFragment);
-//        }
-
-
+        if(loanFragment != null){
+            transaction.hide(loanFragment);
+        }
     }
 
     /**
