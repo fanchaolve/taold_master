@@ -54,4 +54,18 @@ public interface ApiService {
     @GET("/gateway?method=sms.sendLoginSmsCode")
     Call<Result_Api> sms_sendLoginSmsCode(@Query("mobile") String mobile);
 
+    /**
+     *
+     * @param session 会员ID
+     * @param bankCardId 银行卡ID
+     * @param amtLoan 借款金额
+     * @param loanDays 借款天数
+     * @return
+     */
+    @GET("/gateway?method=loan.applyMiniLoan")
+    Call<Result_Api> applyMiniLoan(@Field("session")String session,
+                                @Field("bankCardId")String bankCardId,
+                                @Field("amtLoan")String amtLoan,
+                                @Field("loanDays")String loanDays);
+
 }

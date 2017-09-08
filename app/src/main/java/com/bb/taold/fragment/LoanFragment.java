@@ -1,6 +1,7 @@
 package com.bb.taold.fragment;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.loan.LoanConfirmActivity;
 import com.bb.taold.base.BaseFragment;
 
 import butterknife.BindView;
@@ -74,33 +76,33 @@ public class LoanFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_delete, R.id.iv_add, R.id.iv_question})
+    @OnClick({R.id.iv_delete, R.id.iv_add, R.id.iv_question, R.id.tv_apply})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_delete:
                 //获取当前金额
                 int currentAmountDelete = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否小于最小金额
-                if(currentAmountDelete-100<=minAmount){
-                    mTvLoanAmount.setText(minAmount+"");
+                if (currentAmountDelete - 100 <= minAmount) {
+                    mTvLoanAmount.setText(minAmount + "");
                     return;
                 }
-                mTvLoanAmount.setText((currentAmountDelete-100)+"");
+                mTvLoanAmount.setText((currentAmountDelete - 100) + "");
                 break;
             case R.id.iv_add:
                 //获取当前金额
                 int currentAmount = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否大于最大金额
-                if((currentAmount+100)>=maxAmount){
-                    mTvLoanAmount.setText(maxAmount+"");
+                if ((currentAmount + 100) >= maxAmount) {
+                    mTvLoanAmount.setText(maxAmount + "");
                     return;
                 }
-                mTvLoanAmount.setText((currentAmount+100)+"");
+                mTvLoanAmount.setText((currentAmount + 100) + "");
                 break;
             case R.id.iv_question:
                 //提示对话框
                 View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_act_pay, null);
-                final Dialog tipDialog = new Dialog(getActivity(),R.style.processDialog);
+                final Dialog tipDialog = new Dialog(getActivity(), R.style.processDialog);
                 tipDialog.setContentView(dialogView);
                 //"我知道了"按钮
                 TextView tv_confirm = (TextView) dialogView.findViewById(R.id.tv_confirm);
@@ -116,9 +118,13 @@ public class LoanFragment extends BaseFragment {
                 WindowManager m = getActivity().getWindowManager();
                 Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
                 WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
-                p.width = (int) (d.getWidth()*0.8); // 宽度设置为屏幕的0.8
+                p.width = (int) (d.getWidth() * 0.8); // 宽度设置为屏幕的0.8
                 dialogWindow.setAttributes(p);
                 tipDialog.show();
+                break;
+            case R.id.tv_apply:
+                Intent intent = new Intent(getActivity(), LoanConfirmActivity.class);
+                startActivity(intent);
                 break;
         }
     }
