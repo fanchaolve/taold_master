@@ -3,8 +3,9 @@ package com.bb.taold;
 import android.app.Application;
 import android.content.Context;
 
+import com.bb.taold.bean.Location;
 import com.bb.taold.bean.User;
-
+import com.bb.taold.utils.gps.GPSUtil;
 
 
 /**
@@ -51,10 +52,7 @@ public class MyApplication extends Application {
         super.onCreate();
         context = getApplicationContext();
         INSTANCE = this;
-
-        //       locationService = new LocationService(context);
-//        CrashHandler crashHandler = CrashHandler.getInstance();
-//        crashHandler.init(context);
+        GPSUtil.tryInit(this);//定位
 
     }
 }

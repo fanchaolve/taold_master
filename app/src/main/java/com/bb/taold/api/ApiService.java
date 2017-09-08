@@ -1,5 +1,6 @@
 package com.bb.taold.api;
 
+import com.bb.taold.bean.Session;
 import com.bb.taold.bean.VersionBean;
 
 import retrofit2.Call;
@@ -41,9 +42,9 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=user.login")
-    Call<Result_Api<String>> user_login(@Field("mobile") String mobile,
-                                   @Field("code") String code,
-                                   @Field("lonLat") String lonLat);
+    Call<Result_Api<Session>> user_login(@Field("mobile") String mobile,
+                                         @Field("code") String code,
+                                         @Field("lonLat") String lonLat);
 
 
     /**
@@ -67,5 +68,11 @@ public interface ApiService {
                                 @Field("bankCardId")String bankCardId,
                                 @Field("amtLoan")String amtLoan,
                                 @Field("loanDays")String loanDays);
+
+
+
+
+    @POST("/gateway?method=member.identityAuthInfo")
+    Call<Result_Api<Session>> member_identityAuthInfo();
 
 }

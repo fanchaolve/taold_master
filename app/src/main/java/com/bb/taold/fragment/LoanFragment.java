@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.bb.taold.R;
 import com.bb.taold.activitiy.loan.LoanConfirmActivity;
 import com.bb.taold.base.BaseFragment;
+import com.bb.taold.base.m.Frag_LoanModel;
+import com.bb.taold.base.p.Frag_LoanPresenter;
+import com.bb.taold.base.v.Frag_LoanContract;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +30,8 @@ import butterknife.Unbinder;
  * Class Name LoanFragment
  */
 
-public class LoanFragment extends BaseFragment {
+public class LoanFragment extends BaseFragment
+<Frag_LoanPresenter,Frag_LoanModel> implements Frag_LoanContract.View{
     @BindView(R.id.tv_loanAmount)
     TextView mTvLoanAmount;
     @BindView(R.id.tv_allPay)
@@ -70,15 +74,15 @@ public class LoanFragment extends BaseFragment {
         return rootView;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 
-    @OnClick({R.id.iv_delete, R.id.iv_add, R.id.iv_question, R.id.tv_apply})
+
+    @OnClick({R.id.iv_delete, R.id.iv_add, R.id.iv_question,R.id.tv_confirm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_confirm://申请之前
+                mPresenter.memberInfo();
+                break;
+
             case R.id.iv_delete:
                 //获取当前金额
                 int currentAmountDelete = Integer.parseInt(mTvLoanAmount.getText().toString());
@@ -122,10 +126,10 @@ public class LoanFragment extends BaseFragment {
                 dialogWindow.setAttributes(p);
                 tipDialog.show();
                 break;
-            case R.id.tv_apply:
-                Intent intent = new Intent(getActivity(), LoanConfirmActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.tv_apply:
+//                Intent intent = new Intent(getActivity(), LoanConfirmActivity.class);
+//                startActivity(intent);
+//                break;
         }
     }
 }

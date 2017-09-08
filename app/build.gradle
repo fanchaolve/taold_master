@@ -12,6 +12,11 @@ android {
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
     }
     buildTypes {
         release {
@@ -20,11 +25,7 @@ android {
         }
     }
 
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
+
 
 }
 
@@ -58,11 +59,9 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
     // ~80KB
-
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'pub.devrel:easypermissions:0.3.0'
-
     compile 'com.umeng.analytics:analytics:latest.integration'
-
+    compile files('libs/BaiduLBS_Android.jar')
 }

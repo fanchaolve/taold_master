@@ -1,5 +1,7 @@
 package com.bb.taold.api;
 
+import com.bb.taold.utils.Constants;
+
 /**
  * Created by hp on 2016/8/9.
  */
@@ -17,7 +19,7 @@ public class Result_Api<T> {
 
     private boolean success;//
 
-    private T data;
+    private T t;
 
 
 
@@ -29,12 +31,12 @@ public class Result_Api<T> {
         this.success = success;
     }
 
-    public T getData() {
-        return data;
+    public T getT() {
+        return t;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setT(T t) {
+        this.t = t;
     }
 
     public String getStatus() {
@@ -42,6 +44,8 @@ public class Result_Api<T> {
     }
 
     public void setStatus(String status) {
+        if(Constants.SUCCESS.equalsIgnoreCase(status))
+            setSuccess(true);
         this.status = status;
     }
 

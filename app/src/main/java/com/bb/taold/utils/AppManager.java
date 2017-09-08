@@ -122,6 +122,7 @@ public class AppManager {
         for (int i = 0, size = activityStack.size(); i < size; i++) {
             if (null != activityStack.get(i)) {
                 activityStack.get(i).finish();
+                activityStack.remove(i);
             }
         }
         activityStack.clear();
@@ -143,8 +144,8 @@ public class AppManager {
     public void AppExit(Context context) {
         finishAllActivity();
 //        ActivityManager activityManager=context.getSystemService(Context.ACTIVITY_SERVICE);
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(0);
+       // android.os.Process.killProcess(android.os.Process.myPid());
+        //System.exit(0);
     }
 
 

@@ -3,10 +3,13 @@ package com.bb.taold.activitiy;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 
+import com.bb.taold.MyApplication;
 import com.bb.taold.R;
 import com.bb.taold.activitiy.login.LoginActivity;
 import com.bb.taold.api.ApiService;
@@ -14,17 +17,20 @@ import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.api.RetrofitFactory;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.Location;
 import com.bb.taold.bean.VersionBean;
 import com.bb.taold.listener.DialogListener;
+import com.bb.taold.listener.exts.Act1;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.DialogUtils;
 import com.bb.taold.utils.PermissionUtil;
+import com.bb.taold.utils.gps.GPSUtil;
 
 import retrofit2.Call;
 
 public class WelcomeActivity extends BaseActivity {
 
-    private ApiService service = RetrofitFactory.getINSTANCE().create(ApiService.class);
+
     private PermissionUtil.onPermissionGentedListener listener;   //权限获取
     protected PermissionUtil permissionUtil;
 
@@ -37,10 +43,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        //startPage();
-        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+
     }
 
     @Override
@@ -48,74 +51,44 @@ public class WelcomeActivity extends BaseActivity {
 
     }
 
-    private VersionBean versionInfo;
-    /**
-     * 非强制更新 确认后直接弹出更新，不需要进入程序 否则以后更新 进入app
-     */
-    DialogListener listener1 = new DialogListener() {
-        @Override
-        public void onConfirm(Dialog dialog) {
-            if (versionInfo.getLink().contains("http")) {
-                // 更新程序
-                Uri uri = Uri.parse(versionInfo.getLink());
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            } else {
-                Toast.makeText(WelcomeActivity.this, "更新地址错误", Toast.LENGTH_SHORT).show();
-            }
-
-            AppManager.getInstance().finishAllActivity();
-            dialog.cancel();
-        }
-
-        @Override
-        public void onCancl(Dialog dialog) {
-            startPage();
-            dialog.cancel();
-        }
-    };
-
-
 
     @Override
     public void initdata() {
-        permissionUtil = PermissionUtil.getInstance();
-        postCallback=new PostCallback() {
-            @Override
-            public void successCallback(Result_Api api) {
-
-                if(api.getData() instanceof VersionBean){
-                    versionInfo = (VersionBean) api.getData();
-                    if (versionInfo != null && !TextUtils.isEmpty(versionInfo.getLink())) {
-                        if (!TextUtils.isEmpty(versionInfo.getForce()) && versionInfo.getForce().equals("1")){
-                            DialogUtils.showMsgDialogForce(WelcomeActivity.this,"有新版本更新",versionInfo.getExplain(), listener1);
-                        }else {
-                            DialogUtils.showMsgDialog(WelcomeActivity.this, versionInfo.getExplain(), listener1);
-                        }
-                        return;
-                    }
-                }
-
-                startPage();
-            }
-
-            @Override
-            public void failCallback() {
-                startPage();
-            }
-        };
-
-        updateVersionCheck();
+        startPage();
     }
 
 
     private void startPage() {
+        permissionUtil = PermissionUtil.getInstance();
         listener = new PermissionUtil.onPermissionGentedListener() {
             @Override
             public void onGented() {
-                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+
+                GPSUtil.tryStart(new Act1<Location>() {
+                    @Override
+                    public void run(Location location) {
+                        if (location != null) {
+                            Log.i("fancl", "loc:" + location.latitude + "-" + location.lontitude);
+                            MyApplication.latitude = location.latitude + "";
+                            MyApplication.longitude = location.lontitude + "";
+                            GPSUtil.tryStop();
+                        }
+                    }
+                });
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("fancl", "session=" + getSession());
+                        if ("".equalsIgnoreCase(getSession())) {//未登陆状态
+                            AppManager.getInstance().showActivity(LoginActivity.class, null);
+                        } else {//登陆状态
+                            AppManager.getInstance().showActivity(HomeActivity.class, null);
+                        }
+                    }
+                }, 10);
+
+                WelcomeActivity.this.finish();
             }
 
             @Override
@@ -124,18 +97,10 @@ public class WelcomeActivity extends BaseActivity {
             }
         };
         permissionUtil.setListener(listener);
-//        permissionUtil.ReadPhoneContactsTask();
+
+        permissionUtil.GetLocationTask();
 
     }
-
-
-
-    private void initLocationService() {
-
-    }
-
-
-
 
 
     @Override
@@ -144,7 +109,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
 
-    private  void updateVersionCheck(){
+    private void updateVersionCheck() {
 
 
     }

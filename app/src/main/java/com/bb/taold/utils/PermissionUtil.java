@@ -30,6 +30,7 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     private static final int RC_PHONE_READ_STATUS = 126;       //读取手机权限和文件读写权限
     private static final int RC_RAED_PHONE = 128;           //文件读写权限
     private static final int RC_WRITE = 129;        //文件读写权限
+    private static final int RC_LOCATION = 130;       //获取定位信息
     private static PermissionUtil instance;
     public onPermissionGentedListener listener;
 
@@ -158,6 +159,28 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
         }
     }
 
+
+    @AfterPermissionGranted(RC_LOCATION)
+    public void GetLocationTask() {
+        //不是6.0以上的版本 直接运行
+        if (!isAndroidM()){
+            if (listener != null){
+                listener.onGented();
+            }
+            return;
+        }
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION };
+        if (EasyPermissions.hasPermissions(AppManager.getInstance().currentActivity(),perms)) {
+            if (listener != null){
+                listener.onGented();
+            }
+        } else {
+            //获取多个权限
+            ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},RC_LOCATION);
+        }
+    }
+
+
     /**
      * 读写权限 （热修复相关）
      */
@@ -231,6 +254,8 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
             new AppSettingsDialog.Builder((Activity) MyApplication.getAppContext(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"位置信息\"权限").setTitle("获取权限").build().show();
         }else if (EasyPermissions.somePermissionPermanentlyDenied((Activity) MyApplication.getAppContext(), perms) && requestCode == RC_RAED_PHONE) {
             new AppSettingsDialog.Builder((Activity) MyApplication.getAppContext(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"存储空间\"权限").setTitle("获取权限").build().show();
+        }else if (EasyPermissions.somePermissionPermanentlyDenied((Activity) MyApplication.getAppContext(), perms) && requestCode == RC_LOCATION) {
+            new AppSettingsDialog.Builder((Activity) MyApplication.getAppContext(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"定位\"权限").setTitle("获取权限").build().show();
         }
         if (listener != null){
             listener.onFalied();

@@ -2,6 +2,7 @@ package com.bb.taold.utils;
 
 import android.util.Log;
 
+import com.bb.taold.MyApplication;
 import com.bb.taold.api.GenApiHashUrl;
 import com.bb.taold.bean.Tostring_TreeMap;
 
@@ -40,6 +41,13 @@ public class ParamUtils {
         params.put("format", "json");
         params.put("timestamp", System.currentTimeMillis() / 1000 + "");
         params.put("v", "1.0");
+        String session=PreferenceUtil.getSharedPreference(MyApplication.getInstance(), PreferenceUtil.SESSION);
+        if(session == null || "".equalsIgnoreCase(session)){
+
+        }else {
+            params.put("session",session);
+        }
+
     }
 
     //get请求参数封装
@@ -51,6 +59,8 @@ public class ParamUtils {
         iterator(url_params);
         String sign = SignUtils.sign(params, Constants.SECRET);
         params.put("sign", sign);
+        Log.i("fancl", "sign:" + sign);
+        Log.i("fancl", "get_method:" + params.toString());
         requestBuilder.method(request.method(), null);
         requestBuilder.url(GenApiHashUrl.apiUrl + url.encodedPath() + "?" + params.toString());
         return requestBuilder.build();
@@ -62,7 +72,7 @@ public class ParamUtils {
         HttpUrl url = request.url();
         String url_param = url.encodedQuery();
         Request.Builder requestBuilder = request.newBuilder();
-        String[] key_value = splist(url_param,"=");//method添加
+        String[] key_value = splist(url_param, "=");//method添加
         params.put(key_value[0], key_value[1]);//切出method 添加到map
 
         if (request.body() != null && request.body() instanceof FormBody) {//formencode
@@ -73,7 +83,10 @@ public class ParamUtils {
         }
         String sign = SignUtils.sign(params, Constants.SECRET);
         params.put("sign", sign);
+
         Log.i("fancl", "sign:" + sign);
+        Log.i("fancl", "post_method:" + params.toString());
+
         RequestBody body = generateMultipartRequestBody(MEDIA_TYPE_JSON, params);
         requestBuilder.url(GenApiHashUrl.apiUrl + url.encodedPath());
         requestBuilder.method(request.method(), body);

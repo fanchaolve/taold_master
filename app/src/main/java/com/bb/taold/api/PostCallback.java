@@ -63,7 +63,7 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
         }
         Result_Api api = response.body();
         if (api != null) {
-            if (api.isSuccess()) {
+            if (Constants.SUCCESS.equalsIgnoreCase(api.getStatus())) {
 //                if (api.getOutput() == null) {
 //                    failCallback();
 //                    throw new JsonIOException("解析出错或者数据格式返回错误");
@@ -75,7 +75,7 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
             } else if (view != null) {
                 failCallback();
                 if (isTip)
-                    view.showMsg(api.getText());
+                    view.showMsg(api.getDescription());
 
             }else {
                 failCallback();

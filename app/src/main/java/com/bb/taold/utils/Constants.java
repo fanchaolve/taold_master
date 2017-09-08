@@ -6,7 +6,7 @@ package com.bb.taold.utils;
 
 public final class Constants {
 
-    public static final String SUCCESS = "0";//服务器返回成功
+    public static final String SUCCESS = "SUCCESS";//服务器返回成功
     public static final String OSNAME = "A";//操作系统
 
     public static final String APP_KEY="taolidai";

@@ -98,10 +98,12 @@ public class HomeActivity extends BaseActivity{
             if ((System.currentTimeMillis() - exitTime) > 3000) {
                 showTip(getString(R.string.snack_exit_once_more));
                 exitTime = System.currentTimeMillis();
+                return true;
             } else {
                 AppManager.getInstance().AppExit(this);
             }
-            return true;
+
+
         }
         return super.onKeyDown(keyCode, event);
 

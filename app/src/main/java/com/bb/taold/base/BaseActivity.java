@@ -24,6 +24,7 @@ import com.bb.taold.base.v.BaseView;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.InstanceUtil;
 import com.bb.taold.utils.PermissionUtil;
+import com.bb.taold.utils.PreferenceUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
@@ -112,17 +113,17 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
     }
 
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //// TODO: 2016/11/25  填写 你需要在底栈的页面
-            return (AppManager.getInstance().processBackKey(LoginActivity.class) ?
-                    true : super.onKeyDown(keyCode, event));
-
-        } else {
-            return super.onKeyDown(keyCode, event);
-        }
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            //// TODO: 2016/11/25  填写 你需要在底栈的页面
+//            return (AppManager.getInstance().processBackKey(LoginActivity.class) ?
+//                    true : super.onKeyDown(keyCode, event));
+//
+//        } else {
+//            return super.onKeyDown(keyCode, event);
+//        }
+//    }
 
     //求屏幕尺寸
     public void setDisplayMetrics() {
@@ -192,6 +193,15 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
     @Override
     public void updateLoading() {
 
+    }
+
+
+    public void saveSession(String session){
+        PreferenceUtil.saveSharedPreference(this, PreferenceUtil.SESSION, session);
+    }
+
+    public String getSession(){
+        return  PreferenceUtil.getSharedPreference(this, PreferenceUtil.SESSION);
     }
 
     @Override

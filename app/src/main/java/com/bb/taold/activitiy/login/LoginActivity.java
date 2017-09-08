@@ -13,11 +13,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bb.taold.MyApplication;
 import com.bb.taold.R;
 import com.bb.taold.activitiy.HomeActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.Session;
+import com.bb.taold.utils.AppManager;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -124,18 +127,22 @@ public class LoginActivity extends BaseActivity {
         postCallback = new PostCallback() {
             @Override
             public void successCallback(Result_Api api) {
-
-                if (api.isSuccess()) {
-
                     if (getFlag() == 0) {//验证码
-
+                        showTip("验证码已发送");
+                        return;
                     }
 
                     if (getFlag() == 1) {//登录
+                        Session session = (Session) api.getT();
+                        if (session != null) {
+                            saveSession(session.getSession());
+                        }
 
+                        AppManager.getInstance().showActivity(HomeActivity.class, null);
+                        finish();
                     }
 
-                }
+
             }
 
             @Override
@@ -176,12 +183,10 @@ public class LoginActivity extends BaseActivity {
 //            return;
 //        }
 
-//        Call<Result_Api<String>> call = service.user_login(
-//                etMobileStr, mEtCode.getText().toString(), "116.405994-39.93242");
-//        postCallback.setFlag(1);
-//        call.enqueue(postCallback);
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+        Call<Result_Api<Session>> call = service.user_login(
+                etMobileStr, mEtCode.getText().toString(), MyApplication.longitude+"-"+MyApplication.latitude);
+        postCallback.setFlag(1);
+        call.enqueue(postCallback);
     }
 
     /**

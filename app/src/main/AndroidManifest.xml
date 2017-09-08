@@ -13,21 +13,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <!--
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    -->
 
 
-    <!-- <service -->
-    <!-- android:name="com.baidu.location.f" -->
-    <!-- android:enabled="true" -->
-    <!-- android:process=":remote" > -->
-    <!-- <intent-filter> -->
-    <!-- <action android:name="com.baidu.location.service_v2.2" > -->
-    <!-- </action> -->
-    <!-- </intent-filter> -->
-    <!-- </service> -->
+
 
     <meta-data
         android:name="com.bb.taold.utils.MyGlideModule"
@@ -76,18 +66,30 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" >
+            android:windowSoftInputMode="stateAlwaysHidden">
 
         </activity>
-
-
-
 
 
         <!-- 友盟统计 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="59afb0381c5dd028800013f5"/>
+            android:value="59afb0381c5dd028800013f5" />
+
+
+        <!--百度地图-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2"></action>
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="kX2RNGGzHaAFczwXOHU0BfR3GFT0w8wC" />  <!--http://lbsyun.baidu.com/apiconsole/key-->
+
 
     </application>
 
