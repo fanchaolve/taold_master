@@ -317,6 +317,34 @@
         <item name="android:textColor">@color/font_normal</item>
     </style>
 
+    <!-- 新的添加 -->
+
+    <style name="TextAppear.Theme.111111_Size15" parent="android:TextAppearance.Theme">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/color_111111</item>
+    </style>
+
+    <style name="TextAppear.Theme.hint_Size15" parent="android:TextAppearance.Theme">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/color_hint</item>
+    </style>
+
+    <style name="TextAppear.Theme.f1a942_Size14" parent="android:TextAppearance.Theme">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_f1a942</item>
+    </style>
+
+    <style name="TextAppear.Theme.111111_Size14" parent="android:TextAppearance.Theme">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_111111</item>
+    </style>
+
+
+    <style name="mycheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/agree_select</item>
+
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

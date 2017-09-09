@@ -5,7 +5,7 @@
 	>
 	 <ImageView 
            android:layout_width="fill_parent"
-           android:src="@color/A6"
+           android:src="@color/color_e4e4e2"
            android:layout_height="0.5dp"/>
   
 </merge>

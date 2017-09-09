@@ -67,5 +67,8 @@
     <color name="color_title">#2a2a2a</color>
     <color name="color_111111">#111111</color>
     <color name="color_price">#F1A942</color>
+    <color name="color_f0f2f5">#f0f2f5</color>
+    <color name="color_e4e4e2">#e4e4e2</color>
+    <color name="color_f1a942">#f1a942</color>
 
 </resources>
