@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title2" />
+
+
+    <com.bb.taold.widget.stepview.StepsView
+        android:id="@+id/sp_step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:barColor="@color/color_f0f1f5"
+        custom:circleRadius="30"
+        custom:completePosition="0"
+        custom:labelColor="@color/color_hint"
+        custom:labelSize="10"
+        custom:labels="@array/authinfos"
+        custom:numOfSteps="5"
+        custom:selectlabelColor="@color/black">
+
+    </com.bb.taold.widget.stepview.StepsView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_f0f2f5">
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0" />
+
+</LinearLayout>

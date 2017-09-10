@@ -4,7 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
+
+import com.bb.taold.R;
+import com.bb.taold.base.BaseActivity;
+import com.bb.taold.base.BaseFragment;
+import com.bb.taold.fragment.Authorized_IdFragment;
+import com.bb.taold.fragment.Authorized_SesameFragment;
+import com.bb.taold.fragment.BaseInfoFragment;
+import com.bb.taold.fragment.Mobile_Phone_OperatorsFragment;
 
 import java.util.Stack;
 
@@ -179,6 +189,38 @@ public class AppManager {
         }
         activity.startActivityForResult(intent, requestCode);
     }
+
+    public void showAuthFace(BaseActivity from, Authorized_IdFragment toFragment){
+        doReplaceTran(from,toFragment);
+    }
+
+    public void showAuthMoblie(BaseActivity from, Mobile_Phone_OperatorsFragment toFragment){
+        doReplaceTran(from,toFragment);
+    }
+
+    public void showAuth_Sesame(BaseActivity from, Authorized_SesameFragment toFragment){
+        doReplaceTran(from,toFragment);
+    }
+
+    public void showBase_Info(BaseActivity from, BaseInfoFragment toFragment){
+        doReplaceTran(from,toFragment);
+    }
+
+
+
+    private static void doReplaceTran(BaseActivity from, BaseFragment toFragment)
+    {
+        FragmentManager fm = from.getSupportFragmentManager();
+        if(fm==null)
+            return;
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frame_layout, toFragment);
+        ft.show(toFragment);
+        ft.commit();
+    }
+
+
+
 
 
     public int dp2px(Context context, int dp) {

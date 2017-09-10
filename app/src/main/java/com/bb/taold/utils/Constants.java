@@ -12,6 +12,8 @@ public final class Constants {
     public static final String APP_KEY="taolidai";
     public static final String SECRET="lU9ZCkpxiL9PW86QevPXhs";
 
+    public static final String AUTHOINFO="authinfo";
+
 
 
 

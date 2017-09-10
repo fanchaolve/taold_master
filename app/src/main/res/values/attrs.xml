@@ -103,17 +103,7 @@
 
     </declare-styleable>
 
-    <declare-styleable name="ItemLayout">
-        <attr name="left_name" format="string"></attr>
-        <attr name="isEdit" format="boolean"></attr>
-        <attr name="hint" format="string"></attr>
-        <attr name="text" format="string"></attr>
 
-        <attr name="isright_icon" format="boolean"></attr>
-        <attr name="isCheck" format="boolean"></attr>
-        <attr name="right_icon" format="reference"></attr>
-        <attr name="right_butIcon" format="reference"></attr>
-    </declare-styleable>
 
     <declare-styleable name="ItemLayout2">
         <attr name="left_name2" format="string"></attr>
@@ -158,6 +148,31 @@
         <attr name="format_string" format="reference" />
         <attr name="getnumber" format="integer"></attr>
 
+
+    </declare-styleable>
+
+
+
+    <declare-styleable name="StepsView">
+        <attr name="numOfSteps" format="integer" />
+        <attr name="completePosition" format="integer"/>
+        <attr name="labels" format="reference"/>
+        <attr name="barColor" format="reference"/>
+        <attr name="progressColor" format="reference"/>
+        <attr name="labelColor" format="reference"/>
+        <attr name="selectlabelColor" format="reference"/>
+        <attr name="progressTextColor" format="reference"/>
+        <attr name="hideProgressText" format="boolean"/>
+        <attr name="labelSize" format="float"/>
+        <attr name="progressMargin" format="float"/>
+        <attr name="circleRadius" format="float"/>
+        <attr name="progressStrokeWidth" format="float"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="Line_ItemView">
+        <attr name="left_name" format="string"></attr>
+        <attr name="hint" format="string"></attr>
 
     </declare-styleable>
 

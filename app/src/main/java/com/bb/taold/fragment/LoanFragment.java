@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.activitiy.loan.LoanConfirmActivity;
+
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.base.m.Frag_LoanModel;
 import com.bb.taold.base.p.Frag_LoanPresenter;

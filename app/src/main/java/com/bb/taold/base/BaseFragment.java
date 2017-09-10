@@ -66,6 +66,8 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     }
 
 
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

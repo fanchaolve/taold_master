@@ -70,6 +70,15 @@
 
         </activity>
 
+        <activity
+            android:name="com.bb.taold.activitiy.AuthInfoActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
+
 
         <!-- 友盟统计 -->
         <meta-data

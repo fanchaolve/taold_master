@@ -1,5 +1,6 @@
 package com.bb.taold.api;
 
+import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.bean.Session;
 import com.bb.taold.bean.VersionBean;
 
@@ -73,6 +74,6 @@ public interface ApiService {
 
 
     @POST("/gateway?method=member.identityAuthInfo")
-    Call<Result_Api<Session>> member_identityAuthInfo();
+    Call<Result_Api<AuthInfo>> member_identityAuthInfo();
 
 }

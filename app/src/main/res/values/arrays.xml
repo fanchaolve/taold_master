@@ -59,4 +59,12 @@
         <item>aa</item>
 
     </string-array>
+
+    <string-array name="authinfos">
+        <item>身份认证</item>
+        <item>人脸识别</item>
+        <item>手机运营商</item>
+        <item>芝麻信用</item>
+        <item>个人资料</item>
+    </string-array>
 </resources>

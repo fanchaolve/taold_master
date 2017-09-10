@@ -1,5 +1,7 @@
 package com.bb.taold.bean;
 
+import java.io.Serializable;
+
 /**
  * ==============================================
  * <p>
@@ -14,7 +16,7 @@ package com.bb.taold.bean;
  * ==============================================
  */
 
-public class AuthInfo {
+public class AuthInfo implements Serializable {
 
     /**
      * cardBind : false
@@ -31,6 +33,8 @@ public class AuthInfo {
     private boolean mobileOperators;
     private boolean personalInfo;
     private boolean sesameCredit;
+
+    private int flag = 0;//标志位
 
     public boolean isCardBind() {
         return cardBind;
@@ -79,4 +83,22 @@ public class AuthInfo {
     public void setSesameCredit(boolean sesameCredit) {
         this.sesameCredit = sesameCredit;
     }
+
+    public int getFlag() {
+        if(!identity)
+            return 1;
+        if(!faceAuth)
+            return 2;
+        if(!mobileOperators)
+            return 3;
+        if(!isSesameCredit())
+            return 4;
+        if(!isPersonalInfo())
+            return 5;
+        if(!isCardBind())
+            return 6;
+        return flag;
+    }
+
+
 }

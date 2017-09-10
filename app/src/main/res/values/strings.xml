@@ -16,12 +16,24 @@
     <string name="service_passworld">服务密码</string>
     <string name="please_sp">请输入您的手机号服务密码</string>
     <string name="next">下一步</string>
+    <string name="getVerificationCode">获取验证码</string>
+    <string name="processTime">重发(%1$s秒)</string>
+    <string name="howPrice">￥ %1$s</string>
+    <string name="passworddetail">请输入密码(6-20位数字、字母组合)</string>
+    <string name="confimpay1">请在%1$s时%2$s分%3$s秒内完成支付,逾期将自动取消订单</string>
     <string name="query_detail">不知道服务密码? 查这里找回</string>
     <string name="query_detail2">温馨提示\n验证手机运营商仅为了确保该手机号真是有效,请放心填写</string>
 
     <string name="auth_zm">请授权APP查看您的芝麻信用分</string>
     <string name="auth_zm1">芝麻信用</string>
     <string name="auth_zm2">温馨提示\n查看芝麻信用分仅用于查看你的等级,请放心授权</string>
+
+    <string name="apply_loan">申请借款</string>
+    <string name="pic_not">拍摄注意事项</string>
+
+    <string name="base_info">基本信息</string>
+    <string name="edu">学历信息</string>
+    <string name="edu_hint">请填写你的最高学历</string>
 
 
 
