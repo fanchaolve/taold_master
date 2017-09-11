@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.bb.taold.R;
 
+import com.bb.taold.activitiy.AuthInfoActivity;
+import com.bb.taold.activitiy.loan.LoanConfirmActivity;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.base.m.Frag_LoanModel;
 import com.bb.taold.base.p.Frag_LoanPresenter;
@@ -80,7 +82,9 @@ public class LoanFragment extends BaseFragment
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
-                mPresenter.memberInfo();
+//                mPresenter.memberInfo();
+                Intent intent = new Intent(getActivity(), AuthInfoActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.iv_delete:

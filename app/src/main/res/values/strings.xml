@@ -33,7 +33,20 @@
 
     <string name="base_info">基本信息</string>
     <string name="edu">学历信息</string>
-    <string name="edu_hint">请填写你的最高学历</string>
+    <string name="edu_hint">请填写您的最高学历</string>
+    <string name="address">居住地</string>
+    <string name="address_hint">请填写您的居住地址</string>
+    <string name="company_name">单位名称</string>
+    <string name="company_name_hint">请填写您的单位名称</string>
+    <string name="company_addr">单位地址</string>
+    <string name="company_addr_hint">请填写您的单位地址</string>
+    <string name="contact">联系人信息（近半年有联系）</string>
+    <string name="phone">手机号</string>
+    <string name="phone_hint">请填写他/她的手机号</string>
+    <string name="name">真实姓名</string>
+    <string name="name_hint">请填写他/她的真实姓名</string>
+    <string name="rela">关系</string>
+    <string name="rela_hint">与您的关系</string>
 
 
 

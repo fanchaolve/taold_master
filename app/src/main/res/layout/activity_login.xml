@@ -101,7 +101,7 @@
             android:background="@null"
             android:layout_toRightOf="@id/text"
             android:hint="请输入短信验证码"
-            android:maxLength="6"
+            android:maxLength="4"
             android:inputType="number"
             android:textAppearance="@style/TextAppear.Theme.font30_Size16"
             android:textColorHint="@color/color_hint"

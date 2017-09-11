@@ -1,7 +1,16 @@
 package com.bb.taold.activitiy;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import com.bb.taold.R;
 import com.bb.taold.base.BaseActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by zhucheng'an on 2017/9/11.
@@ -9,7 +18,12 @@ import com.bb.taold.base.BaseActivity;
  * Class Name ApplySuccessActivity
  */
 
-public class ApplySuccessActivity extends BaseActivity{
+public class ApplySuccessActivity extends BaseActivity {
+    @BindView(R.id.btn_back)
+    ImageButton mBtnBack;
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_apply_success;
@@ -17,7 +31,8 @@ public class ApplySuccessActivity extends BaseActivity{
 
     @Override
     public void initView() {
-
+        mBtnBack.setVisibility(View.VISIBLE);
+        mTvTitle.setText("提交成功");
     }
 
     @Override
@@ -28,5 +43,23 @@ public class ApplySuccessActivity extends BaseActivity{
     @Override
     public void initdata() {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.btn_back, R.id.tv_ok})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_back:
+                finish();
+                break;
+            case R.id.tv_ok:
+                break;
+        }
     }
 }

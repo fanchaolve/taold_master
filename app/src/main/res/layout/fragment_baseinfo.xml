@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:text="@string/base_info"
         android:layout_marginBottom="10dp"
@@ -28,8 +28,79 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <com.bb.taold.widget.Line_ItemView
+            android:id="@+id/item_address"
+            app:left_name="@string/address"
+            app:hint="@string/address_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dp"
+            android:background="@color/color_f0f2f5"/>
 
+        <com.bb.taold.widget.Line_ItemView
+            android:id="@+id/item_company_name"
+            app:left_name="@string/company_name"
+            app:hint="@string/company_name_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.bb.taold.widget.Line_ItemView
+            android:id="@+id/item_company_addr"
+            app:left_name="@string/company_addr"
+            app:hint="@string/company_addr_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:text="@string/contact"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="@style/TextAppear.Theme.111111_Size14"/>
+
+        <com.bb.taold.widget.Line_ItemView
+            android:id="@+id/item_main_phone"
+            app:left_name="@string/phone"
+            app:hint="@string/phone_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.bb.taold.widget.Line_ItemView
+            android:id="@+id/item_main_name"
+            app:left_name="@string/name"
+            app:hint="@string/name_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.bb.taold.widget.Line_ItemView
+            android:id="@+id/item_main_rela"
+            app:left_name="@string/rela"
+            app:hint="@string/rela_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_f0f2f5">
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="fill_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="16sp"
+            android:textColor="#FEFEFE"
+            android:gravity="center"
+            android:text="提交"
+            android:background="@drawable/button_bg"/>
+    </RelativeLayout>
 
 </LinearLayout>
 

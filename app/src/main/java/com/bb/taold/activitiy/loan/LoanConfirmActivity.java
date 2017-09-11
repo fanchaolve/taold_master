@@ -57,7 +57,7 @@ public class LoanConfirmActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        mBtnBack.setVisibility(View.VISIBLE);
     }
 
     @Override
