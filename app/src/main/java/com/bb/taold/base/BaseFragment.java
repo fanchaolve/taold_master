@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bb.taold.api.ApiService;
+import com.bb.taold.api.RetrofitFactory;
 import com.bb.taold.base.m.BaseModel;
 import com.bb.taold.base.p.BasePresenter;
 import com.bb.taold.base.v.BaseView;
@@ -30,6 +32,8 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
     public P mPresenter;
     public Context mContext;
     private Unbinder unbinder;
+
+    public ApiService service = RetrofitFactory.getINSTANCE().create(ApiService.class);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

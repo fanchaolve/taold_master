@@ -1,8 +1,11 @@
 package com.bb.taold.utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.bb.taold.MyApplication;
 
@@ -59,7 +62,7 @@ public class DeviceUtils {
     /**
      * 获得设备相关信息
      */
-    public static void getDeviceIdentification(Context context) {
+    public static String getDeviceIdentification(Context context) {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         // the IMEI for GSM and the MEID or ESN for CDMA phones
         String imei = tm.getDeviceId();
@@ -71,6 +74,44 @@ public class DeviceUtils {
         else if (null != imsi && !"".equals(imsi.trim())) MyApplication.DUID = imsi;
         else if (null != android_id && !"".equals(android_id.trim()))
             MyApplication.DUID = android_id;
+        return android_id;
+
+    }
+
+    /**
+     * 取当前版本号(数值)(程序版本号的是放在AndroidManifest.xml文件中)
+     *
+     * @return
+     */
+    public static int getCurrVersionCode(Context context) {
+        int currVerCode = -1;
+
+        if (null != context) {
+            try {
+                currVerCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.e("sean", "getCurrVersionCode() NameNotFoundException");
+            }
+        }
+        return currVerCode;
+    }
+
+    /**
+     * 取当前版本名(给用户看的文字)
+     *
+     * @return
+     */
+    public String getCurr_VersionName(Context context) {
+
+        PackageManager pm = context.getPackageManager();
+        PackageInfo pi;
+        try {
+            pi = pm.getPackageInfo(context.getPackageName(), 0);
+            return pi.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "1.0.0";
+        }
 
     }
 

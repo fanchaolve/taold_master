@@ -21,6 +21,7 @@ import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.Session;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.DeviceUtils;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -184,7 +185,10 @@ public class LoginActivity extends BaseActivity {
 //        }
 
         Call<Result_Api<Session>> call = service.user_login(
-                etMobileStr, mEtCode.getText().toString(), MyApplication.longitude+"-"+MyApplication.latitude);
+                etMobileStr, mEtCode.getText().toString(), MyApplication.longitude+"-"+MyApplication.latitude,
+                "android", DeviceUtils.getDeviceIdentification(this),
+                DeviceUtils.getCurrVersionCode(this)+"",DeviceUtils.getManufacturer(),
+                DeviceUtils.getModel(),"移动","是","4G");
         postCallback.setFlag(1);
         call.enqueue(postCallback);
     }
