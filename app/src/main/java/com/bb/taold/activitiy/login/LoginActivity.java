@@ -16,12 +16,12 @@ import android.widget.Toast;
 import com.bb.taold.MyApplication;
 import com.bb.taold.R;
 import com.bb.taold.activitiy.HomeActivity;
-import com.bb.taold.activitiy.cardList.CardListActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.Session;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.DeviceUtils;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -64,10 +64,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
-        mEtMobile.setText("18868181884");
-        mEtCode.setText("1234");
-
         //设置"立即登录"按钮的背景透明度
         mTvConfirm.setAlpha(0.6f);
         mTvConfirm.setClickable(false);
@@ -188,12 +184,13 @@ public class LoginActivity extends BaseActivity {
 //            return;
 //        }
 
-//        Call<Result_Api<Session>> call = service.user_login(
-//                etMobileStr, mEtCode.getText().toString(), MyApplication.longitude+"-"+MyApplication.latitude);
-//        postCallback.setFlag(1);
-//        call.enqueue(postCallback);
-        Intent intent = new Intent(LoginActivity.this,CardListActivity.class);
-        startActivity(intent);
+        Call<Result_Api<Session>> call = service.user_login(
+                etMobileStr, mEtCode.getText().toString(), MyApplication.longitude+"-"+MyApplication.latitude,
+                "android", DeviceUtils.getDeviceIdentification(this),
+                DeviceUtils.getCurrVersionCode(this)+"",DeviceUtils.getManufacturer(),
+                DeviceUtils.getModel(),"移动","是","4G");
+        postCallback.setFlag(1);
+        call.enqueue(postCallback);
     }
 
     /**
@@ -276,6 +273,11 @@ public class LoginActivity extends BaseActivity {
                 doSubmit();
                 break;
         }
+    }
+
+
+    public void loginSuccess() {
+
     }
 
     /**

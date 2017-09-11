@@ -39,7 +39,7 @@ public class ParamUtils {
         params.put("app_key", Constants.APP_KEY);
         params.put("sign_method", "SHA1");
         params.put("format", "json");
-        params.put("timestamp", System.currentTimeMillis() / 1000 + "");
+        params.put("timestamp", System.currentTimeMillis() + "");
         params.put("v", "1.0");
         String session=PreferenceUtil.getSharedPreference(MyApplication.getInstance(), PreferenceUtil.SESSION);
         if(session == null || "".equalsIgnoreCase(session)){
@@ -135,6 +135,17 @@ public class ParamUtils {
         }
 
     }
+
+    //单独为人脸识别url拼接用
+    public Tostring_TreeMap<String, String> getAuthParams() {
+        if(params.containsKey("session")){
+            params.remove("session");
+        }
+        return params;
+    }
+
+
+
 
 
 }
