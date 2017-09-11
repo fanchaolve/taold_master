@@ -11,16 +11,15 @@ public class Result_Api<T> {
      * {"status":"SUCCESS","text":"成功","description":null,"t":null,"success":true}
      */
 
-    private String status;//返回code字段
+    private String status = "";//返回code字段
 
-    private String text;//返回msg
+    private String text = "";//返回msg
 
-    private String description;//
+    private String description = "";//
 
     private boolean success;//
 
     private T t;
-
 
 
     public boolean isSuccess() {
@@ -44,7 +43,7 @@ public class Result_Api<T> {
     }
 
     public void setStatus(String status) {
-        if(Constants.SUCCESS.equalsIgnoreCase(status))
+        if (Constants.SUCCESS.equalsIgnoreCase(status))
             setSuccess(true);
         this.status = status;
     }
