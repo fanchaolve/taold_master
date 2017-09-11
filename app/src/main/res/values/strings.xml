@@ -35,6 +35,14 @@
     <string name="edu">学历信息</string>
     <string name="edu_hint">请填写你的最高学历</string>
 
+    <string name="address">居住地</string>
+    <string name="address_hint">请填写你的居住地址</string>
+
+    <string name="company_name">单位名称</string>
+    <string name="company_name_hint">请填写你的单位名称</string>
+    <string name="company_address">单位地址</string>
+    <string name="company_address_hint">请填写你的单位地址</string>
+
 
 
 
