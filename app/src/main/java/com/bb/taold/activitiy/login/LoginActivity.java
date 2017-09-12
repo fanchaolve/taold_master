@@ -125,7 +125,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initdata() {
-        postCallback = new PostCallback() {
+        postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {
                     if (getFlag() == 0) {//验证码
@@ -258,6 +258,7 @@ public class LoginActivity extends BaseActivity {
     @OnClick({R.id.rl_close, R.id.tv_getcode, R.id.tv_confirm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+
             case R.id.rl_close:
                 ToastView("测试");
                 break;

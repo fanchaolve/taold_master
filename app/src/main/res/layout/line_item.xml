@@ -8,11 +8,10 @@
 
 
     <LinearLayout
-        android:paddingLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:gravity="center_vertical"
-        android:paddingRight="15dp">
+        >
 
         <TextView
             android:id="@+id/tv_name"

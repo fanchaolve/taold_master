@@ -1,6 +1,7 @@
 package com.bb.taold.utils;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
@@ -24,6 +25,19 @@ public class SignUtils {
 
     public static final String UTF8 = "UTF-8";
 
+    private static List<String> ignoreParamNames=new ArrayList<>();
+
+    static {
+        ignoreParamNames.add("type");
+        ignoreParamNames.add("device_id");
+        ignoreParamNames.add("version");
+        ignoreParamNames.add("brand");
+        ignoreParamNames.add("model");
+        ignoreParamNames.add("sim");
+        ignoreParamNames.add("is_root");
+        ignoreParamNames.add("net_type");
+    }
+
     /**
      * 使用<code>secret</code>对paramValues按以下算法进行签名： <br/>
      * uppercase(hex(sha1(secretkey1value1key2value2...secret))
@@ -33,7 +47,7 @@ public class SignUtils {
      * @return
      */
     public static String sign(Map<String, String> paramValues, String secret) {
-        return sign(paramValues, null, secret);
+        return sign(paramValues, ignoreParamNames, secret);
     }
 
     /**

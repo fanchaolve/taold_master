@@ -16,15 +16,54 @@
         android:textAppearance="@style/TextAppear.Theme.111111_Size14"/>
 
     <LinearLayout
+        android:paddingLeft="15dp"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:background="@color/white"
         android:layout_height="wrap_content">
 
         <com.bb.taold.widget.Line_ItemView
+            android:paddingRight="15dp"
             android:id="@+id/item_edu"
             app:left_name="@string/edu"
             app:hint="@string/edu_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <include layout="@layout/line_e" />
+
+        <com.bb.taold.widget.Line_ItemView
+            android:paddingRight="15dp"
+            android:id="@+id/item_address"
+            app:left_name="@string/address"
+            app:hint="@string/address_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:paddingLeft="15dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <com.bb.taold.widget.Line_ItemView
+            android:paddingRight="15dp"
+            android:id="@+id/tv_company_name"
+            app:left_name="@string/company_name"
+            app:hint="@string/company_name_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <include layout="@layout/line_e" />
+
+        <com.bb.taold.widget.Line_ItemView
+            android:paddingRight="15dp"
+            android:id="@+id/tv_company_address"
+            app:left_name="@string/company_address"
+            app:hint="@string/company_address_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -34,7 +73,7 @@
             app:hint="@string/address_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="10dp"
@@ -84,6 +123,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+
+
 
     <RelativeLayout
         android:layout_width="fill_parent"
