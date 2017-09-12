@@ -167,6 +167,7 @@ public class Auth_StateFragment extends BaseFragment implements View.OnClickList
                     getFace_State(10);
                 }else if(state ==2){
                     //跳转到另外页面
+                    AppManager.getInstance().showAuthMoblie((BaseActivity) getActivity(),new Mobile_Phone_OperatorsFragment());
                 }
                 break;
         }
