@@ -89,6 +89,16 @@
 
         <activity android:name=".activitiy.my.LoanRecordsActivity">
         </activity>
+        <activity android:name=".activitiy.my.LoanDetailsActivity">
+        </activity>
+        <activity android:name=".activitiy.my.MyMessagesActivity">
+        </activity>
+        <activity android:name=".activitiy.my.HelpAcitivity">
+        </activity>
+        <activity android:name=".activitiy.my.FeedbackActivity">
+        </activity>
+        <activity android:name=".activitiy.my.AboutUsActivity">
+        </activity>
     </application>
 
 </manifest>
