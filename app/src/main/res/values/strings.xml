@@ -28,6 +28,8 @@
     <string name="auth_zm1">芝麻信用</string>
     <string name="auth_zm2">温馨提示\n查看芝麻信用分仅用于查看你的等级,请放心授权</string>
 
+    <string name="auth_face">温馨提示\n1.身份证信息会严格保密,请放心扫描\n2.请扫描真实有效的身份信息,一经认证,无法修改</string>
+
     <string name="apply_loan">申请借款</string>
     <string name="pic_not">拍摄注意事项</string>
 
@@ -44,6 +46,14 @@
     <string name="company_address_hint">请填写你的单位地址</string>
 
 
+    <string name="bkqs">边框缺失</string>
+    <string name="zpmh">照片模糊</string>
+    <string name="sgql">闪光强烈</string>
+    <string name="jdqx">角度倾斜</string>
+
+    <string name="face_sorry">抱歉,人脸认证失败,请重新认证</string>
+    <string name="face_loading">正在获取认证结果请耐心等待...</string>
+    <string name="face_sorry1">抱歉,人脸认证获取失败,请重新获取</string>
 
 
 

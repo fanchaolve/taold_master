@@ -30,22 +30,36 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/face1"/>
 
             <ImageView
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/face2"/>
 
             <ImageView
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/face3"/>
+
+            <ImageView
+                android:layout_marginRight="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/face4"/>
 
 
 
@@ -53,7 +67,62 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="@string/bkqs"
+                android:textAppearance="@style/TextAppear.Theme.111111_Size14"/>
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/zpmh"
+                android:textAppearance="@style/TextAppear.Theme.111111_Size14"/>
+
+            <TextView
+                android:gravity="center_horizontal"
+
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/sgql"
+                android:textAppearance="@style/TextAppear.Theme.111111_Size14"/>
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/jdqx"
+                android:textAppearance="@style/TextAppear.Theme.111111_Size14"/>
+
+        </LinearLayout>
+
+
         <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="42dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/auth_face"
+            android:lineSpacingExtra="8dp"
+            android:textSize="14sp"
+            />
+
+
+        <TextView
+            android:layout_marginBottom="15dp"
             android:id="@+id/tv_confirm"
             android:layout_width="fill_parent"
             android:layout_height="42dp"
@@ -67,16 +136,7 @@
             android:background="@drawable/bg_loan_button"/>
 
 
-        <TextView
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="42dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/auth_zm2"
-            android:lineSpacingExtra="8dp"
-            android:textSize="14sp"
-            />
+
     </LinearLayout>
 
 

@@ -1,6 +1,7 @@
 package com.bb.taold.api;
 
 import com.bb.taold.bean.AuthInfo;
+import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
 import com.bb.taold.bean.Session;
 import com.bb.taold.bean.VersionBean;
@@ -35,14 +36,9 @@ public interface ApiService {
                                    @Field("appkey") String appkey);
 
 
-//    /**
-//     * 会员登陆
-//     *
-//     * @param mobile 电话
-//     * @param code   验证码
-//     * @param lonLat 经纬
-//     * @return
-//     */
+
+    //--------------------------------------------
+
 
     /**
      * 会员登陆
@@ -99,6 +95,10 @@ public interface ApiService {
                                    @Field("loanDays") String loanDays);
 
 
+    /**
+     *  获取用户认证信息
+     * @return
+     */
     @POST("/gateway?method=member.identityAuthInfo")
     Call<Result_Api<AuthInfo>> member_identityAuthInfo();
 
@@ -110,5 +110,17 @@ public interface ApiService {
      */
     @POST("/gateway?method=ocr.init")
     Call<Result_Api<AuthParam>> ocr_init();
+
+
+
+    /**
+     * 人脸识别状态
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=ocr.authStatus")
+    Call<Result_Api<AuthMessage>> ocr_authStatus(@Field("orderNo") String orderNo);
+
 
 }

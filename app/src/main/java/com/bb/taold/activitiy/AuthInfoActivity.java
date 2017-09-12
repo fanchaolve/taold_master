@@ -80,6 +80,7 @@ public class AuthInfoActivity extends BaseActivity implements View.OnClickListen
         tv_title.setText(getString(R.string.apply_loan));
         if (info.getFlag() == 1 || info.getFlag() == 2) {
             AppManager.getInstance().showAuthFace(this, new Authorized_IdFragment());
+            return;
         } else if (info.getFlag() == 3) {
             AppManager.getInstance().showAuthMoblie(this, new Mobile_Phone_OperatorsFragment());
         } else if (info.getFlag() == 4) {
@@ -88,7 +89,7 @@ public class AuthInfoActivity extends BaseActivity implements View.OnClickListen
 
         }
 
-        goStep(info.getFlag() - 1);
+        //goStep(info.getFlag() - 1);
 
 
     }
@@ -114,6 +115,6 @@ public class AuthInfoActivity extends BaseActivity implements View.OnClickListen
                 Log.i("fancl", "步骤:" + flag);
                 sp_step.setcompletePosition(flag);
             }
-        }, 1000);
+        }, 100);
     }
 }

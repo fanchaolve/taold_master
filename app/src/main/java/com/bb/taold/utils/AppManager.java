@@ -11,6 +11,7 @@ import android.util.DisplayMetrics;
 import com.bb.taold.R;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.base.BaseFragment;
+import com.bb.taold.fragment.Auth_StateFragment;
 import com.bb.taold.fragment.Authorized_IdFragment;
 import com.bb.taold.fragment.Authorized_SesameFragment;
 import com.bb.taold.fragment.BaseInfoFragment;
@@ -191,29 +192,36 @@ public class AppManager {
     }
 
     public void showAuthFace(BaseActivity from, Authorized_IdFragment toFragment){
-        doReplaceTran(from,toFragment);
+        doReplaceTran(from,toFragment,null);
     }
 
     public void showAuthMoblie(BaseActivity from, Mobile_Phone_OperatorsFragment toFragment){
-        doReplaceTran(from,toFragment);
+        doReplaceTran(from,toFragment,null);
     }
 
     public void showAuth_Sesame(BaseActivity from, Authorized_SesameFragment toFragment){
-        doReplaceTran(from,toFragment);
+        doReplaceTran(from,toFragment,null);
+    }
+
+    public void showAuth_State(BaseActivity from, Auth_StateFragment toFragment, Bundle bundle){
+        doReplaceTran(from,toFragment,bundle);
     }
 
     public void showBase_Info(BaseActivity from, BaseInfoFragment toFragment){
-        doReplaceTran(from,toFragment);
+        doReplaceTran(from,toFragment,null);
     }
 
 
 
-    private static void doReplaceTran(BaseActivity from, BaseFragment toFragment)
+    private static void doReplaceTran(BaseActivity from, BaseFragment toFragment,Bundle bundle)
     {
         FragmentManager fm = from.getSupportFragmentManager();
         if(fm==null)
             return;
         FragmentTransaction ft = fm.beginTransaction();
+        if(bundle !=null){
+            toFragment.setArguments(bundle);
+        }
         ft.replace(R.id.frame_layout, toFragment);
         ft.show(toFragment);
         ft.commit();

@@ -188,7 +188,7 @@ public class LoginActivity extends BaseActivity {
                 etMobileStr, mEtCode.getText().toString(), MyApplication.longitude+"-"+MyApplication.latitude,
                 "android", DeviceUtils.getDeviceIdentification(this),
                 DeviceUtils.getCurrVersionCode(this)+"",DeviceUtils.getManufacturer(),
-                DeviceUtils.getModel(),"移动","是","4G");
+                DeviceUtils.getModel(),"TL","T","4G");
         postCallback.setFlag(1);
         call.enqueue(postCallback);
     }

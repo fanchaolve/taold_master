@@ -51,7 +51,9 @@ public class Mobile_Phone_OperatorsFragment extends BaseFragment implements View
 
     @Override
     protected void initdate(Bundle savedInstanceState) {
-
+        if(getActivity() instanceof AuthInfoActivity){
+            ((AuthInfoActivity) getActivity()).goStep(2);
+        }
     }
 
     @Override

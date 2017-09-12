@@ -1,5 +1,7 @@
 package com.bb.taold.utils;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -36,6 +38,7 @@ public class SignUtils {
         ignoreParamNames.add("sim");
         ignoreParamNames.add("is_root");
         ignoreParamNames.add("net_type");
+        ignoreParamNames.add("orderNo");
     }
 
     /**
@@ -75,6 +78,7 @@ public class SignUtils {
                 sb.append(paramName).append(paramValues.get(paramName));
             }
             sb.append(secret);
+            Log.i("fancl","签名的数据:"+sb.toString());
             byte[] sha1Digest = getSHA1Digest(sb.toString());
             return byte2hex(sha1Digest);
         } catch (IOException e) {
