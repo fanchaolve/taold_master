@@ -1,6 +1,5 @@
 package com.bb.taold.activitiy.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -124,7 +123,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    public void initdata() {
+    public void initdata() {AppManager.getInstance().showActivity(HomeActivity.class, null);
         postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {

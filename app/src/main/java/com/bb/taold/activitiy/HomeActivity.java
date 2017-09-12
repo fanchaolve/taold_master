@@ -7,6 +7,7 @@ import com.bb.taold.R;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.fragment.HomeFragment;
 import com.bb.taold.fragment.LoanFragment;
+import com.bb.taold.fragment.MyFragment;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.widget.BottomBar;
 
@@ -25,6 +26,7 @@ public class HomeActivity extends BaseActivity{
 
     //借款页
     private LoanFragment loanFragment;
+    private MyFragment myFragment;
 
     @Override
     public int getLayoutId() {
@@ -51,6 +53,14 @@ public class HomeActivity extends BaseActivity{
                             transaction.add(R.id.tab_content, loanFragment, HomeFragment.class.getName());
                         }else{
                             transaction.show(loanFragment);
+                        }
+                        break;
+                    case 2:
+                        if(myFragment == null){
+                            myFragment = new MyFragment();
+                            transaction.add(R.id.tab_content, myFragment, MyFragment.class.getName());
+                        }else{
+                            transaction.show(myFragment);
                         }
                 }
                 transaction.commit();
@@ -84,6 +94,9 @@ public class HomeActivity extends BaseActivity{
     private void hideFragments(FragmentTransaction transaction) {
         if(loanFragment != null){
             transaction.hide(loanFragment);
+        }
+        if(myFragment != null){
+            transaction.hide(myFragment);
         }
     }
 
