@@ -1,4 +1,4 @@
-package com.bb.taold.activitiy;
+package com.bb.taold.activitiy.repay;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,12 +13,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by zhucheng'an on 2017/9/11.
- * Package Name com.bb.taold.activitiy
- * Class Name ApplySuccessActivity
+ * Created by zhucheng'an on 2017/9/12.
+ * Package Name com.bb.taold.activitiy.repay
+ * Class Name AutoRepayActivity
  */
 
-public class ApplySuccessActivity extends BaseActivity {
+public class AutoRepayActivity extends BaseActivity {
     @BindView(R.id.btn_back)
     ImageButton mBtnBack;
     @BindView(R.id.tv_title)
@@ -26,13 +26,13 @@ public class ApplySuccessActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_apply_success;
+        return R.layout.activity_repay;
     }
 
     @Override
     public void initView() {
         mBtnBack.setVisibility(View.VISIBLE);
-        mTvTitle.setText("提交成功");
+        mTvTitle.setText("自动还款");
     }
 
     @Override
@@ -52,14 +52,7 @@ public class ApplySuccessActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.btn_back, R.id.tv_ok})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_back:
-                finish();
-                break;
-            case R.id.tv_ok:
-                break;
-        }
+    @OnClick(R.id.btn_back)
+    public void onViewClicked() {
     }
 }

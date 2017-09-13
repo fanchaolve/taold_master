@@ -350,6 +350,11 @@
 
     </style>
 
+    <style name="dialog_in_and_out" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/dialog_out_to_bottom</item>
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

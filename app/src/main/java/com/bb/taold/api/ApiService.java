@@ -7,13 +7,11 @@ import com.bb.taold.bean.Session;
 import com.bb.taold.bean.VersionBean;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 /**
  * Created by fancl.
@@ -82,17 +80,51 @@ public interface ApiService {
     Call<Result_Api> sms_sendLoginSmsCode(@Query("mobile") String mobile);
 
     /**
-     * @param session    会员ID
      * @param bankCardId 银行卡ID
      * @param amtLoan    借款金额
      * @param loanDays   借款天数
+     * @param activityCode 活动码
+     * @param couponNo    红包编号
+     * @param deviceId   设备编号
+     * @param latLot   经纬度
+     * @param applyIp    申请IP
+     * @param version   版本号
      * @return
      */
     @GET("/gateway?method=loan.applyMiniLoan")
-    Call<Result_Api> applyMiniLoan(@Field("session") String session,
-                                   @Field("bankCardId") String bankCardId,
-                                   @Field("amtLoan") String amtLoan,
-                                   @Field("loanDays") String loanDays);
+    Call<Result_Api> applyMiniLoan(@Query("bankCardId") String bankCardId,
+                                   @Query("amtLoan") String amtLoan,
+                                   @Query("loanDays") String loanDays,
+                                   @Query("activityCode") String activityCode,
+                                   @Query("couponNo") String couponNo,
+                                   @Query("deviceId") String deviceId,
+                                   @Query("latLot") String latLot,
+                                   @Query("applyIp") String applyIp,
+                                   @Query("version") String version);
+
+
+    /**
+     * 借款申请详情
+     *
+     * @param loanId 借款Id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=loan.loanDetail")
+    Call<Result_Api<Session>> loanDetail(@Field("loanId") String loanId);
+
+
+    /**
+     * @param productCode 产品编号
+     * @param stages 产品期数
+     * @param money 借款金额
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=trate.calculateInterest")
+    Call<Result_Api<Session>> calculateInterest(@Field("productCode") String productCode,
+                                                @Field("stages") String stages,
+                                                @Field("money") String money);
 
 
     /**

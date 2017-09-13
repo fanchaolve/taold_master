@@ -12,8 +12,13 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bb.taold.MyApplication;
 import com.bb.taold.R;
 
+import com.bb.taold.activitiy.AuthInfoActivity;
+import com.bb.taold.activitiy.loan.LoanConfirmActivity;
+import com.bb.taold.api.PostCallback;
+import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.base.m.Frag_LoanModel;
 import com.bb.taold.base.p.Frag_LoanPresenter;
@@ -23,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import retrofit2.Call;
 
 /**
  * Created by zhucheng'an on 2017/9/7.
@@ -51,6 +57,8 @@ public class LoanFragment extends BaseFragment
     //借款最低金额
     private int minAmount = 500;
 
+    private PostCallback postCallback;//接口返回接受
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_loan;
@@ -63,6 +71,32 @@ public class LoanFragment extends BaseFragment
 
     @Override
     protected void initdate(Bundle savedInstanceState) {
+
+        postCallback = new PostCallback(this) {
+            @Override
+            public void successCallback(Result_Api api) {
+                //判断哪个接口回调
+                if(getFlag() == 0){
+                    //保存借款金额信息
+                    return;
+                }
+
+                if(getFlag() == 1){
+                    //立即申请
+                    return;
+                }
+            }
+
+            @Override
+            public void failCallback() {
+
+            }
+        };
+
+        //初始页面获取借款金额信息
+        Call call = service.calculateInterest("0","14","1000");
+        postCallback.setFlag(0);
+        call.enqueue(postCallback);
 
     }
 
@@ -80,7 +114,13 @@ public class LoanFragment extends BaseFragment
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
-                mPresenter.memberInfo();
+//                mPresenter.memberInfo();
+                Call call = service.applyMiniLoan("6226300310419262","1000","14","0","0",
+                        "0", MyApplication.longitude+"-"+MyApplication.latitude,"0","0");
+                postCallback.setFlag(1);
+                call.enqueue(postCallback);
+//                Intent intent = new Intent(getActivity(), AuthInfoActivity.class);
+//                startActivity(intent);
                 break;
 
             case R.id.iv_delete:

@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.bb.taold.MyApplication;
 import com.bb.taold.R;
+import com.bb.taold.activitiy.AuthInfoActivity;
 import com.bb.taold.activitiy.HomeActivity;
+import com.bb.taold.activitiy.cardList.CardListActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
@@ -63,6 +65,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mEtMobile.setText("1886818188");
+        mEtCode.setText("1234");
         //设置"立即登录"按钮的背景透明度
         mTvConfirm.setAlpha(0.6f);
         mTvConfirm.setClickable(false);
@@ -139,9 +143,11 @@ public class LoginActivity extends BaseActivity {
                         }
 
                         AppManager.getInstance().showActivity(HomeActivity.class, null);
+                        //取消定时器
+                        if(mTimer!=null)
+                            mTimer.cancel();
                         finish();
                     }
-
 
             }
 
@@ -190,6 +196,8 @@ public class LoginActivity extends BaseActivity {
                 DeviceUtils.getModel(),"TL","T","4G");
         postCallback.setFlag(1);
         call.enqueue(postCallback);
+//        Intent intent = new Intent(this, AuthInfoActivity.class);
+//        startActivity(intent);
     }
 
     /**

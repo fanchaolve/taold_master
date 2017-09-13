@@ -59,6 +59,7 @@ public class AuthInfoActivity extends BaseActivity implements View.OnClickListen
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
+        info = new AuthInfo();
         if (bundle != null) {
             if (bundle.containsKey(Constants.AUTHOINFO)) {
                 info = (AuthInfo) bundle.getSerializable(Constants.AUTHOINFO);
