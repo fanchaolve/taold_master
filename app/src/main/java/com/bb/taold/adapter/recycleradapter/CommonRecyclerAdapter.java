@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -26,7 +28,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // 先inflate数据
         View itemView = mInflater.inflate(mLayoutId, parent, false);
         // 返回ViewHolder
@@ -114,7 +116,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
 
         /**
          * 设置图片通过路径,这里稍微处理得复杂一些，因为考虑加载图片的第三方可能不太一样
-         * 也可以直接写死
+         * 也可以直接写死 eg:setImageByUrlByTool
          */
         public MyViewHolder setImageByUrl(int viewId, HolderImageLoader imageLoader) {
             ImageView imageView = getView(viewId);
@@ -122,6 +124,17 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
                 throw new NullPointerException("imageLoader is null!");
             }
             imageLoader.displayImage(imageView.getContext(), imageView, imageLoader.getImagePath());
+            return this;
+        }
+
+        /**
+         * 通过三方工具来获取图片(方便替换工具)
+         * @param viewId
+         * @param url
+         */
+        public MyViewHolder setImageByUrlByTool(int viewId, String url) {
+            ImageView imageView = getView(viewId);
+            Glide.with(mContext).load(url).into(imageView);
             return this;
         }
 
