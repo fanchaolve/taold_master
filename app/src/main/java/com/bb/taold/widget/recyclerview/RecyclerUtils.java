@@ -20,6 +20,14 @@ import java.util.List;
 public abstract class RecyclerUtils<T> {
     private List<T> datas;
 
+    /**
+     *
+     * @param mContext
+     * @param datas 数据集合
+     * @param recyclerview
+     * @param adapter CommonRecyclerAdapter子类
+     * @param swiper SwipeRefreshLayout
+     */
     public RecyclerUtils(final Context mContext, final List<T> datas, RecyclerView recyclerview, final CommonRecyclerAdapter adapter, final SwipeRefreshLayout swiper){
         this.datas = datas;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);

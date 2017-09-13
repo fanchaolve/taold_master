@@ -2,7 +2,6 @@ package com.bb.taold.activitiy.my;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,6 +17,7 @@ import com.bb.taold.widget.recyclerview.RecyclerUtils;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class LoanRecordsActivity extends BaseActivity {
 
@@ -48,19 +48,12 @@ public class LoanRecordsActivity extends BaseActivity {
     @Override
     public void initView() {
         mTvTitle.setText("我的借款申请记录");
-        ArrayList<String> objects = new ArrayList<>();
-        objects.add("1");
-        objects.add("2");
-        objects.add("3");
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        mRvLoanRecords.setLayoutManager(linearLayoutManager);
-        mRvLoanRecords.setAdapter(new LoanRecordsAdapter(mContext, objects, R.layout.item_test2));
-        mTvTitle.setText("我的借款申请记录");
+        mBtnBack.setVisibility(View.VISIBLE);
         final ArrayList<String> mStrings = new ArrayList<>();
         mStrings.add("1");
         mStrings.add("2");
         mStrings.add("3");
-        mRecyclerAdapter = new LoanRecordsAdapter(mContext, mStrings, R.layout.item_test2);
+        mRecyclerAdapter = new LoanRecordsAdapter(mContext, mStrings, R.layout.item_loan_records);
         new RecyclerUtils<String>(mContext,mStrings,mRvLoanRecords,mRecyclerAdapter,mSwiperRefresh){
 
             @Override
@@ -84,9 +77,13 @@ public class LoanRecordsActivity extends BaseActivity {
     public void initdata() {
 
     }
-
+    @OnClick({R.id.btn_back})
     public void onClick(View view) {
-
+        switch (view.getId()){
+            case R.id.btn_back:
+                finish();
+                break;
+        }
     }
 
 }

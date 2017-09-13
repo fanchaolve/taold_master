@@ -66,6 +66,7 @@
     <color name="color_line">#e4e4e4</color>
     <color name="color_title">#2a2a2a</color>
     <color name="color_111111">#111111</color>
+    <color name="color_important">#111111</color>
     <color name="color_price">#F1A942</color>
     <color name="color_f0f2f5">#f0f2f5</color>
     <color name="common_backgroud">#f0f2f5</color>

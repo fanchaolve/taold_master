@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/font_normal"
+            android:text="借款金额 (元)"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tv_loan_days"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/color_hint"
+            android:textSize="14sp"
+            android:text="借款期限"/>
+        <TextView
+            android:id="@+id/tv_loan_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/font_normal"
+            android:textSize="14sp"
+            android:text="28天"/>
+        <TextView
+            android:id="@+id/tv_loan_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/color_important"
+            android:textSize="23dp"
+            android:text="1500.56"/>
+        <TextView
+            android:id="@+id/tv_loan_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/color_hint"
+            android:textSize="14sp"
+            android:text="2017/09/08 23:59"/>
+
+    </RelativeLayout>
+    <View android:layout_width="match_parent"
+          android:layout_height="10dp"
+          android:background="@color/common_backgroud"/>
+</LinearLayout>

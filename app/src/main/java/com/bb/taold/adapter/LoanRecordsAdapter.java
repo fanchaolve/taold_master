@@ -21,7 +21,8 @@ public class LoanRecordsAdapter extends CommonRecyclerAdapter<String> {
 
     @Override
     public void convert(MyViewHolder holder, String item) {
-        holder.setText(R.id.tv_value,item)
-              .setImageByUrlByTool(R.id.iv_test,"https://www.baidu.com/img/bd_logo1.png");
+        holder.setText(R.id.tv_loan_days,"2888天")
+              .setText(R.id.tv_loan_money,"1000.00")
+        .setText(R.id.tv_loan_time,"2017/01/01 23:25");
     }
 }
