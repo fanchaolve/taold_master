@@ -8,7 +8,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.my.AboutUsActivity;
+import com.bb.taold.activitiy.my.FeedbackActivity;
+import com.bb.taold.activitiy.my.HelpAcitivity;
 import com.bb.taold.activitiy.my.LoanRecordsActivity;
+import com.bb.taold.activitiy.my.MyMessagesActivity;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.utils.AppManager;
 
@@ -26,7 +30,7 @@ import butterknife.OnClick;
 public class MyFragment extends BaseFragment {
 
 
-    @BindView(R.id.tv_layouttitle_title)
+    @BindView(R.id.tv_layout_title)
     TextView mTvLayouttitleTitle;
     @BindView(R.id.lay_my_header)
     LinearLayout mLayMyHeader;
@@ -65,11 +69,23 @@ public class MyFragment extends BaseFragment {
 
     }
 
-    @OnClick({})
+    @OnClick({R.id.lay_apply_records,R.id.lay_my_messages,R.id.lay_help,R.id.lay_feedback,R.id.lay_about_us})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.lay_my_header:
+            case R.id.lay_apply_records:
                 AppManager.getInstance().showActivity(LoanRecordsActivity.class, null);
+                break;
+            case R.id.lay_my_messages:
+                AppManager.getInstance().showActivity(MyMessagesActivity.class, null);
+                break;
+            case R.id.lay_help:
+                AppManager.getInstance().showActivity(HelpAcitivity.class, null);
+                break;
+            case R.id.lay_feedback:
+                AppManager.getInstance().showActivity(FeedbackActivity.class, null);
+                break;
+            case R.id.lay_about_us:
+                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
                 break;
         }
     }
