@@ -1,6 +1,7 @@
 package com.bb.taold.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,9 +14,13 @@ import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.bean.AuthInfo;
+import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
+import com.bb.taold.bean.AuthResult;
+import com.bb.taold.listener.AuthOnresultListener;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.AuthUtil;
+import com.bb.taold.utils.GsonUtils;
 import com.bb.taold.utils.ParamUtils;
 
 import butterknife.BindView;
@@ -40,14 +45,11 @@ public class Authorized_IdFragment extends BaseFragment implements View.OnClickL
     @BindView(R.id.tv_confirm)
     TextView tv_confirm;
 
+    private AuthParam param;
+
     private PostCallback postCallback;//接口返回接受
 
-    private OnResultListener listener=new OnResultListener() {
-        @Override
-        public void onResult(String s) {
 
-        }
-    };
 
     @Override
     public int getLayoutId() {
@@ -57,15 +59,27 @@ public class Authorized_IdFragment extends BaseFragment implements View.OnClickL
     @Override
     public void initView() {
         tv_confirm.setOnClickListener(this);
-        postCallback=new PostCallback(this) {
+        postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {
-                AuthParam param = (AuthParam) api.getT();
-                if(param==null)
-                    return;
-                AuthUtil.faceAuth(mContext,param.getOutOrderId(),
-                        param.getAuthKey(), GenApiHashUrl.apiUrl+"/gateway?method="+param.getNotifyMethod()+
-                "&"+new ParamUtils().getAuthParams().toString(),listener);
+
+                Log.i("fancl",api.getStatus()+"");
+
+                if(api.getT() instanceof AuthParam) {
+                    param = (AuthParam) api.getT();
+
+                    if (param == null)
+                        return;
+                    AuthUtil.faceAuth(mContext, param.getOutOrderId(),
+                            param.getAuthKey(), GenApiHashUrl.apiUrl + "/gateway?method=" + param.getNotifyMethod() +
+                                    "&" + new ParamUtils().getAuthParams().toString(), new AuthOnresultListener(
+                                    (AuthInfoActivity) getActivity(),postCallback,param,service
+                            ));
+                }else if(api.getT() instanceof AuthMessage){
+                    Bundle bundle=new Bundle();
+                    bundle.putInt("state", 0);
+                    AppManager.getInstance().showAuth_State((BaseActivity) getActivity(), new Auth_StateFragment(), bundle);
+                }
             }
 
             @Override
@@ -77,7 +91,9 @@ public class Authorized_IdFragment extends BaseFragment implements View.OnClickL
 
     @Override
     protected void initdate(Bundle savedInstanceState) {
-
+        if(getActivity() instanceof AuthInfoActivity){
+            ((AuthInfoActivity) getActivity()).goStep(0);
+        }
     }
 
     @Override

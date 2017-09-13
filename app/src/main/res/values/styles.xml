@@ -339,6 +339,11 @@
         <item name="android:textColor">@color/color_111111</item>
     </style>
 
+    <style name="TextAppear.Theme.111111_Size18" parent="android:TextAppearance.Theme">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/color_111111</item>
+    </style>
+
 
     <style name="mycheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/agree_select</item>

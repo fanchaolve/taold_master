@@ -1,6 +1,5 @@
 package com.bb.taold.activitiy.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -124,7 +123,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    public void initdata() {
+    public void initdata() {AppManager.getInstance().showActivity(HomeActivity.class, null);
         postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {
@@ -188,7 +187,7 @@ public class LoginActivity extends BaseActivity {
                 etMobileStr, mEtCode.getText().toString(), MyApplication.longitude+"-"+MyApplication.latitude,
                 "android", DeviceUtils.getDeviceIdentification(this),
                 DeviceUtils.getCurrVersionCode(this)+"",DeviceUtils.getManufacturer(),
-                DeviceUtils.getModel(),"移动","是","4G");
+                DeviceUtils.getModel(),"TL","T","4G");
         postCallback.setFlag(1);
         call.enqueue(postCallback);
     }
