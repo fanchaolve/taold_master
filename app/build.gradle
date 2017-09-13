@@ -64,4 +64,5 @@ dependencies {
     compile 'pub.devrel:easypermissions:0.3.0'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/TCardApi.jar')
 }

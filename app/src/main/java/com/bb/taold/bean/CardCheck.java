@@ -1,12 +1,14 @@
 package com.bb.taold.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by zhucheng'an on 2017/9/13.
  * Package Name com.bb.taold.bean
  * Class Name CardCheck
  */
 
-public class CardCheck {
+public class CardCheck implements Serializable{
 
     /**
      *   "id": 1,

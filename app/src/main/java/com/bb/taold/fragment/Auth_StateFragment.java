@@ -3,6 +3,7 @@ package com.bb.taold.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
@@ -44,11 +45,11 @@ public class Auth_StateFragment extends BaseFragment implements View.OnClickList
     @BindView(R.id.tv_confirm)
     TextView tv_confirm;
 
-//    @BindView(R.id.iv_state)
-//    ImageView iv_state;
+    @BindView(R.id.iv_state)
+    ImageView iv_state;
 
-//    @BindView(R.id.tv_detail)
-//    TextView tv_detail;
+    @BindView(R.id.tv_detail)
+    TextView tv_detail;
 
     private AuthParam param;
 
@@ -99,26 +100,26 @@ public class Auth_StateFragment extends BaseFragment implements View.OnClickList
         }
 
         if(state == -1){//失败
-//            iv_state.setImageResource(R.drawable.face_faild);
-//            tv_detail.setText(getString(R.string.face_sorry));
-//            tv_confirm.setText("重新认证");
-//            tv_confirm.setVisibility(View.VISIBLE);
+            iv_state.setImageResource(R.drawable.face_faild);
+            tv_detail.setText(getString(R.string.face_sorry));
+            tv_confirm.setText("重新认证");
+            tv_confirm.setVisibility(View.VISIBLE);
         }else if(state == 0){
-//            iv_state.setImageResource(R.drawable.face_loading);
-//            tv_detail.setText(getString(R.string.face_loading));
-//            tv_confirm.setVisibility(View.GONE);
-//            getFace_State(1000);
+            iv_state.setImageResource(R.drawable.face_loading);
+            tv_detail.setText(getString(R.string.face_loading));
+            tv_confirm.setVisibility(View.GONE);
+            getFace_State(1000);
 
         }else  if(state ==1){
-//            iv_state.setImageResource(R.drawable.face_faild);
-//            tv_detail.setText(getString(R.string.face_sorry1));
-//            tv_confirm.setText("重新获取结果");
-//            tv_confirm.setVisibility(View.VISIBLE);
+            iv_state.setImageResource(R.drawable.face_faild);
+            tv_detail.setText(getString(R.string.face_sorry1));
+            tv_confirm.setText("重新获取结果");
+            tv_confirm.setVisibility(View.VISIBLE);
         }else {//成功
-//            iv_state.setImageResource(R.drawable.face_success);
-//            tv_detail.setText(getString(R.string.face_sorry1));
-//            tv_confirm.setText(getString(R.string.confim));
-//            tv_confirm.setVisibility(View.VISIBLE);
+            iv_state.setImageResource(R.drawable.face_success);
+            tv_detail.setText(getString(R.string.face_sorry1));
+            tv_confirm.setText(getString(R.string.confim));
+            tv_confirm.setVisibility(View.VISIBLE);
         }
 
     }

@@ -119,6 +119,7 @@ public interface ApiService {
 
 
     /**
+     * 借款金额信息（各种利息
      * @param productCode 产品编号
      * @param stages 产品期数
      * @param money 借款金额
@@ -179,7 +180,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/gateway?method=member.createNewBankCard")
+    @POST("/gateway?method=member.createNewBankCard_mobile")
     Call<Result_Api> createNewBankCard(@Field("bankCode") String bankCode,
                                        @Field("owner") String owner,
                                        @Field("cardno") String cardno,

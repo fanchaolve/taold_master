@@ -26,10 +26,9 @@ import java.util.UUID;
 public class SignUtils {
 
     public static final String UTF8 = "UTF-8";
+    private  List<String> ignoreParamNames=new ArrayList<>();
 
-    private static List<String> ignoreParamNames=new ArrayList<>();
-
-    static {
+    public SignUtils(){
         ignoreParamNames.add("type");
         ignoreParamNames.add("device_id");
         ignoreParamNames.add("version");
@@ -48,8 +47,9 @@ public class SignUtils {
         //添加银行卡接口忽略签名
         ignoreParamNames.add("bankCode");
         ignoreParamNames.add("cardName");
-        ignoreParamNames.add("mobile");
     }
+
+
 
     /**
      * 使用<code>secret</code>对paramValues按以下算法进行签名： <br/>
@@ -59,7 +59,7 @@ public class SignUtils {
      * @param secret
      * @return
      */
-    public static String sign(Map<String, String> paramValues, String secret) {
+    public  String sign(Map<String, String> paramValues, String secret) {
         return sign(paramValues, ignoreParamNames, secret);
     }
 
@@ -71,7 +71,7 @@ public class SignUtils {
      * @param secret
      * @return
      */
-    public static String sign(Map<String, String> paramValues, List<String> ignoreParamNames, String secret) {
+    public  String sign(Map<String, String> paramValues, List<String> ignoreParamNames, String secret) {
         try {
             StringBuilder sb = new StringBuilder();
             List<String> paramNames = new ArrayList<String>(paramValues.size());
@@ -97,7 +97,7 @@ public class SignUtils {
         }
     }
 
-    public static String utf8Encoding(String value, String sourceCharsetName) {
+    public  String utf8Encoding(String value, String sourceCharsetName) {
         try {
             return new String(value.getBytes(sourceCharsetName), UTF8);
         } catch (UnsupportedEncodingException e) {
@@ -116,7 +116,7 @@ public class SignUtils {
         return bytes;
     }
 
-    private static byte[] getMD5Digest(String data) throws IOException {
+    private  byte[] getMD5Digest(String data) throws IOException {
         byte[] bytes = null;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -133,7 +133,7 @@ public class SignUtils {
      * @param bytes
      * @return
      */
-    private static String byte2hex(byte[] bytes) {
+    private  String byte2hex(byte[] bytes) {
         StringBuilder sign = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
             String hex = Integer.toHexString(bytes[i] & 0xFF);
@@ -148,5 +148,11 @@ public class SignUtils {
     public static String getUUID() {
         UUID uuid = UUID.randomUUID();
         return uuid.toString().toUpperCase();
+    }
+
+    public  void addIgnoreParamName(String key){
+        if(ignoreParamNames!=null) {
+            ignoreParamNames.add(key);
+        }
     }
 }

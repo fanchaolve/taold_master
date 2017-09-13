@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
 import com.bb.taold.activitiy.addBankCard.AddBankCardFinalActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
@@ -20,6 +21,7 @@ import com.bb.taold.base.BaseFragment;
 import com.bb.taold.base.m.Frag_LoanModel;
 import com.bb.taold.base.p.Frag_LoanPresenter;
 import com.bb.taold.base.v.Frag_LoanContract;
+import com.bb.taold.utils.AppManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -112,11 +114,10 @@ public class LoanFragment extends BaseFragment
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
 //                mPresenter.memberInfo();
-//                Call call = service.supportCard("4581240175986570");
-//                postCallback.setFlag(1);
-//                call.enqueue(postCallback);
-                Intent intent = new Intent(getActivity(), AddBankCardFinalActivity.class);
-                startActivity(intent);
+
+//                Intent intent = new Intent(getActivity(), AddBankCardFinalActivity.class);
+//                startActivity(intent);
+                AppManager.getInstance().showActivity(AddBankCardActivity.class,null);
                 break;
 
             case R.id.iv_delete:

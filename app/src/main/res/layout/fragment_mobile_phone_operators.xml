@@ -55,6 +55,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:gravity="right"
                 android:id="@+id/et_password"
                 android:background="@null"
                 android:layout_width="wrap_content"

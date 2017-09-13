@@ -58,6 +58,11 @@ public class AuthOnresultListener implements OnResultListener {
         if (s != null && s.length() > 0) {
             AuthResult result = GsonUtils.fromJson(s, AuthResult.class);
 
+            if("900001".equalsIgnoreCase(result.getRet_code())){
+                mContext.showMsg(result.getRet_msg());
+                return;
+            }
+
             if ("F".equalsIgnoreCase(result.getResult_auth())) {
 
                 Bundle bundle = new Bundle();

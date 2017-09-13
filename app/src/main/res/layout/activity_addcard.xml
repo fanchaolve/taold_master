@@ -56,6 +56,9 @@
 
                     <ImageView
                         android:id="@+id/iv_take"
+                        android:layout_marginLeft="78dp"
+                        android:layout_marginRight="78dp"
+                        android:scaleType="fitCenter"
                         android:layout_width="fill_parent"
                         android:layout_height="118dp"
                         android:layout_gravity="center_horizontal"
@@ -69,7 +72,6 @@
                         android:textColor="@color/color_111111"
                         android:textSize="14sp"
                         android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
                         android:layout_gravity="center_horizontal"/>
 
                 </LinearLayout>

@@ -57,7 +57,8 @@ public class ParamUtils {
         Request.Builder requestBuilder = request.newBuilder();
         String[] url_params = splist(url_param, "&");//参数切割
         iterator(url_params);
-        String sign = SignUtils.sign(params, Constants.SECRET);
+        SignUtils utils=new SignUtils();
+        String sign = utils.sign(params, Constants.SECRET);
         params.put("sign", sign);
         Log.i("fancl", "sign:" + sign);
         Log.i("fancl", "get_method:" + params.toString());
@@ -73,7 +74,7 @@ public class ParamUtils {
         String url_param = url.encodedQuery();
         Request.Builder requestBuilder = request.newBuilder();
         String[] key_value = splist(url_param, "=");//method添加
-        params.put(key_value[0], key_value[1]);//切出method 添加到map
+        params.put(key_value[0], getMethod(key_value[1]));//切出method 添加到map
 
         if (request.body() != null && request.body() instanceof FormBody) {//formencode
             FormBody formBody = (FormBody) request.body();
@@ -81,7 +82,10 @@ public class ParamUtils {
                 params.put(formBody.name(i), formBody.value(i));
             }
         }
-        String sign = SignUtils.sign(params, Constants.SECRET);
+
+        SignUtils utils =new SignUtils();
+        ignoreParamNamesGet(key_value[1],utils);
+        String sign = utils.sign(params, Constants.SECRET);
         params.put("sign", sign);
 
         Log.i("fancl", "sign:" + sign);
@@ -144,6 +148,24 @@ public class ParamUtils {
         return params;
     }
 
+
+    private String getMethod(String paramValue){
+        if(paramValue.indexOf("_")==-1){
+            return paramValue;
+        }else {
+            return paramValue.substring(0,paramValue.indexOf("_"));
+        }
+    }
+
+    private void ignoreParamNamesGet(String paramValue,SignUtils utils){
+        if(paramValue.indexOf("_")>-1){
+           String[] values=splist(paramValue,"_");
+            for (String value : values){
+                utils.addIgnoreParamName(value);
+            }
+        }
+
+    }
 
 
 
