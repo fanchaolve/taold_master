@@ -2,132 +2,140 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+    android:background="@color/common_backgroud">
     <include layout="@layout/layout_title"/>
     <!--Header-->
     <LinearLayout
         android:id="@+id/lay_my_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal"
+        android:background="#000000"
+        android:orientation="vertical">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:src="@drawable/logo"/>
-            <LinearLayout
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="177****5960"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/logo"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="手机号"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="认证状态"/>
+                android:layout_marginLeft="5dp"
+                android:text="已认证"
+                android:textColor="#ffffff"
+                android:textSize="12sp"/>
         </LinearLayout>
+
 
     </LinearLayout>
     <!--我的借款申请记录-->
     <LinearLayout
         android:id="@+id/lay_apply_records"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        style="@style/tabmy_item"
+        android:layout_marginTop="10dp">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo"/>
+            style="@style/tabmy_icon"
+            android:src="@drawable/my_loan_records"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我的借款申请记录"/>
+            style="@style/tabmy_title"
+            android:text="我的借款记录"/>
+        <ImageView
+            style="@style/tabmy_arrow"/>
+
     </LinearLayout>
-    <!--我的消息/帮助中心/意见反馈/关于我们-->
+
+    <!---->
     <LinearLayout
-        android:id="@+id/lay_messages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的消息"/>
-        </LinearLayout>
+        style="@style/tabmy_item">
+        <ImageView
+            style="@style/tabmy_icon"
+            android:src="@drawable/my_message"/>
+        <TextView
+            style="@style/tabmy_title"
+            android:text="我的消息"/>
+        <ImageView
+            style="@style/tabmy_arrow"/>
 
-        <LinearLayout
-            android:id="@+id/lay_help"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="帮助中心"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/advices"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="意见反馈"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lay_about_us"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="关于我们"/>
-        </LinearLayout>
     </LinearLayout>
-    <!--退出-->
+
+    <!---->
     <LinearLayout
-        android:id="@+id/lay_exit"
+        style="@style/tabmy_item">
+        <ImageView
+            style="@style/tabmy_icon"
+            android:src="@drawable/help"/>
+        <TextView
+            style="@style/tabmy_title"
+            android:text="帮助中心"/>
+        <ImageView
+            style="@style/tabmy_arrow"/>
+
+    </LinearLayout>
+
+    <!---->
+    <LinearLayout
+        style="@style/tabmy_item">
+        <ImageView
+            style="@style/tabmy_icon"
+            android:src="@drawable/advice"/>
+        <TextView
+            style="@style/tabmy_title"
+            android:text="意见反馈"/>
+        <ImageView
+            style="@style/tabmy_arrow"/>
+
+    </LinearLayout>
+
+    <!---->
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        style="@style/tabmy_item">
+        <ImageView
+            style="@style/tabmy_icon"
+            android:src="@drawable/about_us"/>
+        <TextView
+            style="@style/tabmy_title"
+            android:text="关于我们"/>
+        <ImageView
+            style="@style/tabmy_arrow"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="47dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="退出"/>
+            android:textSize="16sp"
+            android:textColor="#111111"
+            android:text="退出登录"/>
     </LinearLayout>
+
 
 </LinearLayout>
