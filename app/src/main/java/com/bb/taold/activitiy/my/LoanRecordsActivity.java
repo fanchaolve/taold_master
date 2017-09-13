@@ -1,16 +1,19 @@
 package com.bb.taold.activitiy.my;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bb.taold.R;
 import com.bb.taold.adapter.LoanRecordsAdapter;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.widget.recyclerview.RecyclerUtils;
 
 import java.util.ArrayList;
 
@@ -52,7 +55,7 @@ public class LoanRecordsActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         mRvLoanRecords.setLayoutManager(linearLayoutManager);
         mRvLoanRecords.setAdapter(new LoanRecordsAdapter(mContext, objects, R.layout.item_test2));
-        mTvTitle51.setText("我的借款申请记录");
+        mTvTitle.setText("我的借款申请记录");
         final ArrayList<String> mStrings = new ArrayList<>();
         mStrings.add("1");
         mStrings.add("2");
