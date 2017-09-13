@@ -47,6 +47,16 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
     @BindView(R.id.ivTab3)
     ImageView ivTab3;
 
+    @BindView(R.id.tvTab1)
+    TextView tvTab1;
+
+
+    @BindView(R.id.tvTab2)
+    TextView tvTab2;
+
+    @BindView(R.id.tvTab3)
+    TextView tvTab3;
+
 
     public BottomBar(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -93,9 +103,15 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
 
     private void setbottombcdefail() {
 
+        //图片背景色设置
         ivTab1.setImageResource(R.drawable.btn_loan_nor);
         ivTab2.setImageResource(R.drawable.btn_bill_nor);
         ivTab3.setImageResource(R.drawable.btn_mine_nor);
+
+        //文字背景色设置
+        tvTab1.setTextColor(getResources().getColor(R.color.color_hint));
+        tvTab2.setTextColor(getResources().getColor(R.color.color_hint));
+        tvTab3.setTextColor(getResources().getColor(R.color.color_hint));
 
     }
 
@@ -106,12 +122,15 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
             switch (tab) {
                 case 0:
                     ivTab1.setImageResource(R.drawable.btn_loan_sel);
+                    tvTab1.setTextColor(getResources().getColor(R.color.black));
                     break;
                 case 1:
                     ivTab2.setImageResource(R.drawable.btn_bill_sel);
+                    tvTab2.setTextColor(getResources().getColor(R.color.black));
                     break;
                 case 2:
                     ivTab3.setImageResource(R.drawable.btn_mine_sel);
+                    tvTab3.setTextColor(getResources().getColor(R.color.black));
                     break;
 
                 default:

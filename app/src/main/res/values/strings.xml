@@ -66,6 +66,8 @@
     <string name="face_loading">正在获取认证结果请耐心等待...</string>
     <string name="face_sorry1">抱歉,人脸认证获取失败,请重新获取</string>
 
+    <string name="unpay_text">已接入央行征信，请于还款日%1$s前进行还款，以免逾期产生罚款并影响征信记录</string>
+
 
 
 

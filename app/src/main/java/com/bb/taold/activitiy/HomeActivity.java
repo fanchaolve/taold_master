@@ -8,6 +8,7 @@ import com.bb.taold.base.BaseActivity;
 import com.bb.taold.fragment.HomeFragment;
 import com.bb.taold.fragment.LoanFragment;
 import com.bb.taold.fragment.MyFragment;
+import com.bb.taold.fragment.RepayFragment;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.widget.BottomBar;
 
@@ -26,6 +27,9 @@ public class HomeActivity extends BaseActivity{
 
     //借款页
     private LoanFragment loanFragment;
+    //账单页
+    private RepayFragment repayFragment;
+    //我的页面
     private MyFragment myFragment;
 
     @Override
@@ -53,6 +57,14 @@ public class HomeActivity extends BaseActivity{
                             transaction.add(R.id.tab_content, loanFragment, HomeFragment.class.getName());
                         }else{
                             transaction.show(loanFragment);
+                        }
+                        break;
+                    case 1:
+                        if(repayFragment == null){
+                            repayFragment = new RepayFragment(HomeActivity.this);
+                            transaction.add(R.id.tab_content,repayFragment,RepayFragment.class.getName());
+                        }else{
+                            transaction.show(repayFragment);
                         }
                         break;
                     case 2:
@@ -94,6 +106,9 @@ public class HomeActivity extends BaseActivity{
     private void hideFragments(FragmentTransaction transaction) {
         if(loanFragment != null){
             transaction.hide(loanFragment);
+        }
+        if(repayFragment != null){
+            transaction.hide(repayFragment);
         }
         if(myFragment != null){
             transaction.hide(myFragment);
