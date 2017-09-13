@@ -79,8 +79,8 @@ public class WelcomeActivity extends BaseActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i("fancl", "session=" + getSession());
-                        if ("".equalsIgnoreCase(getSession())) {//未登陆状态
+                        Log.i("fancl", "session=" + MyApplication.getInstance().getSession());
+                        if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {//未登陆状态
                             AppManager.getInstance().showActivity(LoginActivity.class, null);
                         } else {//登陆状态
                             AppManager.getInstance().showActivity(HomeActivity.class, null);

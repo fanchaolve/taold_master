@@ -97,6 +97,8 @@ public class LoanFragment extends BaseFragment
         postCallback.setFlag(0);
         call.enqueue(postCallback);
 
+
+
     }
 
     @Override

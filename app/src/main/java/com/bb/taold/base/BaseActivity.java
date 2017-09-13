@@ -196,13 +196,7 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
     }
 
 
-    public void saveSession(String session){
-        PreferenceUtil.saveSharedPreference(this, PreferenceUtil.SESSION, session);
-    }
 
-    public String getSession(){
-        return  PreferenceUtil.getSharedPreference(this, PreferenceUtil.SESSION);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

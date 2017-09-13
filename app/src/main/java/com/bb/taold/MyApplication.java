@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.bb.taold.bean.Location;
 import com.bb.taold.bean.User;
+import com.bb.taold.utils.PreferenceUtil;
 import com.bb.taold.utils.gps.GPSUtil;
 
 
@@ -35,6 +36,14 @@ public class MyApplication extends Application {
     public static int heightPixels = 481;//屏幕高度
 
     public static User user;// 用户信息
+
+    public void saveSession(String session){
+        PreferenceUtil.saveSharedPreference(this, PreferenceUtil.SESSION, session);
+    }
+
+    public String getSession(){
+        return  PreferenceUtil.getSharedPreference(this, PreferenceUtil.SESSION);
+    }
 
     public static final Context getAppContext() {
         return context;

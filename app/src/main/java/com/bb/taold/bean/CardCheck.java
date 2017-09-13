@@ -1,5 +1,7 @@
 package com.bb.taold.bean;
 
+import com.bb.taold.utils.SignUtils;
+
 import java.io.Serializable;
 
 /**
@@ -25,6 +27,8 @@ public class CardCheck implements Serializable{
     public String status = "";
     public String gmtCreate = "";
     public String gmtModify = "";
+
+    public String cardNo="";
 
     public String getId() {
         return id;
@@ -72,5 +76,13 @@ public class CardCheck implements Serializable{
 
     public void setGmtModify(String gmtModify) {
         this.gmtModify = gmtModify;
+    }
+
+    public String getCardNo() {
+        return cardNo;
+    }
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
     }
 }

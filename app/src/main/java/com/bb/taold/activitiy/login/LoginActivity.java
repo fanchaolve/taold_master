@@ -139,7 +139,7 @@ public class LoginActivity extends BaseActivity {
                     if (getFlag() == 1) {//登录
                         Session session = (Session) api.getT();
                         if (session != null) {
-                            saveSession(session.getSession());
+                            MyApplication.getInstance().saveSession(session.getSession());
                         }
 
                         AppManager.getInstance().showActivity(HomeActivity.class, null);

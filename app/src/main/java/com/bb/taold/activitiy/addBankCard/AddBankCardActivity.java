@@ -52,6 +52,7 @@ public class AddBankCardActivity extends BaseActivity {
                 if (cardCheck == null)
                     return;
                 Bundle bundle =new Bundle();
+                cardCheck.setCardNo(cardNo);
                 bundle.putSerializable("card",cardCheck);
                 AppManager.getInstance().showActivity(AddBankCardFinalActivity.class,bundle);
             }

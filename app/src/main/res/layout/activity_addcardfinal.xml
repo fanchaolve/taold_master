@@ -22,6 +22,7 @@
             android:background="@color/color_line"
             android:text="信息确认"/>
         <LinearLayout
+            android:paddingLeft="15dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -35,10 +36,10 @@
                     android:textSize="15sp"
                     android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
+
                     android:text="持卡人"/>
-                <EditText
-                    android:id="@+id/et_acctUser"
+                <TextView
+                    android:id="@+id/tv_acctUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
@@ -46,7 +47,7 @@
                     android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/iv_tip_name"
-                    android:hint="Daved"/>
+                    />
                 <ImageView
                     android:id="@+id/iv_tip_name"
                     android:layout_width="wrap_content"
@@ -55,16 +56,12 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="15dp"
+                    />
             </RelativeLayout>
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:background="@color/color_line"/>
+            <include layout="@layout/line_e"/>
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="49dp"
@@ -75,29 +72,23 @@
                     android:textSize="15sp"
                     android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
                     android:text="卡号"
                     android:id="@+id/textView3"/>
-                <EditText
-                    android:id="@+id/et_acctNo"
+                <TextView
+                    android:id="@+id/tv_acctNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:textColor="@color/color_111111"
                     android:background="@null"
-                    android:layout_marginRight="17dp"
-                    android:hint="**** **** **** ****"
                     android:layout_alignBaseline="@+id/textView3"
                     android:layout_alignBottom="@+id/textView3"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="17dp"/>
+                    android:layout_marginRight="15dp"
+                    />
             </RelativeLayout>
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15dp"
-                android:background="@color/color_line"/>
+            <include layout="@layout/line_e"/>
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="49dp"
@@ -108,10 +99,9 @@
                     android:textSize="15sp"
                     android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
                     android:text="银行"/>
-                <EditText
-                    android:id="@+id/et_acctName"
+                <TextView
+                    android:id="@+id/tv_acctName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
@@ -120,28 +110,34 @@
                     android:background="@null"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="15dp"
-                    android:hint="工商银行（借记卡）"/>
+                    />
             </RelativeLayout>
+
+
+            <include layout="@layout/line_e"/>
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="49dp"
                 android:background="@color/white">
                 <TextView
+                    android:id="@+id/tv_sjh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
                     android:text="手机号"/>
                 <EditText
                     android:id="@+id/et_acctPhone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
+                    android:gravity="right"
                     android:background="@null"
                     android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tv_sjh"
                     android:layout_toLeftOf="@+id/iv_tip_phone"
                     android:hint="银行预留号码"/>
                 <ImageView
@@ -152,10 +148,9 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="15dp"/>
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

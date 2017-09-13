@@ -5,7 +5,9 @@ import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Session;
+import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
+import com.bb.taold.utils.SignUtils;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -169,7 +171,7 @@ public interface ApiService {
     Call<Result_Api<CardCheck>> supportCard(@Field("cardNo") String cardNo);
 
     /**
-     * 小额贷款
+     *  银行卡绑定（添加银行
      *
      * @param bankCode 银行编号
      * @param owner    持卡人姓名
@@ -181,11 +183,20 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=member.createNewBankCard_mobile")
-    Call<Result_Api> createNewBankCard(@Field("bankCode") String bankCode,
-                                       @Field("owner") String owner,
-                                       @Field("cardno") String cardno,
-                                       @Field("idno") String idno,
-                                       @Field("cardName") String cardName,
-                                       @Field("mobile") String mobile);
+    Call<Result_Api<String>> createNewBankCard(@Field("bankCode") String bankCode,
+                                                  @Field("owner") String owner,
+                                                  @Field("cardno") String cardno,
+                                                  @Field("idno") String idno,
+                                                  @Field("cardName") String cardName,
+                                                  @Field("mobile") String mobile);
+
+
+    /**
+     * 用户信息
+     * @return
+     */
+    @POST("/gateway?method=user.info")
+    Call<Result_Api<UserInfo>> user_info();
+
 
 }
