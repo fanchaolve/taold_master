@@ -28,6 +28,9 @@ public class LoanRecordsActivity extends BaseActivity {
     RelativeLayout mTitle;
     @BindView(R.id.rv_loan_records)
     RecyclerView mRvLoanRecords;
+    @BindView(R.id.swiper_refresh)
+    SwipeRefreshLayout mSwiperRefresh;
+    private LoanRecordsAdapter mRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,24 @@ public class LoanRecordsActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         mRvLoanRecords.setLayoutManager(linearLayoutManager);
         mRvLoanRecords.setAdapter(new LoanRecordsAdapter(mContext, objects, R.layout.item_test2));
+        mTvTitle51.setText("我的借款申请记录");
+        final ArrayList<String> mStrings = new ArrayList<>();
+        mStrings.add("1");
+        mStrings.add("2");
+        mStrings.add("3");
+        mRecyclerAdapter = new LoanRecordsAdapter(mContext, mStrings, R.layout.item_test2);
+        new RecyclerUtils<String>(mContext,mStrings,mRvLoanRecords,mRecyclerAdapter,mSwiperRefresh){
+
+            @Override
+            public void onLoadMore() {
+                Toast.makeText(mContext, "load", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRefresh() {
+                Toast.makeText(mContext, "refresh", Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     @Override

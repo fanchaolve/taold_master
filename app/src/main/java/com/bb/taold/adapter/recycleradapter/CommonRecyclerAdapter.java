@@ -27,6 +27,10 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
         this.mLayoutId = layoutId;
     }
 
+    public List<T> getDatas(){
+        return  mDatas;
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // 先inflate数据
