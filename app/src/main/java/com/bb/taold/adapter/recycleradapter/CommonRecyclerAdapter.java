@@ -26,7 +26,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // 先inflate数据
         View itemView = mInflater.inflate(mLayoutId, parent, false);
         // 返回ViewHolder
