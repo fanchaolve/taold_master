@@ -63,4 +63,5 @@ public class Frag_LoanPresenter extends Frag_LoanContract.Presenter {
 
         mModel.memberInfo(postCallback);
     }
+
 }

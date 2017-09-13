@@ -50,13 +50,11 @@
     <string name="rela">关系</string>
     <string name="rela_hint">与您的关系</string>
 
-    <string name="address">居住地</string>
-    <string name="address_hint">请填写你的居住地址</string>
-
-    <string name="company_name">单位名称</string>
-    <string name="company_name_hint">请填写你的单位名称</string>
     <string name="company_address">单位地址</string>
     <string name="company_address_hint">请填写你的单位地址</string>
+
+    <string name="repay_info_1">1.您需要在（时间）18:00之前存入1000.00到此银行卡内，系统会在还款日自动扣款。请在当日18:00前确保卡上余额充足。</string>
+    <string name="repay_info_2">2.如果您已采用其他方式还款，在还款日不会自动扣款，请放心使用。</string>
 
 
     <string name="bkqs">边框缺失</string>

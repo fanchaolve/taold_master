@@ -34,4 +34,5 @@ public class Frag_LoanModel implements Frag_LoanContract.Model  {
         Call call = service.member_identityAuthInfo();
         call.enqueue(callback);
     }
+
 }

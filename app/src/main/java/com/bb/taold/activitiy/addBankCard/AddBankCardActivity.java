@@ -58,6 +58,7 @@ public class AddBankCardActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_take:
+                //添加银行卡页面
                 break;
             case R.id.tv_next:
                 final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -68,8 +69,15 @@ public class AddBankCardActivity extends BaseActivity {
                 tv_content.setText("检测到您添加的银行卡非借记卡，请重新添加一张借记卡");
                 dialog.create();
                 final AlertDialog dialog2 = dialog.show();
-
+                //点击对话框外的部分对话框不消失
                 dialog2.setCanceledOnTouchOutside(false);
+                tv_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //点击"我知道了"按钮对话框消失
+                        dialog2.dismiss();
+                    }
+                });
                 break;
             case R.id.btn_back:
                 break;

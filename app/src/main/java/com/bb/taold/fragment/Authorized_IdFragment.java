@@ -100,11 +100,11 @@ public class Authorized_IdFragment extends BaseFragment implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_confirm:
-//                AppManager.getInstance().showAuthMoblie((AuthInfoActivity) getActivity(), new Mobile_Phone_OperatorsFragment());
-//                ((AuthInfoActivity) getActivity()).goStep(2);
+                AppManager.getInstance().showAuthMoblie((AuthInfoActivity) getActivity(), new Mobile_Phone_OperatorsFragment());
+                ((AuthInfoActivity) getActivity()).goStep(2);
 
-                Call<Result_Api<AuthParam>> call = service.ocr_init();
-                call.enqueue(postCallback);
+//                Call<Result_Api<AuthParam>> call = service.ocr_init();
+//                call.enqueue(postCallback);
                 break;
         }
     }

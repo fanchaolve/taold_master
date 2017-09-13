@@ -34,6 +34,7 @@ public interface Frag_LoanContract {
     abstract class Presenter extends BasePresenter<Model, View> {
 
         public abstract void memberInfo();
+
     }
 
 }

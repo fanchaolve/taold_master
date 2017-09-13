@@ -22,7 +22,7 @@ public class LoanRecordsActivity extends BaseActivity {
     ImageButton mBtnBack;
     @BindView(R.id.tv_right)
     TextView mTvRight;
-    @BindView(R.id.tv_title_51)
+    @BindView(R.id.tv_title)
     TextView mTvTitle51;
     @BindView(R.id.title)
     RelativeLayout mTitle;

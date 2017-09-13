@@ -38,6 +38,11 @@ public class SignUtils {
         ignoreParamNames.add("sim");
         ignoreParamNames.add("is_root");
         ignoreParamNames.add("net_type");
+        ignoreParamNames.add("activityCode");
+        ignoreParamNames.add("couponNo");
+        ignoreParamNames.add("deviceId");
+        ignoreParamNames.add("applyIp");
+        ignoreParamNames.add("version");
         ignoreParamNames.add("orderNo");
     }
 
