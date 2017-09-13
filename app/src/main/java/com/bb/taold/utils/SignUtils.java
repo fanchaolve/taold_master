@@ -38,12 +38,17 @@ public class SignUtils {
         ignoreParamNames.add("sim");
         ignoreParamNames.add("is_root");
         ignoreParamNames.add("net_type");
+        //小额贷款接口忽略签名
         ignoreParamNames.add("activityCode");
         ignoreParamNames.add("couponNo");
         ignoreParamNames.add("deviceId");
         ignoreParamNames.add("applyIp");
         ignoreParamNames.add("version");
         ignoreParamNames.add("orderNo");
+        //添加银行卡接口忽略签名
+        ignoreParamNames.add("bankCode");
+        ignoreParamNames.add("cardName");
+        ignoreParamNames.add("mobile");
     }
 
     /**

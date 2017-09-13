@@ -23,7 +23,7 @@ public class LoanRecordsActivity extends BaseActivity {
     @BindView(R.id.tv_right)
     TextView mTvRight;
     @BindView(R.id.tv_title)
-    TextView mTvTitle51;
+    TextView mTvTitle;
     @BindView(R.id.title)
     RelativeLayout mTitle;
     @BindView(R.id.rv_loan_records)
@@ -41,7 +41,7 @@ public class LoanRecordsActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        mTvTitle51.setText("我的借款申请记录");
+        mTvTitle.setText("我的借款申请记录");
         ArrayList<String> objects = new ArrayList<>();
         objects.add("1");
         objects.add("2");

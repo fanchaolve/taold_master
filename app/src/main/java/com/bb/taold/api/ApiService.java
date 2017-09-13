@@ -80,6 +80,8 @@ public interface ApiService {
     Call<Result_Api> sms_sendLoginSmsCode(@Query("mobile") String mobile);
 
     /**
+     * 小额贷款
+     *
      * @param bankCardId 银行卡ID
      * @param amtLoan    借款金额
      * @param loanDays   借款天数
@@ -91,16 +93,17 @@ public interface ApiService {
      * @param version   版本号
      * @return
      */
-    @GET("/gateway?method=loan.applyMiniLoan")
-    Call<Result_Api> applyMiniLoan(@Query("bankCardId") String bankCardId,
-                                   @Query("amtLoan") String amtLoan,
-                                   @Query("loanDays") String loanDays,
-                                   @Query("activityCode") String activityCode,
-                                   @Query("couponNo") String couponNo,
-                                   @Query("deviceId") String deviceId,
-                                   @Query("latLot") String latLot,
-                                   @Query("applyIp") String applyIp,
-                                   @Query("version") String version);
+    @FormUrlEncoded
+    @POST("/gateway?method=loan.applyMiniLoan")
+    Call<Result_Api> applyMiniLoan(@Field("bankCardId") String bankCardId,
+                                   @Field("amtLoan") String amtLoan,
+                                   @Field("loanDays") String loanDays,
+                                   @Field("activityCode") String activityCode,
+                                   @Field("couponNo") String couponNo,
+                                   @Field("deviceId") String deviceId,
+                                   @Field("latLot") String latLot,
+                                   @Field("applyIp") String applyIp,
+                                   @Field("version") String version);
 
 
     /**
@@ -154,5 +157,33 @@ public interface ApiService {
     @POST("/gateway?method=ocr.authStatus")
     Call<Result_Api<AuthMessage>> ocr_authStatus(@Field("orderNo") String orderNo);
 
+    /**
+     * 识别银行卡是否有效
+     * @param cardNo 银行卡号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=bank.checkBankcard")
+    Call<Result_Api> supportCard(@Field("cardNo") String cardNo);
+
+    /**
+     * 小额贷款
+     *
+     * @param bankCode 银行编号
+     * @param owner    持卡人姓名
+     * @param cardno   卡号
+     * @param idno 身份证号码
+     * @param cardName    卡名称
+     * @param mobile   预留手机号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.createNewBankCard")
+    Call<Result_Api> createNewBankCard(@Field("bankCode") String bankCode,
+                                       @Field("owner") String owner,
+                                       @Field("cardno") String cardno,
+                                       @Field("idno") String idno,
+                                       @Field("cardName") String cardName,
+                                       @Field("mobile") String mobile);
 
 }

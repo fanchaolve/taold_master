@@ -42,11 +42,15 @@
 
     </RelativeLayout>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:background="@color/white"/>
+
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="23dp"
         android:background="@color/white"
-        android:paddingTop="30dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
@@ -60,25 +64,43 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textSize="14sp"
             android:textColor="@color/font_normal"
             android:layout_marginRight="11dp"
             android:text="年利率"
-            android:layout_alignParentTop="true"
+            android:gravity="center"
             android:layout_toLeftOf="@+id/tv_yearrate"
             android:layout_marginEnd="11dp"/>
 
         <TextView
             android:id="@+id/tv_yearrate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textSize="14sp"
             android:textColor="@color/color_hint"
+            android:gravity="center"
             android:layout_alignParentRight="true"
             android:text="10%"/>
 
     </RelativeLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:background="@color/white"/>
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="33dp"
+        android:textAppearance="@style/TextAppear.Theme.111111_Size14"
+        android:paddingLeft="15dp"
+        android:gravity="center_vertical"
+        android:text="还款计划"/>
 
+
+    <ListView
+        android:id="@+id/lv_repay_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>

@@ -37,15 +37,16 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:text="持卡人"/>
-                <TextView
-                    android:id="@+id/tv_acctUser"
+                <EditText
+                    android:id="@+id/et_acctUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
+                    android:background="@null"
                     android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/iv_tip_name"
-                    android:text="David"/>
+                    android:hint="Daved"/>
                 <ImageView
                     android:id="@+id/iv_tip_name"
                     android:layout_width="wrap_content"
@@ -75,17 +76,22 @@
                     android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:text="卡号"/>
-                <TextView
-                    android:id="@+id/tv_acctNo"
+                    android:text="卡号"
+                    android:id="@+id/textView3"/>
+                <EditText
+                    android:id="@+id/et_acctNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:textColor="@color/color_111111"
-                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:layout_marginRight="17dp"
+                    android:hint="**** **** **** ****"
+                    android:layout_alignBaseline="@+id/textView3"
+                    android:layout_alignBottom="@+id/textView3"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
-                    android:text="**** **** **** ****"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="17dp"/>
             </RelativeLayout>
             <View
                 android:layout_width="fill_parent"
@@ -104,16 +110,17 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:text="银行"/>
-                <TextView
-                    android:id="@+id/tv_acctName"
+                <EditText
+                    android:id="@+id/et_acctName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
+                    android:background="@null"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="15dp"
-                    android:text="工商银行（借记卡）"/>
+                    android:hint="工商银行（借记卡）"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -127,15 +134,16 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:text="手机号"/>
-                <TextView
-                    android:id="@+id/tv_acctPhone"
+                <EditText
+                    android:id="@+id/et_acctPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
+                    android:background="@null"
                     android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/iv_tip_phone"
-                    android:text="银行预留号码"/>
+                    android:hint="银行预留号码"/>
                 <ImageView
                     android:id="@+id/iv_tip_phone"
                     android:layout_width="wrap_content"

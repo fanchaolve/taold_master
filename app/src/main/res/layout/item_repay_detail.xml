@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <RelativeLayout
+        android:id="@+id/rl_item_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <TextView
+            android:id="@+id/tv_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppear.Theme.111111_Size14"
+            android:textStyle="bold"
+            android:text="1/12期"/>
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_below="@id/tv_period"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:text="2017/09/30 23:57:09"/>
+
+        <ImageView
+            android:id="@+id/iv_click"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_click"/>
+
+        <TextView
+            android:id="@+id/tv_loanAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppear.Theme.111111_Size14"
+            android:layout_toLeftOf="@id/iv_click"
+            android:layout_marginRight="15dp"
+            android:textStyle="bold"
+            android:text="1345.87"/>
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_below="@id/tv_period"
+            android:layout_toLeftOf="@id/iv_click"
+            android:textSize="14sp"
+            android:layout_marginRight="15dp"
+            android:textColor="#666666"
+            android:text="已还清"/>
+    </RelativeLayout>
+
+</LinearLayout>

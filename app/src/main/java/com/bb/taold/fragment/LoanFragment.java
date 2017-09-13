@@ -12,11 +12,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bb.taold.MyApplication;
 import com.bb.taold.R;
-
-import com.bb.taold.activitiy.AuthInfoActivity;
-import com.bb.taold.activitiy.loan.LoanConfirmActivity;
+import com.bb.taold.activitiy.addBankCard.AddBankCardFinalActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseFragment;
@@ -115,11 +112,10 @@ public class LoanFragment extends BaseFragment
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
 //                mPresenter.memberInfo();
-                Call call = service.applyMiniLoan("6226300310419262","1000","14","0","0",
-                        "0", MyApplication.longitude+"-"+MyApplication.latitude,"0","0");
+                Call call = service.supportCard("4581240175986570");
                 postCallback.setFlag(1);
                 call.enqueue(postCallback);
-//                Intent intent = new Intent(getActivity(), AuthInfoActivity.class);
+//                Intent intent = new Intent(getActivity(), AddBankCardFinalActivity.class);
 //                startActivity(intent);
                 break;
 
