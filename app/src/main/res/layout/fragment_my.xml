@@ -15,12 +15,13 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/my_header"/>
 
         <TextView
+            android:id="@+id/tv_user_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -38,7 +39,7 @@
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="12dp"
-                android:src="@drawable/logo"/>
+                android:src="@drawable/identification"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -133,7 +134,8 @@
         android:id="@+id/lay_logout"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:background="@color/white"
+        android:background="@drawable/click_bg"
+        android:onClick="onClick"
         android:layout_height="47dp">
         <TextView
             android:layout_width="wrap_content"
