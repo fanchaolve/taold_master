@@ -3,6 +3,7 @@ package com.bb.taold.api;
 import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
+import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Session;
 import com.bb.taold.bean.VersionBean;
 
@@ -164,7 +165,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=bank.checkBankcard")
-    Call<Result_Api> supportCard(@Field("cardNo") String cardNo);
+    Call<Result_Api<CardCheck>> supportCard(@Field("cardNo") String cardNo);
 
     /**
      * 小额贷款

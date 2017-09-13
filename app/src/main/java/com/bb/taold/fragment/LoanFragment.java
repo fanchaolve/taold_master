@@ -112,11 +112,11 @@ public class LoanFragment extends BaseFragment
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
 //                mPresenter.memberInfo();
-                Call call = service.supportCard("4581240175986570");
-                postCallback.setFlag(1);
-                call.enqueue(postCallback);
-//                Intent intent = new Intent(getActivity(), AddBankCardFinalActivity.class);
-//                startActivity(intent);
+//                Call call = service.supportCard("4581240175986570");
+//                postCallback.setFlag(1);
+//                call.enqueue(postCallback);
+                Intent intent = new Intent(getActivity(), AddBankCardFinalActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.iv_delete:

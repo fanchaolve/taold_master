@@ -128,7 +128,8 @@ public class AddBankCardFinalActivity extends BaseActivity {
                     showTip("请填写预留手机号");
                     break;
                 }
-                Call call = service.supportCard("4581240175986570");
+                //调用判断银行卡是否有效接口
+                Call call = service.supportCard(mEtAcctNo.getText().toString());
                 postCallback.setFlag(0);
                 call.enqueue(postCallback);
                 break;
