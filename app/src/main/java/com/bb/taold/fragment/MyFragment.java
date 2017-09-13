@@ -44,8 +44,8 @@ public class MyFragment extends BaseFragment {
     @BindView(R.id.lay_exit)
     LinearLayout mLayExit;
     Unbinder unbinder;
-    @BindView(R.id.tv_layouttitle_title)
-    TextView mTvLayouttitleTitle;
+    @BindView(R.id.tv_layout_title)
+    TextView mTvLayoutTitle;
 
 
     @Override
@@ -62,7 +62,7 @@ public class MyFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        mTvLayouttitleTitle.setText("我的");
+        mTvLayoutTitle.setText("我的");
     }
 
     @Override

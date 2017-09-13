@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_item_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <TextView
+            android:id="@+id/tv_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppear.Theme.font40_Size14"
+            android:textStyle="bold"
+            android:text="1/12期"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_period"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_loanAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:textColor="@color/color_111111"
+                android:textStyle="bold"
+                android:text="1389.34"/>
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/color_hint"
+                android:layout_marginLeft="5dp"
+                android:text="(已逾期)"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppear.Theme.111111_Size14"
+            android:layout_alignParentRight="true"
+            android:text="还款日：2017/09/09"/>
+        <TextView
+            android:id="@+id/tv_paybtn"
+            android:layout_width="68dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:layout_below="@id/tv_period"
+            android:background="@drawable/bg_loan_button"
+            android:layout_alignParentRight="true"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:text="立即还款"/>
+    </RelativeLayout>
+
+</LinearLayout>

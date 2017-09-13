@@ -12,12 +12,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="5dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/tab1"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
@@ -25,10 +27,18 @@
 
             <ImageView
                 android:id="@+id/ivTab1"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/btn_loan_nor"
                  />
+            <TextView
+                android:id="@+id/tvTab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="10sp"
+                android:textColor="#A4A5A8"
+                android:text="借款"/>
 
         </LinearLayout>
 
@@ -38,7 +48,7 @@
         <LinearLayout
             android:id="@+id/tab2"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
@@ -46,17 +56,25 @@
 
             <ImageView
                 android:id="@+id/ivTab2"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/btn_bill_nor"
                  />
+            <TextView
+                android:id="@+id/tvTab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="10sp"
+                android:textColor="#A4A5A8"
+                android:text="账单"/>
         </LinearLayout>
 
 
         <LinearLayout
             android:id="@+id/tab3"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center"
@@ -64,10 +82,18 @@
 
             <ImageView
                 android:id="@+id/ivTab3"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/btn_mine_nor"
                  />
+            <TextView
+                android:id="@+id/tvTab3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="10sp"
+                android:textColor="#A4A5A8"
+                android:text="我的"/>
 
         </LinearLayout>
 

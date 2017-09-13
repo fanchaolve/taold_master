@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_click">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总共应还（元）"
+                android:textAppearance="@style/TextAppear.Theme.font40_Size14"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/iv_repaying"/>
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="还款中"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_hint"
+                    android:textAppearance="@style/TextAppear.Theme.font40_Size14"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_loanAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textSize="23sp"
+            android:layout_marginTop="26dp"
+            android:textColor="@color/color_111111"
+            android:textStyle="bold"
+            android:text="1389.34"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="24dp"
+            android:textSize="12sp"
+            android:textColor="@color/color_hint"
+            android:gravity="bottom"
+            android:layout_toLeftOf="@+id/iv_click"
+            android:layout_marginRight="30dp"
+            android:layout_alignParentRight="true"
+            android:text="借款时间 2017/09/08"/>
+
+        <ImageView
+            android:id="@+id/iv_click"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_click"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+</LinearLayout>
