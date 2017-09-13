@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:background="@color/common_backgroud"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+        <TextView
+            android:id="@+id/tv_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="12sp"
+            android:textColor="@color/font_normal"
+            android:text="2017.03.20 17:57"/>
+        <ImageView
+            android:id="@+id/iv_message_header"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_below="@id/tv_message_time"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/my_header"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_message_time"
+            android:layout_toRightOf="@+id/iv_message_header"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/color_important"
+            android:textSize="16sp"
+            android:background="@drawable/shape_msg_text"
+            android:text="信息信息三菱电机疯狂类似的经历开发建设了肯定类似的减肥啦设计的礼服"/>
+
+    </RelativeLayout>
 
 </LinearLayout>
