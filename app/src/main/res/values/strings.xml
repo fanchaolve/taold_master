@@ -68,6 +68,12 @@
 
     <string name="unpay_text">已接入央行征信，请于还款日%1$s前进行还款，以免逾期产生罚款并影响征信记录</string>
 
+    <string name="contact_info">联系人信息(近半年有联系)</string>
+    <string name="real_name">真实姓名</string>
+    <string name="pleasereal_name">请填写他(她)的真实姓名</string>
+    <string name="pleaseselect">请选择</string>
+    <string name="submit">提交</string>
+
 
 
 

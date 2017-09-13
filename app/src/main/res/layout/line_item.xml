@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         >
 
         <TextView
@@ -29,9 +30,21 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/color_hint"
             android:hint=""
+            android:gravity="right"
             android:singleLine="true"
+            android:textCursorDrawable="@null"
             android:textAppearance="@style/TextAppear.Theme.111111_Size15"
             />
+        <ImageView
+            android:id="@+id/iv_last"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_click"
+            android:visibility="gone"/>
+
 
     </LinearLayout>
 
