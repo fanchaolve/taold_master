@@ -6,6 +6,7 @@ import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -41,6 +42,9 @@ public class Line_ItemView extends LinearLayout {
     @BindView(R.id.et_value)
     TextView et_value;
 
+    @BindView(R.id.iv_last)
+    ImageView iv_last;
+
 
     public Line_ItemView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -72,6 +76,17 @@ public class Line_ItemView extends LinearLayout {
 
     public String getValue() {
         return et_value.getText().toString().trim();
+    }
+
+    public void select_View(){
+        et_value.setEnabled(false);
+        et_value.setFocusable(false);
+        et_value.setFocusableInTouchMode(false);
+        iv_last.setVisibility(View.VISIBLE);
+    }
+
+    public void setText(String text){
+        et_value.setText(text);
     }
 
 }
