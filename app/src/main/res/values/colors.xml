@@ -73,6 +73,7 @@
     <color name="cutline">#e4e4e2</color>
     <color name="color_f1a942">#f1a942</color>
     <color name="color_f0f1f5">#f0f1f5</color>
+    <color name="white_pressed">#99ffffff</color>
 
 
 </resources>

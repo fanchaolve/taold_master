@@ -51,7 +51,7 @@
 
 
     </LinearLayout>
-    <!--我的借款申请记录-->
+
     <LinearLayout
         android:id="@+id/lay_apply_records"
         style="@style/tabmy_item"
@@ -66,9 +66,10 @@
             style="@style/tabmy_arrow"/>
 
     </LinearLayout>
+    <View style="@style/view_line"/>
 
-    <!---->
     <LinearLayout
+        android:id="@+id/lay_my_messages"
         style="@style/tabmy_item">
         <ImageView
             style="@style/tabmy_icon"
@@ -80,9 +81,10 @@
             style="@style/tabmy_arrow"/>
 
     </LinearLayout>
-
+    <View style="@style/view_line"/>
     <!---->
     <LinearLayout
+        android:id="@+id/lay_help"
         style="@style/tabmy_item">
         <ImageView
             style="@style/tabmy_icon"
@@ -94,9 +96,10 @@
             style="@style/tabmy_arrow"/>
 
     </LinearLayout>
-
+    <View style="@style/view_line"/>
     <!---->
     <LinearLayout
+        android:id="@+id/lay_feedback"
         style="@style/tabmy_item">
         <ImageView
             style="@style/tabmy_icon"
@@ -111,6 +114,7 @@
 
     <!---->
     <LinearLayout
+        android:id="@+id/lay_about_us"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         style="@style/tabmy_item">
@@ -126,8 +130,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lay_logout"
         android:layout_width="match_parent"
         android:gravity="center"
+        android:background="@color/white"
         android:layout_height="47dp">
         <TextView
             android:layout_width="wrap_content"

@@ -469,7 +469,7 @@
     <style name="view_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">#eaeaea</item>
+        <item name="android:background">@color/cutline</item>
     </style>
     <style name="tab">
         <item name="android:layout_width">wrap_content</item>
@@ -489,7 +489,8 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">15dp</item>
         <item name="android:paddingRight">15dp</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@drawable/click_bg</item>
+        <item name="android:onClick">onClick</item>
     </style>
     <style name="tabmy_icon">
         <item name="android:layout_width">22dp</item>
