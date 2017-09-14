@@ -7,13 +7,19 @@
 
     <include layout="@layout/layout_title_normal"/>
 
-    <ListView
-        android:id="@+id/lv_cardlist"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiper_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="0dp"
-        android:scrollbars="none" >
-    </ListView>
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_cardlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:scrollbars="none" >
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <TextView
         android:id="@+id/tv_addcard"
         android:layout_width="match_parent"

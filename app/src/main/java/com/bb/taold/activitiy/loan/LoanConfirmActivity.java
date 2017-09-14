@@ -7,17 +7,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.Product;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
-import com.bb.taold.bean.StagesInfo;
-import com.bb.taold.bean.UserInfo;
-import com.bb.taold.listener.Callexts;
-
-import java.util.ArrayList;
+import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.CardNumScanUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -75,6 +73,10 @@ public class LoanConfirmActivity extends BaseActivity {
     private String userId = "";
     //各项费用保存
     private ProductFee mProductFee = null;
+    //记录是否同意协议
+    private boolean agreeRule1 = false;
+    //记录是否同意第二个协议
+    private boolean agreeRule2 = false;
 
     @Override
     public int getLayoutId() {
@@ -170,7 +172,8 @@ public class LoanConfirmActivity extends BaseActivity {
         call.enqueue(postCallback);
     }
 
-    @OnClick({R.id.btn_back, R.id.iv_add, R.id.tv_loanAmount, R.id.iv_delete, R.id.tv_confirm,R.id.iv_btn1,R.id.iv_btn2})
+    @OnClick({R.id.btn_back, R.id.iv_add, R.id.tv_loanAmount, R.id.iv_delete, R.id.tv_confirm,R.id.iv_btn1,R.id.iv_btn2,
+                R.id.tv_changeCard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
@@ -180,11 +183,15 @@ public class LoanConfirmActivity extends BaseActivity {
                 //获取当前金额
                 int currentAmount = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否大于最大金额
-                if ((currentAmount + 100) >= maxAmount) {
+                if(currentAmount == maxAmount){
                     mTvLoanAmount.setText(maxAmount + "");
                     return;
                 }
-                mTvLoanAmount.setText((currentAmount + 100) + "");
+                if ((currentAmount + 100) > maxAmount) {
+                    mTvLoanAmount.setText(maxAmount + "");
+                }else{
+                    mTvLoanAmount.setText((currentAmount + 100) + "");
+                }
                 //刷新所有的费用
                 cacuAmount(userId,mTvLoanAmount.getText().toString());
                 break;
@@ -192,21 +199,37 @@ public class LoanConfirmActivity extends BaseActivity {
                 //获取当前金额
                 int currentAmountDelete = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否小于最小金额
-                if (currentAmountDelete - 100 <= minAmount) {
+                if(currentAmountDelete == minAmount){
                     mTvLoanAmount.setText(minAmount + "");
                     return;
                 }
-                mTvLoanAmount.setText((currentAmountDelete - 100) + "");
+                if (currentAmountDelete - 100 < minAmount) {
+                    mTvLoanAmount.setText(minAmount + "");
+                }else{
+                    mTvLoanAmount.setText((currentAmountDelete - 100) + "");
+                }
                 //刷新所有的费用
                 cacuAmount(userId,mTvLoanAmount.getText().toString());
                 break;
             case R.id.tv_confirm:
-
                 break;
             case R.id.iv_btn1:
-                mIvBtn1.setImageResource(R.drawable.square_sel);
+                if(agreeRule1)
+                    mIvBtn1.setImageResource(R.drawable.square_nor);
+                else
+                    mIvBtn1.setImageResource(R.drawable.square_sel);
+                agreeRule1 = !agreeRule1;
                 break;
             case R.id.iv_btn2:
+                if(agreeRule2)
+                    mIvBtn2.setImageResource(R.drawable.square_nor);
+                else
+                    mIvBtn2.setImageResource(R.drawable.square_sel);
+                agreeRule2 = !agreeRule2;
+                break;
+            case R.id.tv_changeCard:
+                //添加银行卡页面
+                CardNumScanUtil.getINSTANCE().doScan();
                 break;
         }
     }

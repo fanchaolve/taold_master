@@ -176,11 +176,15 @@ public class LoanFragment extends BaseFragment
                 //获取当前金额
                 int currentAmountDelete = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否小于最小金额
-                if (currentAmountDelete - 100 <= minAmount) {
+                if(currentAmountDelete == minAmount){
                     mTvLoanAmount.setText(minAmount + "");
                     return;
                 }
-                mTvLoanAmount.setText((currentAmountDelete - 100) + "");
+                if (currentAmountDelete - 100 < minAmount) {
+                    mTvLoanAmount.setText(minAmount + "");
+                }else{
+                    mTvLoanAmount.setText((currentAmountDelete - 100) + "");
+                }
                 //重新获取接口计算各项费用
                 cacuAmount(userId,mTvLoanAmount.getText().toString());
                 break;
@@ -188,11 +192,15 @@ public class LoanFragment extends BaseFragment
                 //获取当前金额
                 int currentAmount = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否大于最大金额
-                if ((currentAmount + 100) >= maxAmount) {
+                if(currentAmount == maxAmount){
                     mTvLoanAmount.setText(maxAmount + "");
                     return;
                 }
-                mTvLoanAmount.setText((currentAmount + 100) + "");
+                if ((currentAmount + 100) > maxAmount) {
+                    mTvLoanAmount.setText(maxAmount + "");
+                }else{
+                    mTvLoanAmount.setText((currentAmount + 100) + "");
+                }
                 //重新获取接口计算各项费用
                 cacuAmount(userId,mTvLoanAmount.getText().toString());
                 break;

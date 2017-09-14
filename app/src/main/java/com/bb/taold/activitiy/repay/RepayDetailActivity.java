@@ -1,5 +1,7 @@
 package com.bb.taold.activitiy.repay;
 
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -13,6 +15,8 @@ import com.bb.taold.bean.RepayDetail;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by zhucheng'an on 2017/9/13.
  * Package Name com.bb.taold.activitiy.repay
@@ -31,6 +35,8 @@ public class RepayDetailActivity extends BaseActivity {
     TextView mTvYearrate;
     @BindView(R.id.lv_repay_detail)
     ListView mLvRepayDetail;
+    @BindView(R.id.swiper_refresh)
+    SwipeRefreshLayout mSwiperRefresh;
 
     //接口返回还款详情结果
     private ArrayList<RepayDetail> mList = new ArrayList<>();
@@ -58,14 +64,37 @@ public class RepayDetailActivity extends BaseActivity {
 
         initList();
 
-        RepayDetailAdapter mAdapter = new RepayDetailAdapter(RepayDetailActivity.this,mList);
+        RepayDetailAdapter mAdapter = new RepayDetailAdapter(RepayDetailActivity.this, mList);
 
         mLvRepayDetail.setAdapter(mAdapter);
 
+        mSwiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showTip("refresh");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mSwiperRefresh.setRefreshing(false);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
+
     }
 
-    public void initList(){
-        for(int i=0;i<10;i++){
+    public void initList() {
+        for (int i = 0; i < 10; i++) {
             RepayDetail mRepay = new RepayDetail();
             mRepay.setAmount("1000");
             mRepay.setPeriod("1/12");
@@ -74,5 +103,12 @@ public class RepayDetailActivity extends BaseActivity {
             mList.add(mRepay);
         }
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

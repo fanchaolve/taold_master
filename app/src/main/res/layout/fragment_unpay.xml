@@ -74,8 +74,14 @@
         android:layout_width="fill_parent"
         android:layout_height="10dp"
         android:background="@color/color_line"/>
-    <ListView
-        android:id="@+id/lv_unpay_bill"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"></ListView>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiper_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_unpay_bill"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"></ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

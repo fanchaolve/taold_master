@@ -1,5 +1,7 @@
 package com.bb.taold.activitiy.cardList;
 
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
@@ -16,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -29,10 +32,13 @@ public class CardListActivity extends BaseActivity {
     ImageButton mBtnBack;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
+    @BindView(R.id.swiper_refresh)
+    SwipeRefreshLayout mSwiperRefresh;
     @BindView(R.id.lv_cardlist)
     ListView mLvCardlist;
 
     private static Set<SwipeListLayout> sets = new HashSet();
+
     //数组保存银行卡数据
     private ArrayList<String> list = new ArrayList<>();
 
@@ -57,7 +63,30 @@ public class CardListActivity extends BaseActivity {
 
         initList();
         //设置列表适配器
-        mLvCardlist.setAdapter(new CardListAdapter(this,list));
+        mLvCardlist.setAdapter(new CardListAdapter(this, list));
+
+        mSwiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showTip("refresh");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        CardListActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mSwiperRefresh.setRefreshing(false);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
 
         mLvCardlist.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -98,6 +127,13 @@ public class CardListActivity extends BaseActivity {
         list.add("L");
         list.add("M");
         list.add("N");
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
     /**

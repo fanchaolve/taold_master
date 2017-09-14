@@ -1,6 +1,10 @@
 package com.bb.taold.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.bb.taold.R;
@@ -11,6 +15,8 @@ import com.bb.taold.bean.RepayDetail;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by zhucheng'an on 2017/9/13.
@@ -22,6 +28,9 @@ import butterknife.BindView;
 public class UnpayFragment extends BaseFragment {
     @BindView(R.id.lv_unpay_bill)
     ListView mLvUnpayBill;
+
+    @BindView(R.id.swiper_refresh)
+    SwipeRefreshLayout mSwiperRefresh;
 
     ArrayList<RepayDetail> mList = new ArrayList<>();
 
@@ -35,13 +44,36 @@ public class UnpayFragment extends BaseFragment {
 
         initList();
 
-        UnpayBillAdapter mAdapter = new UnpayBillAdapter(getActivity(),mList);
+        UnpayBillAdapter mAdapter = new UnpayBillAdapter(getActivity(), mList);
 
         mLvUnpayBill.setAdapter(mAdapter);
+
+        mSwiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showTip("refresh");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mSwiperRefresh.setRefreshing(false);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
     }
 
-    public void initList(){
-        for(int i=0;i<2;i++){
+    public void initList() {
+        for (int i = 0; i < 2; i++) {
             RepayDetail mUnpay = new RepayDetail();
             mUnpay.setAmount("1000");
             mUnpay.setPeriod("1/12");

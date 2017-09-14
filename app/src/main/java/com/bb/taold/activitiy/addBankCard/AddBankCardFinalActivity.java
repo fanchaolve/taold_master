@@ -88,7 +88,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
         Intent intent =getIntent();
         if(intent!=null){
             Bundle bundle =intent.getExtras();
-            if(bundle.containsKey("card")){
+            if(bundle!=null && bundle.containsKey("card")){
                 cardCheck= (CardCheck) bundle.getSerializable("card");
             }
         }
@@ -130,6 +130,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
                         info.getRealName(),cardCheck.getCardNo().replace(" ",""),
                         info.getIdCard(),cardCheck.getBankName(),
                         mEtAcctPhone.getText().toString());
+//                Call<Result_Api <String>> call = service.removeCard(cardCheck.getCardNo().replace(" ",""));
                 Callexts.need_sessionPost(call,postCallback);
 
 //                Call<Result_Api <String>> call = service.removeCard(cardCheck.getCardNo().replace(" ",""));
