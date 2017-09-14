@@ -40,6 +40,17 @@
         android:textColor="@color/white"
         android:textSize="17dip"
         android:visibility="gone" />
+    <!--右侧图片按钮-->
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/feedback"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tv_title"

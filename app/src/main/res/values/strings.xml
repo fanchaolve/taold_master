@@ -73,6 +73,8 @@
     <string name="pleasereal_name">请填写他(她)的真实姓名</string>
     <string name="pleaseselect">请选择</string>
     <string name="submit">提交</string>
+    <string name="feedback_prompt">您有任何疑问，可先到帮助中心进行查看，也可以拨打客服热线：400-800-3425</string>
+    <string name="feedback_hint">请描述您遇到的问题和建议</string>
 
 
 

@@ -4,5 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:padding="10dp"
+        android:text="@string/feedback_prompt"
+        android:textColor="@color/color_important"
+        android:textSize="14sp"
+        />
+    <EditText
+        android:id="@+id/et_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="136dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="@string/feedback_hint"
+        android:background="@drawable/shape_edit_frame"
+        android:gravity="top"/>
+    <Button
+        android:id="@+id/btn_feedback_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="25dp"
+        android:textSize="14sp"
+        android:background="@drawable/selector_btn_yellow"/>
 </LinearLayout>
