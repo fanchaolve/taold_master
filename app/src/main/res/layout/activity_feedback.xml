@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <include layout="@layout/layout_title2"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,10 +26,11 @@
         android:hint="@string/feedback_hint"
         android:background="@drawable/shape_edit_frame"
         android:gravity="top"/>
-    <Button
+    <TextView
         android:id="@+id/btn_feedback_commit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_height="40dp"
         android:text="@string/submit"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"

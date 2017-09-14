@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.bb.taold.R;
 import com.bb.taold.adapter.MessagesAdapter;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.utils.AppManager;
 import com.bb.taold.widget.recyclerview.RecyclerUtils;
 
 import java.util.ArrayList;
@@ -82,17 +83,15 @@ public class MyMessagesActivity extends BaseActivity {
     public void initdata() {
 
     }
-    @OnClick({})
+    @OnClick({R.id.btn_back,R.id.iv_right})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_back:
                 finish();
                 break;
             case R.id.iv_right:
-
+                AppManager.getInstance().showActivity(FeedbackActivity.class,null);
                 break;
-
-
         }
     }
 }

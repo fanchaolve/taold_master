@@ -10,7 +10,6 @@ import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.Session;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
-import com.bb.taold.utils.SignUtils;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -207,6 +206,14 @@ public interface ApiService {
      */
     @POST("/gateway?method=user.info")
     Call<Result_Api<UserInfo>> user_info();
+
+    /**
+     * 借款记录
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.createNewBankCard_mobile")
+    Call<Result_Api<String>> queryLoanRecords(@Field("offset") String bankCode,
+                                               @Field("limit") String owner);
 
 
 

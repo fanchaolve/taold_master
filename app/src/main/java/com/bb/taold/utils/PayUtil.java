@@ -136,10 +136,11 @@ public class PayUtil {
     }
 
     private String getSortParamsWithKey(){
-        return getSortParams()+"&key="+"";
+        return getSortParams()+"&key=bd3228d053dc4f02311ecc69";
     }
 
     private String getSignedParams(){
+
         return MD5Util.MD5(getSortParamsWithKey());
     }
 
@@ -147,9 +148,5 @@ public class PayUtil {
 
     private String getSafeParams(){
         return getSortParams()+"&sign="+getSignedParams();
-    }
-
-    private String getSignParams(String params){
-        return MD5Util.MD5(params);
     }
 }
