@@ -84,4 +84,7 @@
 
     <string name="ToolbarAlphaBehavior">com.bb.hbx.behavior.ToolbarAlphaBehavior</string>
     <string name="SearchViewAlphaBehavior">com.bb.hbx.behavior.SearchViewAlphaBehavior</string>
+    <string name="version_update">版本更新</string>
+    <string name="current_version">当前版本</string>
+    <string name="about_us">关于我们</string>
 </resources>
