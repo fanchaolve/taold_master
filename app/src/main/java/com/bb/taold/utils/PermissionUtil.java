@@ -31,6 +31,11 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     private static final int RC_RAED_PHONE = 128;           //文件读写权限
     private static final int RC_WRITE = 129;        //文件读写权限
     private static final int RC_LOCATION = 130;       //获取定位信息
+    private static final int RC_LOCATION_AND_PHONE_READ_STATUS = 131;       //获取定位信息和手机基础信息
+
+
+
+    private static final int RC_READ_CONTTACT=131;//读取联系人权限
     private static PermissionUtil instance;
     public onPermissionGentedListener listener;
 
@@ -135,6 +140,33 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
         }
     }
 
+
+    /**
+     * 获取定位和read_phone
+     */
+    @AfterPermissionGranted(RC_LOCATION_AND_PHONE_READ_STATUS)
+    public void loc_read_phone_P() {
+        //不是6.0以上的版本 直接运行
+        if (!isAndroidM()){
+            if (listener != null){
+                listener.onGented();
+            }
+            return;
+        }
+        String[] perms = { Manifest.permission.READ_PHONE_STATE };
+        //两个权限同时满足才执行接下去的任务
+        if (EasyPermissions.hasPermissions(AppManager.getInstance().currentActivity(),perms)) {
+            // Have permission, do the thing!
+            //Log.v("camera","two permission");
+            if (listener != null){
+                listener.onGented();
+            }
+        } else {
+            //获取多个权限
+            ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE}, RC_LOCATION_AND_PHONE_READ_STATUS);
+        }
+    }
+
     /**
      * 位置权限 （蓝牙相关）
      */
@@ -177,6 +209,31 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
         } else {
             //获取多个权限
             ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},RC_LOCATION);
+        }
+    }
+
+
+    /**
+     * 联系人权限
+     */
+    @AfterPermissionGranted(RC_READ_CONTTACT)
+    public void ReadPhoneContactsTask2() {
+        //不是6.0以上的版本 直接运行
+        if (!isAndroidM()){
+            if (listener != null){
+                listener.onGented();
+            }
+            return;
+        }
+        String[] perms = { Manifest.permission.READ_CONTACTS};
+        if (EasyPermissions.hasPermissions(AppManager.getInstance().currentActivity(), perms)) {
+            // Have permissions, do the thing!
+            if (listener != null){
+                listener.onGented();
+            }
+        } else {
+            // Ask for both permissions
+            ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.READ_CONTACTS}, RC_READ_CONTTACT);
         }
     }
 
@@ -244,18 +301,22 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         Log.d(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
-        if (EasyPermissions.somePermissionPermanentlyDenied((Activity) MyApplication.getAppContext(), perms) && requestCode == RC_CAMERA_PERM) {
-            new AppSettingsDialog.Builder((Activity) MyApplication.getAppContext(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"相机\"和\"存储空间\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied((Activity) MyApplication.getAppContext(), perms) && requestCode == RC_CAMERA_OPEN){
-            new AppSettingsDialog.Builder((Activity) MyApplication.getAppContext(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"相机\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied((Activity) MyApplication.getAppContext(), perms) && requestCode == RC_PHONE_READ_STATUS){
-            new AppSettingsDialog.Builder((Activity) MyApplication.getAppContext(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"存储空间\"和\"电话\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied((Activity) MyApplication.getAppContext(), perms) && requestCode == RC_LOCATION_CONTACTS_PERM) {
-            new AppSettingsDialog.Builder((Activity) MyApplication.getAppContext(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"位置信息\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied((Activity) MyApplication.getAppContext(), perms) && requestCode == RC_RAED_PHONE) {
-            new AppSettingsDialog.Builder((Activity) MyApplication.getAppContext(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"存储空间\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied((Activity) MyApplication.getAppContext(), perms) && requestCode == RC_LOCATION) {
-            new AppSettingsDialog.Builder((Activity) MyApplication.getAppContext(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"定位\"权限").setTitle("获取权限").build().show();
+        if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_CAMERA_PERM) {
+            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"相机\"和\"存储空间\"权限").setTitle("获取权限").build().show();
+        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_CAMERA_OPEN){
+            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"相机\"权限").setTitle("获取权限").build().show();
+        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_PHONE_READ_STATUS){
+            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"存储空间\"和\"电话\"权限").setTitle("获取权限").build().show();
+        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_LOCATION_CONTACTS_PERM) {
+            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"位置信息\"权限").setTitle("获取权限").build().show();
+        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_RAED_PHONE) {
+            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"存储空间\"权限").setTitle("获取权限").build().show();
+        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_LOCATION) {
+            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"定位\"权限").setTitle("获取权限").build().show();
+        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_READ_CONTTACT) {
+            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"通讯录\"权限").setTitle("获取权限").build().show();
+        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_LOCATION_AND_PHONE_READ_STATUS) {
+            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"定位\"和\"手机基础\"权限").setTitle("获取权限").build().show();
         }
         if (listener != null){
             listener.onFalied();

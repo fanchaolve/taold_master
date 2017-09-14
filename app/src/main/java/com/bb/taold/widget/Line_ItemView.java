@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,6 +39,9 @@ public class Line_ItemView extends LinearLayout {
 
     @BindView(R.id.tv_name)
     TextView tv_name;
+
+    @BindView(R.id.tv_value)
+    TextView tv_value;
 
     @BindView(R.id.et_value)
     TextView et_value;
@@ -75,18 +79,30 @@ public class Line_ItemView extends LinearLayout {
     }
 
     public String getValue() {
-        return et_value.getText().toString().trim();
+        if(et_value.getVisibility()==View.VISIBLE) {
+            return et_value.getText().toString().trim();
+        }else {
+            return tv_value.getText().toString().trim();
+        }
     }
 
-    public void select_View(){
-        et_value.setEnabled(false);
-        et_value.setFocusable(false);
-        et_value.setFocusableInTouchMode(false);
+    public void select_View() {
+        et_value.setVisibility(View.GONE);
+        tv_value.setVisibility(View.VISIBLE);
+        tv_value.setHint(hint);
         iv_last.setVisibility(View.VISIBLE);
     }
 
-    public void setText(String text){
-        et_value.setText(text);
+    public void setText(String text) {
+        if(et_value.getVisibility()==View.VISIBLE) {
+            et_value.setText(text);
+        }else {
+            tv_value.setText(text);
+        }
+
     }
+
+
+
 
 }

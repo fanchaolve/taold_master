@@ -7,6 +7,7 @@ package com.bb.taold.utils;
 public final class Constants {
 
     public static final String SUCCESS = "SUCCESS";//服务器返回成功
+    public static final String INVALID_SESSION = "INVALID_SESSION";//登陆失效
     public static final String OSNAME = "A";//操作系统
 
     public static final String APP_KEY="taolidai";

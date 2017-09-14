@@ -128,6 +128,10 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initdata() {
+
+
+        MyApplication.getInstance().saveSession("");
+
         postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {

@@ -47,6 +47,8 @@ public class SignUtils {
         //添加银行卡接口忽略签名
         ignoreParamNames.add("bankCode");
         ignoreParamNames.add("cardName");
+        ignoreParamNames.add("memberContactInfo");
+
     }
 
 

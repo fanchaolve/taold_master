@@ -32,7 +32,7 @@ public class WelcomeActivity extends BaseActivity {
 
 
     private PermissionUtil.onPermissionGentedListener listener;   //权限获取
-    protected PermissionUtil permissionUtil;
+
 
     private PostCallback postCallback;
 
@@ -59,7 +59,7 @@ public class WelcomeActivity extends BaseActivity {
 
 
     private void startPage() {
-        permissionUtil = PermissionUtil.getInstance();
+
         listener = new PermissionUtil.onPermissionGentedListener() {
             @Override
             public void onGented() {
@@ -79,16 +79,18 @@ public class WelcomeActivity extends BaseActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i("fancl", "session=" + MyApplication.getInstance().getSession());
-                        if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {//未登陆状态
-                            AppManager.getInstance().showActivity(LoginActivity.class, null);
-                        } else {//登陆状态
-                            AppManager.getInstance().showActivity(HomeActivity.class, null);
+                        if(AppManager.getInstance().currentActivity()!=null) {
+                            if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {//未登陆状态
+                                AppManager.getInstance().showActivity(LoginActivity.class, null);
+                            } else {//登陆状态
+                                AppManager.getInstance().showActivity(HomeActivity.class, null);
+                            }
+                            WelcomeActivity.this.finish();
                         }
                     }
-                }, 10);
+                }, 2000);
 
-                WelcomeActivity.this.finish();
+
             }
 
             @Override
@@ -99,6 +101,8 @@ public class WelcomeActivity extends BaseActivity {
         permissionUtil.setListener(listener);
 
         permissionUtil.GetLocationTask();
+
+
 
     }
 

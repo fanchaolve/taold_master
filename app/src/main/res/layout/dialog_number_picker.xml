@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!-- 取消 ，确定 按钮-->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/negativeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:text="取消"
+            android:textSize="15sp"
+            android:textColor="#999999"
+             />
+
+        <TextView
+            android:id="@+id/positiveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:text="确定"
+            android:textColor="#3B9BFF"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <com.bb.taold.widget.NumberPickerView
+        android:id="@+id/picker"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#F2F2F2"
+        app:npv_DividerColor="#BEBEBE"
+        app:npv_TextSizeNormal="13sp"
+        app:npv_TextSizeSelected="15sp"
+        android:layout_centerHorizontal="true"
+        app:npv_TextColorSelected="#333333"
+        app:npv_TextColorNormal="#999999"
+        app:npv_ShowCount="5"
+        app:npv_WrapSelectorWheel="false"/>
+
+</LinearLayout>

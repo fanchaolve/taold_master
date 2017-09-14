@@ -3,7 +3,9 @@ package com.bb.taold.api;
 import android.util.Log;
 
 
+import com.bb.taold.activitiy.login.LoginActivity;
 import com.bb.taold.base.v.BaseView;
+import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.Constants;
 
 
@@ -71,7 +73,12 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
 //
 //                }
 
+
+
                 successCallback(api);
+            } else if(Constants.INVALID_SESSION.equalsIgnoreCase(api.getStatus())){
+
+                AppManager.getInstance().showActivity(LoginActivity.class,null);
             } else if (view != null) {
                 failCallback();
                 if (isTip)

@@ -43,7 +43,7 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
     private boolean isCheck = true;//检测是否第一次
     public ApiService service = RetrofitFactory.getINSTANCE().create(ApiService.class);
 
-    protected PermissionUtil permissionUtil;
+    protected PermissionUtil permissionUtil = PermissionUtil.getInstance();
 
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);

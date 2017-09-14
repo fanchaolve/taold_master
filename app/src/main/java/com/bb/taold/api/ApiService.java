@@ -236,4 +236,21 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/gateway?method=member.removeCard")
     Call<Result_Api<String>> removeCard(@Field("cardId") String cardId);
+    /**
+     * 提交个人资料
+     * @param education
+     * @param address
+     * @param company
+     * @param companyAddress
+     * @param memberContactInfo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.commitMemberContactInfo")
+    Call<Result_Api<String>> member_commitMemberContactInfo(@Field("education") String education,
+                                                             @Field("address") String address,
+                                                             @Field("company") String company,
+                                                             @Field("companyAddress") String companyAddress,
+                                                             @Field("memberContactInfo") String memberContactInfo);
+
 }

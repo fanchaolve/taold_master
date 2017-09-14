@@ -54,7 +54,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 if(info== null)
                     return;
                 mEtAcctUser.setText(info.getRealName());
-
+            }else if(api.getT() instanceof  String){
 
             }
         }

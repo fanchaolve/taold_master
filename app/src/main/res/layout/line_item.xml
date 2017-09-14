@@ -35,6 +35,20 @@
             android:textCursorDrawable="@null"
             android:textAppearance="@style/TextAppear.Theme.111111_Size15"
             />
+
+        <TextView
+            android:id="@+id/tv_value"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/color_hint"
+            android:hint=""
+            android:visibility="gone"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textCursorDrawable="@null"
+            android:textAppearance="@style/TextAppear.Theme.111111_Size15"
+            />
         <ImageView
             android:id="@+id/iv_last"
             android:padding="4dp"

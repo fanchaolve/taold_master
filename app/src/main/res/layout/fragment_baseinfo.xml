@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingRight="15dp"
-                    app:hint="@string/edu_hint"
+                    app:hint="@string/pleaseselect"
                     app:left_name="@string/edu" />
 
                 <include layout="@layout/line_e" />
@@ -119,6 +119,8 @@
                     app:hint="@string/pleasereal_name"
                     app:left_name="@string/real_name" />
 
+                <include layout="@layout/line_e" />
+
                 <com.bb.taold.widget.Line_ItemView
                     android:id="@+id/li_relship"
                     android:layout_width="match_parent"
@@ -155,6 +157,8 @@
                     android:paddingRight="15dp"
                     app:hint="@string/pleasereal_name"
                     app:left_name="@string/real_name" />
+
+                <include layout="@layout/line_e" />
 
                 <com.bb.taold.widget.Line_ItemView
                     android:id="@+id/li_relship2"
