@@ -24,18 +24,15 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:hint="@string/feedback_hint"
+        android:textSize="16sp"
         android:background="@drawable/shape_edit_frame"
         android:gravity="top"/>
     <TextView
-        android:id="@+id/btn_feedback_commit"
+        android:id="@+id/tv_feedback_commit"
+        style="@style/btn_normal"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="40dp"
         android:text="@string/submit"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:textColor="@color/white"
-        android:layout_marginTop="25dp"
-        android:textSize="14sp"
-        android:background="@drawable/selector_btn_yellow"/>
+        android:layout_marginTop="25dp"/>
 </LinearLayout>

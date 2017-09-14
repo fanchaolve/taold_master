@@ -25,7 +25,7 @@ public class PayUtil {
 
     private Context context;
     private String merchantOutOrderNo = "";
-    private String merid = "";
+    private String merid = "100100102";
     private String noncestr = "";
     private String orderMoney = "";
     private String orderTime = "";
