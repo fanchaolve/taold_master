@@ -84,7 +84,7 @@ public class Auth_StateFragment extends BaseFragment implements View.OnClickList
     @Override
     public int getLayoutId() {
 
-        return 0;
+        return R.layout.fragment_auth_state;
     }
 
     @Override

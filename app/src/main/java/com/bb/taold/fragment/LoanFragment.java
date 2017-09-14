@@ -14,19 +14,23 @@ import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
-import com.bb.taold.activitiy.addBankCard.AddBankCardFinalActivity;
+import com.bb.taold.activitiy.loan.LoanConfirmActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.base.m.Frag_LoanModel;
 import com.bb.taold.base.p.Frag_LoanPresenter;
 import com.bb.taold.base.v.Frag_LoanContract;
+import com.bb.taold.bean.Product;
+import com.bb.taold.bean.ProductFee;
+import com.bb.taold.bean.ProductInfo;
+import com.bb.taold.bean.StagesInfo;
 import com.bb.taold.utils.AppManager;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import retrofit2.Call;
 
 /**
@@ -39,24 +43,36 @@ public class LoanFragment extends BaseFragment
 <Frag_LoanPresenter,Frag_LoanModel> implements Frag_LoanContract.View{
     @BindView(R.id.tv_loanAmount)
     TextView mTvLoanAmount;
+    @BindView(R.id.tv_status_7)
+    TextView mTvStatus7;
+    @BindView(R.id.tv_status_14)
+    TextView mTvStatus14;
     @BindView(R.id.tv_allPay)
     TextView mTvAllPay;
     @BindView(R.id.tv_needPay)
     TextView mTvNeedPay;
     @BindView(R.id.iv_question)
     ImageView mIvQuestion;
-    Unbinder unbinder;
     @BindView(R.id.iv_delete)
     ImageView mIvDelete;
     @BindView(R.id.iv_add)
     ImageView mIvAdd;
 
     //借款最高金额
-    private int maxAmount = 20000;
+    private int maxAmount = 0;
     //借款最低金额
-    private int minAmount = 500;
-
-    private PostCallback postCallback;//接口返回接受
+    private int minAmount = 0;
+    //接口返回接受
+    private PostCallback postCallback;
+    //保存最大金额和最小金额
+    private Product mProduct = null;
+    //分期数的信息
+    private String stage7Id = "";
+    private String stage14Id = "";
+    //使用分期id保存
+    private String userId = "";
+    //各项费用保存
+    private ProductFee mProductFee = null;
 
     @Override
     public int getLayoutId() {
@@ -77,11 +93,39 @@ public class LoanFragment extends BaseFragment
                 //判断哪个接口回调
                 if(getFlag() == 0){
                     //保存借款金额信息
+                    ProductInfo mProductInfo = (ProductInfo) api.getT();
+                    mProduct = mProductInfo.getProductInfo();
+                    //设置最大金额和最小金额
+                    maxAmount = Integer.parseInt(mProduct.getMaxAmt());
+                    minAmount = Integer.parseInt(mProduct.getMinAmt());
+                    //设置默认金额
+                    mTvLoanAmount.setText(mProduct.getDefaultAmt());
+                    //保存7天和14天对应的stagesId
+                    ArrayList<StagesInfo> mList = mProductInfo.getStagesInfo();
+                    for(int state=0;state<mList.size();state++){
+                        if(mList.get(state).getStages().equals("7")){
+                            //如果是7天
+                            stage7Id = mList.get(state).getProductId();
+                            continue;
+                        }
+                        if(mList.get(state).getStages().equals("14")){
+                            //如果是7天
+                            stage14Id = mList.get(state).getProductId();
+                            continue;
+                        }
+                    }
+                    //根据默认金额获取到账金额等信息
+                    userId = stage7Id;
+                    cacuAmount(userId,mProduct.getDefaultAmt());
+
                     return;
                 }
 
                 if(getFlag() == 1){
-                    //立即申请
+                    //获取各项费用
+                    mProductFee = (ProductFee) api.getT();
+                    mTvAllPay.setText(mProductFee.getTheActualToAccount());
+                    mTvNeedPay.setText(mProductFee.getTotalMoney());
                     return;
                 }
             }
@@ -93,33 +137,39 @@ public class LoanFragment extends BaseFragment
         };
 
         //初始页面获取借款金额信息
-        Call call = service.calculateInterest("0","14","1000");
+        Call call = service.productInfo("mini_loan");
         postCallback.setFlag(0);
         call.enqueue(postCallback);
 
-
-
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
+    /**
+     * 在更换金额或更换期数后重新获取各项费用
+     * @param productId
+     * @param amount
+     */
+    public void cacuAmount(String productId,String amount){
+        //根据默认金额获取到账金额等信息
+        Call call = service.calProductFee(productId,amount);
+        postCallback.setFlag(1);
+        call.enqueue(postCallback);
     }
 
 
-
-    @OnClick({R.id.iv_delete, R.id.iv_add, R.id.iv_question,R.id.tv_confirm})
+    @OnClick({R.id.iv_delete, R.id.iv_add, R.id.iv_question,R.id.tv_confirm,R.id.tv_status_7,R.id.tv_status_14})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
 //                mPresenter.memberInfo();
 
-//                Intent intent = new Intent(getActivity(), AddBankCardFinalActivity.class);
-//                startActivity(intent);
-                AppManager.getInstance().showActivity(AddBankCardActivity.class,null);
+                Bundle mBundle = new Bundle();
+                mBundle.putString("loanAmount",mTvLoanAmount.getText().toString());
+                if(userId.equals(stage7Id)){
+                    mBundle.putString("stage7Id",userId);
+                }else{
+                    mBundle.putString("stage14Id",userId);
+                }
+                AppManager.getInstance().showActivity(LoanConfirmActivity.class,mBundle);
                 break;
 
             case R.id.iv_delete:
@@ -131,6 +181,8 @@ public class LoanFragment extends BaseFragment
                     return;
                 }
                 mTvLoanAmount.setText((currentAmountDelete - 100) + "");
+                //重新获取接口计算各项费用
+                cacuAmount(userId,mTvLoanAmount.getText().toString());
                 break;
             case R.id.iv_add:
                 //获取当前金额
@@ -141,12 +193,37 @@ public class LoanFragment extends BaseFragment
                     return;
                 }
                 mTvLoanAmount.setText((currentAmount + 100) + "");
+                //重新获取接口计算各项费用
+                cacuAmount(userId,mTvLoanAmount.getText().toString());
                 break;
             case R.id.iv_question:
                 //提示对话框
                 View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_act_pay, null);
                 final Dialog tipDialog = new Dialog(getActivity(), R.style.processDialog);
                 tipDialog.setContentView(dialogView);
+
+                //实际到账金额
+                TextView tv_theActualToAccount = (TextView)dialogView.findViewById(R.id.tv_theActualToAccount);
+                tv_theActualToAccount.setText("+"+mProductFee.getTheActualToAccount()+"元");
+                //利息费
+                TextView tv_interestRates = (TextView)dialogView.findViewById(R.id.tv_interestRates);
+                tv_interestRates.setText("+"+mProductFee.getInterestRates()+"元");
+                //额度审核费
+                TextView tv_creditAuditRates = (TextView)dialogView.findViewById(R.id.tv_creditAuditRates);
+                tv_creditAuditRates.setText("+"+mProductFee.getCreditAuditRates()+"元");
+                //征信查询费
+                TextView tv_creditInspectRates = (TextView)dialogView.findViewById(R.id.tv_creditInspectRates);
+                tv_creditInspectRates.setText("+"+mProductFee.getCreditInspectRates()+"元");
+                //贷后管理费
+                TextView tv_manageRates = (TextView)dialogView.findViewById(R.id.tv_manageRates);
+                tv_manageRates.setText("+"+mProductFee.getManageRates()+"元");
+                //介绍费
+                TextView tv_introduceRates = (TextView)dialogView.findViewById(R.id.tv_introduceRates);
+                tv_introduceRates.setText("+"+mProductFee.getIntroduceRates()+"元");
+                //合计
+                TextView tv_totalMoney = (TextView)dialogView.findViewById(R.id.tv_totalMoney);
+                tv_totalMoney.setText("+"+mProductFee.getTotalMoney()+"元");
+
                 //"我知道了"按钮
                 TextView tv_confirm = (TextView) dialogView.findViewById(R.id.tv_confirm);
                 tv_confirm.setOnClickListener(new View.OnClickListener() {
@@ -165,10 +242,26 @@ public class LoanFragment extends BaseFragment
                 dialogWindow.setAttributes(p);
                 tipDialog.show();
                 break;
-//            case R.id.tv_apply:
-//                Intent intent = new Intent(getActivity(), LoanConfirmActivity.class);
-//                startActivity(intent);
-//                break;
+            case R.id.tv_status_7:
+                //点击"借7天"按钮
+                mTvStatus7.setTextColor(getResources().getColor(R.color.color_price));
+                mTvStatus7.setBackground(getResources().getDrawable(R.drawable.bg_loan_text_2));
+                mTvStatus14.setTextColor(getResources().getColor(R.color.font_normal));
+                mTvStatus14.setBackground(getResources().getDrawable(R.drawable.bg_loan_text));
+                userId = stage7Id;
+                //重新获取接口计算各项费用
+                cacuAmount(userId,mTvLoanAmount.getText().toString());
+                break;
+            case R.id.tv_status_14:
+                //点击"借14天"按钮
+                mTvStatus14.setTextColor(getResources().getColor(R.color.color_price));
+                mTvStatus14.setBackground(getResources().getDrawable(R.drawable.bg_loan_text_2));
+                mTvStatus7.setTextColor(getResources().getColor(R.color.font_normal));
+                mTvStatus7.setBackground(getResources().getDrawable(R.drawable.bg_loan_text));
+                userId = stage14Id;
+                //重新获取接口计算各项费用
+                cacuAmount(userId,mTvLoanAmount.getText().toString());
+                break;
         }
     }
 }

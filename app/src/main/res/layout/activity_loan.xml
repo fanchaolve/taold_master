@@ -72,28 +72,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp">
                 <TextView
+                    android:id="@+id/tv_status_7"
                     android:layout_width="100dp"
                     android:layout_height="32dp"
                     android:layout_marginLeft="64dp"
+                    android:textColor="#F1A942"
+                    android:textSize="14sp"
+                    android:background="@drawable/bg_loan_text_2"
+                    android:gravity="center"
+                    android:text="借7天"/>
+
+                <TextView
+                    android:id="@+id/tv_status_14"
+                    android:layout_width="100dp"
+                    android:layout_height="32dp"
                     android:textAppearance="@style/TextAppear.Theme.font40_Size14"
                     android:background="@drawable/bg_loan_text"
                     android:gravity="center"
-                    android:text="借7天"
-                    android:id="@+id/textView2"/>
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="32dp"
-                    android:textSize="14sp"
-                    android:textColor="#F1A942"
-                    android:background="@drawable/bg_loan_text_2"
-                    android:gravity="center"
+                    android:layout_alignParentRight="true"
                     android:text="借14天"
                     android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/textView2"
-                    android:layout_toEndOf="@+id/textView2"
-                    android:layout_marginLeft="54dp"
-                    android:layout_marginStart="54dp"/>
+                    android:layout_marginRight="54dp"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -141,6 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="18dp"
+                        android:layout_gravity="center"
                         android:orientation="horizontal">
                         <TextView
                             android:id="@+id/tv_needPay"

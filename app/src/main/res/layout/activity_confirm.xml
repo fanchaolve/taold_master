@@ -101,6 +101,7 @@
                     android:layout_marginLeft="15dp"
                     android:text="实际到账"/>
                 <TextView
+                    android:id="@+id/tv_theActualToAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
@@ -118,8 +119,8 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:orientation="vertical"
                 android:background="@color/white">
                 <RelativeLayout
@@ -134,7 +135,7 @@
                         android:textColor="@color/font_normal"
                         android:text="借款利息"/>
                     <TextView
-                        android:id="@+id/tv_transFee"
+                        android:id="@+id/tv_interestRates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
@@ -155,7 +156,7 @@
                         android:textColor="@color/font_normal"
                         android:text="额度审核费"/>
                     <TextView
-                        android:id="@+id/tv_verifyFee"
+                        android:id="@+id/tv_creditAuditRates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
@@ -176,7 +177,7 @@
                         android:textColor="@color/font_normal"
                         android:text="征信查询费"/>
                     <TextView
-                        android:id="@+id/tv_honorFee"
+                        android:id="@+id/tv_creditInspectRates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
@@ -197,7 +198,7 @@
                         android:textColor="@color/font_normal"
                         android:text="贷后管理费"/>
                     <TextView
-                        android:id="@+id/tv_manageFee"
+                        android:id="@+id/tv_manageRates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
@@ -218,7 +219,7 @@
                         android:textColor="@color/font_normal"
                         android:text="介绍费"/>
                     <TextView
-                        android:id="@+id/tv_introFee"
+                        android:id="@+id/tv_introduceRates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
@@ -247,6 +248,7 @@
                     android:textStyle="bold"
                     android:text="总共应还"/>
                 <TextView
+                    android:id="@+id/tv_totalMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
@@ -357,43 +359,49 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
                     <ImageView
+                        android:id="@+id/iv_btn1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/square_nor"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="5dp"
+                        android:layout_marginTop="1dp"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
                         android:text="我已同意"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="《自动还款协议》"
+                        android:layout_marginTop="5dp"
                         android:textColor="@color/color_price"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="30dp"
                     android:orientation="horizontal">
                     <ImageView
+                        android:id="@+id/iv_btn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/square_sel"
+                        android:padding="5dp"
+                        android:layout_marginTop="1dp"
                         />
                     <TextView
+                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
                         android:text="我保证借款用于合法的消费或经营途径，而非任何非法用途（如股票，房地产，赌博）"/>
                 </LinearLayout>
             </LinearLayout>

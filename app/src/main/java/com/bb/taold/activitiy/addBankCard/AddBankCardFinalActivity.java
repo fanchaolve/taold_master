@@ -9,18 +9,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.activitiy.HomeActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.CardCheck;
-import com.bb.taold.bean.Session;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.listener.Callexts;
-import com.bb.taold.utils.AppManager;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
@@ -135,6 +131,9 @@ public class AddBankCardFinalActivity extends BaseActivity {
                         info.getIdCard(),cardCheck.getBankName(),
                         mEtAcctPhone.getText().toString());
                 Callexts.need_sessionPost(call,postCallback);
+
+//                Call<Result_Api <String>> call = service.removeCard(cardCheck.getCardNo().replace(" ",""));
+//                Callexts.need_sessionPost(call,postCallback);
                 break;
         }
     }

@@ -127,7 +127,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    public void initdata() {AppManager.getInstance().showActivity(HomeActivity.class, null);
+    public void initdata() {
         postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {

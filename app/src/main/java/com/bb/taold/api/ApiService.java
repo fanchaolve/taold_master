@@ -4,6 +4,9 @@ import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
 import com.bb.taold.bean.CardCheck;
+import com.bb.taold.bean.Product;
+import com.bb.taold.bean.ProductFee;
+import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.Session;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
@@ -122,16 +125,23 @@ public interface ApiService {
 
     /**
      * 借款金额信息（各种利息
-     * @param productCode 产品编号
      * @param stages 产品期数
      * @param money 借款金额
      * @return
      */
     @FormUrlEncoded
-    @POST("/gateway?method=trate.calculateInterest")
-    Call<Result_Api<Session>> calculateInterest(@Field("productCode") String productCode,
-                                                @Field("stages") String stages,
-                                                @Field("money") String money);
+    @POST("/gateway?method=trade.calProductFee")
+    Call<Result_Api<ProductFee>> calProductFee(@Field("stagesId") String stages,
+                                               @Field("money") String money);
+
+    /**
+     * 查看产品信息
+     * @param productCode 产品编号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=trade.productInfo")
+    Call<Result_Api<ProductInfo>> productInfo(@Field("productCode") String productCode);
 
 
     /**
@@ -199,4 +209,24 @@ public interface ApiService {
     Call<Result_Api<UserInfo>> user_info();
 
 
+
+    /**
+     *  设置主卡
+     *
+     * @param cardId 卡号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.setToMaster")
+    Call<Result_Api<String>> setToMaster(@Field("cardId") String cardId);
+
+    /**
+     *  移除卡（解绑银行卡）
+     *
+     * @param cardId 银行卡号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.removeCard")
+    Call<Result_Api<String>> removeCard(@Field("cardId") String cardId);
 }

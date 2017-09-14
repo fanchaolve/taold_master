@@ -1,6 +1,5 @@
-package com.bb.taold.activitiy;
+package com.bb.taold.activitiy.loan;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -9,7 +8,6 @@ import com.bb.taold.R;
 import com.bb.taold.base.BaseActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -43,13 +41,6 @@ public class ApplySuccessActivity extends BaseActivity {
     @Override
     public void initdata() {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     @OnClick({R.id.btn_back, R.id.tv_ok})

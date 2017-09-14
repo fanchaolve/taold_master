@@ -33,6 +33,7 @@
             android:textColor="@color/color_111111"/>
 
         <TextView
+            android:id="@+id/tv_theActualToAccount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -60,6 +61,7 @@
             android:textColor="@color/color_111111"/>
 
         <TextView
+            android:id="@+id/tv_interestRates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -86,6 +88,7 @@
             android:textColor="@color/color_111111"/>
 
         <TextView
+            android:id="@+id/tv_creditAuditRates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -112,6 +115,7 @@
             android:textColor="@color/color_111111"/>
 
         <TextView
+            android:id="@+id/tv_creditInspectRates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -138,6 +142,7 @@
             android:textColor="@color/color_111111"/>
 
         <TextView
+            android:id="@+id/tv_manageRates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -164,6 +169,7 @@
             android:textColor="@color/color_111111"/>
 
         <TextView
+            android:id="@+id/tv_introduceRates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -191,6 +197,7 @@
             android:textColor="@color/color_111111"/>
 
         <TextView
+            android:id="@+id/tv_totalMoney"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

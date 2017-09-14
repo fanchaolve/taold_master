@@ -1,6 +1,5 @@
 package com.bb.taold.activitiy.cardList;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
@@ -17,7 +16,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -52,13 +50,6 @@ public class CardListActivity extends BaseActivity {
     @Override
     public void initListener() {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     @Override
