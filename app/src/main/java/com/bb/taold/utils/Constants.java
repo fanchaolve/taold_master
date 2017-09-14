@@ -34,4 +34,6 @@ public final class Constants {
 
     //微信分享
     public static final String APP_ID = "wxc7473dec7d6ffdc0";
+    //聚合-支付宝支付
+    public static final String EBJ_ALIPAY_URL = "http://pay.ebjfinance.com/alijspay.php";
 }
