@@ -131,16 +131,15 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initdata() {
 
-        AppManager.getInstance().showActivity(EntireFactorPayActivity.class, null);
         MyApplication.getInstance().saveSession("");
 
         postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {
-                    if (getFlag() == 0) {//验证码
-                        showTip("验证码已发送");
-                        return;
-                    }
+//                    if (getFlag() == 0) {//验证码
+//                        showTip("验证码已发送");
+//                        return;
+//                    }
 
                     if (api.getT() instanceof Session) {//登录
                         Session session = (Session) api.getT();

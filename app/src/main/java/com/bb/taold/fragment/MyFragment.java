@@ -8,13 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.activitiy.EntireFactorPayActivity;
 import com.bb.taold.activitiy.my.FeedbackActivity;
 import com.bb.taold.activitiy.my.HelpAcitivity;
 import com.bb.taold.activitiy.my.LoanRecordsActivity;
 import com.bb.taold.activitiy.my.MyMessagesActivity;
+import com.bb.taold.activitiy.webview.WebViewActivity;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -85,10 +86,9 @@ public class MyFragment extends BaseFragment {
                 AppManager.getInstance().showActivity(FeedbackActivity.class, null);
                 break;
             case R.id.lay_about_us:
-//                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
-//                PayUtil payUtil = new PayUtil(mContext, "201709131416011245", "100100102", "15ca0a59d7e34c79850dc0b5d3017b96", "0.01", "20170913141601");
-//                payUtil.startPay();
-                AppManager.getInstance().showActivity(EntireFactorPayActivity.class, null);
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.WEBVIEW_URL,"http://www.baidu.com");
+                AppManager.getInstance().showActivity(WebViewActivity.class, bundle);
 //                new BindCardUtils(getActivity(),"201306031000001013","28","20170915151055","057ED67FDB9C53766B1511F3037A241F");
                 break;
 

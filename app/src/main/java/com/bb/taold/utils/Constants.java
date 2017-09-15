@@ -14,7 +14,8 @@ public final class Constants {
     public static final String SECRET="lU9ZCkpxiL9PW86QevPXhs";
 
     public static final String AUTHOINFO="authinfo";
-
+    //webview url
+    public static final String WEBVIEW_URL = "url";
 
 
 
