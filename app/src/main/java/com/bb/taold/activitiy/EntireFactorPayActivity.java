@@ -67,7 +67,15 @@ public class EntireFactorPayActivity extends Activity {
                     public void run() {
                         JSONObject signBean = BaseHelper.Object2JSON(constructCreatBillBean());
                         JSONObject resultObj = HttpRequest.request(getApplicationContext(), signBean, LLPayConstants.CREATBILLURL);
+                        //{"ret_code":"0000","ret_msg":"交易成功","correlationID":"5b152acf-1c9f-46b1-a17a-1802bf2d1161","oid_partner":"201306031000001013","user_id":"27","no_order":"20170915210016","token":"1FEC4BD381DD0B6D87C4151402097482"}
                         String retcode = resultObj.optString("ret_code", "");
+                        try {
+                            resultObj.put("correlationID","");
+                            resultObj.put("ret_code","");
+                            resultObj.put("ret_msg","");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         Log.i("jump_btn", "request: " + resultObj);
                         if ("0000".equals(retcode))
                         {
