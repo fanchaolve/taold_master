@@ -6,16 +6,23 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bb.taold.MyApplication;
 import com.bb.taold.R;
-import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
+import com.bb.taold.activitiy.cardList.CardListActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.CardInfo;
+import com.bb.taold.bean.Cardinfos;
+import com.bb.taold.bean.LoanInfo;
 import com.bb.taold.bean.Product;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
+import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
-import com.bb.taold.utils.CardNumScanUtil;
+import com.bb.taold.utils.DeviceUtils;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -77,6 +84,8 @@ public class LoanConfirmActivity extends BaseActivity {
     private boolean agreeRule1 = false;
     //记录是否同意第二个协议
     private boolean agreeRule2 = false;
+    //保存主卡信息
+    private CardInfo mCardInfo = null;
 
     @Override
     public int getLayoutId() {
@@ -113,7 +122,7 @@ public class LoanConfirmActivity extends BaseActivity {
             @Override
             public void successCallback(Result_Api api) {
                 //判断哪个接口回调
-                if(getFlag() == 0){
+                if(api.getT() instanceof ProductInfo){
                     //保存借款金额信息
                     ProductInfo mProductInfo = (ProductInfo) api.getT();
                     mProduct = mProductInfo.getProductInfo();
@@ -125,7 +134,7 @@ public class LoanConfirmActivity extends BaseActivity {
                     return;
                 }
 
-                if(getFlag() == 1){
+                if(api.getT() instanceof ProductFee){
                     //获取各项费用
                     mProductFee = (ProductFee) api.getT();
                     //实际到账金额
@@ -144,6 +153,25 @@ public class LoanConfirmActivity extends BaseActivity {
                     mTvTotalMoney.setText(mProductFee.getTotalMoney()+"元");
                     return;
                 }
+                //获取银行卡列表
+                if(api.getT() instanceof Cardinfos){
+                    ArrayList<CardInfo> cards = (ArrayList<CardInfo>)api.getT();
+                    mCardInfo  = cards.get(0);
+                    //银行名称
+                    mTvBankname.setText(mCardInfo.getCardName());
+                    //卡片类型
+                    mTvBanktype.setText("借记卡");
+                    //银行卡号
+                    String cardNo = mCardInfo.getCardno();
+                    if(cardNo.length()>4){
+                        cardNo = cardNo.substring(cardNo.length()-4,cardNo.length());
+                    }
+                    mTvCardno.setText("**** **** **** "+cardNo);
+                }
+
+                if(api.getT() instanceof LoanInfo){
+                    AppManager.getInstance().showActivity(ApplySuccessActivity.class,null);
+                }
 
             }
 
@@ -154,10 +182,11 @@ public class LoanConfirmActivity extends BaseActivity {
         };
 
         //初始页面获取借款金额信息
-        Call call = service.productInfo("mini_loan");
-        postCallback.setFlag(0);
-        call.enqueue(postCallback);
+        Call<Result_Api<ProductInfo>> call=service.productInfo("mini_loan");
+        Callexts.need_sessionPost(call,postCallback);
 
+        Call<Result_Api<Cardinfos>> callCard=service.bankList("10");
+        Callexts.need_sessionPost(callCard,postCallback);
     }
 
     /**
@@ -167,9 +196,8 @@ public class LoanConfirmActivity extends BaseActivity {
      */
     public void cacuAmount(String productId,String amount){
         //根据默认金额获取到账金额等信息
-        Call call = service.calProductFee(productId,amount);
-        postCallback.setFlag(1);
-        call.enqueue(postCallback);
+        Call<Result_Api<ProductFee>> call=service.calProductFee(productId,amount);
+        Callexts.need_sessionPost(call,postCallback);
     }
 
     @OnClick({R.id.btn_back, R.id.iv_add, R.id.tv_loanAmount, R.id.iv_delete, R.id.tv_confirm,R.id.iv_btn1,R.id.iv_btn2,
@@ -212,6 +240,15 @@ public class LoanConfirmActivity extends BaseActivity {
                 cacuAmount(userId,mTvLoanAmount.getText().toString());
                 break;
             case R.id.tv_confirm:
+                if(!(agreeRule1 && agreeRule2)){
+                    showTip("请阅读协议");
+                    return;
+                }
+                //调用小额贷款接口
+                Call<Result_Api> call=service.applyMiniLoan(mCardInfo.getId(),mTvLoanAmount.getText().toString(),
+                        mTvLoanDays.getText().toString().replace("天",""), MyApplication.longitude+"-"+MyApplication.latitude,
+                        DeviceUtils.getDeviceIdentification(this),"1","1","1","1");
+                Callexts.need_sessionPost(call,postCallback);
                 break;
             case R.id.iv_btn1:
                 if(agreeRule1)
@@ -228,8 +265,7 @@ public class LoanConfirmActivity extends BaseActivity {
                 agreeRule2 = !agreeRule2;
                 break;
             case R.id.tv_changeCard:
-                //添加银行卡页面
-                CardNumScanUtil.getINSTANCE().doScan();
+                AppManager.getInstance().showActivity(CardListActivity.class,null);
                 break;
         }
     }

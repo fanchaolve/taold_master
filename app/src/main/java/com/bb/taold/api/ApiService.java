@@ -4,12 +4,15 @@ import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
 import com.bb.taold.bean.CardCheck;
-import com.bb.taold.bean.Product;
+import com.bb.taold.bean.CardInfo;
+import com.bb.taold.bean.Cardinfos;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.Session;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -39,9 +42,14 @@ public interface ApiService {
                                    @Field("appkey") String appkey);
 
 
-
-    //--------------------------------------------
-
+    /**
+     * 短信验证码
+     *
+     * @param mobile 手机号码
+     * @return
+     */
+    @GET("/gateway?method=sms.sendLoginSmsCode")
+    Call<Result_Api> sms_sendLoginSmsCode(@Query("mobile") String mobile);
 
     /**
      * 会员登陆
@@ -74,15 +82,76 @@ public interface ApiService {
                                          @Field("net_type") String net_type
     );
 
-
     /**
-     * 短信验证码
-     *
-     * @param mobile 手机号码
+     * 用户信息
      * @return
      */
-    @GET("/gateway?method=sms.sendLoginSmsCode")
-    Call<Result_Api> sms_sendLoginSmsCode(@Query("mobile") String mobile);
+    @POST("/gateway?method=user.info")
+    Call<Result_Api<UserInfo>> user_info();
+
+
+
+    /**
+     *  银行卡绑定（添加银行
+     *
+     * @param bankCode 银行编号
+     * @param owner    持卡人姓名
+     * @param cardno   卡号
+     * @param idno 身份证号码
+     * @param cardName    卡名称
+     * @param mobile   预留手机号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.createNewBankCard_mobile")
+    Call<Result_Api<String>> createNewBankCard(@Field("bankCode") String bankCode,
+                                               @Field("owner") String owner,
+                                               @Field("cardno") String cardno,
+                                               @Field("idno") String idno,
+                                               @Field("cardName") String cardName,
+                                               @Field("mobile") String mobile);
+
+    /**
+     *  设置主卡
+     *
+     * @param cardId 卡号Id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.setToMaster")
+    Call<Result_Api<String>> setToMaster(@Field("cardId") String cardId);
+
+    /**
+     *  移除卡（解绑银行卡）
+     *
+     * @param cardId 银行卡号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.removeCard")
+    Call<Result_Api<String>> removeCard(@Field("cardId") String cardId);
+
+
+    /**
+     * 识别银行卡是否有效
+     * @param cardNo 银行卡号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=bank.checkBankcard")
+    Call<Result_Api<CardCheck>> supportCard(@Field("cardNo") String cardNo);
+
+    /**
+     *  用户卡列表
+     *
+     * @param bankType 卡类型
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.bankList_bankType")
+    Call<Result_Api<Cardinfos>> bankList(@Field("bankType") String bankType);
+
+
 
     /**
      * 小额贷款
@@ -103,13 +172,12 @@ public interface ApiService {
     Call<Result_Api> applyMiniLoan(@Field("bankCardId") String bankCardId,
                                    @Field("amtLoan") String amtLoan,
                                    @Field("loanDays") String loanDays,
+                                   @Field("latLot") String latLot,
+                                   @Field("deviceId") String deviceId,
                                    @Field("activityCode") String activityCode,
                                    @Field("couponNo") String couponNo,
-                                   @Field("deviceId") String deviceId,
-                                   @Field("latLot") String latLot,
                                    @Field("applyIp") String applyIp,
                                    @Field("version") String version);
-
 
     /**
      * 借款申请详情
@@ -120,6 +188,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/gateway?method=loan.loanDetail")
     Call<Result_Api<Session>> loanDetail(@Field("loanId") String loanId);
+
 
 
     /**
@@ -141,6 +210,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/gateway?method=trade.productInfo")
     Call<Result_Api<ProductInfo>> productInfo(@Field("productCode") String productCode);
+
+
 
 
     /**
@@ -170,72 +241,7 @@ public interface ApiService {
     @POST("/gateway?method=ocr.authStatus")
     Call<Result_Api<AuthMessage>> ocr_authStatus(@Field("orderNo") String orderNo);
 
-    /**
-     * 识别银行卡是否有效
-     * @param cardNo 银行卡号
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("/gateway?method=bank.checkBankcard")
-    Call<Result_Api<CardCheck>> supportCard(@Field("cardNo") String cardNo);
 
-    /**
-     *  银行卡绑定（添加银行
-     *
-     * @param bankCode 银行编号
-     * @param owner    持卡人姓名
-     * @param cardno   卡号
-     * @param idno 身份证号码
-     * @param cardName    卡名称
-     * @param mobile   预留手机号
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("/gateway?method=member.createNewBankCard_mobile")
-    Call<Result_Api<String>> createNewBankCard(@Field("bankCode") String bankCode,
-                                                  @Field("owner") String owner,
-                                                  @Field("cardno") String cardno,
-                                                  @Field("idno") String idno,
-                                                  @Field("cardName") String cardName,
-                                                  @Field("mobile") String mobile);
-
-
-    /**
-     * 用户信息
-     * @return
-     */
-    @POST("/gateway?method=user.info")
-    Call<Result_Api<UserInfo>> user_info();
-
-    /**
-     * 借款记录
-     */
-    @FormUrlEncoded
-    @POST("/gateway?method=member.createNewBankCard_mobile")
-    Call<Result_Api<String>> queryLoanRecords(@Field("offset") String bankCode,
-                                               @Field("limit") String owner);
-
-
-
-    /**
-     *  设置主卡
-     *
-     * @param cardId 卡号
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("/gateway?method=member.setToMaster")
-    Call<Result_Api<String>> setToMaster(@Field("cardId") String cardId);
-
-    /**
-     *  移除卡（解绑银行卡）
-     *
-     * @param cardId 银行卡号
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("/gateway?method=member.removeCard")
-    Call<Result_Api<String>> removeCard(@Field("cardId") String cardId);
     /**
      * 提交个人资料
      * @param education

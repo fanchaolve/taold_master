@@ -1,10 +1,8 @@
 package com.bb.taold.activitiy.addBankCard;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,6 +13,7 @@ import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.CardCheck;
+import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.CardNumScanUtil;
 import com.idcard.CardInfo;
@@ -22,7 +21,6 @@ import com.idcard.TFieldID;
 import com.turui.bank.ocr.CaptureActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
@@ -144,7 +142,7 @@ public class AddBankCardActivity extends BaseActivity {
     }
 
     private void getCardState(String ordNo) {
-        Call<Result_Api<CardCheck>> call = service.supportCard(ordNo);
-        call.enqueue(postCallback);
+        Call<Result_Api<CardCheck>> call=service.supportCard(ordNo);
+        Callexts.need_sessionPost(call,postCallback);
     }
 }

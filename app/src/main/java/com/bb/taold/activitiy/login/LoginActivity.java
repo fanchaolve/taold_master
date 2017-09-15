@@ -21,6 +21,7 @@ import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.Session;
+import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.DeviceUtils;
 
@@ -140,7 +141,7 @@ public class LoginActivity extends BaseActivity {
                         return;
                     }
 
-                    if (getFlag() == 1) {//登录
+                    if (api.getT() instanceof Session) {//登录
                         Session session = (Session) api.getT();
                         if (session != null) {
                             MyApplication.getInstance().saveSession(session.getSession());
@@ -188,20 +189,13 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
-//        if(!etMobileStr.equalsIgnoreCase(mobile_bding_code)) {
-//
-//            return;
-//        }
-
-        Call<Result_Api<Session>> call = service.user_login(
+        Call<Result_Api<Session>> call=service.user_login(
                 etMobileStr, mEtCode.getText().toString(), MyApplication.longitude+"-"+MyApplication.latitude,
                 "android", DeviceUtils.getDeviceIdentification(this),
                 DeviceUtils.getCurrVersionCode(this)+"",DeviceUtils.getManufacturer(),
                 DeviceUtils.getModel(),"TL","T","4G");
-        postCallback.setFlag(1);
-        call.enqueue(postCallback);
-//        Intent intent = new Intent(this, AuthInfoActivity.class);
-//        startActivity(intent);
+        Callexts.Unneed_sessionPost(call,postCallback);
+
     }
 
     /**
@@ -231,10 +225,11 @@ public class LoginActivity extends BaseActivity {
             }
         };
         mTimer.schedule(task, 0, 1000);
-        Call<Result_Api> call = service.sms_sendLoginSmsCode(mEtMobile.getText().toString().trim());
+
+        Call<Result_Api> call=service.sms_sendLoginSmsCode(mEtMobile.getText().toString().trim());
         postCallback.setFlag(0);
         mobile_bding_code = mEtMobile.getText().toString().trim();
-        call.enqueue(postCallback);
+        Callexts.Unneed_sessionPost(call,postCallback);
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.bb.taold.activitiy.repay;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,7 +14,6 @@ import com.bb.taold.bean.RepayDetail;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by zhucheng'an on 2017/9/13.
@@ -105,10 +103,4 @@ public class RepayDetailActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

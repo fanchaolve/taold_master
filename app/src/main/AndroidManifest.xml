@@ -132,7 +132,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="kX2RNGGzHaAFczwXOHU0BfR3GFT0w8wC"/> <!-- http://lbsyun.baidu.com/apiconsole/key -->
+            android:value="43baZAw1UgoxxFbEAm8HUoPGThu79SRG"/> <!-- http://lbsyun.baidu.com/apiconsole/key -->
 
         <activity android:name=".activitiy.my.LoanRecordsActivity">
         </activity>

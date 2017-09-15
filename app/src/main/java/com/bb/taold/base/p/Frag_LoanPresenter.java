@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.bb.taold.activitiy.AuthInfoActivity;
 import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
 import com.bb.taold.activitiy.loan.LoanConfirmActivity;
+import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.v.Frag_LoanContract;
@@ -43,7 +44,6 @@ public class Frag_LoanPresenter extends Frag_LoanContract.Presenter {
                     AppManager.getInstance().showActivity(AuthInfoActivity.class, bundle);
                 } else if (info.getFlag() == 6) {//绑定主卡
                     AppManager.getInstance().showActivity(AddBankCardActivity.class, null);
-
                 } else {//条件满足
 
                 }

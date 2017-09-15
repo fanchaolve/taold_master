@@ -42,6 +42,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tv_bankname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_111111"
@@ -49,6 +50,7 @@
                 android:textStyle="bold"
                 android:text="工商银行"/>
             <TextView
+                android:id="@+id/tv_cardinfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/font_normal"
@@ -57,6 +59,7 @@
                 android:text="尾号6220 借记卡"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/tv_cardtype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="放款卡"
