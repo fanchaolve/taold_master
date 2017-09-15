@@ -8,7 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 
+import com.bb.taold.MyApplication;
 import com.bb.taold.R;
+import com.bb.taold.activitiy.login.LoginActivity;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.fragment.Auth_StateFragment;
@@ -246,5 +248,27 @@ public class AppManager {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
+
+    /**
+     * 退出登录
+     */
+    public void logout(){
+        if(isLogin()){
+            showActivity(LoginActivity.class,null);
+        }
+    }
+
+    /**
+     * 是否登录
+     */
+    public boolean isLogin(){
+       String session= MyApplication.getInstance().getSession();
+        if(session == null || "".equalsIgnoreCase(session)){
+            return false;
+        }
+        return true;
+    }
+
+
 
 }

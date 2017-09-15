@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.activitiy.my.AboutUsActivity;
+import com.bb.taold.activitiy.EntireFactorPayActivity;
 import com.bb.taold.activitiy.my.FeedbackActivity;
 import com.bb.taold.activitiy.my.HelpAcitivity;
 import com.bb.taold.activitiy.my.LoanRecordsActivity;
@@ -69,7 +69,7 @@ public class MyFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.lay_apply_records,R.id.lay_my_messages,R.id.lay_help,R.id.lay_feedback,R.id.lay_about_us})
+    @OnClick({R.id.lay_apply_records, R.id.lay_my_messages, R.id.lay_help, R.id.lay_feedback, R.id.lay_about_us, R.id.lay_logout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lay_apply_records:
@@ -85,11 +85,17 @@ public class MyFragment extends BaseFragment {
                 AppManager.getInstance().showActivity(FeedbackActivity.class, null);
                 break;
             case R.id.lay_about_us:
-                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
+//                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
 //                PayUtil payUtil = new PayUtil(mContext, "201709131416011245", "100100102", "15ca0a59d7e34c79850dc0b5d3017b96", "0.01", "20170913141601");
 //                payUtil.startPay();
+                AppManager.getInstance().showActivity(EntireFactorPayActivity.class, null);
+//                new BindCardUtils(getActivity(),"201306031000001013","28","20170915151055","057ED67FDB9C53766B1511F3037A241F");
                 break;
-       }
+
+            case R.id.lay_logout://退出登录
+                AppManager.getInstance().logout();
+                break;
+        }
     }
 
     @Override

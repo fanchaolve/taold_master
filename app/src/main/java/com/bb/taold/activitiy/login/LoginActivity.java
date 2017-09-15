@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bb.taold.MyApplication;
 import com.bb.taold.R;
 import com.bb.taold.activitiy.AuthInfoActivity;
+import com.bb.taold.activitiy.EntireFactorPayActivity;
 import com.bb.taold.activitiy.HomeActivity;
 import com.bb.taold.activitiy.cardList.CardListActivity;
 import com.bb.taold.api.PostCallback;
@@ -130,7 +131,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initdata() {
 
-
+        AppManager.getInstance().showActivity(EntireFactorPayActivity.class, null);
         MyApplication.getInstance().saveSession("");
 
         postCallback = new PostCallback(this) {

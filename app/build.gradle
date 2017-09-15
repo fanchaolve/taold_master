@@ -65,4 +65,5 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/TCardApi.jar')
+    compile(name: 'securePay-V3.1.0_20170607', ext: 'aar')
 }

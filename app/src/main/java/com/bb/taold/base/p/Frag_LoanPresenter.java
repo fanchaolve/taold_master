@@ -5,6 +5,8 @@ import android.os.Bundle;
 import com.bb.taold.activitiy.AuthInfoActivity;
 import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
 import com.bb.taold.activitiy.loan.LoanConfirmActivity;
+import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
+import com.bb.taold.activitiy.loan.LoanConfirmActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.v.Frag_LoanContract;

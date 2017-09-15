@@ -61,7 +61,7 @@
     <string name="zpmh">照片模糊</string>
     <string name="sgql">闪光强烈</string>
     <string name="jdqx">角度倾斜</string>
-
+    <string name="update_version">新版本升级</string>
     <string name="face_sorry">抱歉,人脸认证失败,请重新认证</string>
     <string name="face_loading">正在获取认证结果请耐心等待...</string>
     <string name="face_sorry1">抱歉,人脸认证获取失败,请重新获取</string>
@@ -78,6 +78,8 @@
 
 
 
+    <string name="no_escalation">暂不升级</string>
+    <string name="lj_escalation">立即升级</string>
 
 
     <!-- behavior -->
@@ -87,4 +89,9 @@
     <string name="version_update">版本更新</string>
     <string name="current_version">当前版本</string>
     <string name="about_us">关于我们</string>
+
+    <string name="app_nam">连连支付SDK</string>
+    <string name="app_name_stand">连连四要素SDK</string>
+    <string name="sdk_introduction">SDK支持两种接入方式（标准版和卡前置），请按menu键进行选择所需要的支付方式，默认方式是标准版接入</string>
+
 </resources>

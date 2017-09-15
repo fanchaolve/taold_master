@@ -35,6 +35,10 @@ public interface Frag_LoanContract {
         //7天id
         String get7RateId();
 
+
+
+
+
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {

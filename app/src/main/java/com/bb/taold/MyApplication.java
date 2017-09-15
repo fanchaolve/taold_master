@@ -49,7 +49,7 @@ public class MyApplication extends Application {
         return context;
     }
 
-    ;
+
 
     public static MyApplication getInstance() {
         return INSTANCE;
@@ -64,4 +64,6 @@ public class MyApplication extends Application {
         GPSUtil.tryInit(this);//定位
 
     }
+
+
 }

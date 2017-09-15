@@ -57,11 +57,13 @@ public class AboutUsActivity extends BaseActivity {
     public void initdata() {
 
     }
-    @OnClick({})
+    @OnClick({R.id.btn_back,R.id.lay_check_update})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_back:
                 finish();
+            case R.id.lay_check_update:
+
                 break;
         }
     }
