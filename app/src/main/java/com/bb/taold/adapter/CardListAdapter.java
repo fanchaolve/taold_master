@@ -4,10 +4,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.activitiy.cardList.CardListActivity;
+import com.bb.taold.bean.CardInfo;
 import com.bb.taold.widget.SwipeListLayout;
 
 import java.util.ArrayList;
@@ -20,9 +22,10 @@ import java.util.ArrayList;
 public class CardListAdapter extends BaseAdapter {
 
     public CardListActivity mActivity;
-    public ArrayList<String> list;
+    public ArrayList<CardInfo> list;
+    public ViewHolder holder;
 
-    public CardListAdapter(CardListActivity mActivity,ArrayList<String> list){
+    public CardListAdapter(CardListActivity mActivity,ArrayList<CardInfo> list){
         this.mActivity = mActivity;
         this.list = list;
     }
@@ -43,26 +46,59 @@ public class CardListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int arg0, View view, ViewGroup arg2) {
-        if (view == null) {
-            view = LayoutInflater.from(mActivity).inflate(
-                    R.layout.item_card, null);
-        }
-        final SwipeListLayout sll_main = (SwipeListLayout) view
-                .findViewById(R.id.sll_main);
-        TextView tv_delete = (TextView) view.findViewById(R.id.tv_delete);
-        sll_main.setOnSwipeStatusListener(new CardListActivity.MyOnSlipStatusListener(
-                sll_main));
-        tv_delete.setOnClickListener(new View.OnClickListener() {
+    public View getView(final int position, View convertView, ViewGroup arg2) {
 
-            @Override
-            public void onClick(View view) {
-                sll_main.setStatus(SwipeListLayout.Status.Close, true);
-                list.remove(arg0);
-                notifyDataSetChanged();
-            }
-        });
-        return view;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_card, null);
+            holder = new ViewHolder();
+
+            holder.sll_main = (SwipeListLayout)convertView.findViewById(R.id.sll_main);
+            holder.tv_delete = (TextView) convertView.findViewById(R.id.tv_delete);
+            holder.sll_main.setOnSwipeStatusListener(new CardListActivity.MyOnSlipStatusListener(
+                    holder.sll_main));
+            holder.tv_delete.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    holder.sll_main.setStatus(SwipeListLayout.Status.Close, true);
+                    mActivity.removeCard(list.get(position).getId());
+                    list.remove(position);
+                    notifyDataSetChanged();
+                }
+            });
+
+            //银行图标
+            holder.iv_bankicon = (ImageView) convertView.findViewById(R.id.iv_bankicon);
+            //银行名称
+            holder.tv_bankname = (TextView) convertView.findViewById(R.id.tv_bankname);
+            //卡片尾号+卡片类型
+            holder.tv_cardinfo = (TextView) convertView.findViewById(R.id.tv_cardinfo);
+            //还款卡或是扣款卡
+            holder.tv_cardtype = (TextView) convertView.findViewById(R.id.tv_cardtype);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        holder.tv_bankname.setText(list.get(position).getCardName());
+        String cardNo = list.get(position).getCardno();
+        if(cardNo.length()>4){
+            cardNo = cardNo.substring(cardNo.length()-4,cardNo.length());
+        }
+        holder.tv_cardinfo.setText("尾号"+cardNo+" "+"借记卡");
+        holder.tv_cardtype.setText("借款卡");
+
+        return convertView;
+    }
+
+    static class ViewHolder {
+        ImageView iv_bankicon;
+        TextView tv_bankname;
+        TextView tv_cardinfo;
+        TextView tv_cardtype;
+        TextView tv_delete;
+        SwipeListLayout sll_main;
     }
 
 }

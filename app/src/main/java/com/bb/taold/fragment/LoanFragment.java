@@ -25,6 +25,7 @@ import com.bb.taold.bean.Product;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.StagesInfo;
+import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class LoanFragment extends BaseFragment
             @Override
             public void successCallback(Result_Api api) {
                 //判断哪个接口回调
-                if(getFlag() == 0){
+                if(api.getT() instanceof ProductInfo){
                     //保存借款金额信息
                     ProductInfo mProductInfo = (ProductInfo) api.getT();
                     mProduct = mProductInfo.getProductInfo();
@@ -121,7 +122,7 @@ public class LoanFragment extends BaseFragment
                     return;
                 }
 
-                if(getFlag() == 1){
+                if(api.getT() instanceof ProductFee){
                     //获取各项费用
                     mProductFee = (ProductFee) api.getT();
                     mTvAllPay.setText(mProductFee.getTheActualToAccount());
@@ -137,9 +138,8 @@ public class LoanFragment extends BaseFragment
         };
 
         //初始页面获取借款金额信息
-        Call call = service.productInfo("mini_loan");
-        postCallback.setFlag(0);
-        call.enqueue(postCallback);
+        Call<Result_Api<ProductInfo>> call=service.productInfo("mini_loan");
+        Callexts.need_sessionPost(call,postCallback);
 
     }
 
@@ -150,9 +150,20 @@ public class LoanFragment extends BaseFragment
      */
     public void cacuAmount(String productId,String amount){
         //根据默认金额获取到账金额等信息
-        Call call = service.calProductFee(productId,amount);
-        postCallback.setFlag(1);
-        call.enqueue(postCallback);
+        Call<Result_Api<ProductFee>> call=service.calProductFee(productId,amount);
+        Callexts.need_sessionPost(call,postCallback);
+    }
+
+    //跳转到确认还款接口
+    public void showConfirmActivity(){
+        Bundle mBundle = new Bundle();
+        mBundle.putString("loanAmount",mTvLoanAmount.getText().toString());
+        if(userId.equals(stage7Id)){
+            mBundle.putString("stage7Id",userId);
+        }else{
+            mBundle.putString("stage14Id",userId);
+        }
+        AppManager.getInstance().showActivity(LoanConfirmActivity.class,mBundle);
     }
 
 
@@ -160,16 +171,9 @@ public class LoanFragment extends BaseFragment
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
-//                mPresenter.memberInfo();
+                mPresenter.memberInfo();
 
-                Bundle mBundle = new Bundle();
-                mBundle.putString("loanAmount",mTvLoanAmount.getText().toString());
-                if(userId.equals(stage7Id)){
-                    mBundle.putString("stage7Id",userId);
-                }else{
-                    mBundle.putString("stage14Id",userId);
-                }
-                AppManager.getInstance().showActivity(LoanConfirmActivity.class,mBundle);
+
                 break;
 
             case R.id.iv_delete:

@@ -59,7 +59,7 @@ public class ParamUtils {
         iterator(url_params);
         SignUtils utils=new SignUtils();
         String sign = utils.sign(params, Constants.SECRET);
-        params.put("sign", sign);
+        params.put("sign", "666666");
         Log.i("fancl", "sign:" + sign);
         Log.i("fancl", "get_method:" + params.toString());
         requestBuilder.method(request.method(), null);
@@ -86,7 +86,7 @@ public class ParamUtils {
         SignUtils utils =new SignUtils();
         ignoreParamNamesGet(key_value[1],utils);
         String sign = utils.sign(params, Constants.SECRET);
-        params.put("sign", sign);
+        params.put("sign", "666666");
 
         Log.i("fancl", "sign:" + sign);
         Log.i("fancl", "post_method:" + params.toString());

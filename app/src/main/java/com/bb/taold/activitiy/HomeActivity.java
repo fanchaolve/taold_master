@@ -61,7 +61,7 @@ public class HomeActivity extends BaseActivity{
                         break;
                     case 1:
                         if(repayFragment == null){
-                            repayFragment = new RepayFragment(HomeActivity.this);
+                            repayFragment = new RepayFragment();
                             transaction.add(R.id.tab_content,repayFragment,RepayFragment.class.getName());
                         }else{
                             transaction.show(repayFragment);

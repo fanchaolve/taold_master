@@ -9,8 +9,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.addBankCard.AddBankCardFinalActivity;
 import com.bb.taold.adapter.CardListAdapter;
+import com.bb.taold.api.PostCallback;
+import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.CardCheck;
+import com.bb.taold.bean.CardInfo;
+import com.bb.taold.bean.Cardinfos;
+import com.bb.taold.bean.UserInfo;
+import com.bb.taold.listener.Callexts;
+import com.bb.taold.utils.AppManager;
 import com.bb.taold.widget.SwipeListLayout;
 
 import java.util.ArrayList;
@@ -18,8 +27,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 /**
  * Created by zhucheng'an on 2017/9/11.
@@ -42,6 +51,8 @@ public class CardListActivity extends BaseActivity {
     //数组保存银行卡数据
     private ArrayList<String> list = new ArrayList<>();
 
+    private PostCallback postCallback;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_cardlist;
@@ -58,36 +69,38 @@ public class CardListActivity extends BaseActivity {
 
     }
 
+
     @Override
     public void initdata() {
 
-        initList();
-        //设置列表适配器
-        mLvCardlist.setAdapter(new CardListAdapter(this, list));
+        //设置列表滑动监听和下拉刷新
+        setListData();
 
-        mSwiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        postCallback = new PostCallback(this) {
             @Override
-            public void onRefresh() {
-                showTip("refresh");
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        CardListActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mSwiperRefresh.setRefreshing(false);
-                            }
-                        });
-                    }
-                }).start();
-            }
-        });
+            public void successCallback(Result_Api api) {
+                if(api.getT() instanceof Cardinfos){
 
+                    ArrayList<CardInfo> cards = (ArrayList<CardInfo>)api.getT();
+                    //设置列表适配器
+                    mLvCardlist.setAdapter(new CardListAdapter(CardListActivity.this, cards));
+
+                    mSwiperRefresh.setRefreshing(false);
+                }
+
+            }
+
+            @Override
+            public void failCallback() {
+
+            }
+        };
+
+        getCardData();
+
+    }
+
+    private void setListData(){
         mLvCardlist.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -110,30 +123,29 @@ public class CardListActivity extends BaseActivity {
 
             }
         });
+        mSwiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                getCardData();
+
+            }
+        });
     }
 
-    private void initList() {
-        list.add("A");
-        list.add("B");
-        list.add("C");
-        list.add("D");
-        list.add("E");
-        list.add("F");
-        list.add("G");
-        list.add("H");
-        list.add("I");
-        list.add("J");
-        list.add("K");
-        list.add("L");
-        list.add("M");
-        list.add("N");
+    private void getCardData(){
+        //下拉刷新重新获取银行卡列表数据
+        Call<Result_Api<Cardinfos>> call=service.bankList("10");
+        Callexts.need_sessionPost(call,postCallback);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    /**
+     * 解除绑定按钮
+     */
+    public void removeCard(String cardId){
+        //下拉刷新重新获取银行卡列表数据
+        Call<Result_Api<String>> call=service.removeCard(cardId);
+        Callexts.need_sessionPost(call,postCallback);
     }
 
     /**

@@ -44,11 +44,7 @@ public class RepayFragment extends BaseFragment {
     @BindView(R.id.vp_content)
     ViewPager mVpContent;
 
-    private HomeActivity mContext;
 
-    public RepayFragment(HomeActivity mContext){
-        this.mContext = mContext;
-    }
 
     @Override
     public int getLayoutId() {
@@ -64,7 +60,7 @@ public class RepayFragment extends BaseFragment {
     @Override
     protected void initdate(Bundle savedInstanceState) {
         // 必须继承FragmentActivity才能用getSupportFragmentManager()；
-        mAdapter = new PagerAdapter(mContext.getSupportFragmentManager());
+        mAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
         mVpContent.setAdapter(mAdapter);
         // 监听页面变化
         mVpContent.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
