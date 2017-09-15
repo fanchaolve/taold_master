@@ -276,4 +276,19 @@ public class LoanFragment extends BaseFragment
                 break;
         }
     }
+
+    @Override
+    public String getTotalAmount() {
+        return mTvLoanAmount.getText().toString();
+    }
+
+    @Override
+    public String getCurrentId() {
+        return userId;
+    }
+
+    @Override
+    public String get7RateId() {
+        return stage7Id;
+    }
 }
