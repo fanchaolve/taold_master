@@ -47,4 +47,28 @@ public class Callexts {
     }
 
 
+    //处理统一的需求
+    private static void postMore(Callback callback, boolean isSession, Call... calls) {
+        if (isSession) {//需要session
+            if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {
+                //跳转
+                AppManager.getInstance().showActivity(LoginActivity.class, null);
+                return;
+            }
+        }
+        for (Call call : calls) {
+            call.enqueue(callback);
+        }
+    }
+
+    //需要session
+    public static void need_sessionPostMore(Callback callback,Call...calls) {
+        postMore(callback,true, calls);
+    }
+
+    //不需要session
+    public static void Unneed_sessionPostMore(Callback callback,Call...calls ) {
+        postMore(callback, false,calls);
+    }
+
 }

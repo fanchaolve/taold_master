@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_shape_8"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/new_update"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_version"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppear.Theme.font111111_Size16"/>
+
+        <TextView
+            android:id="@+id/tv_memo"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="15dp"
+            android:lineSpacingExtra="3dp"
+            android:text="升级功能:\n1.首页新增贷款功能\n2.增加人脸识别\n3.增加借款额度"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textAppearance="@style/TextAppear.Theme.111111_Size14"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/line_e"/>
+
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="44dp">
+
+            <TextView
+                android:id="@+id/tv_no"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/bg_fbfbfbshape_8"
+                android:text="@string/no_escalation"
+                android:textAppearance="@style/TextAppear.Theme.font_normal_Size16"/>
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_e4e4e2">
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_ok"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/bg_f1a942shape_8"
+                android:text="@string/lj_escalation"
+                android:textAppearance="@style/TextAppear.Theme.white_Size16"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

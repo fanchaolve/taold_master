@@ -82,6 +82,7 @@ public class LoanFragment extends BaseFragment
     @Override
     public void initView() {
 
+        mTvAllPay.getText();
     }
 
     @Override

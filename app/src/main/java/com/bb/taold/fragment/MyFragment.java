@@ -69,7 +69,7 @@ public class MyFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.lay_apply_records,R.id.lay_my_messages,R.id.lay_help,R.id.lay_feedback,R.id.lay_about_us})
+    @OnClick({R.id.lay_apply_records, R.id.lay_my_messages, R.id.lay_help, R.id.lay_feedback, R.id.lay_about_us, R.id.lay_logout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lay_apply_records:
@@ -89,7 +89,11 @@ public class MyFragment extends BaseFragment {
 //                PayUtil payUtil = new PayUtil(mContext, "201709131416011245", "100100102", "15ca0a59d7e34c79850dc0b5d3017b96", "0.01", "20170913141601");
 //                payUtil.startPay();
                 break;
-       }
+
+            case R.id.lay_logout://退出登录
+                AppManager.getInstance().logout();
+                break;
+        }
     }
 
     @Override

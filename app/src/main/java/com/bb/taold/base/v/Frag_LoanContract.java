@@ -29,6 +29,10 @@ public interface Frag_LoanContract {
 
     interface View extends BaseView {
 
+
+
+
+
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {
