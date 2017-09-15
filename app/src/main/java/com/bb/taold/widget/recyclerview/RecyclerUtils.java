@@ -1,7 +1,6 @@
 package com.bb.taold.widget.recyclerview;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,7 +38,7 @@ public abstract class RecyclerUtils<T> {
                 RecyclerUtils.this.onLoadMore();
             }
         });
-        swiper.setColorSchemeColors(Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN);
+//        swiper.setColorSchemeColors(Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN);
         swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -8,8 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.my.AboutUsActivity;
 import com.bb.taold.activitiy.my.FeedbackActivity;
-import com.bb.taold.activitiy.my.HelpAcitivity;
 import com.bb.taold.activitiy.my.LoanRecordsActivity;
 import com.bb.taold.activitiy.my.MyMessagesActivity;
 import com.bb.taold.activitiy.webview.WebViewActivity;
@@ -80,19 +80,19 @@ public class MyFragment extends BaseFragment {
                 AppManager.getInstance().showActivity(MyMessagesActivity.class, null);
                 break;
             case R.id.lay_help:
-                AppManager.getInstance().showActivity(HelpAcitivity.class, null);
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.WEBVIEW_URL,"http://www.baidu.com");
+                AppManager.getInstance().showActivity(WebViewActivity.class, bundle);
                 break;
             case R.id.lay_feedback:
                 AppManager.getInstance().showActivity(FeedbackActivity.class, null);
                 break;
             case R.id.lay_about_us:
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.WEBVIEW_URL,"http://www.baidu.com");
-                AppManager.getInstance().showActivity(WebViewActivity.class, bundle);
-//                new BindCardUtils(getActivity(),"201306031000001013","28","20170915151055","057ED67FDB9C53766B1511F3037A241F");
+                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
                 break;
 
             case R.id.lay_logout://退出登录
+                getActivity().finish();
                 AppManager.getInstance().logout();
                 break;
         }
