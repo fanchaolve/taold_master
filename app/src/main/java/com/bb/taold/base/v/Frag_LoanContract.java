@@ -28,6 +28,12 @@ public interface Frag_LoanContract {
     }
 
     interface View extends BaseView {
+        //当前金额
+        String getTotalAmount();
+        //使用计算费用的id
+        String getCurrentId();
+        //7天id
+        String get7RateId();
 
 
 

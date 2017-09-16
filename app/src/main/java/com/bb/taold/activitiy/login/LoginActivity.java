@@ -139,10 +139,10 @@ public class LoginActivity extends BaseActivity {
         postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {
-//                    if (getFlag() == 0) {//验证码
-//                        showTip("验证码已发送");
-//                        return;
-//                    }
+                    if (api.getT() instanceof String) {//验证码
+                        showTip("验证码已发送");
+                        return;
+                    }
 
                     if (api.getT() instanceof Session) {//登录
                         Session session = (Session) api.getT();
