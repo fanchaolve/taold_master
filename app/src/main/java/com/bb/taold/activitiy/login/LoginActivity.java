@@ -131,7 +131,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initdata() {
 
-        AppManager.getInstance().showActivity(EntireFactorPayActivity.class, null);
         MyApplication.getInstance().saveSession("");
 
         postCallback = new PostCallback(this) {

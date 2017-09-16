@@ -151,6 +151,8 @@
         </activity>
         <activity android:name=".activitiy.my.AboutUsActivity">
         </activity>
+        <activity android:name=".activitiy.webview.WebViewActivity">
+        </activity>
 
 
         <!--扫描银行卡-->
