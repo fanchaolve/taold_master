@@ -62,9 +62,7 @@ public class Auth_StateFragment extends BaseFragment implements View.OnClickList
                 if (info == null)
                     return;
                 if(info.isFaceAuth()){//成功
-                    Bundle bundle =new Bundle();
-                    bundle.putInt("state", 2);
-                    AppManager.getInstance().showAuth_State((BaseActivity) getActivity(),new Auth_StateFragment(),bundle);
+                    AppManager.getInstance().showAuthMoblie((BaseActivity) getActivity(),new Mobile_Phone_OperatorsFragment());
                 }else {
                     Bundle bundle =new Bundle();
                     bundle.putInt("state", 1);
