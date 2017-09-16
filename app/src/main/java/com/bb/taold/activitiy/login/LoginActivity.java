@@ -25,6 +25,7 @@ import com.bb.taold.bean.Session;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.DeviceUtils;
+import com.bb.taold.utils.PermissionUtil;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -53,6 +54,8 @@ public class LoginActivity extends BaseActivity {
     private PostCallback postCallback;//接口返回接受
 
     private String mobile_bding_code;//获取验证码之后的手机号码
+
+    private PermissionUtil.onPermissionGentedListener listener;   //权限获取
 
 
     @Override
