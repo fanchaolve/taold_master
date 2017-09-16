@@ -12,18 +12,45 @@ android {
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "Lqb76EVIke5U32fk3mhCl5",
+                GETUI_APP_KEY   : "mWFQtfmQPZ8spBxoMyoLD2",
+                GETUI_APP_SECRET: "VAx89dVemh77YPrnAWRxk9",
+                //华为推送id
+                HUAWEI_APP_ID   : "HW_APP_ID",
+                //魅族推送
+                MEIZU_APP_ID    : "MZ_APP_ID",
+                MEIZU_APP_KEY   : "MZ_APP_KEY",
+                //小米推送
+                XIAOMI_APP_ID   : "XM_APP_ID",
+                XIAOMI_APP_KEY  : "XM_APP_KEY"
+        ]
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
     }
+
+    signingConfigs {
+        myconfig {
+            storeFile file('../releases_key.jks')//签名文件路径
+            storePassword "hedao123456"
+            keyAlias "hedaokey"
+            keyPassword "hedao123456"  //签名密码
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.myconfig
+        }
         release {
+            signingConfig signingConfigs.myconfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 
 
 
@@ -66,4 +93,13 @@ dependencies {
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/TCardApi.jar')
     compile(name: 'securePay-V3.1.0_20170607', ext: 'aar')
+    //个推sdk
+    compile 'com.getui:sdk:2.11.1.0'
+    compile 'com.android.support:support-v4:+'
+    //华为推送
+    compile 'com.getui:hwp:1.0.2'
+    //魅族推送
+    compile 'com.getui:mzp:1.0.4'
+    //小米推送
+    compile 'com.getui:xmp:1.0.2'
 }
