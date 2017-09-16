@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/lay_left"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lay_right"
+        android:layout_alignTop="@+id/lay_right"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical">
+
+        <View
+            style="@style/view_vertical_line"
+            android:layout_height="23dp"
+            android:layout_marginLeft="31dp"/>
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginLeft="27dp"
+            android:background="@drawable/loan_stage_gray_circle"/>
+
+        <View
+            style="@style/view_vertical_line"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="31dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/lay_right"
+        android:layout_toRightOf="@id/lay_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_stage_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="阶段状态"
+            android:textColor="@color/color_important"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_stage_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:text="2017-09-15 09:52:30"
+            android:textColor="@color/color_hint"
+            android:textSize="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_stage_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_stage_name"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="22dp"
+            android:text="sdjflksjdlfjlkjslkdjlfjlsjdljfljlsdjlkjfljsldjljfljsdlkjklfjlkjsdkljlfj"
+            android:textColor="@color/color_important"
+            android:textSize="14sp"/>
+
+        <View
+            android:id="@+id/line"
+            style="@style/view_line"
+            android:layout_below="@+id/tv_stage_prompt"
+            android:layout_marginTop="15dp"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>
