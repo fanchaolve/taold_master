@@ -4,15 +4,13 @@ import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
 import com.bb.taold.bean.CardCheck;
-import com.bb.taold.bean.CardInfo;
 import com.bb.taold.bean.Cardinfos;
+import com.bb.taold.bean.LoadRecordResponse;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.Session;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -258,5 +256,13 @@ public interface ApiService {
                                                              @Field("company") String company,
                                                              @Field("companyAddress") String companyAddress,
                                                              @Field("memberContactInfo") String memberContactInfo);
+    /**
+     * 借款申请列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=loan.recordList")
+    Call<Result_Api<LoadRecordResponse>> loan_recordList(@Field("offset") String offset, @Field("limit") String limit);
 
 }

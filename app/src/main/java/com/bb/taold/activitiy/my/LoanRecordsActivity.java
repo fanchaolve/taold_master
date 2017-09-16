@@ -11,13 +11,18 @@ import android.widget.Toast;
 
 import com.bb.taold.R;
 import com.bb.taold.adapter.LoanRecordsAdapter;
+import com.bb.taold.api.PostCallback;
+import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.LoadRecordResponse;
+import com.bb.taold.listener.Callexts;
 import com.bb.taold.widget.recyclerview.RecyclerUtils;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class LoanRecordsActivity extends BaseActivity {
 
@@ -34,6 +39,7 @@ public class LoanRecordsActivity extends BaseActivity {
     @BindView(R.id.swiper_refresh)
     SwipeRefreshLayout mSwiperRefresh;
     private LoanRecordsAdapter mRecyclerAdapter;
+    private PostCallback postCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +81,23 @@ public class LoanRecordsActivity extends BaseActivity {
 
     @Override
     public void initdata() {
+        postCallback = new PostCallback<LoanRecordsActivity>(this) {
+            @Override
+            public void successCallback(Result_Api api) {
+                if (api.getT() instanceof LoadRecordResponse) {
+                    LoadRecordResponse loadRecord = (LoadRecordResponse) api.getT();
+                    Toast.makeText(mContext,loadRecord.getRows().size()+"" , Toast.LENGTH_SHORT).show();
+                }
 
+            }
+
+            @Override
+            public void failCallback() {
+
+            }
+        };
+        Call<Result_Api<LoadRecordResponse>> call=service.loan_recordList("0","10");
+        Callexts.Unneed_sessionPost(call,postCallback);
     }
     @OnClick({R.id.btn_back})
     public void onClick(View view) {
