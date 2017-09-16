@@ -69,8 +69,8 @@ public class WelcomeActivity extends BaseActivity {
                     public void run(Location location) {
                         if (location != null) {
                             Log.i("fancl", "loc:" + location.latitude + "-" + location.lontitude);
-//                            MyApplication.latitude = location.latitude + "";
-//                            MyApplication.longitude = location.lontitude + "";
+                            MyApplication.latitude = location.latitude + "";
+                            MyApplication.longitude = location.lontitude + "";
                             GPSUtil.tryStop();
                         }
                     }
@@ -99,8 +99,8 @@ public class WelcomeActivity extends BaseActivity {
             }
         };
         permissionUtil.setListener(listener);
+        permissionUtil.needPermission();
 
-        permissionUtil.GetLocationTask();
 
 
 

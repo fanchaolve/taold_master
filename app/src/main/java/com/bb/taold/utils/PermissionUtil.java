@@ -33,6 +33,7 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     private static final int RC_LOCATION = 130;       //获取定位信息
     private static final int RC_LOCATION_AND_PHONE_READ_STATUS = 131;       //获取定位信息和手机基础信息
 
+    private static final int RC_LOCATION_CAMERA_RAEDPHONE=132;//获取所需的信息
 
 
     private static final int RC_READ_CONTTACT=131;//读取联系人权限
@@ -128,7 +129,7 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
         }
         String[] perms = { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE };
         //两个权限同时满足才执行接下去的任务
-        if (EasyPermissions.hasPermissions(MyApplication.getAppContext(),perms)) {
+        if (EasyPermissions.hasPermissions(AppManager.getInstance().currentActivity(),perms)) {
             // Have permission, do the thing!
             //Log.v("camera","two permission");
             if (listener != null){
@@ -136,7 +137,34 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
             }
         } else {
             //获取多个权限
-            ActivityCompat.requestPermissions((Activity) MyApplication.getAppContext(), new String[]{Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE}, RC_PHONE_READ_STATUS);
+            ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE}, RC_PHONE_READ_STATUS);
+        }
+    }
+
+
+    /**
+     * status权限和读取本地文件权限
+     */
+    @AfterPermissionGranted(RC_LOCATION_CAMERA_RAEDPHONE)
+    public void needPermission() {
+        //不是6.0以上的版本 直接运行
+        if (!isAndroidM()){
+            if (listener != null){
+                listener.onGented();
+            }
+            return;
+        }
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE };
+        //两个权限同时满足才执行接下去的任务
+        if (EasyPermissions.hasPermissions(AppManager.getInstance().currentActivity(),perms)) {
+            // Have permission, do the thing!
+            //Log.v("camera","two permission");
+            if (listener != null){
+                listener.onGented();
+            }
+        } else {
+            //获取多个权限
+            ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA,Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE}, RC_PHONE_READ_STATUS);
         }
     }
 

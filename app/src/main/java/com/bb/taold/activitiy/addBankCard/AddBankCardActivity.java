@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.SetMainCardActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
@@ -53,6 +54,7 @@ public class AddBankCardActivity extends BaseActivity {
                 cardCheck.setCardNo(cardNo);
                 bundle.putSerializable("card",cardCheck);
                 AppManager.getInstance().showActivity(AddBankCardFinalActivity.class,bundle);
+
             }
         }
 
