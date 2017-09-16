@@ -120,7 +120,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=member.setToMaster")
-    Call<Result_Api<String>> setToMaster(@Field("cardId") String cardId);
+    Call<Result_Api> setToMaster(@Field("cardId") String cardId);
 
     /**
      *  移除卡（解绑银行卡）
