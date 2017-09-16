@@ -194,6 +194,23 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:textColor="@color/color_hint"
+                            android:text="违约金"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
+                            android:layout_alignParentRight="true"
+                            android:text="+100.00元"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="22dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/color_hint"
                             android:text="减免"/>
                         <TextView
                             android:layout_width="wrap_content"
@@ -227,6 +244,7 @@
                 android:background="@color/white"/>
             <TextView
                 android:id="@+id/tv_confirm"
+                android:visibility="gone"
                 android:layout_width="fill_parent"
                 android:layout_height="42dp"
                 android:layout_marginTop="15dp"
@@ -238,7 +256,7 @@
                 android:background="@drawable/button_bg"/>
             <LinearLayout
                 android:id="@+id/ll_success"
-                android:visibility="gone"
+
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

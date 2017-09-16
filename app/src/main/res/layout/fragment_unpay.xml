@@ -16,6 +16,7 @@
         android:paddingRight="15dp"
         android:text="@string/unpay_text"/>
     <RelativeLayout
+        android:id="@+id/rl_billinfo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"

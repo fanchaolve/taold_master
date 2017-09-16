@@ -155,18 +155,6 @@ public class LoanFragment extends BaseFragment
         Callexts.need_sessionPost(call,postCallback);
     }
 
-    //跳转到确认还款接口
-    public void showConfirmActivity(){
-        Bundle mBundle = new Bundle();
-        mBundle.putString("loanAmount",mTvLoanAmount.getText().toString());
-        if(userId.equals(stage7Id)){
-            mBundle.putString("stage7Id",userId);
-        }else{
-            mBundle.putString("stage14Id",userId);
-        }
-        AppManager.getInstance().showActivity(LoanConfirmActivity.class,mBundle);
-    }
-
 
     @OnClick({R.id.iv_delete, R.id.iv_add, R.id.iv_question,R.id.tv_confirm,R.id.tv_status_7,R.id.tv_status_14})
     public void onViewClicked(View view) {

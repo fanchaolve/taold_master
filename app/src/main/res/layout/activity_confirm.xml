@@ -302,7 +302,7 @@
                         android:layout_height="25dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/data_safe"/>
+                        android:src="@drawable/iv_card_default"/>
 
                     <TextView
                         android:id="@+id/tv_bankname"

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.bean.BillInfo;
 import com.bb.taold.bean.RepayDetail;
 
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ import java.util.ArrayList;
 public class UnpayBillAdapter extends BaseAdapter {
 
     public Activity mActivity;
-    public ArrayList<RepayDetail> list;
+    public ArrayList<BillInfo> list;
 
-    public UnpayBillAdapter(Activity mActivity, ArrayList<RepayDetail> list){
+    public UnpayBillAdapter(Activity mActivity, ArrayList<BillInfo> list){
         this.mActivity = mActivity;
         this.list = list;
     }
@@ -64,14 +65,14 @@ public class UnpayBillAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        //设置期数
-        holder.tv_period.setText(list.get(position).getPeriod().toString());
-        //设置时间
-        holder.tv_time.setText(list.get(position).getTime().toString());
-        //设置金额
-        holder.tv_amount.setText(list.get(position).getAmount().toString());
-        //设置状态
-        holder.tv_status.setText(list.get(position).getStatus().toString());
+//        //设置期数
+//        holder.tv_period.setText(list.get(position).getPeriod().toString());
+//        //设置时间
+//        holder.tv_time.setText(list.get(position).getTime().toString());
+//        //设置金额
+//        holder.tv_amount.setText(list.get(position).getAmount().toString());
+//        //设置状态
+//        holder.tv_status.setText(list.get(position).getStatus().toString());
         //还款按钮
         holder.tv_paybtn.setOnClickListener(new View.OnClickListener() {
             @Override

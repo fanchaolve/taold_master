@@ -102,6 +102,7 @@ public class RepayFragment extends BaseFragment {
                 //全部账单字体颜色和底部线条
                 mTvAllPay.setTextColor(getResources().getColor(R.color.color_111111));
                 mViewLineAllpay.setVisibility(View.GONE);
+                mVpContent.setCurrentItem(0);
                 break;
             //全部账单
             case 1:
@@ -110,6 +111,7 @@ public class RepayFragment extends BaseFragment {
                 //全部账单字体颜色和底部线条
                 mTvAllPay.setTextColor(getResources().getColor(R.color.color_price));
                 mViewLineAllpay.setVisibility(View.VISIBLE);
+                mVpContent.setCurrentItem(1);
                 break;
             default:
                 break;

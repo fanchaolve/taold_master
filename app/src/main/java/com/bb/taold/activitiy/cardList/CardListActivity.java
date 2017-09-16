@@ -195,6 +195,8 @@ public class CardListActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_addcard:
+                //添加银行卡
+
                 break;
         }
     }

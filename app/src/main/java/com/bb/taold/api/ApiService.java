@@ -1,8 +1,11 @@
 package com.bb.taold.api;
 
+import com.bb.taold.bean.AllBill;
 import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
+import com.bb.taold.bean.BillInfo;
+import com.bb.taold.bean.BillInfos;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
 import com.bb.taold.bean.LoadRecordResponse;
@@ -209,6 +212,36 @@ public interface ApiService {
     @POST("/gateway?method=trade.productInfo")
     Call<Result_Api<ProductInfo>> productInfo(@Field("productCode") String productCode);
 
+
+    /**
+     * 已还未还账单查询
+     * @param status 还款状态 10 还款中 20 已还款
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=bill.applyMiniBill")
+    Call<Result_Api<BillInfos>> applyMiniBill(@Field("status") String status);
+
+    /**
+     * 分页查询账单列表
+     * @param offset 起始点
+     * @param limit 每页的行数
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=bill.applyMiniBillInfo")
+    Call<Result_Api<AllBill>> applyMiniBillInfo(@Field("offset") String offset,
+                                                @Field("limit") String limit);
+
+
+    /**
+     * 分页查询账单列表
+     * @param billId 账单id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=bill.queryItemInfo")
+    Call<Result_Api> queryItemInfo(@Field("billId") String billId);
 
 
 
