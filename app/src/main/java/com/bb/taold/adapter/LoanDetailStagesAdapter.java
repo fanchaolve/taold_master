@@ -1,7 +1,9 @@
 package com.bb.taold.adapter;
 
 import android.content.Context;
+import android.view.View;
 
+import com.bb.taold.R;
 import com.bb.taold.adapter.recycleradapter.CommonRecyclerAdapter;
 
 import java.util.List;
@@ -20,6 +22,12 @@ public class LoanDetailStagesAdapter extends CommonRecyclerAdapter<String> {
 
     @Override
     public void convert(MyViewHolder holder, String item) {
-
+        if(mDatas.get(0).equals(item)){
+            holder.setViewVisibility(R.id.lay_yellow_circle, View.VISIBLE)
+                    .setViewVisibility(R.id.lay_gray_circle,View.GONE);
+        }else{
+            holder.setViewVisibility(R.id.lay_yellow_circle, View.GONE)
+                    .setViewVisibility(R.id.lay_gray_circle,View.VISIBLE);
+        }
     }
 }

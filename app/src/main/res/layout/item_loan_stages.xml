@@ -11,22 +11,48 @@
         android:layout_alignBottom="@+id/lay_right"
         android:layout_alignTop="@+id/lay_right"
         android:orientation="vertical">
-
-        <View
-            style="@style/view_vertical_line"
-            android:layout_height="23dp"
-            android:layout_marginLeft="30.5dp"/>
-
-        <View
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_marginLeft="27dp"
-            android:background="@drawable/loan_stage_gray_circle"/>
-
-        <View
-            style="@style/view_vertical_line"
+        <LinearLayout
+            android:id="@+id/lay_gray_circle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30.5dp"/>
+            android:visibility="gone"
+            android:orientation="vertical">
+            <View
+                style="@style/view_vertical_line"
+                android:layout_height="26dp"
+                android:layout_marginLeft="30.5dp"/>
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginLeft="27dp"
+                android:background="@drawable/loan_stage_gray_circle"/>
+
+            <View
+                style="@style/view_vertical_line"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30.5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_yellow_circle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginLeft="25.5dp"
+                android:layout_marginTop="24.5dp"
+                android:background="@drawable/loan_stage_yellow_circle"/>
+
+            <View
+                style="@style/view_vertical_line"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30.5dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <RelativeLayout

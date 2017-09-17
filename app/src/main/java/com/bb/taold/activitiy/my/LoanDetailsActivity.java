@@ -3,6 +3,7 @@ package com.bb.taold.activitiy.my;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.bb.taold.widget.recyclerview.RecyclerUtils;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class LoanDetailsActivity extends BaseActivity {
 
@@ -59,26 +61,34 @@ public class LoanDetailsActivity extends BaseActivity {
     @Override
     public void initdata() {
         final ArrayList<String> mStrings = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            mStrings.add(i+"");
+        for (int i = 0; i < 10; i++) {
+            mStrings.add(i + "");
         }
         mRecyclerAdapter = new LoanDetailStagesAdapter(mContext, mStrings, R.layout.item_loan_stages);
-        new RecyclerUtils<String>(mContext,mStrings,mRvLoanStages,mRecyclerAdapter,mSwiperRefresh){
+        new RecyclerUtils<String>(mContext, mStrings, mRvLoanStages, mRecyclerAdapter, mSwiperRefresh) {
 
             @Override
             public void onLoadMore() {
-                Toast.makeText(mContext, "load="+mStrings.size(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRefresh() {
                 mStrings.clear();
-                for(int i=0;i<10;i++){
-                    mStrings.add(i+"");
+                for (int i = 0; i < 10; i++) {
+                    mStrings.add(i + "");
                 }
                 mRecyclerAdapter.notifyDataSetChanged();
                 Toast.makeText(mContext, "refresh", Toast.LENGTH_SHORT).show();
             }
         };
+    }
+
+    @OnClick(R.id.btn_back)
+    public void onViewClicked(View view) {
+        switch (view.getId()){
+            case R.id.btn_back:
+                finish();
+                break;
+        }
     }
 }

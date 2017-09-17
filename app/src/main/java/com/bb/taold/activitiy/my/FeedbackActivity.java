@@ -16,8 +16,6 @@ import butterknife.OnClick;
 
 public class FeedbackActivity extends BaseActivity {
 
-    @BindView(R.id.btn_back)
-    ImageButton mBtnBack;
     @BindView(R.id.btn_info)
     ImageButton mBtnInfo;
     @BindView(R.id.tv_right)
@@ -32,6 +30,8 @@ public class FeedbackActivity extends BaseActivity {
     EditText mEtFeedback;
     @BindView(R.id.tv_feedback_commit)
     TextView mTvFeedbackCommit;
+    @BindView(R.id.btn_back)
+    ImageButton mBtnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +57,23 @@ public class FeedbackActivity extends BaseActivity {
     public void initdata() {
 
     }
-    @OnClick({R.id.btn_back,R.id.tv_feedback_commit})
-    public void onClick(View view){
-        switch (view.getId()){
+
+    @OnClick({R.id.btn_back, R.id.tv_feedback_commit})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.tv_feedback_commit:
+                break;
+        }
+    }
+
+    @OnClick(R.id.btn_back)
+    public void onViewClicked(View view) {
+        switch (view.getId()){
+            case R.id.btn_back:
+                finish();
                 break;
         }
     }
