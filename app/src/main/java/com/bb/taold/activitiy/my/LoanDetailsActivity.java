@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bb.taold.R;
 import com.bb.taold.adapter.LoanDetailStagesAdapter;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.LoanDetail;
 import com.bb.taold.widget.recyclerview.RecyclerUtils;
 
 import java.util.ArrayList;
@@ -60,6 +61,10 @@ public class LoanDetailsActivity extends BaseActivity {
 
     @Override
     public void initdata() {
+        LoanDetail loanDetail = new LoanDetail();
+        mTvLoanMoney.setText(loanDetail.getLoanAmount());
+        mTvLoanDays.setText(loanDetail.getPeriods());
+        mTvLoadCard.setText(loanDetail.getBankName()+"("+loanDetail.getBankNo()+")");
         final ArrayList<String> mStrings = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             mStrings.add(i + "");

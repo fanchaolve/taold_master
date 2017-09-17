@@ -45,7 +45,7 @@ public class FeedbackActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        mTvTitle.setText("意见反馈");
     }
 
     @Override
