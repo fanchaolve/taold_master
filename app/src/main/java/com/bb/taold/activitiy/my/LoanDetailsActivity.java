@@ -59,24 +59,14 @@ public class LoanDetailsActivity extends BaseActivity {
     @Override
     public void initdata() {
         final ArrayList<String> mStrings = new ArrayList<>();
-        mStrings.add("1");
-        mStrings.add("2");
-        mStrings.add("3");
-        mStrings.add("3");
-        mStrings.add("3");
-        mStrings.add("3");
-        mStrings.add("3");
-        mStrings.add("3");
-        mStrings.add("3");
+        for(int i=0;i<10;i++){
+            mStrings.add(i+"");
+        }
         mRecyclerAdapter = new LoanDetailStagesAdapter(mContext, mStrings, R.layout.item_loan_stages);
         new RecyclerUtils<String>(mContext,mStrings,mRvLoanStages,mRecyclerAdapter,mSwiperRefresh){
 
             @Override
             public void onLoadMore() {
-                for(int i=0;i<10;i++){
-                    mStrings.add(i+"");
-                }
-                mRecyclerAdapter.notifyDataSetChanged();
                 Toast.makeText(mContext, "load="+mStrings.size(), Toast.LENGTH_SHORT).show();
             }
 

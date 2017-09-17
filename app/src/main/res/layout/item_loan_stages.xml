@@ -10,13 +10,12 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/lay_right"
         android:layout_alignTop="@+id/lay_right"
-        android:background="@android:color/darker_gray"
         android:orientation="vertical">
 
         <View
             style="@style/view_vertical_line"
             android:layout_height="23dp"
-            android:layout_marginLeft="31dp"/>
+            android:layout_marginLeft="30.5dp"/>
 
         <View
             android:layout_width="8dp"
@@ -27,7 +26,7 @@
         <View
             style="@style/view_vertical_line"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="31dp"/>
+            android:layout_marginLeft="30.5dp"/>
     </LinearLayout>
 
     <RelativeLayout
