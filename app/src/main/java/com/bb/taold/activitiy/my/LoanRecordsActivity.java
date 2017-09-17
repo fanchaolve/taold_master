@@ -15,10 +15,13 @@ import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.LoadRecordResponse;
+import com.bb.taold.bean.LoanRecord;
 import com.bb.taold.listener.Callexts;
+import com.bb.taold.utils.GsonUtils;
 import com.bb.taold.widget.recyclerview.RecyclerUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,6 +43,7 @@ public class LoanRecordsActivity extends BaseActivity {
     SwipeRefreshLayout mSwiperRefresh;
     private LoanRecordsAdapter mRecyclerAdapter;
     private PostCallback postCallback;
+    private List<LoanRecord> mStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +59,21 @@ public class LoanRecordsActivity extends BaseActivity {
     public void initView() {
         mTvTitle.setText("我的借款申请记录");
         mBtnBack.setVisibility(View.VISIBLE);
-        final ArrayList<String> mStrings = new ArrayList<>();
-        mStrings.add("1");
-        mStrings.add("2");
-        mStrings.add("3");
+        mStrings = new ArrayList<>();
         mRecyclerAdapter = new LoanRecordsAdapter(mContext, mStrings, R.layout.item_loan_records);
-        new RecyclerUtils<String>(mContext,mStrings,mRvLoanRecords,mRecyclerAdapter,mSwiperRefresh){
+        new RecyclerUtils<LoanRecord>(mContext, mStrings, mRvLoanRecords, mRecyclerAdapter, mSwiperRefresh) {
 
             @Override
             public void onLoadMore() {
+                queryLoanRecords("0", mStrings.size() + "");
                 Toast.makeText(mContext, "load", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRefresh() {
+                mStrings.clear();
+                mRecyclerAdapter.notifyDataSetChanged();
+                queryLoanRecords("0", mStrings.size() + "");
                 Toast.makeText(mContext, "refresh", Toast.LENGTH_SHORT).show();
             }
         };
@@ -81,14 +86,17 @@ public class LoanRecordsActivity extends BaseActivity {
 
     @Override
     public void initdata() {
+
         postCallback = new PostCallback<LoanRecordsActivity>(this) {
             @Override
             public void successCallback(Result_Api api) {
-                if (api.getT() instanceof LoadRecordResponse) {
-                    LoadRecordResponse loadRecord = (LoadRecordResponse) api.getT();
-                    Toast.makeText(mContext,loadRecord.getRows().size()+"" , Toast.LENGTH_SHORT).show();
+                LoadRecordResponse loadRecordResponse = (LoadRecordResponse) api.getT();
+                List<LoanRecord> rows = loadRecordResponse.getRows();
+                if (rows != null && rows.size() > 0) {
+                    mStrings.addAll(rows);
+                    mRecyclerAdapter.notifyDataSetChanged();
+                    Toast.makeText(mContext, rows.size() + "" + GsonUtils.toJson(rows.get(0)).toString(), Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
@@ -96,12 +104,17 @@ public class LoanRecordsActivity extends BaseActivity {
 
             }
         };
-        Call<Result_Api<LoadRecordResponse>> call=service.loan_recordList("0","10");
-        Callexts.Unneed_sessionPost(call,postCallback);
+        queryLoanRecords("0", "1");
     }
+
+    public void queryLoanRecords(String offset, String count) {
+        Call<Result_Api<LoadRecordResponse>> call = service.loan_recordList(offset, count);
+        Callexts.Unneed_sessionPost(call, postCallback);
+    }
+
     @OnClick({R.id.btn_back})
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_back:
                 finish();
                 break;

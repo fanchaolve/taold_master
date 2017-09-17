@@ -17,7 +17,6 @@ import java.util.List;
  */
 
 public abstract class RecyclerUtils<T> {
-    private List<T> datas;
 
     /**
      *
@@ -28,7 +27,6 @@ public abstract class RecyclerUtils<T> {
      * @param swiper SwipeRefreshLayout
      */
     public RecyclerUtils(final Context mContext, final List<T> datas, RecyclerView recyclerview, final CommonRecyclerAdapter adapter, final SwipeRefreshLayout swiper){
-        this.datas = datas;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerview.setLayoutManager(linearLayoutManager);
         recyclerview.setAdapter(adapter);

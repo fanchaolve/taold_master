@@ -18,7 +18,7 @@ import java.io.File;
 public class UpdateService extends Service {
     private DownloadManager downloadManager;
     private long mTaskId;
-    private String downloadUrl = "http://imtt.dd.qq.com/16891/51F06FB002018975678634859A0EC654.apk";
+    private String downloadUrl = "";
 
     public UpdateService() {
     }
@@ -30,6 +30,9 @@ public class UpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        this.downloadUrl = intent.getStringExtra("updateUrl");
+        initDownload();
+        Log.i("updateservice","onStartCommand");
         initDownload();
         return START_STICKY;
     }

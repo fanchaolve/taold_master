@@ -17,7 +17,7 @@ public class LoadRecordResponse {
      */
 
     private int total;
-    private List<?> rows;
+    private List<LoanRecord> rows;
 
     public int getTotal() {
         return total;
@@ -27,11 +27,11 @@ public class LoadRecordResponse {
         this.total = total;
     }
 
-    public List<?> getRows() {
+    public List<LoanRecord> getRows() {
         return rows;
     }
 
-    public void setRows(List<?> rows) {
+    public void setRows(List<LoanRecord> rows) {
         this.rows = rows;
     }
 }
