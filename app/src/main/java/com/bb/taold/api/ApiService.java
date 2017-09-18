@@ -9,6 +9,7 @@ import com.bb.taold.bean.BillInfos;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
 import com.bb.taold.bean.LoadRecordResponse;
+import com.bb.taold.bean.LoanDetail;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.Session;
@@ -307,7 +308,12 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=loan.recordList")
-    Call<Result_Api<LoadRecordResponse>> loan_recordList(@Field("offset") String offset, @Field("limit") String limit);
+    Call<Result_Api<LoadRecordResponse>> loan_recordList(@Field("offset") String offset, @Field("limit") String limit);/**
+     * 借款申请详情
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=loan.loanDetail")
+    Call<Result_Api<LoanDetail>> loan_recordDetail(@Field("loanId") String loanId);
 
     /**
      * 意见反馈

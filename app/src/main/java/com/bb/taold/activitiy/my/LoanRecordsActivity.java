@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.adapter.LoanRecordsAdapter22;
+import com.bb.taold.adapter.LoanRecordsAdapter;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
@@ -44,13 +44,13 @@ public class LoanRecordsActivity extends BaseActivity {
 //    SwipeRefreshLayout mSwiperRefresh;
 //    private LoanRecordsAdapter mRecyclerAdapter;
     private PostCallback postCallback;
-    private List<LoanRecord> mStrings;
+    private List<LoanRecord> mRecordsList;
     /**已经获取到多少条数据了*/
     private static int mCurrentCounter = 0;
 
     private LRecyclerView mRecyclerView = null;
     private LRecyclerViewAdapter recyclerViewAdapter;
-    private LoanRecordsAdapter22 adapter22;
+    private LoanRecordsAdapter adapter22;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class LoanRecordsActivity extends BaseActivity {
     @Override
     public void initView() {
         mRecyclerView = (LRecyclerView) findViewById(R.id.list);
-        adapter22 = new LoanRecordsAdapter22(mContext);
+        adapter22 = new LoanRecordsAdapter(mContext);
         recyclerViewAdapter = new LRecyclerViewAdapter(adapter22);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(recyclerViewAdapter);
@@ -80,7 +80,7 @@ public class LoanRecordsActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int i) {
                 Bundle bundle = new Bundle();
-                bundle.putString("loanId","");
+                bundle.putString("loanId",adapter22.getDataList().get(i).getId()+"");
                 AppManager.getInstance().showActivity(LoanDetailsActivity.class,bundle);
             }
         });

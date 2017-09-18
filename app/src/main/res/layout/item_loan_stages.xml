@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:background="@color/white"
             android:orientation="vertical">
             <View
                 style="@style/view_vertical_line"
@@ -38,6 +39,7 @@
             android:id="@+id/lay_yellow_circle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <View
@@ -73,6 +75,7 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/tv_stage_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tv_stage_name"
@@ -90,7 +93,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="22dp"
             android:text="sdjflksjdlfjlkjslkdjlfjlsjdljfljlsdjlkjfljsldjljfljsdlkjklfjlkjsdkljlfj"
-            android:textColor="@color/color_important"
+            android:textColor="@color/font_normal"
             android:textSize="14sp"/>
 
         <View

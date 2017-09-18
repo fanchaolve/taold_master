@@ -4,23 +4,23 @@ import java.util.List;
 
 /**
  * 类描述：
- * 创建时间：2017/9/17 0017
+ * 创建时间：2017/9/18 0018
  *
  * @author chaochao
  */
 
-public class LoanDetail {
+public class LoadDetail {
 
     /**
-     * loanAmount :
-     * periods :
+     * loanAmount : 1.00
+     * periods : 7
      * bankName :
      * bankNo :
-     * lifeCycle : []
+     * lifeCycle : [{"title":"借款已提交","date":1505636766000,"description":"您的借款已提交至自动化审批系统，我们会尽快完成审核并通知您审批结果。"}]
      */
 
     private String loanAmount;
-    private String periods;
+    private int periods;
     private String bankName;
     private String bankNo;
     private List<LifeCycleBean> lifeCycle;
@@ -33,11 +33,11 @@ public class LoanDetail {
         this.loanAmount = loanAmount;
     }
 
-    public String getPeriods() {
+    public int getPeriods() {
         return periods;
     }
 
-    public void setPeriods(String periods) {
+    public void setPeriods(int periods) {
         this.periods = periods;
     }
 
@@ -65,14 +65,4 @@ public class LoanDetail {
         this.lifeCycle = lifeCycle;
     }
 
-    @Override
-    public String toString() {
-        return "LoanDetail{" +
-                "loanAmount='" + loanAmount + '\'' +
-                ", periods='" + periods + '\'' +
-                ", bankName='" + bankName + '\'' +
-                ", bankNo='" + bankNo + '\'' +
-                ", lifeCycle=" + lifeCycle +
-                '}';
-    }
 }

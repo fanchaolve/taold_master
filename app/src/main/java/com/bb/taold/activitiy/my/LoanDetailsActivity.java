@@ -1,32 +1,42 @@
 package com.bb.taold.activitiy.my;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bb.taold.R;
-import com.bb.taold.adapter.LoanDetailStagesAdapter;
+import com.bb.taold.adapter.RecordStageAdapter;
+import com.bb.taold.api.PostCallback;
+import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.LoanDetail;
-import com.bb.taold.widget.recyclerview.RecyclerUtils;
-
-import java.util.ArrayList;
+import com.bb.taold.listener.Callexts;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class LoanDetailsActivity extends BaseActivity {
 
     @BindView(R.id.btn_back)
     ImageButton mBtnBack;
+    @BindView(R.id.btn_info)
+    ImageButton mBtnInfo;
     @BindView(R.id.tv_right)
     TextView mTvRight;
+    @BindView(R.id.iv_right)
+    ImageView mIvRight;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
+    @BindView(R.id.title)
+    RelativeLayout mTitle;
     @BindView(R.id.tv_loan_money)
     TextView mTvLoanMoney;
     @BindView(R.id.tv_loan_days)
@@ -34,10 +44,11 @@ public class LoanDetailsActivity extends BaseActivity {
     @BindView(R.id.tv_load_card)
     TextView mTvLoadCard;
     @BindView(R.id.rv_loan_stages)
-    RecyclerView mRvLoanStages;
-    @BindView(R.id.swiper_refresh)
-    SwipeRefreshLayout mSwiperRefresh;
-    private LoanDetailStagesAdapter mRecyclerAdapter;
+    LRecyclerView mRvLoanStages;
+    private RecordStageAdapter recordStageAdapter;
+    private LRecyclerViewAdapter mRecyclerViewAdapter;
+    private PostCallback<LoanDetailsActivity> postCallback;
+    private String loanId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,46 +62,59 @@ public class LoanDetailsActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        mTvTitle.setText("借款详情");
+        recordStageAdapter = new RecordStageAdapter(this);
+        mRecyclerViewAdapter = new LRecyclerViewAdapter(recordStageAdapter);
+        mRvLoanStages.setLayoutManager(new LinearLayoutManager(this));
+        mRvLoanStages.setPullRefreshEnabled(false);
+        mRvLoanStages.setAdapter(mRecyclerViewAdapter);
     }
 
     @Override
     public void initListener() {
-
     }
 
     @Override
     public void initdata() {
-        LoanDetail loanDetail = new LoanDetail();
-        mTvLoanMoney.setText(loanDetail.getLoanAmount());
-        mTvLoanDays.setText(loanDetail.getPeriods());
-        mTvLoadCard.setText(loanDetail.getBankName()+"("+loanDetail.getBankNo()+")");
-        final ArrayList<String> mStrings = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            mStrings.add(i + "");
-        }
-        mRecyclerAdapter = new LoanDetailStagesAdapter(mContext, mStrings, R.layout.item_loan_stages);
-        new RecyclerUtils<String>(mContext, mStrings, mRvLoanStages, mRecyclerAdapter, mSwiperRefresh) {
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        loanId = extras.getString("loanId");
+        postCallback = new PostCallback<LoanDetailsActivity>() {
 
             @Override
-            public void onLoadMore() {
+            public void successCallback(Result_Api api) {
+                LoanDetail loanDetail = (LoanDetail) api.getT();
+                if (loanDetail != null) {
+                    setViewData(loanDetail);
+                }
             }
 
             @Override
-            public void onRefresh() {
-                mStrings.clear();
-                for (int i = 0; i < 10; i++) {
-                    mStrings.add(i + "");
-                }
-                mRecyclerAdapter.notifyDataSetChanged();
-                Toast.makeText(mContext, "refresh", Toast.LENGTH_SHORT).show();
+            public void failCallback() {
+
             }
         };
+        queryRecordDetail(loanId);
+    }
+
+    private void setViewData(LoanDetail loanDetail) {
+        mTvLoanMoney.setText(loanDetail.getLoanAmount());
+        mTvLoanDays.setText(loanDetail.getPeriods());
+        String cardNo = loanDetail.getBankNo();
+        cardNo = cardNo.substring(cardNo.length() - 4, cardNo.length());
+        mTvLoadCard.setText(loanDetail.getBankName() + "(" + cardNo + ")");
+        recordStageAdapter.addAll(loanDetail.getLifeCycle());
+
+    }
+
+    public void queryRecordDetail(String loanId) {
+        Call<Result_Api<LoanDetail>> result_apiCall = service.loan_recordDetail(loanId);
+        Callexts.Unneed_sessionPost(result_apiCall, postCallback);
     }
 
     @OnClick(R.id.btn_back)
     public void onViewClicked(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_back:
                 finish();
                 break;
