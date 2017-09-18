@@ -2,6 +2,7 @@ package com.bb.taold.activitiy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.CardCheck;
+import com.bb.taold.bean.UserInfo;
 import com.bb.taold.listener.Callexts;
 
 import butterknife.BindView;
@@ -51,10 +53,16 @@ public class SetMainCardActivity extends BaseActivity implements View.OnClickLis
 
     private CardCheck cardCheck;//判断是否为有效卡
 
-    PostCallback postCallback =new PostCallback(this) {
+    private UserInfo info;//
+
+    PostCallback postCallback =new PostCallback<BaseActivity>(this) {
         @Override
         public void successCallback(Result_Api api) {
+            if(api.getT() instanceof UserInfo){
+                info= (UserInfo) api.getT();
 
+
+            }
         }
 
         @Override
@@ -97,6 +105,9 @@ public class SetMainCardActivity extends BaseActivity implements View.OnClickLis
             return;
         tv_acctNo.setText(cardCheck.getCardNo().replaceAll("\\d{4}(?!$)", "$0 "));
         tv_acctName.setText(cardCheck.getBankName());
+
+        Call<Result_Api<UserInfo>>call=service.user_info();
+        Callexts.need_sessionPost(call,postCallback);
     }
 
     @Override
@@ -106,8 +117,14 @@ public class SetMainCardActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.tv_next:
-                Call<Result_Api>call =service.setToMaster(cardCheck.getCardNo());
-                Callexts.need_sessionPost(call,postCallback);
+                if(cardCheck == null && info == null) {
+                    showTip("获取数据异常");
+                    return;
+                }
+
+
+//                Call<Result_Api>call =service.setToMaster(cardCheck.getCardNo());
+//                Callexts.need_sessionPost(call,postCallback);
                 break;
         }
     }

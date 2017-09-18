@@ -3,6 +3,7 @@ package com.bb.taold.listener;
 import com.bb.taold.MyApplication;
 import com.bb.taold.activitiy.login.LoginActivity;
 import com.bb.taold.api.ApiService;
+import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.RetrofitFactory;
 import com.bb.taold.utils.AppManager;
 
@@ -32,6 +33,10 @@ public class Callexts {
                 AppManager.getInstance().showActivity(LoginActivity.class, null);
                 return;
             }
+        }
+        //为了统一添加加载框,待检测是否可行,有待优化疯转
+        if(callback instanceof PostCallback){
+            ((PostCallback) callback).showLoading();
         }
         call.enqueue(callback);
     }

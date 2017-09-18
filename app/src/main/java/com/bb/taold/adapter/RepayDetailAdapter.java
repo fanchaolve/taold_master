@@ -1,6 +1,7 @@
 package com.bb.taold.adapter;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,12 @@ import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.activitiy.cardList.CardListActivity;
+import com.bb.taold.activitiy.repay.RepayInfoActivity;
+import com.bb.taold.bean.BillInfoDetail;
+import com.bb.taold.bean.BillItem;
+import com.bb.taold.bean.BillProductInfo;
 import com.bb.taold.bean.RepayDetail;
+import com.bb.taold.utils.AppManager;
 import com.bb.taold.widget.SwipeListLayout;
 
 import java.util.ArrayList;
@@ -23,11 +29,13 @@ import java.util.ArrayList;
 public class RepayDetailAdapter extends BaseAdapter {
 
     public Activity mActivity;
-    public ArrayList<RepayDetail> list;
+    public ArrayList<BillItem> list;
+    public BillProductInfo productInfo;
 
-    public RepayDetailAdapter(Activity mActivity, ArrayList<RepayDetail> list){
+    public RepayDetailAdapter(Activity mActivity, BillInfoDetail info){
         this.mActivity = mActivity;
-        this.list = list;
+        this.list = info.getBillItems();
+        this.productInfo = info.getProductInfo();
     }
 
     @Override
@@ -67,19 +75,42 @@ public class RepayDetailAdapter extends BaseAdapter {
         }
 
         //设置期数
-        holder.tv_period.setText(list.get(position).getPeriod().toString());
+        holder.tv_period.setText(list.get(position).getStages().toString()+"/"+productInfo.getTotalStages()+"期");
         //设置时间
-        holder.tv_time.setText(list.get(position).getTime().toString());
+        holder.tv_time.setText(list.get(position).getRepayDate().toString());
         //设置金额
-        holder.tv_amount.setText(list.get(position).getAmount().toString());
+        holder.tv_amount.setText(list.get(position).getAmtMoney().toString());
         //设置状态
-        holder.tv_status.setText(list.get(position).getStatus().toString());
-
-        //判断状态如果为未还清,则将该栏背景置白
-        if(!list.get(position).getStatus().equals("已还清")){
+        if(list.get(position).getIsOverdue().equals("true")){
+            holder.tv_status.setText("已逾期");
             holder.rl_detail.setBackgroundColor(mActivity.getResources().getColor(R.color.white));
+        }else{
+            if(list.get(position).getStatus().equals("10")){
+                holder.tv_status.setText("待还款");
+                holder.rl_detail.setBackgroundColor(mActivity.getResources().getColor(R.color.white));
+            }else{
+                holder.tv_status.setText("已还清");
+            }
         }
-
+        holder.rl_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle mBundle = new Bundle();
+                mBundle.putString("billItemId",list.get(position).getBillItemId());
+                //跳转判断
+                if(list.get(position).getIsOverdue().equals("true")){
+                    //逾期
+                    mBundle.putString("bill_status","2");
+                }else{
+                    if(list.get(position).getStatus().equals("10")){
+                        mBundle.putString("bill_status","0");
+                    }else{
+                        mBundle.putString("bill_status","1");
+                    }
+                }
+                AppManager.getInstance().showActivity(RepayInfoActivity.class,mBundle);
+            }
+        });
         return convertView;
     }
 

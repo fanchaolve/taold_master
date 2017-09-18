@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
 import com.bb.taold.activitiy.addBankCard.AddBankCardFinalActivity;
 import com.bb.taold.adapter.CardListAdapter;
 import com.bb.taold.api.PostCallback;
@@ -76,7 +77,7 @@ public class CardListActivity extends BaseActivity {
         //设置列表滑动监听和下拉刷新
         setListData();
 
-        postCallback = new PostCallback(this) {
+        postCallback = new PostCallback<BaseActivity>(this) {
             @Override
             public void successCallback(Result_Api api) {
                 if(api.getT() instanceof Cardinfos){
@@ -196,7 +197,9 @@ public class CardListActivity extends BaseActivity {
                 break;
             case R.id.tv_addcard:
                 //添加银行卡
-
+                Bundle bundle =new Bundle();
+                bundle.putInt("from_Act",1);
+                AppManager.getInstance().showActivity(AddBankCardActivity.class,bundle);
                 break;
         }
     }

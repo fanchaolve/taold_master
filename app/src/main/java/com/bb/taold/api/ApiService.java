@@ -4,6 +4,7 @@ import com.bb.taold.bean.AllBill;
 import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
+import com.bb.taold.bean.BandCardResult;
 import com.bb.taold.bean.BillInfos;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
@@ -11,6 +12,7 @@ import com.bb.taold.bean.LoadRecordResponse;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.Session;
+import com.bb.taold.bean.BillInfoDetail;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
 
@@ -105,12 +107,12 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=member.createNewBankCard_mobile")
-    Call<Result_Api<String>> createNewBankCard(@Field("bankCode") String bankCode,
-                                               @Field("owner") String owner,
-                                               @Field("cardno") String cardno,
-                                               @Field("idno") String idno,
-                                               @Field("cardName") String cardName,
-                                               @Field("mobile") String mobile);
+    Call<Result_Api<BandCardResult>> createNewBankCard(@Field("bankCode") String bankCode,
+                                                       @Field("owner") String owner,
+                                                       @Field("cardno") String cardno,
+                                                       @Field("idno") String idno,
+                                                       @Field("cardName") String cardName,
+                                                       @Field("mobile") String mobile);
 
     /**
      *  设置主卡
@@ -219,8 +221,8 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/gateway?method=bill.applyMiniBill")
-    Call<Result_Api<BillInfos>> applyMiniBill(@Field("status") String status);
+    @POST("/gateway?method=bill.queryPhase")
+    Call<Result_Api<BillInfos>> queryPhase(@Field("status") String status);
 
     /**
      * 分页查询账单列表
@@ -229,8 +231,8 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/gateway?method=bill.applyMiniBillInfo")
-    Call<Result_Api<AllBill>> applyMiniBillInfo(@Field("offset") String offset,
+    @POST("/gateway?method=bill.queryBillInfo")
+    Call<Result_Api<AllBill>> queryBillInfo(@Field("offset") String offset,
                                                 @Field("limit") String limit);
 
 
@@ -240,8 +242,17 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/gateway?method=bill.queryItemInfo")
-    Call<Result_Api> queryItemInfo(@Field("billId") String billId);
+    @POST("/gateway?method=bill.detail")
+    Call<Result_Api<BillInfoDetail>> detail(@Field("billId") String billId);
+
+    /**
+     *  查看每期账单
+     * @param billItemId 账单明细表id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=bill.fundDetail")
+    Call<Result_Api> fundDetail(@Field("billItemId") String billItemId);
 
 
 

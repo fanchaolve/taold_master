@@ -1,16 +1,20 @@
 package com.bb.taold.adapter;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.repay.RepayDetailActivity;
 import com.bb.taold.bean.BillInfo;
 import com.bb.taold.bean.RepayDetail;
+import com.bb.taold.utils.AppManager;
 
 import java.util.ArrayList;
 
@@ -59,10 +63,21 @@ public class AllpayBillAdapter extends BaseAdapter {
             //当前状态图标
             holder.iv_status = (ImageView) convertView.findViewById(R.id.iv_status);
 
+            holder.rl_billItem = (RelativeLayout) convertView.findViewById(R.id.rl_billitem);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        holder.rl_billItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle mBundle = new Bundle();
+                mBundle.putString("billId",list.get(position).getId());
+                AppManager.getInstance().showActivity(RepayDetailActivity.class,mBundle);
+            }
+        });
 
         //设置时间
         holder.tv_time.setText("借款时间  "+list.get(position).getLoanTime().toString());
@@ -91,6 +106,7 @@ public class AllpayBillAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        RelativeLayout rl_billItem;
         ImageView iv_status;
         TextView tv_time;
         TextView tv_amount;

@@ -9,14 +9,25 @@ import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.adapter.RepayDetailAdapter;
+import com.bb.taold.adapter.UnpayBillAdapter;
+import com.bb.taold.api.PostCallback;
+import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.BillInfo;
+import com.bb.taold.bean.BillInfoDetail;
+import com.bb.taold.bean.BillInfos;
+import com.bb.taold.bean.BillItem;
+import com.bb.taold.bean.BillItems;
+import com.bb.taold.bean.BillProductInfo;
 import com.bb.taold.bean.RepayDetail;
+import com.bb.taold.listener.Callexts;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 /**
  * Created by zhucheng'an on 2017/9/13.
@@ -30,6 +41,8 @@ public class RepayDetailActivity extends BaseActivity {
     ImageButton mBtnBack;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
+    @BindView(R.id.tv_loanAmount)
+    TextView mTvLoanAmount;
     @BindView(R.id.tv_loanDays)
     TextView mTvLoanDays;
     @BindView(R.id.tv_yearrate)
@@ -38,9 +51,12 @@ public class RepayDetailActivity extends BaseActivity {
     ListView mLvRepayDetail;
     @BindView(R.id.swiper_refresh)
     SwipeRefreshLayout mSwiperRefresh;
-
-    //接口返回还款详情结果
-    private ArrayList<RepayDetail> mList = new ArrayList<>();
+    //接口返回接受
+    private PostCallback postCallback;
+    //该笔账单id
+    String billId = "";
+    //大订单的所有信息
+    private BillInfoDetail details;
 
     @Override
     public int getLayoutId() {
@@ -63,55 +79,62 @@ public class RepayDetailActivity extends BaseActivity {
     @Override
     public void initdata() {
 
-        initList();
-
-        RepayDetailAdapter mAdapter = new RepayDetailAdapter(RepayDetailActivity.this, mList);
-
-        mLvRepayDetail.setAdapter(mAdapter);
-
         mSwiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showTip("refresh");
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mSwiperRefresh.setRefreshing(false);
-                            }
-                        });
-                    }
-                }).start();
+                getBillInfoDetail(billId);
             }
         });
 
-    }
+        postCallback = new PostCallback(this) {
+            @Override
+            public void successCallback(Result_Api api) {
+                mSwiperRefresh.setRefreshing(false);
 
-    public void initList() {
-        for (int i = 0; i < 10; i++) {
-            RepayDetail mRepay = new RepayDetail();
-            mRepay.setAmount("1000");
-            mRepay.setPeriod("1/12");
-            mRepay.setStatus("已还清");
-            mRepay.setTime("2017/09/20 17:20:18");
-            mList.add(mRepay);
+                if(api.getT() instanceof BillInfoDetail){
+                    //获取账单详情
+                    details = (BillInfoDetail)api.getT();
+                    //设置借款金额,借款期限,年利率
+                    BillProductInfo productInfo = details.getProductInfo();
+                    //设置借款金额
+                    mTvLoanAmount.setText(productInfo.getLoanMoney());
+                    //设置借款期限
+                    mTvLoanDays.setText(productInfo.getLoanDays()+"天");
+                    //设置年利率
+                    mTvYearrate.setText((Double.parseDouble(productInfo.getYearRates())*100)+"%");
+
+                    RepayDetailAdapter mAdapter = new RepayDetailAdapter(RepayDetailActivity.this, details);
+
+                    mLvRepayDetail.setAdapter(mAdapter);
+
+                    return;
+                }
+            }
+
+            @Override
+            public void failCallback() {
+
+            }
+        };
+
+        if(getIntent()!=null && getIntent().getExtras()!=null){
+            //获取账单id
+            billId = getIntent().getExtras().getString("billId");
+            getBillInfoDetail(billId);
         }
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    /**
+     * 获取账单详情
+     * @param billId
+     */
+    private void getBillInfoDetail(String billId){
+        //获取未还款账单详情
+        Call<Result_Api<BillInfoDetail>> call = service.detail(billId);
+        Callexts.need_sessionPost(call, postCallback);
     }
+
 
     @OnClick(R.id.btn_back)
     public void onViewClicked() {
