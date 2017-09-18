@@ -136,7 +136,7 @@ public class MyFragment extends BaseFragment {
             case R.id.lay_about_us:
 //                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
 //                AppManager.getInstance().showActivity(EntireFactorPayActivity.class, null);
-                PayUtil payUtil = new PayUtil(mContext, "27324533988150081352", "100100102", "073391932335593", "100", "20170918172445");
+                PayUtil payUtil = new PayUtil(mContext, "29816070985499016640", "100100102", "083012498311295", "0.01", "20170918181531");
                 payUtil.startPay();
                 break;
 

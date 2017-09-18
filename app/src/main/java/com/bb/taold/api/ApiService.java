@@ -5,8 +5,7 @@ import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
 import com.bb.taold.bean.BandCardResult;
-import com.bb.taold.bean.BillInfos;
-import com.bb.taold.bean.BillItemDetail;
+import com.bb.taold.bean.BillInfoDetail;
 import com.bb.taold.bean.BillItemInfo;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
@@ -15,13 +14,11 @@ import com.bb.taold.bean.LoanDetail;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.Session;
-import com.bb.taold.bean.BillInfoDetail;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
 import com.bb.taold.bean.WaitRepayRecord;
 
 import retrofit2.Call;
-
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
