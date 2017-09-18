@@ -51,9 +51,6 @@ public class SignUtils {
         //意见反馈接口忽略
         ignoreParamNames.add("device");
         ignoreParamNames.add("deviceNumber");
-
-
-
     }
 
 

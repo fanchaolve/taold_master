@@ -7,6 +7,7 @@ import com.bb.taold.bean.AuthParam;
 import com.bb.taold.bean.BandCardResult;
 import com.bb.taold.bean.BillInfos;
 import com.bb.taold.bean.BillItemDetail;
+import com.bb.taold.bean.BillItemInfo;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
 import com.bb.taold.bean.LoadRecordResponse;
@@ -204,7 +205,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/gateway?method=trade.calProductFee")
+    @POST("/gateway?method=trade.calProductFee_session")
     Call<Result_Api<ProductFee>> calProductFee(@Field("stagesId") String stages,
                                                @Field("money") String money);
 
@@ -214,7 +215,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/gateway?method=trade.productInfo")
+    @POST("/gateway?method=trade.productInfo_session")
     Call<Result_Api<ProductInfo>> productInfo(@Field("productCode") String productCode);
 
 
@@ -253,7 +254,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=bill.fundDetail")
-    Call<Result_Api<BillItemDetail>> fundDetail(@Field("billItemId") String billItemId);
+    Call<Result_Api<BillItemInfo>> fundDetail(@Field("billItemId") String billItemId);
 
 
 

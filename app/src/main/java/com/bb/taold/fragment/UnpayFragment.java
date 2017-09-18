@@ -105,9 +105,10 @@ public class UnpayFragment extends BaseFragment {
                     //设置总共应还金额
                     mTvTotalMoney.setText(info.getShouldPayAmt());
                     mTvRestAmount.setText(info.getWaitPayAmt());
-                    //设置提示
-                    mTvTiptext.setText(getString(R.string.unpay_text,info.getBillItems().get(0).getRepayDate()));
-
+                    if(info.getBillItems().size()>0){
+                        //设置提示
+                        mTvTiptext.setText(getString(R.string.unpay_text,info.getBillItems().get(0).getRepayDate()));
+                    }
                     return;
                 }
             }

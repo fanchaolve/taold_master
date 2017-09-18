@@ -24,9 +24,9 @@ public class MyApplication extends Application {
     private static MyApplication INSTANCE = null;
     private static Context context;
 
-    public static String latitude = "30.296019";// 纬度
+    public static String latitude = "";// 纬度
 
-    public static String longitude = "120.080279";//经度
+    public static String longitude = "";//经度
 
     public static String city;//城市
 

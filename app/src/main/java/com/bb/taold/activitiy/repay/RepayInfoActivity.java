@@ -16,6 +16,7 @@ import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.BillItemDetail;
+import com.bb.taold.bean.BillItemInfo;
 import com.bb.taold.listener.Callexts;
 
 import butterknife.BindView;
@@ -120,14 +121,17 @@ public class RepayInfoActivity extends BaseActivity {
         postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {
-                if (api.getT() instanceof BillItemDetail) {
-                    BillItemDetail detail = (BillItemDetail)api.getT();
+                if (api.getT() instanceof BillItemInfo) {
+                    BillItemInfo info = (BillItemInfo)api.getT();
+                    BillItemDetail detail = info.getBillInfo();
                     //设置金额数据
                     mTvLoanAmount.setText(detail.getBillAmount());
                     mTvPrincipal.setText(detail.getPrincipal());
                     mTvLoanInterestCost.setText(detail.getLoanInterestCost());
                     mTvManageCost.setText(detail.getManageCost());
+                    //需要判断是否逾期来确定是否显示逾期金额
                     mTvDueAmount.setText(detail.getDueAmount());
+                    mTvAbateAmt.setText(detail.getAbateAmt());
                     return;
                 }
             }
@@ -148,7 +152,7 @@ public class RepayInfoActivity extends BaseActivity {
      * @param billItemId
      */
     private void getBillItemInfo(String billItemId) {
-        Call<Result_Api<BillItemDetail>> call = service.fundDetail(billItemId);
+        Call<Result_Api<BillItemInfo>> call = service.fundDetail(billItemId);
         Callexts.need_sessionPost(call, postCallback);
     }
 
@@ -209,10 +213,4 @@ public class RepayInfoActivity extends BaseActivity {
         createDialog();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
