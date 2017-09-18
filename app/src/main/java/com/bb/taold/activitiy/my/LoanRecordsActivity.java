@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bb.taold.R;
 import com.bb.taold.adapter.LoanRecordsAdapter22;
@@ -16,7 +15,8 @@ import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.LoadRecordResponse;
 import com.bb.taold.bean.LoanRecord;
 import com.bb.taold.listener.Callexts;
-import com.bb.taold.utils.GsonUtils;
+import com.bb.taold.utils.AppManager;
+import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
@@ -77,7 +77,7 @@ public class LoanRecordsActivity extends BaseActivity {
 //
 //            @Override
 //            public void onLoadMore() {
-//                if(hasMore){
+//                if(isNoMore){
 //                    queryLoanRecords("0", mStrings.size() + "");
 //                    Toast.makeText(mContext, "load", Toast.LENGTH_SHORT).show();
 //                }
@@ -96,9 +96,16 @@ public class LoanRecordsActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-
+        recyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int i) {
+                Bundle bundle = new Bundle();
+                bundle.putString("loanId","");
+                AppManager.getInstance().showActivity(LoanDetailsActivity.class,bundle);
+            }
+        });
     }
-    public boolean hasMore = true;
+    public boolean isNoMore = true;
     @Override
     public void initdata() {
 
@@ -111,18 +118,13 @@ public class LoanRecordsActivity extends BaseActivity {
                 LoadRecordResponse loadRecordResponse = (LoadRecordResponse) api.getT();
                 List<LoanRecord> rows = loadRecordResponse.getRows();
                 if(rows!=null&&rows.size()>0){
-                    for(int i=0;i<10;i++){
-                        adapter22.addAll(rows);
-                    }
                     adapter22.addAll(rows);
+                    recyclerViewAdapter.notifyDataSetChanged();
                     mCurrentCounter += rows.size();
-                    Toast.makeText(mContext, rows.size() + "" + GsonUtils.toJson(rows.get(0)).toString(), Toast.LENGTH_SHORT).show();
                 }else{
-                    hasMore = false;
+                    isNoMore = true;
                 }
-
-//                    mRecyclerAdapter.notifyDataSetChanged();
-
+                mRecyclerView.setNoMore(isNoMore);
             }
 
             @Override
@@ -130,6 +132,7 @@ public class LoanRecordsActivity extends BaseActivity {
 
             }
         };
+        queryLoanRecords(mCurrentCounter+"", "10");
 
         mRecyclerView.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -138,26 +141,17 @@ public class LoanRecordsActivity extends BaseActivity {
                 adapter22.clear();
                 recyclerViewAdapter.notifyDataSetChanged();//fix bug:crapped or attached views may not be recycled. isScrap:false isAttached:true
                 mCurrentCounter = 0;
-                queryLoanRecords("0", "1");
+                queryLoanRecords(mCurrentCounter+"", "10");
             }
         });
-        //是否禁用自动加载更多功能,false为禁用, 默认开启自动加载更多功能
-        mRecyclerView.setLoadMoreEnabled(true);
-        mRecyclerView.setFooterViewColor(R.color.white,R.color.color_hint,R.color.common_backgroud);
         mRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 Log.i("count",mCurrentCounter+"");
-                if (mCurrentCounter<5) {
-                    // loading more
-                    queryLoanRecords(0+"","10");
-                } else {
-                    //the end
-                    mRecyclerView.setNoMore(true);
-                }
+                    queryLoanRecords(mCurrentCounter+"","10");
             }
         });
-        queryLoanRecords("0", "1");
+
     }
 
     public void queryLoanRecords(String offset, String count) {
