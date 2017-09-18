@@ -33,8 +33,8 @@ public class EnvConstants {
 //    public static final String MD5_KEY = "201408071000001543test_20140812";
     
     //生产环境 认证支付测试商户号
-    public static final String PARTNER = "201306031000001013";
-    public static final String MD5_KEY = "201306031000001013";
+    public static final String PARTNER = "201408071000001543";
+    public static final String MD5_KEY = "201408071000001543";
    // 生产环境 游易付测试商户号
 //      public static final String PARTNER = "201510211000547504";
 //     public static final String MD5_KEY = "yintong1234567890";

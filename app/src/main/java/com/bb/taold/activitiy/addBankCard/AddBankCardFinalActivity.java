@@ -2,6 +2,8 @@ package com.bb.taold.activitiy.addBankCard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +18,14 @@ import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.BandCardResult;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.UserInfo;
+import com.bb.taold.lianlian.utils.BaseHelper;
+import com.bb.taold.lianlian.utils.LLPayConstants;
+import com.bb.taold.lianlian.utils.MobileSecurePayer;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -61,8 +69,24 @@ public class AddBankCardFinalActivity extends BaseActivity {
                     return;
                 mEtAcctUser.setText(info.getRealName());
             } else if (api.getT() instanceof BandCardResult) {
+                BandCardResult bandCardResult = (BandCardResult) api.getT();
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("no_order",bandCardResult.getNo_order());
+                    jsonObject.put("oid_partner",bandCardResult.getOid_partner());
+                    jsonObject.put("user_id",bandCardResult.getUser_id());
+                    jsonObject.put("token",bandCardResult.getToken());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 Log.i("fancl", ((BandCardResult) api.getT()).getToken());
-                finish();
+                MobileSecurePayer payer = new MobileSecurePayer();
+//                            payer.setCAPTCHA_Switch(true);
+                payer.setCallbackHandler(mHandler, LLPayConstants.RQF_SIGN);
+
+                boolean bRet = payer.doTokenSign(jsonObject, AddBankCardFinalActivity.this);
+//                finish();
                 AppManager.getInstance().finishParticularActivity(AddBankCardActivity.class);
             }
         }
@@ -149,5 +173,39 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 Callexts.need_sessionPost(call, postCallback);
                 break;
         }
+    }
+    private Handler mHandler = createHandler();
+    private Handler createHandler() {
+        return new Handler() {
+            public void handleMessage(Message msg) {
+                String strRet = (String) msg.obj;
+                switch (msg.what) {
+                    case LLPayConstants.RQF_PAY:
+                    case LLPayConstants.RQF_SIGN:
+                    {
+                        JSONObject objContent = BaseHelper.string2JSON(strRet);
+                        String retCode = objContent.optString("ret_code");
+                        String retMsg = objContent.optString("ret_msg");
+
+                        // 成功
+                        if (LLPayConstants.RET_CODE_SUCCESS.equals(retCode)) {
+
+                            BaseHelper.showDialog(AddBankCardFinalActivity.this, "提示",
+                                    "支付成功，交易状态码：" + retCode+" 返回报文:"+strRet,
+                                    android.R.drawable.ic_dialog_alert);
+
+                        }  else {
+                            // TODO 失败
+                            BaseHelper.showDialog(AddBankCardFinalActivity.this, "错误提示", retMsg
+                                            + "，交易状态码:" + retCode+" 返回报文:"+strRet,
+                                    android.R.drawable.ic_dialog_alert);
+                        }
+                    }
+                    break;
+                }
+                super.handleMessage(msg);
+            }
+        };
+
     }
 }
