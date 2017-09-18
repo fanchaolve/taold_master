@@ -105,7 +105,7 @@ public class AppManager {
             if (activity.getClass().equals(tClass)) {
                 if (activity != null) {
                     activity.finish();
-                  
+
                 }
             }
         }
@@ -132,7 +132,8 @@ public class AppManager {
      * 结束所有Activity
      */
     public void finishAllActivity() {
-        for (int i = 0, size = activityStack.size(); i < size; i++) {
+        int size = activityStack.size();
+        for (int i = size - 1; i >= 0; i--) {
             if (null != activityStack.get(i)) {
                 activityStack.get(i).finish();
                 activityStack.remove(i);
@@ -157,7 +158,7 @@ public class AppManager {
     public void AppExit(Context context) {
         finishAllActivity();
 //        ActivityManager activityManager=context.getSystemService(Context.ACTIVITY_SERVICE);
-       // android.os.Process.killProcess(android.os.Process.myPid());
+        // android.os.Process.killProcess(android.os.Process.myPid());
         //System.exit(0);
     }
 
@@ -193,44 +194,39 @@ public class AppManager {
         activity.startActivityForResult(intent, requestCode);
     }
 
-    public void showAuthFace(BaseActivity from, Authorized_IdFragment toFragment){
-        doReplaceTran(from,toFragment,null);
+    public void showAuthFace(BaseActivity from, Authorized_IdFragment toFragment) {
+        doReplaceTran(from, toFragment, null);
     }
 
-    public void showAuthMoblie(BaseActivity from, Mobile_Phone_OperatorsFragment toFragment){
-        doReplaceTran(from,toFragment,null);
+    public void showAuthMoblie(BaseActivity from, Mobile_Phone_OperatorsFragment toFragment) {
+        doReplaceTran(from, toFragment, null);
     }
 
-    public void showAuth_Sesame(BaseActivity from, Authorized_SesameFragment toFragment){
-        doReplaceTran(from,toFragment,null);
+    public void showAuth_Sesame(BaseActivity from, Authorized_SesameFragment toFragment) {
+        doReplaceTran(from, toFragment, null);
     }
 
-    public void showAuth_State(BaseActivity from, Auth_StateFragment toFragment, Bundle bundle){
-        doReplaceTran(from,toFragment,bundle);
+    public void showAuth_State(BaseActivity from, Auth_StateFragment toFragment, Bundle bundle) {
+        doReplaceTran(from, toFragment, bundle);
     }
 
-    public void showBase_Info(BaseActivity from, BaseInfoFragment toFragment){
-        doReplaceTran(from,toFragment,null);
+    public void showBase_Info(BaseActivity from, BaseInfoFragment toFragment) {
+        doReplaceTran(from, toFragment, null);
     }
 
 
-
-    private static void doReplaceTran(BaseActivity from, BaseFragment toFragment,Bundle bundle)
-    {
+    private static void doReplaceTran(BaseActivity from, BaseFragment toFragment, Bundle bundle) {
         FragmentManager fm = from.getSupportFragmentManager();
-        if(fm==null)
+        if (fm == null)
             return;
         FragmentTransaction ft = fm.beginTransaction();
-        if(bundle !=null){
+        if (bundle != null) {
             toFragment.setArguments(bundle);
         }
         ft.replace(R.id.frame_layout, toFragment);
         ft.show(toFragment);
         ft.commit();
     }
-
-
-
 
 
     public int dp2px(Context context, int dp) {
@@ -252,23 +248,22 @@ public class AppManager {
     /**
      * 退出登录
      */
-    public void logout(){
-        if(isLogin()){
-            showActivity(LoginActivity.class,null);
+    public void logout() {
+        if (isLogin()) {
+            showActivity(LoginActivity.class, null);
         }
     }
 
     /**
      * 是否登录
      */
-    public boolean isLogin(){
-       String session= MyApplication.getInstance().getSession();
-        if(session == null || "".equalsIgnoreCase(session)){
+    public boolean isLogin() {
+        String session = MyApplication.getInstance().getSession();
+        if (session == null || "".equalsIgnoreCase(session)) {
             return false;
         }
         return true;
     }
-
 
 
 }
