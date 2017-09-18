@@ -20,6 +20,7 @@ public class DeviceUtils {
     private DeviceUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
+    public static final String DEVICE_NAME="android";
 
     /**
      * 获取设备系统版本号
@@ -101,7 +102,7 @@ public class DeviceUtils {
      *
      * @return
      */
-    public String getCurr_VersionName(Context context) {
+    public static String getCurr_VersionName(Context context) {
 
         PackageManager pm = context.getPackageManager();
         PackageInfo pi;

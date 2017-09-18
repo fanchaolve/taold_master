@@ -32,3 +32,15 @@
 -keep class com.tencent.mm.sdk.** {
    *;
 }
+-keep class com.huawei.hms.** { *; }
+-dontwarn com.huawei.hms.**
+
+-keep class com.meizu.** { *; }
+-dontwarn com.meizu.**
+
+-keep class com.xiaomi.** { *; }
+-dontwarn com.xiaomi.push.** -keep class org.apache.thrift.** { *; }
+
+-dontwarn com.igexin.**
+-keep class com.igexin.** { *; }
+-keep class org.json.** { *; }

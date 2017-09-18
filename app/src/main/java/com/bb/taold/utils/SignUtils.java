@@ -48,6 +48,11 @@ public class SignUtils {
         ignoreParamNames.add("bankCode");
         ignoreParamNames.add("cardName");
         ignoreParamNames.add("memberContactInfo");
+        //意见反馈接口忽略
+        ignoreParamNames.add("device");
+        ignoreParamNames.add("deviceNumber");
+
+
 
     }
 

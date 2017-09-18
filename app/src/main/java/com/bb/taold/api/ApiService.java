@@ -4,7 +4,6 @@ import com.bb.taold.bean.AllBill;
 import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
-import com.bb.taold.bean.BillInfo;
 import com.bb.taold.bean.BillInfos;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
@@ -16,6 +15,7 @@ import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
 
 import retrofit2.Call;
+
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -298,4 +298,17 @@ public interface ApiService {
     @POST("/gateway?method=loan.recordList")
     Call<Result_Api<LoadRecordResponse>> loan_recordList(@Field("offset") String offset, @Field("limit") String limit);
 
+    /**
+     * 意见反馈
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.membercreateUserFeedback")
+    Call<Result_Api<String>> memberCreateUserFeedback(
+            @Field("device") String device,
+            @Field("versionNumber") String versionNumber,
+            @Field("feedbackContent") String feedbackContent,
+            @Field("deviceNumber") String deviceNumber
+    );
 }
