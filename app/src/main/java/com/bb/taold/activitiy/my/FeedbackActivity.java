@@ -73,7 +73,7 @@ public class FeedbackActivity extends BaseActivity {
     @OnClick({R.id.btn_back, R.id.tv_feedback_commit})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_back:
+            case R.id.btn_back:
                 finish();
                 break;
             case R.id.tv_feedback_commit:

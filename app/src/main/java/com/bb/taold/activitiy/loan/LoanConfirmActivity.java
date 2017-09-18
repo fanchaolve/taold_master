@@ -80,10 +80,6 @@ public class LoanConfirmActivity extends BaseActivity {
     private String userId = "";
     //各项费用保存
     private ProductFee mProductFee = null;
-    //记录是否同意协议
-    private boolean agreeRule1 = false;
-    //记录是否同意第二个协议
-    private boolean agreeRule2 = false;
     //保存主卡信息
     private CardInfo mCardInfo = null;
 
@@ -95,6 +91,7 @@ public class LoanConfirmActivity extends BaseActivity {
     @Override
     public void initView() {
         mBtnBack.setVisibility(View.VISIBLE);
+        mIvBtn2.setSelected(true);
     }
 
     @Override
@@ -106,13 +103,13 @@ public class LoanConfirmActivity extends BaseActivity {
     public void initdata() {
 
         //获取借款页面传递的值
-        if(getIntent()!=null){
+        if (getIntent() != null) {
             Bundle mBundle = getIntent().getExtras();
             mTvLoanAmount.setText(mBundle.getString("loanAmount"));
-            if(mBundle.containsKey("stage7Id")){
+            if (mBundle.containsKey("stage7Id")) {
                 mTvLoanDays.setText("7天");
                 userId = mBundle.getString("stage7Id");
-            }else{
+            } else {
                 mTvLoanDays.setText("14天");
                 userId = mBundle.getString("stage14Id");
             }
@@ -122,58 +119,58 @@ public class LoanConfirmActivity extends BaseActivity {
             @Override
             public void successCallback(Result_Api api) {
                 //判断哪个接口回调
-                if(api.getT() instanceof ProductInfo){
+                if (api.getT() instanceof ProductInfo) {
                     //保存借款金额信息
                     ProductInfo mProductInfo = (ProductInfo) api.getT();
                     mProduct = mProductInfo.getProductInfo();
                     //设置最大金额和最小金额
                     maxAmount = Integer.parseInt(mProduct.getMaxAmt());
                     minAmount = Integer.parseInt(mProduct.getMinAmt());
-                    cacuAmount(userId,mTvLoanAmount.getText().toString());
+                    cacuAmount(userId, mTvLoanAmount.getText().toString());
 
                     return;
                 }
 
-                if(api.getT() instanceof ProductFee){
+                if (api.getT() instanceof ProductFee) {
                     //获取各项费用
                     mProductFee = (ProductFee) api.getT();
                     //实际到账金额
-                    mTvTheActualToAccount.setText(mProductFee.getTheActualToAccount()+"元");
+                    mTvTheActualToAccount.setText(mProductFee.getTheActualToAccount() + "元");
                     //利息费
-                    mTvInterestRates.setText(mProductFee.getInterestRates()+"元");
+                    mTvInterestRates.setText(mProductFee.getInterestRates() + "元");
                     //额度审核费
-                    mTvCreditAuditRates.setText(mProductFee.getCreditAuditRates()+"元");
+                    mTvCreditAuditRates.setText(mProductFee.getCreditAuditRates() + "元");
                     //征信查询费
-                    mTvCreditInspectRates.setText(mProductFee.getCreditInspectRates()+"元");
+                    mTvCreditInspectRates.setText(mProductFee.getCreditInspectRates() + "元");
                     //贷后管理费
-                    mTvManageRates.setText(mProductFee.getManageRates()+"元");
+                    mTvManageRates.setText(mProductFee.getManageRates() + "元");
                     //介绍费
-                    mTvIntroduceRates.setText(mProductFee.getIntroduceRates()+"元");
+                    mTvIntroduceRates.setText(mProductFee.getIntroduceRates() + "元");
                     //总计
-                    mTvTotalMoney.setText(mProductFee.getTotalMoney()+"元");
+                    mTvTotalMoney.setText(mProductFee.getTotalMoney() + "元");
                     return;
                 }
                 //获取银行卡列表
-                if(api.getT() instanceof Cardinfos){
-                    ArrayList<CardInfo> cards = (ArrayList<CardInfo>)api.getT();
-                    if(cards!=null&&cards.size()>0){
-                        mCardInfo  = cards.get(0);
+                if (api.getT() instanceof Cardinfos) {
+                    ArrayList<CardInfo> cards = (ArrayList<CardInfo>) api.getT();
+                    if (cards != null && cards.size() > 0) {
+                        mCardInfo = cards.get(0);
                         //银行名称
                         mTvBankname.setText(mCardInfo.getCardName());
                         //卡片类型
                         mTvBanktype.setText("借记卡");
                         //银行卡号
                         String cardNo = mCardInfo.getCardno();
-                        if(cardNo.length()>4){
-                            cardNo = cardNo.substring(cardNo.length()-4,cardNo.length());
+                        if (cardNo.length() > 4) {
+                            cardNo = cardNo.substring(cardNo.length() - 4, cardNo.length());
                         }
-                        mTvCardno.setText("**** **** **** "+cardNo);
+                        mTvCardno.setText("**** **** **** " + cardNo);
                     }
 
                 }
 
-                if(api.getT() instanceof LoanInfo){
-                    AppManager.getInstance().showActivity(ApplySuccessActivity.class,null);
+                if (api.getT() instanceof LoanInfo) {
+                    AppManager.getInstance().showActivity(ApplySuccessActivity.class, null);
                 }
 
             }
@@ -185,26 +182,27 @@ public class LoanConfirmActivity extends BaseActivity {
         };
 
         //初始页面获取借款金额信息
-        Call<Result_Api<ProductInfo>> call=service.productInfo("mini_loan");
-        Callexts.need_sessionPost(call,postCallback);
+        Call<Result_Api<ProductInfo>> call = service.productInfo("mini_loan");
+        Callexts.need_sessionPost(call, postCallback);
 
-        Call<Result_Api<Cardinfos>> callCard=service.bankList("10");
-        Callexts.need_sessionPost(callCard,postCallback);
+        Call<Result_Api<Cardinfos>> callCard = service.bankList("10");
+        Callexts.need_sessionPost(callCard, postCallback);
     }
 
     /**
      * 在更换金额或更换期数后重新获取各项费用
+     *
      * @param productId
      * @param amount
      */
-    public void cacuAmount(String productId,String amount){
+    public void cacuAmount(String productId, String amount) {
         //根据默认金额获取到账金额等信息
-        Call<Result_Api<ProductFee>> call=service.calProductFee(productId,amount);
-        Callexts.need_sessionPost(call,postCallback);
+        Call<Result_Api<ProductFee>> call = service.calProductFee(productId, amount);
+        Callexts.need_sessionPost(call, postCallback);
     }
 
-    @OnClick({R.id.btn_back, R.id.iv_add, R.id.tv_loanAmount, R.id.iv_delete, R.id.tv_confirm,R.id.iv_btn1,R.id.iv_btn2,
-                R.id.tv_changeCard})
+    @OnClick({R.id.btn_back, R.id.iv_add, R.id.tv_loanAmount, R.id.iv_delete, R.id.tv_confirm, R.id.agree_layout1, R.id.agree_layout2,
+            R.id.tv_changeCard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
@@ -214,61 +212,61 @@ public class LoanConfirmActivity extends BaseActivity {
                 //获取当前金额
                 int currentAmount = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否大于最大金额
-                if(currentAmount == maxAmount){
+                if (currentAmount == maxAmount) {
                     mTvLoanAmount.setText(maxAmount + "");
                     return;
                 }
                 if ((currentAmount + 100) > maxAmount) {
                     mTvLoanAmount.setText(maxAmount + "");
-                }else{
+                } else {
                     mTvLoanAmount.setText((currentAmount + 100) + "");
                 }
                 //刷新所有的费用
-                cacuAmount(userId,mTvLoanAmount.getText().toString());
+                cacuAmount(userId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.iv_delete:
                 //获取当前金额
                 int currentAmountDelete = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否小于最小金额
-                if(currentAmountDelete == minAmount){
+                if (currentAmountDelete == minAmount) {
                     mTvLoanAmount.setText(minAmount + "");
                     return;
                 }
                 if (currentAmountDelete - 100 < minAmount) {
                     mTvLoanAmount.setText(minAmount + "");
-                }else{
+                } else {
                     mTvLoanAmount.setText((currentAmountDelete - 100) + "");
                 }
                 //刷新所有的费用
-                cacuAmount(userId,mTvLoanAmount.getText().toString());
+                cacuAmount(userId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.tv_confirm:
-                if(!(agreeRule1 && agreeRule2)){
+                if (!mIvBtn1.isSelected() && !mIvBtn2.isSelected()) {
                     showTip("请阅读协议");
                     return;
                 }
                 //调用小额贷款接口
-                Call<Result_Api> call=service.applyMiniLoan(mCardInfo.getId(),mTvLoanAmount.getText().toString(),
-                        mTvLoanDays.getText().toString().replace("天",""), MyApplication.longitude+"-"+MyApplication.latitude,
-                        DeviceUtils.getDeviceIdentification(this),"1","1","1","1");
-                Callexts.need_sessionPost(call,postCallback);
+                Call<Result_Api> call = service.applyMiniLoan(mCardInfo.getId(), mTvLoanAmount.getText().toString(),
+                        mTvLoanDays.getText().toString().replace("天", ""), MyApplication.longitude + "-" + MyApplication.latitude,
+                        DeviceUtils.getDeviceIdentification(this), "1", "1", "1", "1");
+                Callexts.need_sessionPost(call, postCallback);
                 break;
-            case R.id.iv_btn1:
-                if(agreeRule1)
+            case R.id.agree_layout1:
+                if (mIvBtn1.isSelected())
                     mIvBtn1.setImageResource(R.drawable.square_nor);
                 else
                     mIvBtn1.setImageResource(R.drawable.square_sel);
-                agreeRule1 = !agreeRule1;
+                mIvBtn1.setSelected(!mIvBtn1.isSelected());
                 break;
-            case R.id.iv_btn2:
-                if(agreeRule2)
+            case R.id.agree_layout2:
+                if (mIvBtn2.isSelected())
                     mIvBtn2.setImageResource(R.drawable.square_nor);
                 else
                     mIvBtn2.setImageResource(R.drawable.square_sel);
-                agreeRule2 = !agreeRule2;
+                mIvBtn2.setSelected(!mIvBtn2.isSelected());
                 break;
             case R.id.tv_changeCard:
-                AppManager.getInstance().showActivity(CardListActivity.class,null);
+                AppManager.getInstance().showActivity(CardListActivity.class, null);
                 break;
         }
     }

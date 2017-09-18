@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <include layout="@layout/layout_title_normal"/>
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
@@ -14,280 +15,320 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
                 android:background="@color/white">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:text="借款金额（元）"/>
+                    android:text="借款金额（元）"
+                    android:textAppearance="@style/TextAppear.Theme.font111111_Size16"/>
+
                 <ImageView
                     android:id="@+id/iv_add"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
                     android:src="@drawable/add_icon"/>
+
                 <TextView
                     android:id="@+id/tv_loanAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10000"
-                    android:layout_toLeftOf="@id/iv_add"
-                    android:layout_marginRight="17dp"
-                    android:textSize="20sp"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/color_price"/>
+                    android:layout_marginRight="17dp"
+                    android:layout_toLeftOf="@id/iv_add"
+                    android:text="10000"
+                    android:textColor="@color/color_price"
+                    android:textSize="20sp"/>
+
                 <ImageView
                     android:id="@+id/iv_delete"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="17dp"
                     android:layout_toLeftOf="@id/tv_loanAmount"
-                    android:layout_centerVertical="true"
                     android:src="@drawable/delete_icon"/>
             </RelativeLayout>
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@color/color_line"/>
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="49dp"
                 android:background="@color/white">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:text="借款期限"/>
+                    android:text="借款期限"
+                    android:textColor="@color/color_111111"
+                    android:textSize="15sp"/>
+
                 <TextView
                     android:id="@+id/tv_loanDays"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="@color/color_111111"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:text="14天"/>
+                    android:text="14天"
+                    android:textColor="@color/color_111111"
+                    android:textSize="15sp"/>
             </RelativeLayout>
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="15dp"
                 android:background="@color/color_line"/>
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="49dp"
                 android:background="@color/white">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="@color/color_111111"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:text="实际到账"/>
+                    android:text="实际到账"
+                    android:textColor="@color/color_111111"
+                    android:textSize="15sp"/>
+
                 <TextView
                     android:id="@+id/tv_theActualToAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="@color/color_111111"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:text="900元"/>
+                    android:text="900元"
+                    android:textColor="@color/color_111111"
+                    android:textSize="15sp"/>
             </RelativeLayout>
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="15dp"
                 android:background="@color/color_line"/>
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:background="@color/white"
                 android:orientation="vertical"
-                android:background="@color/white">
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
                         android:layout_centerVertical="true"
+                        android:text="借款利息"
                         android:textColor="@color/font_normal"
-                        android:text="借款利息"/>
+                        android:textSize="14sp"/>
+
                     <TextView
                         android:id="@+id/tv_interestRates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="4.5元"
                         android:textColor="@color/font_normal"
-                        android:text="4.5元"/>
+                        android:textSize="14sp"/>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
                         android:layout_centerVertical="true"
+                        android:text="额度审核费"
                         android:textColor="@color/font_normal"
-                        android:text="额度审核费"/>
+                        android:textSize="14sp"/>
+
                     <TextView
                         android:id="@+id/tv_creditAuditRates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="30元"
                         android:textColor="@color/font_normal"
-                        android:text="30元"/>
+                        android:textSize="14sp"/>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
                         android:layout_centerVertical="true"
+                        android:text="征信查询费"
                         android:textColor="@color/font_normal"
-                        android:text="征信查询费"/>
+                        android:textSize="14sp"/>
+
                     <TextView
                         android:id="@+id/tv_creditInspectRates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="8元"
                         android:textColor="@color/font_normal"
-                        android:text="8元"/>
+                        android:textSize="14sp"/>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
                         android:layout_centerVertical="true"
+                        android:text="贷后管理费"
                         android:textColor="@color/font_normal"
-                        android:text="贷后管理费"/>
+                        android:textSize="14sp"/>
+
                     <TextView
                         android:id="@+id/tv_manageRates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="100元"
                         android:textColor="@color/font_normal"
-                        android:text="100元"/>
+                        android:textSize="14sp"/>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
                         android:layout_centerVertical="true"
+                        android:text="介绍费"
                         android:textColor="@color/font_normal"
-                        android:text="介绍费"/>
+                        android:textSize="14sp"/>
+
                     <TextView
                         android:id="@+id/tv_introduceRates"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="100元"
                         android:textColor="@color/font_normal"
-                        android:text="100元"/>
+                        android:textSize="14sp"/>
                 </RelativeLayout>
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="13dp"
                     android:background="@color/color_line"/>
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="49dp"
                 android:background="@color/white">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/color_111111"
                     android:layout_marginLeft="15dp"
-                    android:textStyle="bold"
-                    android:text="总共应还"/>
+                    android:text="总共应还"
+                    android:textColor="@color/color_111111"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+
                 <TextView
                     android:id="@+id/tv_totalMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
-                    android:textColor="@color/color_111111"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:text="1000元"/>
+                    android:layout_marginRight="15dp"
+                    android:text="1000元"
+                    android:textColor="@color/color_111111"
+                    android:textSize="15sp"/>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_line">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="@color/color_111111"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="放款到银行卡"/>
+                    android:text="放款到银行卡"
+                    android:textColor="@color/color_111111"
+                    android:textSize="14sp"/>
+
                 <TextView
                     android:id="@+id/tv_changeCard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="@color/color_111111"
                     android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="更换银行"/>
+                    android:text="更换银行"
+                    android:textColor="@color/color_111111"
+                    android:textSize="14sp"/>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="138dp"
                 android:background="@color/white">
+
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="108dp"
@@ -308,36 +349,38 @@
                         android:id="@+id/tv_bankname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/iv_bankicon"
-                        android:textSize="15sp"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="10dp"
-                        android:text="工商银行"/>
+                        android:layout_marginTop="20dp"
+                        android:layout_toRightOf="@id/iv_bankicon"
+                        android:text="工商银行"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
                     <TextView
                         android:id="@+id/tv_banktype"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/iv_bankicon"
                         android:layout_below="@id/tv_bankname"
-                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
-                        android:textSize="11sp"
-                        android:textColor="@color/white"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/iv_bankicon"
                         android:text="借记卡"
+                        android:textColor="@color/white"
+                        android:textSize="11sp"
                         />
+
                     <TextView
                         android:id="@+id/tv_cardno"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="20dp"
                         android:layout_marginBottom="20dp"
-                        android:textSize="14sp"
+                        android:layout_marginRight="20dp"
+                        android:text="**** **** **** 8934"
                         android:textColor="@color/white"
-                        android:text="**** **** **** 8934"/>
+                        android:textSize="14sp"/>
 
                 </RelativeLayout>
             </RelativeLayout>
@@ -346,63 +389,71 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/tv_confirm"
                     android:layout_width="fill_parent"
                     android:layout_height="42dp"
                     android:layout_marginTop="30dp"
-                    android:textSize="16sp"
-                    android:textColor="#FEFEFE"
+                    android:background="@drawable/button_bg"
                     android:gravity="center"
                     android:text="确认借款"
-                    android:background="@drawable/button_bg"/>
+                    android:textColor="#FEFEFE"
+                    android:textSize="16sp"/>
 
                 <LinearLayout
+                    android:id="@+id/agree_layout1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/iv_btn1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/square_nor"
                         android:layout_marginLeft="10dp"
-                        android:padding="5dp"
                         android:layout_marginTop="1dp"
+                        android:padding="5dp"
+                        android:src="@drawable/square_nor"
                         />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="我已同意"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="《自动还款协议》"
                         android:layout_marginTop="5dp"
+                        android:text="《自动还款协议》"
                         android:textColor="@color/color_price"/>
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/agree_layout2"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginBottom="30dp"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/iv_btn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/square_sel"
-                        android:padding="5dp"
                         android:layout_marginTop="1dp"
+                        android:padding="5dp"
+                        android:src="@drawable/square_sel"
                         />
+
                     <TextView
-                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:text="我保证借款用于合法的消费或经营途径，而非任何非法用途（如股票，房地产，赌博）"/>
                 </LinearLayout>
             </LinearLayout>
