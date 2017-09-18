@@ -17,6 +17,7 @@ import com.bb.taold.bean.BillInfos;
 import com.bb.taold.bean.BillItem;
 import com.bb.taold.bean.BillItems;
 import com.bb.taold.bean.BillProductInfo;
+import com.bb.taold.bean.WaitRepayRecord;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 
@@ -52,7 +53,7 @@ public class UnpayFragment extends BaseFragment {
     //接口返回接受
     private PostCallback postCallback;
     //获取未还账单分期
-    private BillInfoDetail info = null;
+    private WaitRepayRecord info = null;
     //未还款账单的id
     private String billId = "";
 
@@ -94,26 +95,18 @@ public class UnpayFragment extends BaseFragment {
                     return;
                 }
 
-                if(api.getT() instanceof BillInfoDetail){
+                if(api.getT() instanceof WaitRepayRecord){
 
-                    info = (BillInfoDetail)api.getT();
+                    info = (WaitRepayRecord)api.getT();
                     //向列表中写入数据
                     UnpayBillAdapter mAdapter = new UnpayBillAdapter(getActivity(), info);
                     mLvUnpayBill.setAdapter(mAdapter);
 
-                    //总共应还和剩余应还金额
-                    BillProductInfo productInfo = info.getProductInfo();
                     //设置总共应还金额
-                    mTvTotalMoney.setText(productInfo.getLoanMoney());
-                    //设置剩余应还金额
-                    Double rest_amount = 0.00;
-                    BillItems items = info.getBillItems();
-                    for(BillItem item:items){
-                        rest_amount+=Double.parseDouble(item.getAmtMoney());
-                    }
-                    mTvRestAmount.setText(rest_amount+"");
+                    mTvTotalMoney.setText(info.getShouldPayAmt());
+                    mTvRestAmount.setText(info.getWaitPayAmt());
                     //设置提示
-                    mTvTiptext.setText(getString(R.string.unpay_text,items.get(0).getRepayDate()));
+                    mTvTiptext.setText(getString(R.string.unpay_text,info.getBillItems().get(0).getRepayDate()));
 
                     return;
                 }
@@ -135,7 +128,7 @@ public class UnpayFragment extends BaseFragment {
      */
     private void getUnpayInfo() {
         //获取未还款账单
-        Call<Result_Api<BillInfos>> call = service.queryPhase("10");
+        Call<Result_Api<WaitRepayRecord>> call = service.waitRepayRecord();
         Callexts.need_sessionPost(call, postCallback);
     }
 

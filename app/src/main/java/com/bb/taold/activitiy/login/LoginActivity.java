@@ -132,27 +132,27 @@ public class LoginActivity extends BaseActivity {
     public void initdata() {
 
         MyApplication.getInstance().saveSession("");
-
         postCallback = new PostCallback<BaseActivity>(this) {
+
             @Override
             public void successCallback(Result_Api api) {
-                    if (api.getT() instanceof String) {//验证码
-                        showTip("验证码已发送");
-                        return;
+                if (api.getT() instanceof String) {//验证码
+                    showTip("验证码已发送");
+                    return;
+                }
+
+                if (api.getT() instanceof Session) {//登录
+                    Session session = (Session) api.getT();
+                    if (session != null) {
+                        MyApplication.getInstance().saveSession(session.getSession());
                     }
 
-                    if (api.getT() instanceof Session) {//登录
-                        Session session = (Session) api.getT();
-                        if (session != null) {
-                            MyApplication.getInstance().saveSession(session.getSession());
-                        }
-
-                        AppManager.getInstance().showActivity(HomeActivity.class, null);
-                        //取消定时器
-                        if(mTimer!=null)
-                            mTimer.cancel();
-                        finish();
-                    }
+                    AppManager.getInstance().showActivity(HomeActivity.class, null);
+                    //取消定时器
+                    if (mTimer != null)
+                        mTimer.cancel();
+                    finish();
+                }
 
             }
 
@@ -189,12 +189,12 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
-        Call<Result_Api<Session>> call=service.user_login(
-                etMobileStr, mEtCode.getText().toString(), MyApplication.longitude+"-"+MyApplication.latitude,
+        Call<Result_Api<Session>> call = service.user_login(
+                etMobileStr, mEtCode.getText().toString(), MyApplication.longitude + "-" + MyApplication.latitude,
                 "android", DeviceUtils.getDeviceIdentification(this),
-                DeviceUtils.getCurrVersionCode(this)+"",DeviceUtils.getManufacturer(),
-                DeviceUtils.getModel(),"TL","T","4G");
-        Callexts.Unneed_sessionPost(call,postCallback);
+                DeviceUtils.getCurrVersionCode(this) + "", DeviceUtils.getManufacturer(),
+                DeviceUtils.getModel(), "TL", "T", "4G");
+        Callexts.Unneed_sessionPost(call, postCallback);
 
     }
 
@@ -226,10 +226,10 @@ public class LoginActivity extends BaseActivity {
         };
         mTimer.schedule(task, 0, 1000);
 
-        Call<Result_Api> call=service.sms_sendLoginSmsCode(mEtMobile.getText().toString().trim());
+        Call<Result_Api> call = service.sms_sendLoginSmsCode(mEtMobile.getText().toString().trim());
         postCallback.setFlag(0);
         mobile_bding_code = mEtMobile.getText().toString().trim();
-        Callexts.Unneed_sessionPost(call,postCallback);
+        Callexts.Unneed_sessionPost(call, postCallback);
     }
 
     /**
@@ -242,7 +242,7 @@ public class LoginActivity extends BaseActivity {
         LayoutInflater inflater = LayoutInflater.from(LoginActivity.this);
         View view = inflater.inflate(R.layout.dialog_login_tip, null);
         RelativeLayout rl_bgd = (RelativeLayout) view.findViewById(R.id.rl_bgd);
-        rl_bgd.setBackground(getResources().getDrawable(R.drawable.bg_login_tip));
+        rl_bgd.setBackgroundResource(R.drawable.bg_login_tip);
         rl_bgd.setAlpha(0.8f);
         TextView t = (TextView) view.findViewById(R.id.tv_tiptext);
         t.setText(text);

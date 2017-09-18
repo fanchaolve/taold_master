@@ -41,7 +41,7 @@ import retrofit2.Call;
  */
 
 public class LoanFragment extends BaseFragment
-<Frag_LoanPresenter,Frag_LoanModel> implements Frag_LoanContract.View{
+        <Frag_LoanPresenter,Frag_LoanModel> implements Frag_LoanContract.View{
     @BindView(R.id.tv_loanAmount)
     TextView mTvLoanAmount;
     @BindView(R.id.tv_status_7)
@@ -208,18 +208,18 @@ public class LoanFragment extends BaseFragment
                 //利息费
                 TextView tv_interestRates = (TextView)dialogView.findViewById(R.id.tv_interestRates);
                 tv_interestRates.setText("+"+mProductFee.getInterestRates()+"元");
-                //额度审核费
-                TextView tv_creditAuditRates = (TextView)dialogView.findViewById(R.id.tv_creditAuditRates);
-                tv_creditAuditRates.setText("+"+mProductFee.getCreditAuditRates()+"元");
-                //征信查询费
-                TextView tv_creditInspectRates = (TextView)dialogView.findViewById(R.id.tv_creditInspectRates);
-                tv_creditInspectRates.setText("+"+mProductFee.getCreditInspectRates()+"元");
+//                //额度审核费
+//                TextView tv_creditAuditRates = (TextView)dialogView.findViewById(R.id.tv_creditAuditRates);
+//                tv_creditAuditRates.setText("+"+mProductFee.getCreditAuditRates()+"元");
+//                //征信查询费
+//                TextView tv_creditInspectRates = (TextView)dialogView.findViewById(R.id.tv_creditInspectRates);
+//                tv_creditInspectRates.setText("+"+mProductFee.getCreditInspectRates()+"元");
                 //贷后管理费
                 TextView tv_manageRates = (TextView)dialogView.findViewById(R.id.tv_manageRates);
                 tv_manageRates.setText("+"+mProductFee.getManageRates()+"元");
-                //介绍费
-                TextView tv_introduceRates = (TextView)dialogView.findViewById(R.id.tv_introduceRates);
-                tv_introduceRates.setText("+"+mProductFee.getIntroduceRates()+"元");
+//                //介绍费
+//                TextView tv_introduceRates = (TextView)dialogView.findViewById(R.id.tv_introduceRates);
+//                tv_introduceRates.setText("+"+mProductFee.getIntroduceRates()+"元");
                 //合计
                 TextView tv_totalMoney = (TextView)dialogView.findViewById(R.id.tv_totalMoney);
                 tv_totalMoney.setText("+"+mProductFee.getTotalMoney()+"元");
@@ -245,9 +245,9 @@ public class LoanFragment extends BaseFragment
             case R.id.tv_status_7:
                 //点击"借7天"按钮
                 mTvStatus7.setTextColor(getResources().getColor(R.color.color_price));
-                mTvStatus7.setBackground(getResources().getDrawable(R.drawable.bg_loan_text_2));
+                mTvStatus7.setBackgroundResource(R.drawable.bg_loan_text_2);
                 mTvStatus14.setTextColor(getResources().getColor(R.color.font_normal));
-                mTvStatus14.setBackground(getResources().getDrawable(R.drawable.bg_loan_text));
+                mTvStatus14.setBackgroundResource(R.drawable.bg_loan_text);
                 userId = stage7Id;
                 //重新获取接口计算各项费用
                 cacuAmount(userId,mTvLoanAmount.getText().toString());
@@ -255,9 +255,9 @@ public class LoanFragment extends BaseFragment
             case R.id.tv_status_14:
                 //点击"借14天"按钮
                 mTvStatus14.setTextColor(getResources().getColor(R.color.color_price));
-                mTvStatus14.setBackground(getResources().getDrawable(R.drawable.bg_loan_text_2));
+                mTvStatus14.setBackgroundResource(R.drawable.bg_loan_text_2);
                 mTvStatus7.setTextColor(getResources().getColor(R.color.font_normal));
-                mTvStatus7.setBackground(getResources().getDrawable(R.drawable.bg_loan_text));
+                mTvStatus7.setBackgroundResource(R.drawable.bg_loan_text);
                 userId = stage14Id;
                 //重新获取接口计算各项费用
                 cacuAmount(userId,mTvLoanAmount.getText().toString());

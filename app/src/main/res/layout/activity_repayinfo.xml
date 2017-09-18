@@ -53,6 +53,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/tv_loanAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
@@ -92,8 +93,9 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:textColor="@color/color_hint"
-                            android:text="实际到账"/>
+                            android:text="本金"/>
                         <TextView
+                            android:id="@+id/tv_principal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
@@ -111,6 +113,7 @@
                             android:textColor="@color/color_hint"
                             android:text="借款利息"/>
                         <TextView
+                            android:id="@+id/tv_loanInterestCost"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
@@ -118,6 +121,7 @@
                             android:text="+30.00元"/>
                     </RelativeLayout>
                     <RelativeLayout
+                        android:visibility="gone"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="22dp">
@@ -135,6 +139,7 @@
                             android:text="+189.34元"/>
                     </RelativeLayout>
                     <RelativeLayout
+                        android:visibility="gone"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="22dp">
@@ -162,6 +167,7 @@
                             android:textColor="@color/color_hint"
                             android:text="贷后管理费"/>
                         <TextView
+                            android:id="@+id/tv_manageCost"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
@@ -169,6 +175,7 @@
                             android:text="+20.00元"/>
                     </RelativeLayout>
                     <RelativeLayout
+                        android:visibility="gone"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="22dp">
@@ -196,6 +203,7 @@
                             android:textColor="@color/color_hint"
                             android:text="违约金"/>
                         <TextView
+                            android:id="@+id/tv_dueAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
@@ -213,6 +221,7 @@
                             android:textColor="@color/color_hint"
                             android:text="减免"/>
                         <TextView
+                            android:id="@+id/tv_abateAmt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
@@ -230,6 +239,7 @@
                             android:textColor="@color/color_hint"
                             android:text="已还金额"/>
                         <TextView
+                            android:id="@+id/tv_has_repay_amt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
@@ -252,7 +262,7 @@
                 android:textSize="16sp"
                 android:textColor="#FEFEFE"
                 android:gravity="center"
-                android:text="绑定银行卡"
+                android:text="确认还款"
                 android:background="@drawable/button_bg"/>
             <LinearLayout
                 android:id="@+id/ll_success"
@@ -278,6 +288,7 @@
                         android:textColor="@color/color_hint"
                         android:text="支付方式"/>
                     <TextView
+                        android:id="@+id/tv_payway"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
@@ -297,6 +308,7 @@
                         android:textColor="@color/color_hint"
                         android:text="账号"/>
                     <TextView
+                        android:id="@+id/tv_payCardNo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
@@ -316,6 +328,7 @@
                         android:textColor="@color/color_hint"
                         android:text="还款时间"/>
                     <TextView
+                        android:id="@+id/tv_payDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
