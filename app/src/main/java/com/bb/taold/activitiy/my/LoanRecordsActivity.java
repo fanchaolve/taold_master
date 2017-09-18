@@ -69,29 +69,9 @@ public class LoanRecordsActivity extends BaseActivity {
         recyclerViewAdapter = new LRecyclerViewAdapter(adapter22);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(recyclerViewAdapter);
-//        mTvTitle.setText("我的借款申请记录");
-//        mBtnBack.setVisibility(View.VISIBLE);
-//        mStrings = new ArrayList<>();
-//        mRecyclerAdapter = new LoanRecordsAdapter(mContext, mStrings, R.layout.item_loan_records);
-//        new RecyclerUtils<LoanRecord>(mContext, mStrings, mRvLoanRecords, mRecyclerAdapter, mSwiperRefresh) {
-//
-//            @Override
-//            public void onLoadMore() {
-//                if(isNoMore){
-//                    queryLoanRecords("0", mStrings.size() + "");
-//                    Toast.makeText(mContext, "load", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onRefresh() {
-//                mStrings.clear();
-//                mRecyclerAdapter.notifyDataSetChanged();
-//                queryLoanRecords("0", mStrings.size() + "");
-//                Toast.makeText(mContext, "refresh", Toast.LENGTH_SHORT).show();
-//            }
-//        };
+        mRecyclerView.setLoadMoreEnabled(true);
+        mTvTitle.setText("我的借款申请记录");
+        mBtnBack.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -110,8 +90,6 @@ public class LoanRecordsActivity extends BaseActivity {
     public void initdata() {
 
         postCallback = new PostCallback<LoanRecordsActivity>(this) {
-
-
             @Override
             public void successCallback(Result_Api api) {
                 mRecyclerView.refreshComplete(0);
@@ -119,11 +97,11 @@ public class LoanRecordsActivity extends BaseActivity {
                 List<LoanRecord> rows = loadRecordResponse.getRows();
                 if(rows!=null&&rows.size()>0){
                     adapter22.addAll(rows);
-                    recyclerViewAdapter.notifyDataSetChanged();
                     mCurrentCounter += rows.size();
                 }else{
                     isNoMore = true;
                 }
+                recyclerViewAdapter.notifyDataSetChanged();
                 mRecyclerView.setNoMore(isNoMore);
             }
 
