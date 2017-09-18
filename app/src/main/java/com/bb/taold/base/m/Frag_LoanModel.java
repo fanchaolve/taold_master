@@ -3,6 +3,7 @@ package com.bb.taold.base.m;
 import com.bb.taold.api.ApiService;
 import com.bb.taold.api.RetrofitFactory;
 import com.bb.taold.base.v.Frag_LoanContract;
+import com.bb.taold.listener.Callexts;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +33,7 @@ public class Frag_LoanModel implements Frag_LoanContract.Model  {
     @Override
     public void memberInfo(Callback callback) {
         Call call = service.member_identityAuthInfo();
-        call.enqueue(callback);
+        Callexts.need_sessionPost(call,callback);
     }
 
 }

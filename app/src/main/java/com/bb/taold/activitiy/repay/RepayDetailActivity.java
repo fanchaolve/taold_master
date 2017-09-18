@@ -86,7 +86,7 @@ public class RepayDetailActivity extends BaseActivity {
             }
         });
 
-        postCallback = new PostCallback(this) {
+        postCallback = new PostCallback<BaseActivity>(this) {
             @Override
             public void successCallback(Result_Api api) {
                 mSwiperRefresh.setRefreshing(false);

@@ -79,7 +79,7 @@ public class UnpayFragment extends BaseFragment {
             }
         });
 
-        postCallback = new PostCallback(this) {
+        postCallback = new PostCallback<BaseFragment>(this) {
             @Override
             public void successCallback(Result_Api api) {
                 mSwiperRefresh.setRefreshing(false);
@@ -115,7 +115,7 @@ public class UnpayFragment extends BaseFragment {
 
             @Override
             public void failCallback() {
-
+                mSwiperRefresh.setRefreshing(false);
             }
         };
 
