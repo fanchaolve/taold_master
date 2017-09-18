@@ -89,7 +89,7 @@ public class LoanFragment extends BaseFragment
     @Override
     protected void initdate(Bundle savedInstanceState) {
 
-        postCallback = new PostCallback(this) {
+        postCallback = new PostCallback<BaseFragment>(this) {
             @Override
             public void successCallback(Result_Api api) {
                 if(getActivity() == null)
