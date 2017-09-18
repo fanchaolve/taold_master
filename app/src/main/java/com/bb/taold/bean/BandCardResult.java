@@ -24,16 +24,16 @@ public class BandCardResult {
      * token : 6F2E673A1326C46A4025ED2C6C7DF4B3
      */
 
-    private int no_order;
+    private String no_order;
     private String oid_partner;
     private int user_id;
     private String token;
 
-    public int getNo_order() {
+    public String getNo_order() {
         return no_order;
     }
 
-    public void setNo_order(int no_order) {
+    public void setNo_order(String no_order) {
         this.no_order = no_order;
     }
 
