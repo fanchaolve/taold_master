@@ -58,10 +58,7 @@ public class LoginActivity extends BaseActivity {
     private PermissionUtil.onPermissionGentedListener listener;   //权限获取
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+
 
     @Override
     public int getLayoutId() {
@@ -136,7 +133,7 @@ public class LoginActivity extends BaseActivity {
 
         MyApplication.getInstance().saveSession("");
 
-        postCallback = new PostCallback(this) {
+        postCallback = new PostCallback<BaseActivity>(this) {
             @Override
             public void successCallback(Result_Api api) {
                     if (api.getT() instanceof String) {//验证码

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,6 +34,8 @@ import retrofit2.Call;
  */
 
 public class AddBankCardActivity extends BaseActivity {
+
+    private int from_Act=0;//0绑卡,1添加
     @BindView(R.id.btn_back)
     ImageButton mBtnBack;
     @BindView(R.id.tv_title)
@@ -42,8 +45,9 @@ public class AddBankCardActivity extends BaseActivity {
     ImageView iv_take;
 
     private String cardNo = "";//卡号
+    CardInfo cardInfo;
 
-    private PostCallback postCallback = new PostCallback(this) {
+    private PostCallback postCallback = new PostCallback<BaseActivity>(this) {
         @Override
         public void successCallback(Result_Api api) {
 
@@ -52,6 +56,7 @@ public class AddBankCardActivity extends BaseActivity {
                 if (cardCheck == null)
                     return;
                 Bundle bundle =new Bundle();
+                bundle.putInt("from_Act",from_Act);
                 cardCheck.setCardNo(cardNo);
                 bundle.putSerializable("card",cardCheck);
                 AppManager.getInstance().showActivity(AddBankCardFinalActivity.class,bundle);
@@ -72,8 +77,10 @@ public class AddBankCardActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
         mBtnBack.setVisibility(View.VISIBLE);
-        mTvTitle.setText("绑定银行卡");
+
+
     }
 
     @Override
@@ -84,6 +91,20 @@ public class AddBankCardActivity extends BaseActivity {
     @Override
     public void initdata() {
 
+        Intent intent =getIntent();
+
+        if(intent != null ){
+            Bundle bundle =intent.getExtras();
+            if(bundle!=null && bundle.containsKey("from_Act")){
+                from_Act =bundle.getInt("from_Act");
+            }
+        }
+
+        if(from_Act==0) {
+            mTvTitle.setText("绑定银行卡");
+        }else if(from_Act ==1){
+            mTvTitle.setText("添加银行卡");
+        }
     }
 
 
@@ -92,7 +113,6 @@ public class AddBankCardActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.iv_take:
                 //添加银行卡页面
-                Log.i("hhhhhh",AppManager.getInstance().currentActivity().toString());
                 CardNumScanUtil.getINSTANCE().doScan();
                 break;
             case R.id.tv_next:
@@ -113,6 +133,11 @@ public class AddBankCardActivity extends BaseActivity {
 //                        dialog2.dismiss();
 //                    }
 //                });
+
+                if(cardInfo == null || TextUtils.isEmpty(cardNo)){
+                    showMsg("未获取卡信息请扫描卡片");
+                    return;
+                }
                 getCardState(cardNo);
 
                 break;
@@ -131,7 +156,7 @@ public class AddBankCardActivity extends BaseActivity {
                 if (data == null) {
                     return;
                 }
-                CardInfo cardInfo = (CardInfo) data.getSerializableExtra("cardinfo");
+                cardInfo = (CardInfo) data.getSerializableExtra("cardinfo");
                 cardNo = cardInfo.getFieldString(TFieldID.TBANK_NUM);
                 cardNo = cardNo.replace(" ", "").trim();
                 //tvCardNo.setText(cardNo);

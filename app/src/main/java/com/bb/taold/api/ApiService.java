@@ -4,6 +4,7 @@ import com.bb.taold.bean.AllBill;
 import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
+import com.bb.taold.bean.BandCardResult;
 import com.bb.taold.bean.BillInfos;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
@@ -106,12 +107,12 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=member.createNewBankCard_mobile")
-    Call<Result_Api<String>> createNewBankCard(@Field("bankCode") String bankCode,
-                                               @Field("owner") String owner,
-                                               @Field("cardno") String cardno,
-                                               @Field("idno") String idno,
-                                               @Field("cardName") String cardName,
-                                               @Field("mobile") String mobile);
+    Call<Result_Api<BandCardResult>> createNewBankCard(@Field("bankCode") String bankCode,
+                                                       @Field("owner") String owner,
+                                                       @Field("cardno") String cardno,
+                                                       @Field("idno") String idno,
+                                                       @Field("cardName") String cardName,
+                                                       @Field("mobile") String mobile);
 
     /**
      *  设置主卡

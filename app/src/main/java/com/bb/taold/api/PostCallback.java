@@ -31,7 +31,6 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
     private int flag = 0;//通过数字来判断返回的是哪个接口的返回值
 
 
-
     private V view;
 
 //    private Class<T> clazz;
@@ -47,6 +46,9 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
     public PostCallback(V view, boolean isTip) {
         this.view = view;
         this.isTip = isTip;
+        if (this.view != null) {
+            this.view.initLoading();
+        }
     }
 
 
@@ -60,9 +62,7 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
 
     @Override
     public void onResponse(Call<Result_Api> call, Response<Result_Api> response) {
-        if (view != null) {
-            view.dissmissLoading();
-        }
+        dissmissLoading();
         Result_Api api = response.body();
         if (api != null) {
             if (Constants.SUCCESS.equalsIgnoreCase(api.getStatus())) {
@@ -74,17 +74,16 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
 //                }
 
 
-
                 successCallback(api);
-            } else if(Constants.INVALID_SESSION.equalsIgnoreCase(api.getStatus())){
+            } else if (Constants.INVALID_SESSION.equalsIgnoreCase(api.getStatus())) {
 
-                AppManager.getInstance().showActivity(LoginActivity.class,null);
+                AppManager.getInstance().showActivity(LoginActivity.class, null);
             } else if (view != null) {
                 failCallback();
                 if (isTip)
                     view.showMsg(api.getDescription());
 
-            }else {
+            } else {
                 failCallback();
             }
         } else if (view != null) {
@@ -97,8 +96,8 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
 
     @Override
     public void onFailure(Call<Result_Api> call, Throwable t) {
+        dissmissLoading();
         if (view != null) {
-            view.dissmissLoading();
             view.showMsg(NET_ERROR);
         }
         Log.i("fancl", t.getMessage());
@@ -112,4 +111,19 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
     public void setFlag(int flag) {
         this.flag = flag;
     }
+
+
+    //显示加载框
+    public void showLoading() {
+        if (this.view != null)
+            this.view.showLoading();
+    }
+
+    //关闭加载框
+    public void dissmissLoading() {
+        if (this.view != null)
+            this.view.showLoading();
+    }
+
+
 }
