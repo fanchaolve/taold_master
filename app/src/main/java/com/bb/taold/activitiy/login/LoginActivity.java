@@ -193,8 +193,9 @@ public class LoginActivity extends BaseActivity {
                 etMobileStr, mEtCode.getText().toString(), MyApplication.longitude + "-" + MyApplication.latitude,
                 "android", DeviceUtils.getDeviceIdentification(this),
                 DeviceUtils.getCurrVersionCode(this) + "", DeviceUtils.getManufacturer(),
-                DeviceUtils.getModel(), "TL", "T", "4G");
+                DeviceUtils.getModel(), "TL", DeviceUtils.isRoot()+"", DeviceUtils.getNetworkStateName(mContext));
         Callexts.Unneed_sessionPost(call, postCallback);
+
 
     }
 
