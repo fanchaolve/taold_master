@@ -156,17 +156,20 @@ public class LoanConfirmActivity extends BaseActivity {
                 //获取银行卡列表
                 if(api.getT() instanceof Cardinfos){
                     ArrayList<CardInfo> cards = (ArrayList<CardInfo>)api.getT();
-                    mCardInfo  = cards.get(0);
-                    //银行名称
-                    mTvBankname.setText(mCardInfo.getCardName());
-                    //卡片类型
-                    mTvBanktype.setText("借记卡");
-                    //银行卡号
-                    String cardNo = mCardInfo.getCardno();
-                    if(cardNo.length()>4){
-                        cardNo = cardNo.substring(cardNo.length()-4,cardNo.length());
+                    if(cards!=null&&cards.size()>0){
+                        mCardInfo  = cards.get(0);
+                        //银行名称
+                        mTvBankname.setText(mCardInfo.getCardName());
+                        //卡片类型
+                        mTvBanktype.setText("借记卡");
+                        //银行卡号
+                        String cardNo = mCardInfo.getCardno();
+                        if(cardNo.length()>4){
+                            cardNo = cardNo.substring(cardNo.length()-4,cardNo.length());
+                        }
+                        mTvCardno.setText("**** **** **** "+cardNo);
                     }
-                    mTvCardno.setText("**** **** **** "+cardNo);
+
                 }
 
                 if(api.getT() instanceof LoanInfo){
