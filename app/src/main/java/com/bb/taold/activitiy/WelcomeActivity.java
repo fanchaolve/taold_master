@@ -80,7 +80,7 @@ public class WelcomeActivity extends BaseActivity {
                     @Override
                     public void run() {
                         if(AppManager.getInstance().currentActivity()!=null) {
-                            WelcomeActivity.this.finish();
+                            //WelcomeActivity.this.finish();
                             if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {//未登陆状态
                                 AppManager.getInstance().showActivity(LoginActivity.class, null);
                             } else {//登陆状态
