@@ -1,6 +1,7 @@
 package com.bb.taold.adapter;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.bean.BillInfo;
-import com.bb.taold.bean.RepayDetail;
+import com.bb.taold.activitiy.repay.RepayInfoActivity;
+import com.bb.taold.bean.BillItem;
+import com.bb.taold.bean.BillInfoDetail;
+import com.bb.taold.bean.BillProductInfo;
+import com.bb.taold.utils.AppManager;
 
 import java.util.ArrayList;
 
@@ -21,11 +25,22 @@ import java.util.ArrayList;
 public class UnpayBillAdapter extends BaseAdapter {
 
     public Activity mActivity;
-    public ArrayList<BillInfo> list;
+    public BillInfoDetail info;
+    public ArrayList<BillItem> list;
+    public BillProductInfo productInfo;
 
-    public UnpayBillAdapter(Activity mActivity, ArrayList<BillInfo> list){
+    public UnpayBillAdapter(Activity mActivity, BillInfoDetail info){
         this.mActivity = mActivity;
-        this.list = list;
+        this.info = info;
+        //筛选逾期或未还账单
+        ArrayList<BillItem> treatItems = info.getBillItems();
+        for(BillItem item:info.getBillItems()){
+            if(item.getStatus().equals("20")){
+                treatItems.remove(item);
+            }
+        }
+        this.list = treatItems;
+        this.productInfo = info.getProductInfo();
     }
 
     @Override
@@ -65,19 +80,30 @@ public class UnpayBillAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-//        //设置期数
-//        holder.tv_period.setText(list.get(position).getPeriod().toString());
-//        //设置时间
-//        holder.tv_time.setText(list.get(position).getTime().toString());
-//        //设置金额
-//        holder.tv_amount.setText(list.get(position).getAmount().toString());
-//        //设置状态
-//        holder.tv_status.setText(list.get(position).getStatus().toString());
+        //设置期数
+        holder.tv_period.setText(list.get(position).getStages().toString()+"/"+productInfo.getTotalStages()+"期");
+        //设置时间
+        holder.tv_time.setText(list.get(position).getRepayDate().toString());
+        //设置金额
+        holder.tv_amount.setText(list.get(position).getAmtMoney().toString());
+        //设置状态
+        if(list.get(position).getIsOverdue().equals("0")){
+            holder.tv_status.setText("待还款");
+        }else{
+            holder.tv_status.setText("已逾期");
+        }
         //还款按钮
         holder.tv_paybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Bundle mBundle = new Bundle();
+                if(list.get(position).getIsOverdue().equals("false")){
+                    mBundle.putString("bill_status","0");
+                }else{
+                    mBundle.putString("bill_status","2");
+                }
+                mBundle.putString("billItemId",list.get(position).getBillItemId());
+                AppManager.getInstance().showActivity(RepayInfoActivity.class,mBundle);
             }
         });
 

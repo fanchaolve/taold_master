@@ -3,6 +3,7 @@ package com.bb.taold.fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.activitiy.repay.RepayDetailActivity;
@@ -11,8 +12,11 @@ import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.bean.BillInfo;
+import com.bb.taold.bean.BillInfoDetail;
 import com.bb.taold.bean.BillInfos;
-import com.bb.taold.bean.RepayDetail;
+import com.bb.taold.bean.BillItem;
+import com.bb.taold.bean.BillItems;
+import com.bb.taold.bean.BillProductInfo;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 
@@ -36,8 +40,21 @@ public class UnpayFragment extends BaseFragment {
     @BindView(R.id.swiper_refresh)
     SwipeRefreshLayout mSwiperRefresh;
 
+    @BindView(R.id.tv_totalMoney)
+    TextView mTvTotalMoney;
+
+    @BindView(R.id.tv_restAmount)
+    TextView mTvRestAmount;
+
+    @BindView(R.id.tv_tiptext)
+    TextView mTvTiptext;
+
     //接口返回接受
     private PostCallback postCallback;
+    //获取未还账单分期
+    private BillInfoDetail info = null;
+    //未还款账单的id
+    private String billId = "";
 
     @Override
     public int getLayoutId() {
@@ -68,15 +85,36 @@ public class UnpayFragment extends BaseFragment {
                 //判断哪个接口回调
                 if (api.getT() instanceof BillInfos) {
                     ArrayList<BillInfo> mList = (BillInfos)api.getT();
-                    //根据账单id获取账单详情
-                    getUnpayInfoDetail(mList.get(0).getId());
+
+                    if(mList.size()>0){
+                        //根据账单id获取账单详情
+                        billId = mList.get(0).getId();
+                        getUnpayInfoDetail(billId);
+                    }
                     return;
                 }
 
-                if(api.getT() instanceof String){
+                if(api.getT() instanceof BillInfoDetail){
+
+                    info = (BillInfoDetail)api.getT();
                     //向列表中写入数据
-                    UnpayBillAdapter mAdapter = new UnpayBillAdapter(getActivity(), null);
+                    UnpayBillAdapter mAdapter = new UnpayBillAdapter(getActivity(), info);
                     mLvUnpayBill.setAdapter(mAdapter);
+
+                    //总共应还和剩余应还金额
+                    BillProductInfo productInfo = info.getProductInfo();
+                    //设置总共应还金额
+                    mTvTotalMoney.setText(productInfo.getLoanMoney());
+                    //设置剩余应还金额
+                    Double rest_amount = 0.00;
+                    BillItems items = info.getBillItems();
+                    for(BillItem item:items){
+                        rest_amount+=Double.parseDouble(item.getAmtMoney());
+                    }
+                    mTvRestAmount.setText(rest_amount+"");
+                    //设置提示
+                    mTvTiptext.setText(getString(R.string.unpay_text,items.get(0).getRepayDate()));
+
                     return;
                 }
             }
@@ -97,7 +135,7 @@ public class UnpayFragment extends BaseFragment {
      */
     private void getUnpayInfo() {
         //获取未还款账单
-        Call<Result_Api<BillInfos>> call = service.applyMiniBill("10");
+        Call<Result_Api<BillInfos>> call = service.queryPhase("10");
         Callexts.need_sessionPost(call, postCallback);
     }
 
@@ -107,13 +145,15 @@ public class UnpayFragment extends BaseFragment {
      */
     private void getUnpayInfoDetail(String billId){
         //获取未还款账单详情
-        Call<Result_Api> call = service.queryItemInfo(billId);
+        Call<Result_Api<BillInfoDetail>> call = service.detail(billId);
         Callexts.need_sessionPost(call, postCallback);
     }
 
     @OnClick(R.id.rl_billinfo)
     public void onViewClicked() {
         //跳转到还款详情页面
-        AppManager.getInstance().showActivity(RepayDetailActivity.class,null);
+        Bundle mBundle = new Bundle();
+        mBundle.putString("billId",billId);
+        AppManager.getInstance().showActivity(RepayDetailActivity.class,mBundle);
     }
 }

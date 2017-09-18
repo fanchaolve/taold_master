@@ -4,17 +4,20 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
+        android:id="@+id/tv_tiptext"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#2a2a2a"
-        android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textSize="14sp"
-        android:textColor="@color/white"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="@string/unpay_text"/>
+        android:paddingTop="10dp"
+        android:text="@string/unpay_text"
+        android:textColor="@color/white"
+        android:textSize="14sp"/>
+
     <RelativeLayout
         android:id="@+id/rl_billinfo"
         android:layout_width="fill_parent"
@@ -33,14 +36,16 @@
                 android:layout_height="wrap_content"
                 android:text="总共应还（元）"
                 android:textAppearance="@style/TextAppear.Theme.font40_Size14"/>
+
             <TextView
+                android:id="@+id/tv_totalMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="23sp"
-                android:textColor="@color/color_111111"
                 android:layout_marginTop="24dp"
-                android:textStyle="bold"
-                android:text="1389.34"/>
+                android:text="1389.34"
+                android:textColor="@color/color_111111"
+                android:textSize="23sp"
+                android:textStyle="bold"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -54,6 +59,7 @@
                 android:text="剩余应还（元）"
                 android:textAppearance="@style/TextAppear.Theme.font40_Size14"/>
             <TextView
+                android:id="@+id/tv_restAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="23sp"

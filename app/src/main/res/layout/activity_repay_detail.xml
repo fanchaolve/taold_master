@@ -55,6 +55,7 @@
         android:paddingRight="15dp">
 
         <TextView
+            android:id="@+id/tv_loanAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="23sp"
@@ -104,8 +105,8 @@
         android:layout_height="match_parent">
         <ListView
             android:id="@+id/lv_repay_detail"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"></ListView>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

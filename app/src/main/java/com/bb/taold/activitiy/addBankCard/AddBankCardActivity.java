@@ -3,6 +3,7 @@ package com.bb.taold.activitiy.addBankCard;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -91,6 +92,7 @@ public class AddBankCardActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.iv_take:
                 //添加银行卡页面
+                Log.i("hhhhhh",AppManager.getInstance().currentActivity().toString());
                 CardNumScanUtil.getINSTANCE().doScan();
                 break;
             case R.id.tv_next:

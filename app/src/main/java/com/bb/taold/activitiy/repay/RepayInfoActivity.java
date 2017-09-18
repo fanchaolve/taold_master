@@ -2,6 +2,7 @@ package com.bb.taold.activitiy.repay;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -12,10 +13,14 @@ import android.widget.TextView;
 
 import com.bb.taold.MyApplication;
 import com.bb.taold.R;
+import com.bb.taold.api.PostCallback;
+import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.listener.Callexts;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 /**
  * Created by zhucheng'an on 2017/9/12.
@@ -36,6 +41,16 @@ public class RepayInfoActivity extends BaseActivity {
     @BindView(R.id.ll_allpay)
     LinearLayout mLlAllpay;
 
+    //判断该笔账单属于待还款，还款成功，已逾期
+    private String REPAY_PROCESSING = "0";//待还款
+    private String REPAY_SUCCESS = "1";//还款成功
+    private String REPAY_OVERDUE = "2";//已逾期
+
+    //接口返回接受
+    private PostCallback postCallback;
+    //保存billItemId
+    private String billItemId = "";
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_repayinfo;
@@ -43,15 +58,42 @@ public class RepayInfoActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
         //设置标题
         mTvTitle.setText("立即还款");
         mBtnBack.setVisibility(View.VISIBLE);
-        //立即还款按钮设置可见
-        mTvConfirm.setVisibility(View.VISIBLE);
-        //成功页面设置不可见
-        mLlSuccess.setVisibility(View.GONE);
-        //已还清设置不可见
-        mLlAllpay.setVisibility(View.GONE);
+        //设置状态
+        if(getIntent()!=null && getIntent().getExtras()!=null){
+            Bundle mBunle = getIntent().getExtras();
+            //保存billItemId
+            billItemId = mBunle.getString("billItemId");
+            if(mBunle.getString("bill_status").equals(REPAY_PROCESSING)){
+                //待还款
+                //立即还款按钮设置可见
+                mTvConfirm.setVisibility(View.VISIBLE);
+                //成功页面设置不可见
+                mLlSuccess.setVisibility(View.GONE);
+                //已还清设置不可见
+                mLlAllpay.setVisibility(View.GONE);
+            }else if(mBunle.getString("bill_status").equals(REPAY_SUCCESS)){
+                //还款成功
+                //立即还款按钮设置不可见
+                mTvConfirm.setVisibility(View.GONE);
+                //成功页面设置可见
+                mLlSuccess.setVisibility(View.VISIBLE);
+                //已还清设置可见
+                mLlAllpay.setVisibility(View.VISIBLE);
+            }else if(mBunle.getString("bill_status").equals(REPAY_OVERDUE)){
+                //逾期
+                //立即还款按钮设置不可见
+                mTvConfirm.setVisibility(View.GONE);
+                //成功页面设置可见
+                mLlSuccess.setVisibility(View.VISIBLE);
+                //已还清设置可见
+                mLlAllpay.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
     @Override
@@ -61,9 +103,34 @@ public class RepayInfoActivity extends BaseActivity {
 
     @Override
     public void initdata() {
+        postCallback = new PostCallback(this) {
+            @Override
+            public void successCallback(Result_Api api) {
+
+                if(api.getT() instanceof String){
+
+                    return;
+                }
+            }
+
+            @Override
+            public void failCallback() {
+
+            }
+        };
+        //获取账单明细
+        getBillItemInfo(billItemId);
 
     }
 
+    /**
+     * 根据billItemId获取账单明细
+     * @param billItemId
+     */
+    private void getBillItemInfo(String billItemId){
+        Call<Result_Api> call=service.fundDetail(billItemId);
+        Callexts.need_sessionPost(call,postCallback);
+    }
 
     public void createDialog() {
         /**

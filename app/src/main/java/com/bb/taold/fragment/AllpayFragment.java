@@ -59,7 +59,7 @@ public class AllpayFragment extends BaseFragment {
 
     public void getAllpayInfo() {
         //获取已还款账单
-        Call<Result_Api<AllBill>> call=service.applyMiniBillInfo(currentPage+"","10");
+        Call<Result_Api<AllBill>> call=service.queryBillInfo(currentPage+"","10");
         Callexts.need_sessionPost(call,postCallback);
     }
 

@@ -162,7 +162,6 @@ public class LoanFragment extends BaseFragment
             case R.id.tv_confirm://申请之前
                 mPresenter.memberInfo();
 
-
                 break;
 
             case R.id.iv_delete:
