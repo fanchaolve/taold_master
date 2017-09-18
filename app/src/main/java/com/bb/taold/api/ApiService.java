@@ -6,6 +6,7 @@ import com.bb.taold.bean.AuthMessage;
 import com.bb.taold.bean.AuthParam;
 import com.bb.taold.bean.BandCardResult;
 import com.bb.taold.bean.BillInfos;
+import com.bb.taold.bean.BillItemDetail;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
 import com.bb.taold.bean.LoadRecordResponse;
@@ -16,6 +17,7 @@ import com.bb.taold.bean.Session;
 import com.bb.taold.bean.BillInfoDetail;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
+import com.bb.taold.bean.WaitRepayRecord;
 
 import retrofit2.Call;
 
@@ -217,13 +219,11 @@ public interface ApiService {
 
 
     /**
-     * 已还未还账单查询
-     * @param status 还款状态 10 还款中 20 已还款
+     * 未还账单查询
      * @return
      */
-    @FormUrlEncoded
-    @POST("/gateway?method=bill.queryPhase")
-    Call<Result_Api<BillInfos>> queryPhase(@Field("status") String status);
+    @POST("/gateway?method=bill.waitRepayRecord")
+    Call<Result_Api<WaitRepayRecord>> waitRepayRecord();
 
     /**
      * 分页查询账单列表
@@ -253,7 +253,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=bill.fundDetail")
-    Call<Result_Api> fundDetail(@Field("billItemId") String billItemId);
+    Call<Result_Api<BillItemDetail>> fundDetail(@Field("billItemId") String billItemId);
 
 
 

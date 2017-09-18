@@ -113,14 +113,11 @@ public class RepayDetailAdapter extends BaseAdapter {
         });
         return convertView;
     }
-
     static class ViewHolder {
         RelativeLayout rl_detail;
         TextView tv_period;
         TextView tv_time;
         TextView tv_amount;
         TextView tv_status;
-
     }
-
 }

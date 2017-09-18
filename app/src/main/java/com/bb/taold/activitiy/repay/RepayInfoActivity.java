@@ -1,7 +1,6 @@
 package com.bb.taold.activitiy.repay;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -16,9 +15,11 @@ import com.bb.taold.R;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.BillItemDetail;
 import com.bb.taold.listener.Callexts;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
@@ -40,6 +41,20 @@ public class RepayInfoActivity extends BaseActivity {
     LinearLayout mLlSuccess;
     @BindView(R.id.ll_allpay)
     LinearLayout mLlAllpay;
+    @BindView(R.id.tv_loanAmount)
+    TextView mTvLoanAmount;
+    @BindView(R.id.tv_principal)
+    TextView mTvPrincipal;
+    @BindView(R.id.tv_loanInterestCost)
+    TextView mTvLoanInterestCost;
+    @BindView(R.id.tv_manageCost)
+    TextView mTvManageCost;
+    @BindView(R.id.tv_dueAmount)
+    TextView mTvDueAmount;
+    @BindView(R.id.tv_abateAmt)
+    TextView mTvAbateAmt;
+    @BindView(R.id.tv_has_repay_amt)
+    TextView mTvHasRepayAmt;
 
     //判断该笔账单属于待还款，还款成功，已逾期
     private String REPAY_PROCESSING = "0";//待还款
@@ -58,16 +73,15 @@ public class RepayInfoActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
         //设置标题
         mTvTitle.setText("立即还款");
         mBtnBack.setVisibility(View.VISIBLE);
         //设置状态
-        if(getIntent()!=null && getIntent().getExtras()!=null){
+        if (getIntent() != null && getIntent().getExtras() != null) {
             Bundle mBunle = getIntent().getExtras();
             //保存billItemId
             billItemId = mBunle.getString("billItemId");
-            if(mBunle.getString("bill_status").equals(REPAY_PROCESSING)){
+            if (mBunle.getString("bill_status").equals(REPAY_PROCESSING)) {
                 //待还款
                 //立即还款按钮设置可见
                 mTvConfirm.setVisibility(View.VISIBLE);
@@ -75,7 +89,7 @@ public class RepayInfoActivity extends BaseActivity {
                 mLlSuccess.setVisibility(View.GONE);
                 //已还清设置不可见
                 mLlAllpay.setVisibility(View.GONE);
-            }else if(mBunle.getString("bill_status").equals(REPAY_SUCCESS)){
+            } else if (mBunle.getString("bill_status").equals(REPAY_SUCCESS)) {
                 //还款成功
                 //立即还款按钮设置不可见
                 mTvConfirm.setVisibility(View.GONE);
@@ -83,17 +97,17 @@ public class RepayInfoActivity extends BaseActivity {
                 mLlSuccess.setVisibility(View.VISIBLE);
                 //已还清设置可见
                 mLlAllpay.setVisibility(View.VISIBLE);
-            }else if(mBunle.getString("bill_status").equals(REPAY_OVERDUE)){
+                mTvTitle.setText("已还款");
+            } else if (mBunle.getString("bill_status").equals(REPAY_OVERDUE)) {
                 //逾期
-                //立即还款按钮设置不可见
-                mTvConfirm.setVisibility(View.GONE);
-                //成功页面设置可见
-                mLlSuccess.setVisibility(View.VISIBLE);
-                //已还清设置可见
-                mLlAllpay.setVisibility(View.VISIBLE);
+                //立即还款按钮设置可见
+                mTvConfirm.setVisibility(View.VISIBLE);
+                //成功页面设置不可见
+                mLlSuccess.setVisibility(View.GONE);
+                //已还清设置不可见
+                mLlAllpay.setVisibility(View.GONE);
             }
         }
-
     }
 
     @Override
@@ -106,9 +120,14 @@ public class RepayInfoActivity extends BaseActivity {
         postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {
-
-                if(api.getT() instanceof String){
-
+                if (api.getT() instanceof BillItemDetail) {
+                    BillItemDetail detail = (BillItemDetail)api.getT();
+                    //设置金额数据
+                    mTvLoanAmount.setText(detail.getBillAmount());
+                    mTvPrincipal.setText(detail.getPrincipal());
+                    mTvLoanInterestCost.setText(detail.getLoanInterestCost());
+                    mTvManageCost.setText(detail.getManageCost());
+                    mTvDueAmount.setText(detail.getDueAmount());
                     return;
                 }
             }
@@ -125,11 +144,12 @@ public class RepayInfoActivity extends BaseActivity {
 
     /**
      * 根据billItemId获取账单明细
+     *
      * @param billItemId
      */
-    private void getBillItemInfo(String billItemId){
-        Call<Result_Api> call=service.fundDetail(billItemId);
-        Callexts.need_sessionPost(call,postCallback);
+    private void getBillItemInfo(String billItemId) {
+        Call<Result_Api<BillItemDetail>> call = service.fundDetail(billItemId);
+        Callexts.need_sessionPost(call, postCallback);
     }
 
     public void createDialog() {
@@ -148,8 +168,8 @@ public class RepayInfoActivity extends BaseActivity {
                 //支付宝还款监听事件
                 showTip("支付宝还款");
                 dialog.dismiss();
-                Intent intent = new Intent(RepayInfoActivity.this,RepaySuccessActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(RepayInfoActivity.this,RepaySuccessActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -187,5 +207,12 @@ public class RepayInfoActivity extends BaseActivity {
     @OnClick(R.id.tv_confirm)
     public void onViewClicked() {
         createDialog();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

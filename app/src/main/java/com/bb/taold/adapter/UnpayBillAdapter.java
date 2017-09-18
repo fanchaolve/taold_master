@@ -13,6 +13,7 @@ import com.bb.taold.activitiy.repay.RepayInfoActivity;
 import com.bb.taold.bean.BillItem;
 import com.bb.taold.bean.BillInfoDetail;
 import com.bb.taold.bean.BillProductInfo;
+import com.bb.taold.bean.WaitRepayRecord;
 import com.bb.taold.utils.AppManager;
 
 import java.util.ArrayList;
@@ -25,22 +26,13 @@ import java.util.ArrayList;
 public class UnpayBillAdapter extends BaseAdapter {
 
     public Activity mActivity;
-    public BillInfoDetail info;
+    public WaitRepayRecord info;
     public ArrayList<BillItem> list;
-    public BillProductInfo productInfo;
 
-    public UnpayBillAdapter(Activity mActivity, BillInfoDetail info){
+    public UnpayBillAdapter(Activity mActivity, WaitRepayRecord info){
         this.mActivity = mActivity;
         this.info = info;
-        //筛选逾期或未还账单
-        ArrayList<BillItem> treatItems = info.getBillItems();
-        for(BillItem item:info.getBillItems()){
-            if(item.getStatus().equals("20")){
-                treatItems.remove(item);
-            }
-        }
-        this.list = treatItems;
-        this.productInfo = info.getProductInfo();
+        this.list = info.getBillItems();
     }
 
     @Override
@@ -81,7 +73,7 @@ public class UnpayBillAdapter extends BaseAdapter {
         }
 
         //设置期数
-        holder.tv_period.setText(list.get(position).getStages().toString()+"/"+productInfo.getTotalStages()+"期");
+        holder.tv_period.setText(list.get(position).getStages().toString()+"/"+info.getStages()+"期");
         //设置时间
         holder.tv_time.setText(list.get(position).getRepayDate().toString());
         //设置金额
