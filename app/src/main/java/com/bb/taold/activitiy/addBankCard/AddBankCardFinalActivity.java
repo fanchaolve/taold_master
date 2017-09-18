@@ -169,7 +169,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 Call<Result_Api<BandCardResult>> call = service.createNewBankCard(cardCheck.getBankCode(),
                         info.getRealName(), cardCheck.getCardNo().replace(" ", ""),
                         info.getIdCard(), cardCheck.getBankName(),
-                        mEtAcctPhone.getText().toString());
+                        mEtAcctPhone.getText().toString(),"Android");
                 Callexts.need_sessionPost(call, postCallback);
                 break;
         }
