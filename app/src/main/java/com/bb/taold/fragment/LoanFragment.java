@@ -41,7 +41,7 @@ import retrofit2.Call;
  */
 
 public class LoanFragment extends BaseFragment
-<Frag_LoanPresenter,Frag_LoanModel> implements Frag_LoanContract.View{
+        <Frag_LoanPresenter,Frag_LoanModel> implements Frag_LoanContract.View{
     @BindView(R.id.tv_loanAmount)
     TextView mTvLoanAmount;
     @BindView(R.id.tv_status_7)
@@ -245,9 +245,9 @@ public class LoanFragment extends BaseFragment
             case R.id.tv_status_7:
                 //点击"借7天"按钮
                 mTvStatus7.setTextColor(getResources().getColor(R.color.color_price));
-                mTvStatus7.setBackground(getResources().getDrawable(R.drawable.bg_loan_text_2));
+                mTvStatus7.setBackgroundResource(R.drawable.bg_loan_text_2);
                 mTvStatus14.setTextColor(getResources().getColor(R.color.font_normal));
-                mTvStatus14.setBackground(getResources().getDrawable(R.drawable.bg_loan_text));
+                mTvStatus14.setBackgroundResource(R.drawable.bg_loan_text);
                 userId = stage7Id;
                 //重新获取接口计算各项费用
                 cacuAmount(userId,mTvLoanAmount.getText().toString());
@@ -255,9 +255,9 @@ public class LoanFragment extends BaseFragment
             case R.id.tv_status_14:
                 //点击"借14天"按钮
                 mTvStatus14.setTextColor(getResources().getColor(R.color.color_price));
-                mTvStatus14.setBackground(getResources().getDrawable(R.drawable.bg_loan_text_2));
+                mTvStatus14.setBackgroundResource(R.drawable.bg_loan_text_2);
                 mTvStatus7.setTextColor(getResources().getColor(R.color.font_normal));
-                mTvStatus7.setBackground(getResources().getDrawable(R.drawable.bg_loan_text));
+                mTvStatus7.setBackgroundResource(R.drawable.bg_loan_text);
                 userId = stage14Id;
                 //重新获取接口计算各项费用
                 cacuAmount(userId,mTvLoanAmount.getText().toString());

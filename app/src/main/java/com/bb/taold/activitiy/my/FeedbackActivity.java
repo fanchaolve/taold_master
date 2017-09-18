@@ -82,12 +82,16 @@ public class FeedbackActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 提交反馈
+     */
     private void feedbackCommit() {
         Call<Result_Api<String>> call = new ApiServiveImpl().memberCreateUserFeedback(this, mEtFeedback.getText().toString());
         Callexts.Unneed_sessionPost(call, new PostCallback<FeedbackActivity>(this) {
             @Override
             public void successCallback(Result_Api api) {
-                Log.e("0000", "提交成功");
+                showMsg("提交成功");
+                finish();
             }
 
             @Override

@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.activitiy.my.AboutUsActivity;
+import com.bb.taold.activitiy.EntireFactorPayActivity;
 import com.bb.taold.activitiy.my.FeedbackActivity;
 import com.bb.taold.activitiy.my.LoanRecordsActivity;
 import com.bb.taold.activitiy.my.MyMessagesActivity;
@@ -88,7 +88,8 @@ public class MyFragment extends BaseFragment {
                 AppManager.getInstance().showActivity(FeedbackActivity.class, null);
                 break;
             case R.id.lay_about_us:
-                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
+//                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
+                AppManager.getInstance().showActivity(EntireFactorPayActivity.class, null);
                 break;
 
             case R.id.lay_logout://退出登录
