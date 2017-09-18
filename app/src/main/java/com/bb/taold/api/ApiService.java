@@ -31,6 +31,14 @@ import retrofit2.http.Query;
 /**
  * Created by fancl.
  * 服务器接口
+ *
+ *
+ *
+ * --------------------- 画重点---------------------
+ * 细节注意的是注解上的method=aaaa_xxxx
+ * 说明xxxx是需要过滤的(所以method的方法最好不要有_下划线的字符出现要不然就冲突了)
+ * 详见银行卡绑定
+ * -----------------------------------------------
  */
 
 public interface ApiService {
