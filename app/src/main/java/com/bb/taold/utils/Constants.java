@@ -16,6 +16,8 @@ public final class Constants {
     public static final String AUTHOINFO="authinfo";
     //webview url
     public static final String WEBVIEW_URL = "url";
+    public static final int AUTO_STATE_NO = 10;
+    public static final int AUTO_STATE_OK = 20;
 
 
 

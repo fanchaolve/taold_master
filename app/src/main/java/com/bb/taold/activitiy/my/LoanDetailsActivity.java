@@ -3,6 +3,7 @@ package com.bb.taold.activitiy.my;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -101,7 +102,9 @@ public class LoanDetailsActivity extends BaseActivity {
         mTvLoanMoney.setText(loanDetail.getLoanAmount());
         mTvLoanDays.setText(loanDetail.getPeriods());
         String cardNo = loanDetail.getBankNo();
-        cardNo = cardNo.substring(cardNo.length() - 4, cardNo.length());
+        if(!TextUtils.isEmpty(cardNo)){
+            cardNo = cardNo.substring(cardNo.length() - 4, cardNo.length());
+        }
         mTvLoadCard.setText(loanDetail.getBankName() + "(" + cardNo + ")");
         recordStageAdapter.addAll(loanDetail.getLifeCycle());
 
