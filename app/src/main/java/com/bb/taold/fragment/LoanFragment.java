@@ -92,6 +92,8 @@ public class LoanFragment extends BaseFragment
         postCallback = new PostCallback(this) {
             @Override
             public void successCallback(Result_Api api) {
+                if(getActivity() == null)
+                    return;
                 //判断哪个接口回调
                 if(api.getT() instanceof ProductInfo){
                     //保存借款金额信息
