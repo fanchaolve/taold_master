@@ -118,13 +118,15 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/gateway?method=member.createNewBankCard_mobile")
+    @POST("/gateway?method=member.createNewBankCard_mobile_platform")
     Call<Result_Api<BandCardResult>> createNewBankCard(@Field("bankCode") String bankCode,
                                                        @Field("owner") String owner,
                                                        @Field("cardno") String cardno,
                                                        @Field("idno") String idno,
                                                        @Field("cardName") String cardName,
-                                                       @Field("mobile") String mobile);
+                                                       @Field("mobile") String mobile,
+                                                       @Field("platform")String platform
+    );
 
     /**
      *  设置主卡
