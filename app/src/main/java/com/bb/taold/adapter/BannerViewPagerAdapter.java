@@ -83,7 +83,6 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                     public void onClick(View v) {
                         PreferenceUtil.saveBSharedPreference(mActivity,PreferenceUtil.isNewUser,true);
                         AppManager.getInstance().showActivity(HomeActivity.class, null);
-                        mActivity.finish();
                     }
                 });
                 break;
