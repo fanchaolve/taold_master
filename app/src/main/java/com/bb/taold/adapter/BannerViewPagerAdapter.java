@@ -33,7 +33,6 @@ public class BannerViewPagerAdapter extends PagerAdapter {
         mActivity = activity;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         // TODO Auto-generated method stub
