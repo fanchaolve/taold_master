@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_guide"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v4.view.ViewPager>
-</LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/lay_dots_container"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_width="18dp"
+            android:layout_height="1dp"
+            android:background="@drawable/splash_pot"
+            android:layout_marginLeft="1dp"
+            android:button="@null"/>
+        <RadioButton
+            android:layout_width="18dp"
+            android:layout_height="1dp"
+            android:background="@drawable/splash_pot"
+            android:layout_marginLeft="1dp"
+            android:button="@null"/>
+        <RadioButton
+            android:layout_width="18dp"
+            android:layout_height="1dp"
+            android:background="@drawable/splash_pot"
+            android:layout_marginLeft="1dp"
+            android:button="@null"/>
+    </RadioGroup>
+    <TextView
+        android:id="@+id/btn_to_main"
+        android:layout_width="132dp"
+        android:layout_height="36dp"
+        android:layout_gravity="bottom|center"
+        android:gravity="center"
+        android:layout_marginBottom="46dp"
+        android:text="点击进入"
+        android:textSize="15sp"
+        android:textColor="@color/color_f1a942"
+        android:background="@drawable/btn_guide"
+        android:visibility="invisible"/>
+</FrameLayout>

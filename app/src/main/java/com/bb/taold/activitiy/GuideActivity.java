@@ -6,6 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.activitiy.login.LoginActivity;
@@ -18,6 +21,7 @@ import com.bb.taold.utils.PreferenceUtil;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 类描述：
@@ -27,7 +31,9 @@ import butterknife.BindView;
  */
 
 public class GuideActivity extends BaseActivity {
-    private int[] imageIds = new int[]{R.drawable.guide_one,R.drawable.guide_two,R.drawable.guide_three,R.drawable.guide_four};
+    @BindView(R.id.lay_dots_container) RadioGroup mLayDots;
+    @BindView(R.id.btn_to_main) TextView mTvToNext;
+    private int[] imageIds = new int[]{R.drawable.guide_one, R.drawable.guide_two, R.drawable.guide_three, R.drawable.guide_four};
     @BindView(R.id.viewpager_guide)
     ViewPager mViewpagerGuide;
 
@@ -44,22 +50,14 @@ public class GuideActivity extends BaseActivity {
     @Override
     public void initView() {
         ArrayList<ImageView> imageViews = new ArrayList<>();
-        for(int id:imageIds){
+        RadioButton radioButton = (RadioButton) mLayDots.getChildAt(0);
+        radioButton.setChecked(true);
+        for (int id : imageIds) {
             ImageView imageView = new ImageView(mContext);
             imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setImageResource(id);
             imageViews.add(imageView);
-            if(id==imageIds[imageIds.length-1]){
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AppManager.getInstance().showActivity(LoginActivity.class,null);
-                        PreferenceUtil.saveSharedPreference(mContext,PreferenceUtil.isNewUser, Constants.NEW_USER_FLAG);
-                        finish();
-                    }
-                });
-            }
         }
         GuidePagerAdapter pagerAdapter = new GuidePagerAdapter(imageViews);
         mViewpagerGuide.setAdapter(pagerAdapter);
@@ -68,11 +66,42 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void initListener() {
+        mViewpagerGuide.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override public void onPageSelected(int position) {
+                if(position<3){
+                    mLayDots.check(mLayDots.getChildAt(position).getId());
+                    mLayDots.setVisibility(View.VISIBLE);
+                    mTvToNext.setVisibility(View.INVISIBLE);
+                }else{
+                    mLayDots.setVisibility(View.INVISIBLE);
+                    mTvToNext.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
     public void initdata() {
 
+    }
+
+    @OnClick(R.id.btn_to_main)
+    public void onViewClicked(View view) {
+        switch (view.getId()){
+            case R.id.btn_to_main:
+                AppManager.getInstance().showActivity(LoginActivity.class, null);
+                PreferenceUtil.saveSharedPreference(mContext, PreferenceUtil.isNewUser, Constants.NEW_USER_FLAG);
+                finish();
+                break;
+        }
     }
 }
