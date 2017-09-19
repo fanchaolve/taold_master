@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.bb.taold.R;
 import com.bb.taold.adapter.recycleradapter.CommonRecyclerAdapter;
+import com.bb.taold.bean.MessageResult;
+import com.bb.taold.utils.LojaDateUtils;
 
 import java.util.List;
 
@@ -14,15 +16,14 @@ import java.util.List;
  * @author chaochao
  */
 
-public class MessagesAdapter extends CommonRecyclerAdapter<String> {
-    public MessagesAdapter(Context context, List<String> datas, int layoutId) {
+public class MessagesAdapter extends CommonRecyclerAdapter<MessageResult> {
+    public MessagesAdapter(Context context, List<MessageResult> datas, int layoutId) {
         super(context, datas, layoutId);
     }
 
     @Override
-    public void convert(MyViewHolder holder, String item) {
-        holder.setText(R.id.tv_message_time,"2017.03.20 17:59")
-                .setText(R.id.tv_message_content,"hi\n欢迎来到\n如果有\n拨打4008821234")
-                .setText(R.id.tv_message_time,"2017/01/01 23:25");
+    public void convert(MyViewHolder holder, MessageResult item) {
+        holder.setText(R.id.tv_message_time, LojaDateUtils.format(item.getGmtCreate(), LojaDateUtils.YYYY_MM_DD_DOT_FORMAT2))
+                .setText(R.id.tv_message_content, item.getContent());
     }
 }
