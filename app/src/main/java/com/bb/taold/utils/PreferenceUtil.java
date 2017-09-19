@@ -15,6 +15,8 @@ public class PreferenceUtil {
 
     //保存的默认登录用户
     public static final String SESSION="session";
+    public static final String PHONE="phoneNum";
+    public static final String isNewUser="isNewUser";
 
 
 

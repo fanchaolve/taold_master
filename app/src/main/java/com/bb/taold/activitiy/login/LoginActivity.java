@@ -1,6 +1,5 @@
 package com.bb.taold.activitiy.login;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,10 +13,7 @@ import android.widget.Toast;
 
 import com.bb.taold.MyApplication;
 import com.bb.taold.R;
-import com.bb.taold.activitiy.AuthInfoActivity;
-import com.bb.taold.activitiy.EntireFactorPayActivity;
 import com.bb.taold.activitiy.HomeActivity;
-import com.bb.taold.activitiy.cardList.CardListActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
@@ -26,6 +22,7 @@ import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.DeviceUtils;
 import com.bb.taold.utils.PermissionUtil;
+import com.bb.taold.utils.PreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -67,7 +64,11 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        mEtMobile.setText("1886818188");
+        String phone = PreferenceUtil.getSharedPreference(mContext, PreferenceUtil.PHONE);
+        if(!TextUtils.isEmpty(phone)){
+            mEtMobile.setText(phone);
+        }
+
         mEtCode.setText("1234");
         //设置"立即登录"按钮的背景透明度
         mTvConfirm.setAlpha(0.6f);
@@ -145,6 +146,7 @@ public class LoginActivity extends BaseActivity {
                     Session session = (Session) api.getT();
                     if (session != null) {
                         MyApplication.getInstance().saveSession(session.getSession());
+                        PreferenceUtil.saveSharedPreference(mContext,PreferenceUtil.PHONE,mEtMobile.getText().toString());
                     }
 
                     AppManager.getInstance().showActivity(HomeActivity.class, null);
