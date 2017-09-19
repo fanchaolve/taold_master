@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/banner_img"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/banner1"/>
+
+
+    <LinearLayout
+        android:id="@+id/ll_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_banner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line_yellow"/>
+        <ImageView
+            android:id="@+id/iv_banner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:src="@drawable/line_white"/>
+        <ImageView
+            android:id="@+id/iv_banner3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:src="@drawable/line_white"/>
+        <ImageView
+            android:id="@+id/iv_banner4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:src="@drawable/line_white"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_btn"
+        android:visibility="gone"
+        android:layout_width="132dp"
+        android:layout_height="36dp"
+        android:text="开启旅程"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="48dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:background="@drawable/bg_bannerbtn"
+        android:textColor="@color/color_price"/>
+
+</RelativeLayout>

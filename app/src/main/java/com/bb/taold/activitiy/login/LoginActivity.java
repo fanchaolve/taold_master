@@ -17,11 +17,14 @@ import com.bb.taold.activitiy.HomeActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.Location;
 import com.bb.taold.bean.Session;
 import com.bb.taold.listener.Callexts;
+import com.bb.taold.listener.exts.Act1;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.DeviceUtils;
 import com.bb.taold.utils.PermissionUtil;
+import com.bb.taold.utils.gps.GPSUtil;
 import com.bb.taold.utils.PreferenceUtil;
 
 import java.util.ArrayList;
@@ -148,6 +151,18 @@ public class LoginActivity extends BaseActivity {
                         MyApplication.getInstance().saveSession(session.getSession());
                         PreferenceUtil.saveSharedPreference(mContext,PreferenceUtil.PHONE,mEtMobile.getText().toString());
                     }
+
+                    //6.0以下系统在欢迎页未同意权限 则在登录按钮时再次获取定位
+                    GPSUtil.tryStart(new Act1<Location>() {
+                        @Override
+                        public void run(Location location) {
+                            if (location != null) {
+                                MyApplication.latitude = location.latitude + "";
+                                MyApplication.longitude = location.lontitude + "";
+                                GPSUtil.tryStop();
+                            }
+                        }
+                    });
 
                     AppManager.getInstance().showActivity(HomeActivity.class, null);
                     //取消定时器

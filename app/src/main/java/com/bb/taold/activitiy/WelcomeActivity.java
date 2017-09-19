@@ -67,17 +67,19 @@ public class WelcomeActivity extends BaseActivity {
                     @Override
                     public void run() {
                         if(AppManager.getInstance().currentActivity()!=null) {
-                            //WelcomeActivity.this.finish();
-                            if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {//未登陆状态
-                                String preference = PreferenceUtil.getSharedPreference(mContext, PreferenceUtil.isNewUser);
-//                                if(preference!=null&&preference.equals(Constants.NEW_USER_FLAG)){
-//                                    AppManager.getInstance().showActivity(LoginActivity.class, null);
-//                                }else{
-                                    AppManager.getInstance().showActivity(GuideActivity.class, null);
-//                                }
-                            } else {//登陆状态
-                                AppManager.getInstance().showActivity(HomeActivity.class, null);
-                            }
+                            AppManager.getInstance().showActivity(BannerActivity.class,null);
+                            finish();
+//                            //WelcomeActivity.this.finish();
+//                            if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {//未登陆状态
+//                                String preference = PreferenceUtil.getSharedPreference(mContext, PreferenceUtil.isNewUser);
+////                                if(preference!=null&&preference.equals(Constants.NEW_USER_FLAG)){
+////                                    AppManager.getInstance().showActivity(LoginActivity.class, null);
+////                                }else{
+//                                    AppManager.getInstance().showActivity(GuideActivity.class, null);
+////                                }
+//                            } else {//登陆状态
+//                                AppManager.getInstance().showActivity(HomeActivity.class, null);
+//                            }
 
 
                         }
@@ -94,9 +96,6 @@ public class WelcomeActivity extends BaseActivity {
         };
         permissionUtil.setListener(listener);
         permissionUtil.needPermission();
-
-
-
 
     }
 
