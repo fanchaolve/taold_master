@@ -1,30 +1,26 @@
 package com.bb.taold.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bb.taold.MyApplication;
 import com.bb.taold.R;
 import com.bb.taold.activitiy.login.LoginActivity;
+import com.bb.taold.activitiy.my.AboutUsActivity;
 import com.bb.taold.activitiy.my.FeedbackActivity;
 import com.bb.taold.activitiy.my.LoanRecordsActivity;
 import com.bb.taold.activitiy.my.MyMessagesActivity;
 import com.bb.taold.activitiy.webview.WebViewActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
-import com.bb.taold.base.BaseActivity;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.Constants;
-import com.bb.taold.utils.EBJPayUtil;
+import com.bb.taold.utils.StringUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -95,7 +91,9 @@ public class MyFragment extends BaseFragment {
             public void successCallback(Result_Api api) {
                 if (api.getT() instanceof UserInfo) {
                     info = (UserInfo) api.getT();
-                    setViewData(info);
+                    if(info!=null){
+                        setViewData(info);
+                    }
                 }
             }
 
@@ -111,7 +109,7 @@ public class MyFragment extends BaseFragment {
 //
     private void setViewData(UserInfo info) {
         String mobile = info.getMobile();
-        mobile = mobile.substring(0, 3) + "****" + mobile.substring(7, 11);
+        mobile = StringUtils.hideMobileMiddle(mobile);
         mTvUserPhone.setText(mobile);
         mTvAuthStateName.setVisibility(View.VISIBLE);
         if (info.getAuthentication() == Constants.AUTO_STATE_OK) {
@@ -162,10 +160,7 @@ public class MyFragment extends BaseFragment {
                     AppManager.getInstance().showActivity(LoginActivity.class, null);
                 break;
             case R.id.lay_about_us:
-//                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
-//                AppManager.getInstance().showActivity(EntireFactorPayActivity.class, null);
-                EBJPayUtil payUtil = new EBJPayUtil(mContext, "29816070985499016640", "100100102", "083012498311295", "0.01", "20170918181531");
-                payUtil.startPay();
+                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
                 break;
 
             case R.id.lay_logout://退出登录或许是登陆

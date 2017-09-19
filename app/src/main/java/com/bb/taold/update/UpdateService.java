@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
@@ -33,7 +35,6 @@ public class UpdateService extends Service {
         this.downloadUrl = intent.getStringExtra("updateUrl");
         initDownload();
         Log.i("updateservice","onStartCommand");
-        initDownload();
         return START_STICKY;
     }
 
@@ -44,7 +45,7 @@ public class UpdateService extends Service {
         Log.i("getMimeTypeExtension",extension);
         //指定下载路径和下载文件名
 
-        request.setDestinationInExternalPublicDir("/download/", "chaochao.apk").
+        request.setDestinationInExternalPublicDir("/Download/", "chaochao.apk").
                 setTitle("夜间模式").
                 setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)/*.
                 setMimeType(extension)*/;
@@ -98,7 +99,8 @@ public class UpdateService extends Service {
                     Log.i("w",">>>下载完成");
                     //下载完成安装APK
                     String downloadPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + "chaochao.apk";
-                    installAPK(new File(downloadPath));                    break;
+                    installAPK(new File(downloadPath));
+                    break;
                 case DownloadManager.STATUS_FAILED:
                     Log.i("w",">>>下载失败");
                     break;
@@ -110,10 +112,16 @@ public class UpdateService extends Service {
     protected void installAPK(File file) {
         if (!file.exists()) return;
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri = Uri.parse("file://" + file.toString());
-        intent.setDataAndType(uri, "application/vnd.android.package-archive");
-        //在服务中开启activity必须设置flag,后面解释
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(UpdateService.this, "com.bb.taold", file);
+            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        if (getPackageManager().queryIntentActivities(intent, 0).size() > 0) {
+            startActivity(intent);
+        }
     }
 }
