@@ -17,6 +17,7 @@ import com.bb.taold.R;
 import com.bb.taold.activitiy.HomeActivity;
 import com.bb.taold.activitiy.login.LoginActivity;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.PreferenceUtil;
 
 
 /**
@@ -80,6 +81,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                 bannerBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        PreferenceUtil.saveBSharedPreference(mActivity,PreferenceUtil.isNewUser,true);
                         if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {//未登陆状态
                             AppManager.getInstance().showActivity(LoginActivity.class, null);
                         } else {//登陆状态
