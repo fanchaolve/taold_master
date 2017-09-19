@@ -193,6 +193,11 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
 
     }
 
+    //判断页面是否被销毁
+    public boolean isFinish(){
+        return this.isFinishing();
+    }
+
 
 
 
@@ -203,4 +208,6 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
         // EasyPermissions handles the request result.
         permissionUtil.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+
 }
