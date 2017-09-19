@@ -3,7 +3,10 @@ package com.bb.taold.api;
 import android.content.Context;
 
 import com.bb.taold.bean.LoadRecordResponse;
+import com.bb.taold.bean.MessageResult;
 import com.bb.taold.utils.DeviceUtils;
+
+import java.util.List;
 
 import retrofit2.Call;
 
@@ -22,6 +25,10 @@ public class ApiServiveImpl {
     ) {
         String versionName = DeviceUtils.getCurr_VersionName(context);
         return service.memberCreateUserFeedback(DeviceUtils.getModel(), versionName, feedbackContent, DeviceUtils.getDeviceIdentification(context));
+    }
+
+    public Call<Result_Api<List<MessageResult>>> queryMessageInfo() {
+        return service.queryMessageInfo();
     }
 
 }

@@ -12,14 +12,21 @@ import android.widget.Toast;
 
 import com.bb.taold.R;
 import com.bb.taold.adapter.MessagesAdapter;
+import com.bb.taold.api.ApiServiveImpl;
+import com.bb.taold.api.PostCallback;
+import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.MessageResult;
+import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.widget.recyclerview.RecyclerUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class MyMessagesActivity extends BaseActivity {
 
@@ -40,6 +47,7 @@ public class MyMessagesActivity extends BaseActivity {
     @BindView(R.id.swiper_refresh)
     SwipeRefreshLayout mSwiperRefresh;
     private MessagesAdapter mMessagesAdapter;
+    List<MessageResult> listMessage = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,23 +63,21 @@ public class MyMessagesActivity extends BaseActivity {
     public void initView() {
         mIvRight.setVisibility(View.VISIBLE);
         mTvTitle.setText("系统消息");
-        final ArrayList<String> mStrings = new ArrayList<>();
-        mStrings.add("1");
-        mStrings.add("2");
-        mStrings.add("3");
-        mMessagesAdapter = new MessagesAdapter(mContext, mStrings, R.layout.item_messages);
-        new RecyclerUtils<String>(mContext,mStrings,mRvMessages,mMessagesAdapter,mSwiperRefresh){
+        mMessagesAdapter = new MessagesAdapter(mContext, listMessage, R.layout.item_messages);
+        new RecyclerUtils<MessageResult>(mContext, listMessage, mRvMessages, mMessagesAdapter, mSwiperRefresh) {
 
             @Override
             public void onLoadMore() {
-                Toast.makeText(mContext, "load", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onRefresh() {
-                Toast.makeText(mContext, "refresh", Toast.LENGTH_SHORT).show();
+                queryMessageInfo();
             }
         };
+        queryMessageInfo();
+
     }
 
     @Override
@@ -83,15 +89,40 @@ public class MyMessagesActivity extends BaseActivity {
     public void initdata() {
 
     }
-    @OnClick({R.id.btn_back,R.id.iv_right})
-    public void onClick(View view){
-        switch (view.getId()){
+
+    @OnClick({R.id.btn_back, R.id.iv_right})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_back:
                 finish();
                 break;
             case R.id.iv_right:
-                AppManager.getInstance().showActivity(FeedbackActivity.class,null);
+                AppManager.getInstance().showActivity(FeedbackActivity.class, null);
                 break;
         }
+    }
+
+    /**
+     * 提交反馈
+     */
+    private void queryMessageInfo() {
+        Call<Result_Api<List<MessageResult>>> call = new ApiServiveImpl().queryMessageInfo();
+        Callexts.Unneed_sessionPost(call, new PostCallback<MyMessagesActivity>(this) {
+            @Override
+            public void successCallback(Result_Api api) {
+                if (api.getT() == null) {
+                    return;
+                }
+                listMessage.clear();
+                listMessage.addAll((List<MessageResult>) api.getT());
+                mMessagesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void failCallback() {
+
+            }
+        });
+
     }
 }

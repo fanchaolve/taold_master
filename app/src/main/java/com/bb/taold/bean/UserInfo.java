@@ -61,6 +61,7 @@ public class UserInfo implements Serializable {
     private int sex;
     private int startLevel;
     private int status;
+    private int unReadMessageCount;
 
     public int getAuthentication() {
         return authentication;
@@ -220,5 +221,13 @@ public class UserInfo implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getUnReadMessageCount() {
+        return unReadMessageCount;
+    }
+
+    public void setUnReadMessageCount(int unReadMessageCount) {
+        this.unReadMessageCount = unReadMessageCount;
     }
 }

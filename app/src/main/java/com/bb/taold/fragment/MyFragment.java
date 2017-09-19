@@ -1,5 +1,6 @@
 package com.bb.taold.fragment;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -65,6 +66,8 @@ public class MyFragment extends BaseFragment {
 
     @BindView(R.id.tv_confirm)
     TextView tv_confirm;
+    @BindView(R.id.red_imageView)
+    ImageView red_imageView;
 
 
     private UserInfo info;
@@ -106,7 +109,7 @@ public class MyFragment extends BaseFragment {
 
     }
 
-//
+    //
     private void setViewData(UserInfo info) {
         String mobile = info.getMobile();
         mobile = StringUtils.hideMobileMiddle(mobile);
@@ -121,10 +124,18 @@ public class MyFragment extends BaseFragment {
         }
         iv_head.setImageResource(R.drawable.my_header);
         tv_confirm.setText("退出登录");
+        if (info.getUnReadMessageCount() > 0) {
+            red_imageView.setVisibility(View.VISIBLE);
+        } else {
+            red_imageView.setVisibility(View.GONE);
+
+        }
+
+
     }
 
     //登出的页面刷新
-    private void setLogoutViewData(){
+    private void setLogoutViewData() {
         iv_head.setImageResource(R.drawable.head_portrait_not_login);
         mTvUserPhone.setText("登录");
         mTvAuthStateName.setVisibility(View.GONE);
@@ -177,17 +188,16 @@ public class MyFragment extends BaseFragment {
     }
 
 
-
     @Override
     public void onStart() {
         super.onStart();
-        if(AppManager.getInstance().isLogin()){
-            if(info==null && isVisible()) {//如果登录了 就没必要重复调用接口了
+        if (AppManager.getInstance().isLogin()) {
+            if (info == null && isVisible()) {//如果登录了 就没必要重复调用接口了
                 Call<Result_Api<UserInfo>> call = service.user_info();
                 Callexts.need_sessionPost(call, postCallback);
             }
-        }else {
-            info =null;
+        } else {
+            info = null;
             setLogoutViewData();
         }
     }
