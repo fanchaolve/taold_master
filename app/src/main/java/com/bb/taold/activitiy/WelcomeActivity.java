@@ -70,8 +70,8 @@ public class WelcomeActivity extends BaseActivity {
                     public void run() {
                         if(AppManager.getInstance().currentActivity()!=null) {
 //                            WelcomeActivity.this.finish();
-                            String preference = PreferenceUtil.getSharedPreference(mContext, PreferenceUtil.isNewUser);
-                            if(preference!=null&&preference.equals(Constants.NEW_USER_FLAG)){
+                            boolean preference = PreferenceUtil.bSharedPreference(mContext, PreferenceUtil.isNewUser);
+                            if(preference){
                                 AppManager.getInstance().showActivity(HomeActivity.class, null);
                             }else{
                                 AppManager.getInstance().showActivity(BannerActivity.class, null);
