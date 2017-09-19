@@ -142,7 +142,7 @@ public class LoanFragment extends BaseFragment
 
         //初始页面获取借款金额信息
         Call<Result_Api<ProductInfo>> call=service.productInfo("mini_loan");
-        Callexts.need_sessionPost(call,postCallback);
+        Callexts.Unneed_sessionPost(call,postCallback);
 
     }
 
@@ -154,7 +154,7 @@ public class LoanFragment extends BaseFragment
     public void cacuAmount(String productId,String amount){
         //根据默认金额获取到账金额等信息
         Call<Result_Api<ProductFee>> call=service.calProductFee(productId,amount);
-        Callexts.need_sessionPost(call,postCallback);
+        Callexts.Unneed_sessionPost(call,postCallback);
     }
 
 
