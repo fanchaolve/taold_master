@@ -23,6 +23,7 @@ import com.bb.taold.utils.Constants;
 import com.bb.taold.utils.EBJPayUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
@@ -58,6 +59,9 @@ public class RepayInfoActivity extends BaseActivity {
     TextView mTvAbateAmt;
     @BindView(R.id.tv_has_repay_amt)
     TextView mTvHasRepayAmt;
+    @BindView(R.id.tv_payway) TextView tvPayway;
+    @BindView(R.id.tv_payCardNo) TextView tvPayCardNo;
+    @BindView(R.id.tv_payDate) TextView tvPayDate;
 
     //判断该笔账单属于待还款，还款成功，已逾期
     private String REPAY_PROCESSING = "0";//待还款
@@ -126,7 +130,7 @@ public class RepayInfoActivity extends BaseActivity {
             @Override
             public void successCallback(Result_Api api) {
                 if (api.getT() instanceof BillItemInfo) {
-                    BillItemInfo info = (BillItemInfo)api.getT();
+                    BillItemInfo info = (BillItemInfo) api.getT();
                     mDetail = info.getBillInfo();
                     //设置金额数据
                     mTvLoanAmount.setText(mDetail.getBillAmount());
@@ -136,9 +140,9 @@ public class RepayInfoActivity extends BaseActivity {
                     //需要判断是否逾期来确定是否显示逾期金额
                     mTvDueAmount.setText(mDetail.getDueAmount());
                     mTvAbateAmt.setText(mDetail.getAbateAmt());
-                    getPayParams(mDetail.getBillId(),mDetail.getBillAmount(), Constants.PAY_CHANNEL_ALIPAY,Constants.PLATFORM);
+                    getPayParams(mDetail.getBillId(), mDetail.getBillAmount(), Constants.PAY_CHANNEL_ALIPAY, Constants.PLATFORM);
                     return;
-                }else if(api.getT() instanceof PayParams){
+                } else if (api.getT() instanceof PayParams) {
                     mPayParams = (PayParams) api.getT();
                 }
             }
@@ -179,7 +183,7 @@ public class RepayInfoActivity extends BaseActivity {
                 //支付宝还款监听事件
                 showTip("支付宝还款");
                 dialog.dismiss();
-                if(mPayParams!=null){
+                if (mPayParams != null) {
                     EBJPayUtil ebjPayUtil = new EBJPayUtil(mContext, mPayParams.getMerchantOutOrderNo(), mPayParams.getMerid(),
                             mPayParams.getNoncestr(), mPayParams.getOrderMoney(), mPayParams.getOrderTime());
                     ebjPayUtil.startPay();
@@ -218,15 +222,28 @@ public class RepayInfoActivity extends BaseActivity {
         window.setWindowAnimations(R.style.dialog_in_and_out);  //添加动画
         dialog.show();
     }
+
     //请求支付参数
-    public void getPayParams(String billItemId,String amount,String payChannel,String oidChnl){
+    public void getPayParams(String billItemId, String amount, String payChannel, String oidChnl) {
         Call<Result_Api<PayParams>> result_apiCall = service.loan_repay(billItemId, amount, payChannel, oidChnl);
-        Callexts.Unneed_sessionPost(result_apiCall,postCallback);
+        Callexts.Unneed_sessionPost(result_apiCall, postCallback);
     }
 
-    @OnClick(R.id.tv_confirm)
-    public void onViewClicked() {
-        createDialog();
+    @Override protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.btn_back, R.id.tv_confirm}) public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_back:
+                finish();
+                break;
+            case R.id.tv_confirm:
+                createDialog();
+                break;
+        }
     }
 
 }

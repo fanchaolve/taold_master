@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include layout="@layout/layout_title_normal"/>
 
@@ -11,34 +11,34 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingTop="30dp"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingRight="15dp"
+        android:paddingTop="30dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:text="借款金额（元）"
             android:textColor="@color/font_normal"
-            android:text="借款金额（元）"/>
+            android:textSize="14sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/font_normal"
-            android:layout_toLeftOf="@id/tv_loanDays"
             android:layout_marginRight="10dp"
-            android:text="借款期限"/>
+            android:layout_toLeftOf="@id/tv_loanDays"
+            android:text="借款期限"
+            android:textColor="@color/font_normal"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_loanDays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/color_hint"
             android:layout_alignParentRight="true"
-            android:text="28天"/>
+            android:text="-天"
+            android:textColor="@color/color_hint"
+            android:textSize="14sp"/>
 
     </RelativeLayout>
 
@@ -49,7 +49,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:background="@color/white"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
@@ -58,52 +58,54 @@
             android:id="@+id/tv_loanAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="23sp"
+            android:text="--"
             android:textColor="@color/color_111111"
-            android:textStyle="bold"
-            android:text="1389.34"/>
+            android:textSize="23sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/font_normal"
+            android:layout_marginEnd="11dp"
             android:layout_marginRight="11dp"
-            android:text="年利率"
             android:layout_marginTop="8dp"
             android:layout_toLeftOf="@+id/tv_yearrate"
-            android:layout_marginEnd="11dp"/>
+            android:text="年利率"
+            android:textColor="@color/font_normal"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_yearrate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/color_hint"
-            android:gravity="center"
-            android:layout_marginTop="8dp"
             android:layout_alignParentRight="true"
-            android:text="10%"/>
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="-%"
+            android:textColor="@color/color_hint"
+            android:textSize="14sp"/>
 
     </RelativeLayout>
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="20dp"
         android:background="@color/white"/>
-    
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="33dp"
-        android:textAppearance="@style/TextAppear.Theme.111111_Size14"
-        android:paddingLeft="15dp"
         android:gravity="center_vertical"
-        android:text="还款计划"/>
+        android:paddingLeft="15dp"
+        android:text="还款计划"
+        android:textAppearance="@style/TextAppear.Theme.111111_Size14"/>
 
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swiper_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ListView
             android:id="@+id/lv_repay_detail"
             android:layout_width="match_parent"
