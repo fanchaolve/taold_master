@@ -32,12 +32,13 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/icon"/>
+        android:src="@mipmap/ic_launcher"/>
     
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="taolidai"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppear.Theme.font30_Size16"
         android:layout_gravity="center_horizontal"/>

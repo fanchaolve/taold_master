@@ -69,18 +69,13 @@ public class WelcomeActivity extends BaseActivity {
                     @Override
                     public void run() {
                         if(AppManager.getInstance().currentActivity()!=null) {
-                            //WelcomeActivity.this.finish();
-                            if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {//未登陆状态
-                                String preference = PreferenceUtil.getSharedPreference(mContext, PreferenceUtil.isNewUser);
-                                if(preference!=null&&preference.equals(Constants.NEW_USER_FLAG)){
-                                    AppManager.getInstance().showActivity(LoginActivity.class, null);
-                                }else{
-                                    AppManager.getInstance().showActivity(GuideActivity.class, null);
-                                }
-                            } else {//登陆状态
+//                            WelcomeActivity.this.finish();
+                            String preference = PreferenceUtil.getSharedPreference(mContext, PreferenceUtil.isNewUser);
+                            if(preference!=null&&preference.equals(Constants.NEW_USER_FLAG)){
                                 AppManager.getInstance().showActivity(HomeActivity.class, null);
+                            }else{
+                                AppManager.getInstance().showActivity(BannerActivity.class, null);
                             }
-
                         }
                     }
                 }, 2000);
