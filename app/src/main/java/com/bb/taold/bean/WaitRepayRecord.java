@@ -26,6 +26,7 @@ public class WaitRepayRecord {
      },
      */
 
+    public int billId;
     public String shouldPayAmt = "";
     public String waitPayAmt = "";
     public String stages = "";
@@ -61,5 +62,13 @@ public class WaitRepayRecord {
 
     public void setBillItems(BillItems billItems) {
         this.billItems = billItems;
+    }
+
+    public int getBillId() {
+        return billId;
+    }
+
+    public void setBillId(int billId) {
+        this.billId = billId;
     }
 }

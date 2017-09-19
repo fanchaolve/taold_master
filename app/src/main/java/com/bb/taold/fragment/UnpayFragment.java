@@ -84,20 +84,22 @@ public class UnpayFragment extends BaseFragment {
             public void successCallback(Result_Api api) {
                 mSwiperRefresh.setRefreshing(false);
                 //判断哪个接口回调
-                if (api.getT() instanceof BillInfos) {
-                    ArrayList<BillInfo> mList = (BillInfos)api.getT();
-
-                    if(mList.size()>0){
-                        //根据账单id获取账单详情
-                        billId = mList.get(0).getId();
-                        getUnpayInfoDetail(billId);
-                    }
-                    return;
-                }
+//                if (api.getT() instanceof BillInfos) {
+//                    ArrayList<BillInfo> mList = (BillInfos)api.getT();
+//
+//                    if(mList.size()>0){
+//                        //根据账单id获取账单详情
+//                        billId = mList.get(0).getId();
+//                        getUnpayInfoDetail(billId);
+//                    }
+//                    return;
+//                }
 
                 if(api.getT() instanceof WaitRepayRecord){
 
                     info = (WaitRepayRecord)api.getT();
+                    if(info == null)
+                        return;
                     //向列表中写入数据
                     UnpayBillAdapter mAdapter = new UnpayBillAdapter(getActivity(), info);
                     mLvUnpayBill.setAdapter(mAdapter);
@@ -147,7 +149,7 @@ public class UnpayFragment extends BaseFragment {
     public void onViewClicked() {
         //跳转到还款详情页面
         Bundle mBundle = new Bundle();
-        mBundle.putString("billId",billId);
+        mBundle.putString("billId",info.getBillId()+"");
         AppManager.getInstance().showActivity(RepayDetailActivity.class,mBundle);
     }
 }
