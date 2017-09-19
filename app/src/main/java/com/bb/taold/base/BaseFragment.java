@@ -16,6 +16,7 @@ import com.bb.taold.base.m.BaseModel;
 import com.bb.taold.base.p.BasePresenter;
 import com.bb.taold.base.v.BaseView;
 import com.bb.taold.utils.InstanceUtil;
+import com.bb.taold.utils.LoadingUtil;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -126,12 +127,12 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModel>
 
     @Override
     public void showLoading() {
-
+        LoadingUtil.showLoading(mContext);
     }
 
     @Override
     public void dissmissLoading() {
-
+        LoadingUtil.hideLoading();
     }
 
     @Override
