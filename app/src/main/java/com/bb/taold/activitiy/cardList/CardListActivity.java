@@ -1,5 +1,7 @@
 package com.bb.taold.activitiy.cardList;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -21,7 +23,10 @@ import com.bb.taold.bean.Cardinfos;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.CardNumScanUtil;
 import com.bb.taold.widget.SwipeListLayout;
+import com.idcard.TFieldID;
+import com.turui.bank.ocr.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -49,8 +54,8 @@ public class CardListActivity extends BaseActivity {
 
     private static Set<SwipeListLayout> sets = new HashSet();
 
-    //数组保存银行卡数据
-    private ArrayList<String> list = new ArrayList<>();
+    //银行卡卡号
+    private String cardNo = "";
 
     private PostCallback postCallback;
 
@@ -87,6 +92,18 @@ public class CardListActivity extends BaseActivity {
                     mLvCardlist.setAdapter(new CardListAdapter(CardListActivity.this, cards));
 
                     mSwiperRefresh.setRefreshing(false);
+                }
+
+                if (api.getT() instanceof CardCheck) {
+                    CardCheck cardCheck= (CardCheck) api.getT();
+                    if (cardCheck == null)
+                        return;
+                    Bundle bundle =new Bundle();
+                    bundle.putInt("from_Act",1);
+                    cardCheck.setCardNo(cardNo);
+                    bundle.putSerializable("card",cardCheck);
+                    AppManager.getInstance().showActivity(AddBankCardFinalActivity.class,bundle);
+
                 }
 
             }
@@ -189,6 +206,40 @@ public class CardListActivity extends BaseActivity {
 
     }
 
+    /**
+     * 监听银行卡识别回调
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            if (resultCode == CardNumScanUtil.RESULT_GET_OK) {
+                // 处理银行卡扫描结果（在界面上显示）
+                if (data == null) {
+                    return;
+                }
+                com.idcard.CardInfo cardInfo = (com.idcard.CardInfo) data.getSerializableExtra("cardinfo");
+                cardNo = cardInfo.getFieldString(TFieldID.TBANK_NUM);
+                cardNo = cardNo.replace(" ", "").trim();
+
+                getCardState(cardNo);
+
+            }
+        }
+    }
+
+    /**
+     * 判断银行卡是否有效
+     * @param ordNo
+     */
+    private void getCardState(String ordNo) {
+        Call<Result_Api<CardCheck>> call=service.supportCard(ordNo);
+        Callexts.need_sessionPost(call,postCallback);
+    }
+
     @OnClick({R.id.btn_back, R.id.tv_addcard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -197,9 +248,7 @@ public class CardListActivity extends BaseActivity {
                 break;
             case R.id.tv_addcard:
                 //添加银行卡
-                Bundle bundle =new Bundle();
-                bundle.putInt("from_Act",1);
-                AppManager.getInstance().showActivity(AddBankCardActivity.class,bundle);
+                CardNumScanUtil.getINSTANCE().doScan();
                 break;
         }
     }
