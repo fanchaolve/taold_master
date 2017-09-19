@@ -82,11 +82,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                     @Override
                     public void onClick(View v) {
                         PreferenceUtil.saveBSharedPreference(mActivity,PreferenceUtil.isNewUser,true);
-                        if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {//未登陆状态
-                            AppManager.getInstance().showActivity(LoginActivity.class, null);
-                        } else {//登陆状态
-                            AppManager.getInstance().showActivity(HomeActivity.class, null);
-                        }
+                        AppManager.getInstance().showActivity(HomeActivity.class, null);
                         mActivity.finish();
                     }
                 });
