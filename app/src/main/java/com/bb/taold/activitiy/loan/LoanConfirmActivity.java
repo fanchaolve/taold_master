@@ -115,7 +115,7 @@ public class LoanConfirmActivity extends BaseActivity {
             }
         }
 
-        postCallback = new PostCallback(this) {
+        postCallback = new PostCallback<LoanConfirmActivity>(this) {
             @Override
             public void successCallback(Result_Api api) {
                 //判断哪个接口回调

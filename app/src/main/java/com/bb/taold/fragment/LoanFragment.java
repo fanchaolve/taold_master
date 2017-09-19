@@ -163,7 +163,7 @@ public class LoanFragment extends BaseFragment
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
                 mPresenter.memberInfo();
-
+                //AppManager.getInstance().showActivity(AddBankCardActivity.class,null);
                 break;
 
             case R.id.iv_delete:

@@ -78,39 +78,51 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activitiy.GuideActivity"
+            android:label="@string/app_name"
+            android:theme="@style/ACTAppTheme">
+        </activity>
         <activity
             android:name=".activitiy.login.LoginActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".activitiy.HomeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:theme="@style/ACTAppTheme"/>
         <activity
             android:name=".activitiy.loan.LoanConfirmActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name="com.bb.taold.activitiy.cardList.CardListActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
             android:name=".activitiy.addBankCard.AddBankCardActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
             android:name="com.bb.taold.activitiy.addBankCard.AddBankCardFinalActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
@@ -124,7 +136,7 @@
             android:name=".activitiy.AuthInfoActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+            android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
 
@@ -132,22 +144,26 @@
             android:name="com.bb.taold.activitiy.repay.AutoRepayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
             android:name="com.bb.taold.activitiy.repay.RepayInfoActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name="com.bb.taold.activitiy.repay.RepayDetailActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".activitiy.EntireFactorPayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <!-- 友盟统计 -->

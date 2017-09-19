@@ -122,7 +122,7 @@ public abstract class PostCallback<V extends BaseView> implements Callback<Resul
     //关闭加载框
     public void dissmissLoading() {
         if (this.view != null)
-            this.view.showLoading();
+            this.view.dissmissLoading();
     }
 
 

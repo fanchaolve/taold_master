@@ -267,7 +267,8 @@ public class LoginActivity extends BaseActivity {
         switch (view.getId()) {
 
             case R.id.rl_close:
-                ToastView("测试");
+               // ToastView("测试");
+                finish();
                 break;
             case R.id.tv_getcode:
                 //判断手机号格式

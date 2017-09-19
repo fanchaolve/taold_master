@@ -21,6 +21,7 @@ import com.bb.taold.base.p.BasePresenter;
 import com.bb.taold.base.v.BaseView;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.InstanceUtil;
+import com.bb.taold.utils.LoadingUtil;
 import com.bb.taold.utils.PermissionUtil;
 import com.umeng.analytics.MobclickAgent;
 
@@ -179,12 +180,12 @@ BaseActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActi
 
     @Override
     public void showLoading() {
-
+        LoadingUtil.showLoading(this);
     }
 
     @Override
     public void dissmissLoading() {
-
+        LoadingUtil.hideLoading();
     }
 
     @Override

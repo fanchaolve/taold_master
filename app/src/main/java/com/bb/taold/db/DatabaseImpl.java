@@ -52,69 +52,69 @@ public class DatabaseImpl extends SQLiteOpenHelper implements Database {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                TABLE_SEARCH_HISTORY +
-                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "name VARCHAR" + ");");
+//        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+//                TABLE_SEARCH_HISTORY +
+//                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                "name VARCHAR" + ");");
+//
+//        //广告
+//        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+//                TABLE_ADBEAN +
+//                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                "adLink VARCHAR,adURL VARCHAR" + ");");
+//
+//        //消息
+//        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+//                TABLE_XHBMSG +
+//                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                "msgContent VARCHAR,msgId VARCHAR," +
+//                "msgLink VARCHAR,msgTime VARCHAR," +
+//                "msgTitle VARCHAR,msgType VARCHAR," +
+//                "sts INTEGER" + ");");
+//
+//
+//        //分类
+//        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+//                TABLE_PRODUCTITEM +
+//                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                "insurerTypeId VARCHAR,insurerTypeLogo VARCHAR,insurerTypeName VARCHAR," +
+//                "insurerTypeUrl VARCHAR" + ");");
+//
+//        //首页产品
+//        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+//                TABLE_PRODUCT_LISTBEAN +
+//                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                "ageDesc VARCHAR,classId VARCHAR,commisionType VARCHAR," +
+//                "commisionValue1 VARCHAR,guarantee VARCHAR,insurerId VARCHAR," +
+//                "insurerLogo VARCHAR,insurerName VARCHAR,minPremium VARCHAR," +
+//                "monthAmount VARCHAR,productId VARCHAR,productIntro VARCHAR," +
+//                "productLogo VARCHAR,productName VARCHAR,productPrice VARCHAR," +
+//                "productProp VARCHAR,productTagUrls VARCHAR,specialPrice VARCHAR" +
+//                "suitable VARCHAR,totalAmount VARCHAR,perferWords VARCHAR" + ");");
+//
+//        //专题列表
+//        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+//                TABLE_SPECIAL +
+//                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                "endTime VARCHAR," +
+//                "productCount VARCHAR,specialContent VARCHAR," +
+//                "specialId VARCHAR,specialIntro VARCHAR,specialLogo VARCHAR," +
+//                "specialName VARCHAR,specialType INTEGER,specialUrl VARCHAR,startTime VARCHAR" + ");");
+//
+//        //首页信息
+//        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+//                TABLE_HOMEPAGEINFO +
+//                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                "loop VARCHAR,showTime VARCHAR," +
+//                "iataCodeVersion VARCHAR,areaVersion VARCHAR" +
+//                ");");
+//
+//
+//        //name表示nickName
+//        String sql = "create table if not exists userstb(_id integer primary key autoincrement,currentUser text,hasLogined text,authority text,userId text,sessionId text," +
+//                "isBClient text,name text,gender text,email text,phone text,pwd text,paymentPwd text,usericon text,userQrcode text)";
 
-        //广告
-        db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                TABLE_ADBEAN +
-                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "adLink VARCHAR,adURL VARCHAR" + ");");
-
-        //消息
-        db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                TABLE_XHBMSG +
-                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "msgContent VARCHAR,msgId VARCHAR," +
-                "msgLink VARCHAR,msgTime VARCHAR," +
-                "msgTitle VARCHAR,msgType VARCHAR," +
-                "sts INTEGER" + ");");
-
-
-        //分类
-        db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                TABLE_PRODUCTITEM +
-                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "insurerTypeId VARCHAR,insurerTypeLogo VARCHAR,insurerTypeName VARCHAR," +
-                "insurerTypeUrl VARCHAR" + ");");
-
-        //首页产品
-        db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                TABLE_PRODUCT_LISTBEAN +
-                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "ageDesc VARCHAR,classId VARCHAR,commisionType VARCHAR," +
-                "commisionValue1 VARCHAR,guarantee VARCHAR,insurerId VARCHAR," +
-                "insurerLogo VARCHAR,insurerName VARCHAR,minPremium VARCHAR," +
-                "monthAmount VARCHAR,productId VARCHAR,productIntro VARCHAR," +
-                "productLogo VARCHAR,productName VARCHAR,productPrice VARCHAR," +
-                "productProp VARCHAR,productTagUrls VARCHAR,specialPrice VARCHAR" +
-                "suitable VARCHAR,totalAmount VARCHAR,perferWords VARCHAR" + ");");
-
-        //专题列表
-        db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                TABLE_SPECIAL +
-                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "endTime VARCHAR," +
-                "productCount VARCHAR,specialContent VARCHAR," +
-                "specialId VARCHAR,specialIntro VARCHAR,specialLogo VARCHAR," +
-                "specialName VARCHAR,specialType INTEGER,specialUrl VARCHAR,startTime VARCHAR" + ");");
-
-        //首页信息
-        db.execSQL("CREATE TABLE IF NOT EXISTS " +
-                TABLE_HOMEPAGEINFO +
-                " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "loop VARCHAR,showTime VARCHAR," +
-                "iataCodeVersion VARCHAR,areaVersion VARCHAR" +
-                ");");
-
-
-        //name表示nickName
-        String sql = "create table if not exists userstb(_id integer primary key autoincrement,currentUser text,hasLogined text,authority text,userId text,sessionId text," +
-                "isBClient text,name text,gender text,email text,phone text,pwd text,paymentPwd text,usericon text,userQrcode text)";
-
-        db.execSQL(sql);
+ //       db.execSQL(sql);
     }
 
     @Override
