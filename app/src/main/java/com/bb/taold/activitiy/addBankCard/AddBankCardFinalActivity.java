@@ -84,7 +84,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 MobileSecurePayer payer = new MobileSecurePayer();
 //                            payer.setCAPTCHA_Switch(true);
                 payer.setCallbackHandler(mHandler, LLPayConstants.RQF_SIGN);
-
+                payer.setTestMode(false);
                 boolean bRet = payer.doTokenSign(jsonObject, AddBankCardFinalActivity.this);
 //                finish();
                 AppManager.getInstance().finishParticularActivity(AddBankCardActivity.class);

@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="177****5960"
+            android:text="****"
             android:textColor="#ffffff"
             android:textSize="20sp"/>
 
@@ -48,7 +48,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="未认证"
                 android:textColor="#ffffff"
                 android:textSize="12sp"/>
         </LinearLayout>

@@ -48,7 +48,7 @@
                 android:layout_weight="1"
                 android:textColor="@color/color_important"
                 android:textSize="23dp"
-                android:text="12333.45"/>
+                android:text="-"/>
 
             <TextView
                 android:id="@+id/tv_loan_days"
@@ -58,7 +58,7 @@
                 android:gravity="right"
                 android:textColor="@color/color_important"
                 android:textSize="23dp"
-                android:text="90天"/>
+                android:text="-天"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -88,7 +88,7 @@
             android:textSize="16dp"
             android:textColor="@color/color_important"
             android:gravity="right"
-            android:text="中国民生银行（2566）"/>
+            android:text="-"/>
     </LinearLayout>
 
     <TextView

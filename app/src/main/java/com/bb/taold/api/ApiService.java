@@ -336,4 +336,18 @@ public interface ApiService {
             @Field("feedbackContent") String feedbackContent,
             @Field("deviceNumber") String deviceNumber
     );
+
+    /**
+     * 还款支付
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=loan.repay")
+    Call<Result_Api<String>> loan_repay(
+            @Field("billItemId") String billItemId,
+            @Field("amount") String amount,
+            @Field("payChannel") String payChannel,
+            @Field("oidChnl") String oidChnl
+    );
 }

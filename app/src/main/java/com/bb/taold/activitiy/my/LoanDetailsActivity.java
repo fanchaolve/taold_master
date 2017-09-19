@@ -100,7 +100,7 @@ public class LoanDetailsActivity extends BaseActivity {
 
     private void setViewData(LoanDetail loanDetail) {
         mTvLoanMoney.setText(loanDetail.getLoanAmount());
-        mTvLoanDays.setText(loanDetail.getPeriods());
+        mTvLoanDays.setText(loanDetail.getPeriods()+"天");
         String cardNo = loanDetail.getBankNo();
         if(!TextUtils.isEmpty(cardNo)){
             cardNo = cardNo.substring(cardNo.length() - 4, cardNo.length());

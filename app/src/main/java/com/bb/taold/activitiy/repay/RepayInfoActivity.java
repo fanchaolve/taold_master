@@ -20,7 +20,6 @@ import com.bb.taold.bean.BillItemInfo;
 import com.bb.taold.listener.Callexts;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
@@ -173,7 +172,8 @@ public class RepayInfoActivity extends BaseActivity {
                 showTip("支付宝还款");
                 dialog.dismiss();
 //                Intent intent = new Intent(RepayInfoActivity.this,RepaySuccessActivity.class);
-//                startActivity(intent);
+//                startActivity(in);
+//                new PayUtil(mContext,);
             }
         });
 
