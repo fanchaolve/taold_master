@@ -1,6 +1,7 @@
 package com.bb.taold.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bb.taold.MyApplication;
 import com.bb.taold.R;
+import com.bb.taold.activitiy.login.LoginActivity;
 import com.bb.taold.activitiy.my.FeedbackActivity;
 import com.bb.taold.activitiy.my.LoanRecordsActivity;
 import com.bb.taold.activitiy.my.MyMessagesActivity;
@@ -60,14 +63,18 @@ public class MyFragment extends BaseFragment {
     TextView mTvAuthStateName;
     @BindView(R.id.iv_auth_flag)
     ImageView mIvAuthFlag;
+
+    @BindView(R.id.iv_head)
+    ImageView iv_head;
+
+    @BindView(R.id.tv_confirm)
+    TextView tv_confirm;
+
+
     private UserInfo info;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        return rootView;
-    }
+    PostCallback postCallback;
+
 
     @Override
     public int getLayoutId() {
@@ -81,7 +88,9 @@ public class MyFragment extends BaseFragment {
 
     @Override
     protected void initdate(Bundle savedInstanceState) {
-        PostCallback postCallback = new PostCallback<BaseActivity>() {
+        setLogoutViewData();
+
+        postCallback = new PostCallback<MyFragment>(this) {
             @Override
             public void successCallback(Result_Api api) {
                 if (api.getT() instanceof UserInfo) {
@@ -96,15 +105,15 @@ public class MyFragment extends BaseFragment {
 
             }
         };
-        Call<Result_Api<UserInfo>> call = service.user_info();
-        Callexts.need_sessionPost(call, postCallback);
+
     }
 
-
+//
     private void setViewData(UserInfo info) {
         String mobile = info.getMobile();
         mobile = mobile.substring(0, 3) + "****" + mobile.substring(7, 11);
         mTvUserPhone.setText(mobile);
+        mTvAuthStateName.setVisibility(View.VISIBLE);
         if (info.getAuthentication() == Constants.AUTO_STATE_OK) {
             mTvAuthStateName.setText("已认证");
             mIvAuthFlag.setVisibility(View.VISIBLE);
@@ -112,16 +121,34 @@ public class MyFragment extends BaseFragment {
             mTvAuthStateName.setText("未认证");
             mIvAuthFlag.setVisibility(View.GONE);
         }
+        iv_head.setImageResource(R.drawable.my_header);
+        tv_confirm.setText("退出登录");
+    }
+
+    //登出的页面刷新
+    private void setLogoutViewData(){
+        iv_head.setImageResource(R.drawable.head_portrait_not_login);
+        mTvUserPhone.setText("登录");
+        mTvAuthStateName.setVisibility(View.GONE);
+        mIvAuthFlag.setVisibility(View.GONE);
+        tv_confirm.setText("登录");
     }
 
     @OnClick({R.id.lay_apply_records, R.id.lay_my_messages, R.id.lay_help, R.id.lay_feedback, R.id.lay_about_us, R.id.lay_logout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lay_apply_records:
-                AppManager.getInstance().showActivity(LoanRecordsActivity.class, null);
+                if (AppManager.getInstance().isLogin())
+                    AppManager.getInstance().showActivity(LoanRecordsActivity.class, null);
+                else
+                    AppManager.getInstance().showActivity(LoginActivity.class, null);
+
                 break;
             case R.id.lay_my_messages:
-                AppManager.getInstance().showActivity(MyMessagesActivity.class, null);
+                if (AppManager.getInstance().isLogin())
+                    AppManager.getInstance().showActivity(MyMessagesActivity.class, null);
+                else
+                    AppManager.getInstance().showActivity(LoginActivity.class, null);
                 break;
             case R.id.lay_help:
                 Bundle bundle = new Bundle();
@@ -129,7 +156,10 @@ public class MyFragment extends BaseFragment {
                 AppManager.getInstance().showActivity(WebViewActivity.class, bundle);
                 break;
             case R.id.lay_feedback:
-                AppManager.getInstance().showActivity(FeedbackActivity.class, null);
+                if (AppManager.getInstance().isLogin())
+                    AppManager.getInstance().showActivity(FeedbackActivity.class, null);
+                else
+                    AppManager.getInstance().showActivity(LoginActivity.class, null);
                 break;
             case R.id.lay_about_us:
 //                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
@@ -138,8 +168,9 @@ public class MyFragment extends BaseFragment {
                 payUtil.startPay();
                 break;
 
-            case R.id.lay_logout://退出登录
+            case R.id.lay_logout://退出登录或许是登陆
 //                getActivity().finish();
+
                 AppManager.getInstance().logout();
                 break;
         }
@@ -148,5 +179,21 @@ public class MyFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(AppManager.getInstance().isLogin()){
+            if(info==null && isVisible()) {//如果登录了 就没必要重复调用接口了
+                Call<Result_Api<UserInfo>> call = service.user_info();
+                Callexts.need_sessionPost(call, postCallback);
+            }
+        }else {
+            info =null;
+            setLogoutViewData();
+        }
     }
 }

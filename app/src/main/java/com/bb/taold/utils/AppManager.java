@@ -251,6 +251,14 @@ public class AppManager {
     public void logout() {
         if (isLogin()) {
             showActivity(LoginActivity.class, null);
+        }else {
+            showActivity(LoginActivity.class, null);
+        }
+    }
+
+    public void login(){
+        if (!isLogin()) {
+            showActivity(LoginActivity.class, null);
         }
     }
 

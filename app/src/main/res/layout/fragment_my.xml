@@ -15,9 +15,11 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/iv_head"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginTop="15dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/my_header"/>
 
         <TextView
@@ -140,6 +142,7 @@
         android:onClick="onClick"
         android:layout_height="47dp">
         <TextView
+            android:id="@+id/tv_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
