@@ -144,6 +144,7 @@ public class RepayInfoActivity extends BaseActivity {
                     return;
                 } else if (api.getT() instanceof PayParams) {
                     mPayParams = (PayParams) api.getT();
+                    mTvConfirm.setEnabled(true);
                 }
             }
 
@@ -163,6 +164,8 @@ public class RepayInfoActivity extends BaseActivity {
      * @param billItemId
      */
     private void getBillItemInfo(String billItemId) {
+        //
+        mTvConfirm.setEnabled(false);
         Call<Result_Api<BillItemInfo>> call = service.fundDetail(billItemId);
         Callexts.need_sessionPost(call, postCallback);
     }
@@ -184,7 +187,7 @@ public class RepayInfoActivity extends BaseActivity {
                 showTip("支付宝还款");
                 dialog.dismiss();
                 if (mPayParams != null) {
-                    EBJPayUtil ebjPayUtil = new EBJPayUtil(mContext, mPayParams.getMerchantOutOrderNo(), mPayParams.getMerid(),
+                    EBJPayUtil ebjPayUtil = new EBJPayUtil(mContext, mPayParams.getMerchantOutOrderNo(), mPayParams.getMerId(),
                             mPayParams.getNoncestr(), mPayParams.getOrderMoney(), mPayParams.getOrderTime());
                     ebjPayUtil.startPay();
                 }
