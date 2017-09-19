@@ -22,7 +22,8 @@ public final class Constants {
     public static final String WEBVIEW_URL = "url";
     public static final int AUTO_STATE_NO = 10;
     public static final int AUTO_STATE_OK = 20;
-
+    //新用户flag
+    public static final String NEW_USER_FLAG = "isNewUser";
 
 
 
