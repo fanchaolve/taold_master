@@ -1,6 +1,5 @@
 package com.bb.taold.fragment;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
