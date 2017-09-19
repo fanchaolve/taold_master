@@ -79,11 +79,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activitiy.GuideActivity"
-            android:label="@string/app_name"
-            android:theme="@style/ACTAppTheme">
-        </activity>
+
         <activity
             android:name=".activitiy.BannerActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
