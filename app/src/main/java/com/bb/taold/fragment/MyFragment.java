@@ -21,7 +21,7 @@ import com.bb.taold.bean.UserInfo;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.Constants;
-import com.bb.taold.utils.PayUtil;
+import com.bb.taold.utils.EBJPayUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -136,7 +136,7 @@ public class MyFragment extends BaseFragment {
             case R.id.lay_about_us:
 //                AppManager.getInstance().showActivity(AboutUsActivity.class, null);
 //                AppManager.getInstance().showActivity(EntireFactorPayActivity.class, null);
-                PayUtil payUtil = new PayUtil(mContext, "29816070985499016640", "100100102", "083012498311295", "0.01", "20170918181531");
+                EBJPayUtil payUtil = new EBJPayUtil(mContext, "29816070985499016640", "100100102", "083012498311295", "0.01", "20170918181531");
                 payUtil.startPay();
                 break;
 

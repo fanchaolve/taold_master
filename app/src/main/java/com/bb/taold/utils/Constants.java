@@ -12,7 +12,11 @@ public final class Constants {
 
     public static final String APP_KEY="taolidai";
     public static final String SECRET="lU9ZCkpxiL9PW86QevPXhs";
-
+    //支付渠道   支付宝 10 ，银行卡 20
+    public static final String PAY_CHANNEL_ALIPAY="10";
+    public static final String PAY_CHANNEL_CARD="20";
+    //平台渠道 android 10,ios 20
+    public static final String PLATFORM="10";
     public static final String AUTHOINFO="authinfo";
     //webview url
     public static final String WEBVIEW_URL = "url";
