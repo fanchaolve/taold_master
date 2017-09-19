@@ -71,7 +71,6 @@ public class LoginActivity extends BaseActivity {
         if(!TextUtils.isEmpty(phone)){
             mEtMobile.setText(phone);
         }
-
         mEtCode.setText("1234");
         //设置"立即登录"按钮的背景透明度
         mTvConfirm.setAlpha(0.6f);
