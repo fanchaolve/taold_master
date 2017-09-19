@@ -29,7 +29,7 @@ public class UnpayBillAdapter extends BaseAdapter {
     public WaitRepayRecord info;
     public ArrayList<BillItem> list;
 
-    public UnpayBillAdapter(Activity mActivity, WaitRepayRecord info){
+    public UnpayBillAdapter(Activity mActivity, WaitRepayRecord info) {
         this.mActivity = mActivity;
         this.info = info;
         this.list = info.getBillItems();
@@ -37,7 +37,7 @@ public class UnpayBillAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 
     @Override
@@ -73,15 +73,15 @@ public class UnpayBillAdapter extends BaseAdapter {
         }
 
         //设置期数
-        holder.tv_period.setText(list.get(position).getStages().toString()+"/"+info.getStages()+"期");
+        holder.tv_period.setText(list.get(position).getStages().toString() + "/" + info.getStages() + "期");
         //设置时间
         holder.tv_time.setText(list.get(position).getRepayDate().toString());
         //设置金额
         holder.tv_amount.setText(list.get(position).getAmtMoney().toString());
         //设置状态
-        if(list.get(position).getIsOverdue().equals("0")){
+        if (list.get(position).getIsOverdue().equals("0")) {
             holder.tv_status.setText("待还款");
-        }else{
+        } else {
             holder.tv_status.setText("已逾期");
         }
         //还款按钮
@@ -89,13 +89,13 @@ public class UnpayBillAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Bundle mBundle = new Bundle();
-                if(list.get(position).getIsOverdue().equals("false")){
-                    mBundle.putString("bill_status","0");
-                }else{
-                    mBundle.putString("bill_status","2");
+                if (list.get(position).getIsOverdue().equals("false")) {
+                    mBundle.putString("bill_status", "0");
+                } else {
+                    mBundle.putString("bill_status", "2");
                 }
-                mBundle.putString("billItemId",list.get(position).getBillItemId());
-                AppManager.getInstance().showActivity(RepayInfoActivity.class,mBundle);
+                mBundle.putString("billItemId", list.get(position).getBillItemId());
+                AppManager.getInstance().showActivity(RepayInfoActivity.class, mBundle);
             }
         });
 

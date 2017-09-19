@@ -44,8 +44,14 @@ public class AddBankCardFinalActivity extends BaseActivity {
     TextView mTvTitle;
     @BindView(R.id.tv_acctUser)
     TextView mEtAcctUser;
+    /**
+     * 银行卡号
+     */
     @BindView(R.id.tv_acctNo)
-    TextView mEtAcctNo;
+    EditText mEtAcctNo;
+    /**
+     * 银行名称
+     */
     @BindView(R.id.tv_acctName)
     TextView mEtAcctName;
     @BindView(R.id.et_acctPhone)
@@ -72,10 +78,10 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 BandCardResult bandCardResult = (BandCardResult) api.getT();
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("no_order",bandCardResult.getNo_order());
-                    jsonObject.put("oid_partner",bandCardResult.getOid_partner());
-                    jsonObject.put("user_id",bandCardResult.getUser_id());
-                    jsonObject.put("token",bandCardResult.getToken());
+                    jsonObject.put("no_order", bandCardResult.getNo_order());
+                    jsonObject.put("oid_partner", bandCardResult.getOid_partner());
+                    jsonObject.put("user_id", bandCardResult.getUser_id());
+                    jsonObject.put("token", bandCardResult.getToken());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -167,22 +173,23 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 }
 
                 Call<Result_Api<BandCardResult>> call = service.createNewBankCard(cardCheck.getBankCode(),
-                        info.getRealName(), cardCheck.getCardNo().replace(" ", ""),
+                        info.getRealName(), mEtAcctNo.getText().toString().replace(" ", ""),
                         info.getIdCard(), cardCheck.getBankName(),
-                        mEtAcctPhone.getText().toString(),"0");
+                        mEtAcctPhone.getText().toString(), "0");
                 Callexts.need_sessionPost(call, postCallback);
                 break;
         }
     }
+
     private Handler mHandler = createHandler();
+
     private Handler createHandler() {
         return new Handler() {
             public void handleMessage(Message msg) {
                 String strRet = (String) msg.obj;
                 switch (msg.what) {
                     case LLPayConstants.RQF_PAY:
-                    case LLPayConstants.RQF_SIGN:
-                    {
+                    case LLPayConstants.RQF_SIGN: {
                         JSONObject objContent = BaseHelper.string2JSON(strRet);
                         String retCode = objContent.optString("ret_code");
                         String retMsg = objContent.optString("ret_msg");
@@ -191,13 +198,13 @@ public class AddBankCardFinalActivity extends BaseActivity {
                         if (LLPayConstants.RET_CODE_SUCCESS.equals(retCode)) {
 
                             BaseHelper.showDialog(AddBankCardFinalActivity.this, "提示",
-                                    "支付成功，交易状态码：" + retCode+" 返回报文:"+strRet,
+                                    "支付成功，交易状态码：" + retCode + " 返回报文:" + strRet,
                                     android.R.drawable.ic_dialog_alert);
 
-                        }  else {
+                        } else {
                             // TODO 失败
                             BaseHelper.showDialog(AddBankCardFinalActivity.this, "错误提示", retMsg
-                                            + "，交易状态码:" + retCode+" 返回报文:"+strRet,
+                                            + "，交易状态码:" + retCode + " 返回报文:" + strRet,
                                     android.R.drawable.ic_dialog_alert);
                         }
                     }

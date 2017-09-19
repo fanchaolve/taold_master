@@ -2,6 +2,7 @@ package com.bb.taold.activitiy.repay;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -78,6 +79,12 @@ public class RepayDetailActivity extends BaseActivity {
 
     @Override
     public void initdata() {
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            //获取账单id
+            billId = getIntent().getExtras().getString("billId");
+            Log.e("billIdbillId", billId);
+            getBillInfoDetail(billId);
+        }
 
         mSwiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -86,22 +93,30 @@ public class RepayDetailActivity extends BaseActivity {
             }
         });
 
-        postCallback = new PostCallback<BaseActivity>(this) {
-            @Override
-            public void successCallback(Result_Api api) {
-                mSwiperRefresh.setRefreshing(false);
+    }
 
-                if(api.getT() instanceof BillInfoDetail){
+    /**
+     * 获取账单详情
+     *
+     * @param billId
+     */
+    private void getBillInfoDetail(String billId) {
+        //获取未还款账单详情
+        Call<Result_Api<BillInfoDetail>> call = service.detail(billId);
+        Callexts.need_sessionPost(call, new PostCallback() {
+            @Override public void successCallback(Result_Api api) {
+                mSwiperRefresh.setRefreshing(false);
+                if (api.getT() instanceof BillInfoDetail) {
                     //获取账单详情
-                    details = (BillInfoDetail)api.getT();
+                    details = (BillInfoDetail) api.getT();
                     //设置借款金额,借款期限,年利率
                     BillProductInfo productInfo = details.getProductInfo();
                     //设置借款金额
                     mTvLoanAmount.setText(productInfo.getLoanMoney());
                     //设置借款期限
-                    mTvLoanDays.setText(productInfo.getLoanDays()+"天");
+                    mTvLoanDays.setText(productInfo.getLoanDays() + "天");
                     //设置年利率
-                    mTvYearrate.setText((Double.parseDouble(productInfo.getYearRates())*100)+"%");
+                    mTvYearrate.setText((Double.parseDouble(productInfo.getYearRates()) * 100) + "%");
 
                     RepayDetailAdapter mAdapter = new RepayDetailAdapter(RepayDetailActivity.this, details);
 
@@ -111,28 +126,10 @@ public class RepayDetailActivity extends BaseActivity {
                 }
             }
 
-            @Override
-            public void failCallback() {
+            @Override public void failCallback() {
 
             }
-        };
-
-        if(getIntent()!=null && getIntent().getExtras()!=null){
-            //获取账单id
-            billId = getIntent().getExtras().getString("billId");
-            getBillInfoDetail(billId);
-        }
-
-    }
-
-    /**
-     * 获取账单详情
-     * @param billId
-     */
-    private void getBillInfoDetail(String billId){
-        //获取未还款账单详情
-        Call<Result_Api<BillInfoDetail>> call = service.detail(billId);
-        Callexts.need_sessionPost(call, postCallback);
+        });
     }
 
 
