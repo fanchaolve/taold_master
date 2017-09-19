@@ -11,6 +11,7 @@ import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
 import com.bb.taold.bean.LoadRecordResponse;
 import com.bb.taold.bean.LoanDetail;
+import com.bb.taold.bean.PayParams;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.Session;
@@ -344,7 +345,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=loan.repay")
-    Call<Result_Api<String>> loan_repay(
+    Call<Result_Api<PayParams>> loan_repay(
             @Field("billItemId") String billItemId,
             @Field("amount") String amount,
             @Field("payChannel") String payChannel,

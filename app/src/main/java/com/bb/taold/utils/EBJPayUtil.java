@@ -20,7 +20,7 @@ import java.util.Map;
  * @author chaochao
  */
 
-public class PayUtil {
+public class EBJPayUtil {
 
 
     private Context context;
@@ -39,7 +39,7 @@ public class PayUtil {
      * @param orderMoney 订单金额
      * @param orderTime 订单时间 yyyyMMddHHmmss
      */
-    public PayUtil(Context context,String merchantOutOrderNo, String merid, String noncestr, String orderMoney, String orderTime){
+    public EBJPayUtil(Context context, String merchantOutOrderNo, String merid, String noncestr, String orderMoney, String orderTime){
         this.context = context;
         this.merchantOutOrderNo = merchantOutOrderNo;
         this.merid = merid;
@@ -47,7 +47,7 @@ public class PayUtil {
         this.orderMoney = orderMoney;
         this.orderTime = orderTime;
     }
-    public PayUtil(Map<String,String> map){
+    public EBJPayUtil(Map<String,String> map){
         this.map = map;
     }
 

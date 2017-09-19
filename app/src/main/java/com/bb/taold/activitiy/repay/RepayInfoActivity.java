@@ -17,7 +17,10 @@ import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.BillItemDetail;
 import com.bb.taold.bean.BillItemInfo;
+import com.bb.taold.bean.PayParams;
 import com.bb.taold.listener.Callexts;
+import com.bb.taold.utils.Constants;
+import com.bb.taold.utils.EBJPayUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -65,6 +68,8 @@ public class RepayInfoActivity extends BaseActivity {
     private PostCallback postCallback;
     //保存billItemId
     private String billItemId = "";
+    private PayParams mPayParams;
+    private BillItemDetail mDetail;
 
     @Override
     public int getLayoutId() {
@@ -117,21 +122,24 @@ public class RepayInfoActivity extends BaseActivity {
 
     @Override
     public void initdata() {
-        postCallback = new PostCallback(this) {
+        postCallback = new PostCallback<BaseActivity>(this) {
             @Override
             public void successCallback(Result_Api api) {
                 if (api.getT() instanceof BillItemInfo) {
                     BillItemInfo info = (BillItemInfo)api.getT();
-                    BillItemDetail detail = info.getBillInfo();
+                    mDetail = info.getBillInfo();
                     //设置金额数据
-                    mTvLoanAmount.setText(detail.getBillAmount());
-                    mTvPrincipal.setText(detail.getPrincipal());
-                    mTvLoanInterestCost.setText(detail.getLoanInterestCost());
-                    mTvManageCost.setText(detail.getManageCost());
+                    mTvLoanAmount.setText(mDetail.getBillAmount());
+                    mTvPrincipal.setText(mDetail.getPrincipal());
+                    mTvLoanInterestCost.setText(mDetail.getLoanInterestCost());
+                    mTvManageCost.setText(mDetail.getManageCost());
                     //需要判断是否逾期来确定是否显示逾期金额
-                    mTvDueAmount.setText(detail.getDueAmount());
-                    mTvAbateAmt.setText(detail.getAbateAmt());
+                    mTvDueAmount.setText(mDetail.getDueAmount());
+                    mTvAbateAmt.setText(mDetail.getAbateAmt());
+                    getPayParams(mDetail.getBillId(),mDetail.getBillAmount(), Constants.PAY_CHANNEL_ALIPAY,Constants.PLATFORM);
                     return;
+                }else if(api.getT() instanceof PayParams){
+                    mPayParams = (PayParams) api.getT();
                 }
             }
 
@@ -164,16 +172,19 @@ public class RepayInfoActivity extends BaseActivity {
         dialog.setContentView(view);
 
         //支付宝还款
-        LinearLayout mLlAlipay = (LinearLayout) view.findViewById(R.id.ll_alipay);
+        final LinearLayout mLlAlipay = (LinearLayout) view.findViewById(R.id.ll_alipay);
         mLlAlipay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //支付宝还款监听事件
                 showTip("支付宝还款");
                 dialog.dismiss();
-//                Intent intent = new Intent(RepayInfoActivity.this,RepaySuccessActivity.class);
-//                startActivity(in);
-//                new PayUtil(mContext,);
+                if(mPayParams!=null){
+                    EBJPayUtil ebjPayUtil = new EBJPayUtil(mContext, mPayParams.getMerchantOutOrderNo(), mPayParams.getMerid(),
+                            mPayParams.getNoncestr(), mPayParams.getOrderMoney(), mPayParams.getOrderTime());
+                    ebjPayUtil.startPay();
+                }
+
             }
         });
 
@@ -206,6 +217,11 @@ public class RepayInfoActivity extends BaseActivity {
         window.setGravity(Gravity.BOTTOM);
         window.setWindowAnimations(R.style.dialog_in_and_out);  //添加动画
         dialog.show();
+    }
+    //请求支付参数
+    public void getPayParams(String billItemId,String amount,String payChannel,String oidChnl){
+        Call<Result_Api<PayParams>> result_apiCall = service.loan_repay(billItemId, amount, payChannel, oidChnl);
+        Callexts.Unneed_sessionPost(result_apiCall,postCallback);
     }
 
     @OnClick(R.id.tv_confirm)
