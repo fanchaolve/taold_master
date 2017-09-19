@@ -183,7 +183,7 @@ public class StringUtils {
     public static String hideMobileMiddle(String phone){
         String mobile = "";
         if(!TextUtils.isEmpty(phone)&&phone.length()>=11){
-            mobile = mobile.substring(0, 3) + "****" + mobile.substring(7, 11);
+            mobile = phone.substring(0, 3) + "****" + phone.substring(7, 11);
         }
         return mobile;
     }
