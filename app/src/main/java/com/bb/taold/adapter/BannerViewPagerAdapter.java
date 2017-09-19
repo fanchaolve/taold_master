@@ -51,28 +51,28 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                 mBannerImg.setBackground(mActivity.getResources().getDrawable(R.drawable.banner1));
                 bannerBtn.setVisibility(View.GONE);
                 banner.setVisibility(View.VISIBLE);
-                line1.setImageResource(R.drawable.line_yellow);
-                line2.setImageResource(R.drawable.line_white);
-                line3.setImageResource(R.drawable.line_white);
-                line4.setImageResource(R.drawable.line_white);
+                line1.setBackgroundResource(R.drawable.bg_dot_yellow);
+                line2.setBackgroundResource(R.drawable.bg_dot);
+                line3.setBackgroundResource(R.drawable.bg_dot);
+                line4.setBackgroundResource(R.drawable.bg_dot);
                 break;
             case 1:
                 mBannerImg.setBackground(mActivity.getResources().getDrawable(R.drawable.banner2));
                 bannerBtn.setVisibility(View.GONE);
                 banner.setVisibility(View.VISIBLE);
-                line1.setImageResource(R.drawable.line_white);
-                line2.setImageResource(R.drawable.line_yellow);
-                line3.setImageResource(R.drawable.line_white);
-                line4.setImageResource(R.drawable.line_white);
+                line1.setBackgroundResource(R.drawable.bg_dot);
+                line2.setBackgroundResource(R.drawable.bg_dot_yellow);
+                line3.setBackgroundResource(R.drawable.bg_dot);
+                line4.setBackgroundResource(R.drawable.bg_dot);
                 break;
             case 2:
                 mBannerImg.setBackground(mActivity.getResources().getDrawable(R.drawable.banner3));
                 bannerBtn.setVisibility(View.GONE);
                 banner.setVisibility(View.VISIBLE);
-                line1.setImageResource(R.drawable.line_white);
-                line2.setImageResource(R.drawable.line_white);
-                line3.setImageResource(R.drawable.line_yellow);
-                line4.setImageResource(R.drawable.line_white);
+                line1.setBackgroundResource(R.drawable.bg_dot);
+                line2.setBackgroundResource(R.drawable.bg_dot);
+                line3.setBackgroundResource(R.drawable.bg_dot_yellow);
+                line4.setBackgroundResource(R.drawable.bg_dot);
                 break;
             case 3:
                 mBannerImg.setBackground(mActivity.getResources().getDrawable(R.drawable.banner4));
@@ -86,6 +86,7 @@ public class BannerViewPagerAdapter extends PagerAdapter {
                         } else {//登陆状态
                             AppManager.getInstance().showActivity(HomeActivity.class, null);
                         }
+                        mActivity.finish();
                     }
                 });
                 break;
