@@ -6,11 +6,13 @@ import android.util.Log;
 
 import com.bb.taold.MyApplication;
 import com.bb.taold.R;
+import com.bb.taold.activitiy.login.LoginActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.Location;
 import com.bb.taold.listener.exts.Act1;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.Constants;
 import com.bb.taold.utils.PermissionUtil;
 import com.bb.taold.utils.PreferenceUtil;
 import com.bb.taold.utils.gps.GPSUtil;
@@ -70,11 +72,11 @@ public class WelcomeActivity extends BaseActivity {
                             //WelcomeActivity.this.finish();
                             if ("".equalsIgnoreCase(MyApplication.getInstance().getSession())) {//未登陆状态
                                 String preference = PreferenceUtil.getSharedPreference(mContext, PreferenceUtil.isNewUser);
-//                                if(preference!=null&&preference.equals(Constants.NEW_USER_FLAG)){
-//                                    AppManager.getInstance().showActivity(LoginActivity.class, null);
-//                                }else{
+                                if(preference!=null&&preference.equals(Constants.NEW_USER_FLAG)){
+                                    AppManager.getInstance().showActivity(LoginActivity.class, null);
+                                }else{
                                     AppManager.getInstance().showActivity(GuideActivity.class, null);
-//                                }
+                                }
                             } else {//登陆状态
                                 AppManager.getInstance().showActivity(HomeActivity.class, null);
                             }
