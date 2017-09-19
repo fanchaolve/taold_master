@@ -110,7 +110,6 @@ public class LoanRecordsActivity extends BaseActivity {
 
             }
         };
-//        queryLoanRecords(mCurrentCounter+"", "10");
 
         mRecyclerView.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -129,8 +128,7 @@ public class LoanRecordsActivity extends BaseActivity {
                     queryLoanRecords(mCurrentCounter+"","10");
             }
         });
-        mRecyclerView.forceToRefresh();
-
+        queryLoanRecords(mCurrentCounter+"", "10");
     }
 
     public void queryLoanRecords(String offset, String count) {
