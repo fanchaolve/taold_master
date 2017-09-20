@@ -75,7 +75,7 @@ public class UnpayFragment extends BaseFragment {
             }
         });
         //页面初始获取未还账单页面
-        //getUnpayInfo();
+        getUnpayInfo();
 
     }
 
@@ -125,6 +125,6 @@ public class UnpayFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        getUnpayInfo();
+
     }
 }

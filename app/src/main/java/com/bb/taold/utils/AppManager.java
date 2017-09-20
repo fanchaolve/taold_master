@@ -249,10 +249,12 @@ public class AppManager {
      * 退出登录
      */
     public void logout() {
+        Bundle bundle =new Bundle();
+        bundle.putInt("card",2);
         if (isLogin()) {
-            showActivity(LoginActivity.class, null);
+            showActivity(LoginActivity.class, bundle);
         }else {
-            showActivity(LoginActivity.class, null);
+            showActivity(LoginActivity.class, bundle);
         }
     }
 

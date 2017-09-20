@@ -1,6 +1,7 @@
 package com.bb.taold.widget;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,16 +131,22 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
                     break;
                 case 1:
 
-                    if(mContext instanceof HomeActivity){
-                        if(AppManager.getInstance().isLogin()){
-                            setbottombcdefail();
-                            ivTab2.setImageResource(R.drawable.btn_bill_sel);
-                            tvTab2.setTextColor(getResources().getColor(R.color.black));
-                        }else{
-                            AppManager.getInstance().showActivity(LoginActivity.class,null);
-                            return;
-                        }
-                    }
+//                    if(mContext instanceof HomeActivity){
+//                        if(AppManager.getInstance().isLogin()){
+//                            setbottombcdefail();
+//                            ivTab2.setImageResource(R.drawable.btn_bill_sel);
+//                            tvTab2.setTextColor(getResources().getColor(R.color.black));
+//                        }else{
+//                            Bundle bundle =new Bundle();
+//                            bundle.putInt("card",1);
+//                            AppManager.getInstance().showActivity(LoginActivity.class,bundle);
+//                            return;
+//                        }
+//                    }
+
+                    setbottombcdefail();
+                    ivTab2.setImageResource(R.drawable.btn_bill_sel);
+                     tvTab2.setTextColor(getResources().getColor(R.color.black));
 
                     break;
                 case 2:

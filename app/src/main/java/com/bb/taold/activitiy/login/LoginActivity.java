@@ -1,5 +1,7 @@
 package com.bb.taold.activitiy.login;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -62,6 +64,8 @@ public class LoginActivity extends BaseActivity {
     private String mobile_bding_code;//获取验证码之后的手机号码
 
     private PermissionUtil.onPermissionGentedListener listener;   //权限获取
+
+    private int home_tab= 0;//首页卡片
 
 
 
@@ -144,6 +148,13 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initdata() {
 
+        Intent intent = getIntent();
+        if(intent!= null){
+            Bundle b=intent.getExtras();
+            if(b!=null && b.containsKey("card")){
+                home_tab=b.getInt("card");
+            }
+        }
 
 
         MyApplication.getInstance().saveSession("");
@@ -177,7 +188,7 @@ public class LoginActivity extends BaseActivity {
 
                     EventBus.getDefault().post(new EventType(1));
                     Bundle bundle =new Bundle();
-                    bundle.putInt("card",2);
+                    bundle.putInt("card",home_tab);
                     AppManager.getInstance().showActivity(HomeActivity.class, bundle);
                     //取消定时器
                     if (mTimer != null)
