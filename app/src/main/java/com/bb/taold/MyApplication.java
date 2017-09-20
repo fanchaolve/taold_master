@@ -12,6 +12,9 @@ import com.bb.taold.utils.gps.GPSUtil;
 import com.igexin.sdk.PushManager;
 import com.igexin.sdk.Tag;
 
+import cn.tongdun.android.shell.FMAgent;
+import cn.tongdun.android.shell.exception.FMException;
+
 
 /**
  * Created by Administrator on 2016/12/6.
@@ -68,6 +71,17 @@ public class MyApplication extends Application {
         PushManager.getInstance().initialize(this.getApplicationContext(), PushService.class);
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), IntentService.class);
         PushManager.getInstance().bindAlias(getAppContext(), "abc123");
+
+
+        try {
+            if (BuildConfig.DEBUG) {
+                FMAgent.init(context, FMAgent.ENV_SANDBOX);
+            } else {
+                FMAgent.init(context, FMAgent.ENV_PRODUCTION);
+            }
+        } catch (FMException e) {
+            e.printStackTrace();
+        }
     }
 
 
