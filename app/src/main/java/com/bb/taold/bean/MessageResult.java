@@ -26,7 +26,7 @@ public class MessageResult {
     private String content;
     private int msgType;
     private int status;
-    private long gmtCreate;
+    private String gmtCreate;
 
     public long getId() {
         return id;
@@ -68,11 +68,11 @@ public class MessageResult {
         this.status = status;
     }
 
-    public long getGmtCreate() {
+    public String getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(long gmtCreate) {
+    public void setGmtCreate(String gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 }

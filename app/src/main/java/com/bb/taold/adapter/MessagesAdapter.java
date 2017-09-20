@@ -23,7 +23,7 @@ public class MessagesAdapter extends CommonRecyclerAdapter<MessageResult> {
 
     @Override
     public void convert(MyViewHolder holder, MessageResult item) {
-        holder.setText(R.id.tv_message_time, LojaDateUtils.format(item.getGmtCreate(), LojaDateUtils.YYYY_MM_DD_DOT_FORMAT2))
+        holder.setText(R.id.tv_message_time, item.getGmtCreate())
                 .setText(R.id.tv_message_content, item.getContent());
     }
 }

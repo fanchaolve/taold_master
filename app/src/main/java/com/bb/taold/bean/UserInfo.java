@@ -45,19 +45,19 @@ public class UserInfo implements Serializable {
     private int bindBankcardFlag;
     private int bindCreditcardFlag;
     private int consumeFlag;
-    private long firstConsumeTime;
-    private long gmtModify;
+    private String firstConsumeTime;
+    private String gmtModify;
     private String headPortrait;
     private int id;
     private String idCard;
-    private long lastLoginTime;
+    private String lastLoginTime;
     private String mobile;
     private String nickName;
     private String openId;
     private String realName;
     private String regIp;
     private String regLonLat;
-    private long regTime;
+    private String regTime;
     private int sex;
     private int startLevel;
     private int status;
@@ -95,19 +95,19 @@ public class UserInfo implements Serializable {
         this.consumeFlag = consumeFlag;
     }
 
-    public long getFirstConsumeTime() {
+    public String getFirstConsumeTime() {
         return firstConsumeTime;
     }
 
-    public void setFirstConsumeTime(long firstConsumeTime) {
+    public void setFirstConsumeTime(String firstConsumeTime) {
         this.firstConsumeTime = firstConsumeTime;
     }
 
-    public long getGmtModify() {
+    public String getGmtModify() {
         return gmtModify;
     }
 
-    public void setGmtModify(long gmtModify) {
+    public void setGmtModify(String gmtModify) {
         this.gmtModify = gmtModify;
     }
 
@@ -135,11 +135,11 @@ public class UserInfo implements Serializable {
         this.idCard = idCard;
     }
 
-    public long getLastLoginTime() {
+    public String getLastLoginTime() {
         return lastLoginTime;
     }
 
-    public void setLastLoginTime(long lastLoginTime) {
+    public void setLastLoginTime(String lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 
@@ -191,11 +191,11 @@ public class UserInfo implements Serializable {
         this.regLonLat = regLonLat;
     }
 
-    public long getRegTime() {
+    public String getRegTime() {
         return regTime;
     }
 
-    public void setRegTime(long regTime) {
+    public void setRegTime(String regTime) {
         this.regTime = regTime;
     }
 
