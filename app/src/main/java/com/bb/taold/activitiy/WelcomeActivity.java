@@ -69,7 +69,7 @@ public class WelcomeActivity extends BaseActivity {
                     @Override
                     public void run() {
                         if(AppManager.getInstance().currentActivity()!=null) {
-//                            WelcomeActivity.this.finish();
+                            WelcomeActivity.this.finish();
                             boolean preference = PreferenceUtil.bSharedPreference(mContext, PreferenceUtil.isNewUser);
                             if(preference){
                                 AppManager.getInstance().showActivity(HomeActivity.class, null);

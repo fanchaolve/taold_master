@@ -40,51 +40,18 @@ public class BannerViewPagerAdapter extends PagerAdapter {
 
         View view = LayoutInflater.from(mActivity).inflate(R.layout.activity_banner_item, null);
         ImageView mBannerImg = (ImageView) view.findViewById(R.id.banner_img);
-        LinearLayout banner = (LinearLayout) view.findViewById(R.id.ll_line);
-        ImageView line1 = (ImageView) view.findViewById(R.id.iv_banner1);
-        ImageView line2 = (ImageView) view.findViewById(R.id.iv_banner2);
-        ImageView line3 = (ImageView) view.findViewById(R.id.iv_banner3);
-        ImageView line4 = (ImageView) view.findViewById(R.id.iv_banner4);
-        TextView bannerBtn = (TextView) view.findViewById(R.id.tv_btn);
         switch (position % 4) {
             case 0:
                 mBannerImg.setBackground(mActivity.getResources().getDrawable(R.drawable.banner1));
-                bannerBtn.setVisibility(View.GONE);
-                banner.setVisibility(View.VISIBLE);
-                line1.setBackgroundResource(R.drawable.bg_dot_yellow);
-                line2.setBackgroundResource(R.drawable.bg_dot);
-                line3.setBackgroundResource(R.drawable.bg_dot);
-                line4.setBackgroundResource(R.drawable.bg_dot);
                 break;
             case 1:
                 mBannerImg.setBackground(mActivity.getResources().getDrawable(R.drawable.banner2));
-                bannerBtn.setVisibility(View.GONE);
-                banner.setVisibility(View.VISIBLE);
-                line1.setBackgroundResource(R.drawable.bg_dot);
-                line2.setBackgroundResource(R.drawable.bg_dot_yellow);
-                line3.setBackgroundResource(R.drawable.bg_dot);
-                line4.setBackgroundResource(R.drawable.bg_dot);
                 break;
             case 2:
                 mBannerImg.setBackground(mActivity.getResources().getDrawable(R.drawable.banner3));
-                bannerBtn.setVisibility(View.GONE);
-                banner.setVisibility(View.VISIBLE);
-                line1.setBackgroundResource(R.drawable.bg_dot);
-                line2.setBackgroundResource(R.drawable.bg_dot);
-                line3.setBackgroundResource(R.drawable.bg_dot_yellow);
-                line4.setBackgroundResource(R.drawable.bg_dot);
                 break;
             case 3:
                 mBannerImg.setBackground(mActivity.getResources().getDrawable(R.drawable.banner4));
-                bannerBtn.setVisibility(View.VISIBLE);
-                banner.setVisibility(View.GONE);
-                bannerBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        PreferenceUtil.saveBSharedPreference(mActivity,PreferenceUtil.isNewUser,true);
-                        AppManager.getInstance().showActivity(HomeActivity.class, null);
-                    }
-                });
                 break;
         }
         container.addView(view);
