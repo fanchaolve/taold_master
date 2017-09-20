@@ -1,6 +1,7 @@
 package com.bb.taold.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,7 +37,9 @@ public class RecordStageAdapter extends ListBaseAdapter<LifeCycleBean> {
         LinearLayout layYellowCicle = holder.getView(R.id.lay_yellow_circle);
         LifeCycleBean lifeCycleBean = mDataList.get(position);
         tvStageName.setText(lifeCycleBean.getTitle());
-        tvStageTime.setText(lifeCycleBean.getDate()+"");
+        if(!TextUtils.isEmpty(lifeCycleBean.getDate())){
+            tvStageTime.setText(lifeCycleBean.getDate()+"");
+        }
         tvStagePrompt.setText(lifeCycleBean.getDescription());
         layGrayCicle.setVisibility(View.GONE);
         layYellowCicle.setVisibility(View.GONE);
