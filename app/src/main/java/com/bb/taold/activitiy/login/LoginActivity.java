@@ -21,9 +21,12 @@ import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.Location;
 import com.bb.taold.bean.Session;
+import com.bb.taold.bean.UserInfo;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.listener.exts.Act1;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.CacheUtils;
+import com.bb.taold.utils.Constants;
 import com.bb.taold.utils.DeviceUtils;
 import com.bb.taold.utils.PermissionUtil;
 import com.bb.taold.utils.PreferenceUtil;
@@ -166,6 +169,15 @@ public class LoginActivity extends BaseActivity {
                     if (session != null) {
                         MyApplication.getInstance().saveSession(session.getSession());
                         PreferenceUtil.saveSharedPreference(mContext, PreferenceUtil.PHONE, mEtMobile.getText().toString());
+                        //成功后，获取用户信息
+                        Call<Result_Api<UserInfo>> call = service.user_info();
+                        Callexts.need_sessionPost(call, postCallback);
+                    }else if(api.getT() instanceof UserInfo) {
+                        UserInfo info = (UserInfo) api.getT();
+                        //缓存用户信息，以便该登录用户全局使用。下次登录覆盖更新。
+                        if(info!=null){
+                            CacheUtils.saveDataToDiskLruCache(Constants.USER_INFO,info);
+                        }
                     }
 
                     //6.0以下系统在欢迎页未同意权限 则在登录按钮时再次获取定位

@@ -109,6 +109,5 @@ dependencies {
     compile 'com.getui:mzp:1.0.4'
     //小米推送
     compile 'com.getui:xmp:1.0.2'
-    compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.jakewharton:disklrucache:2.0.2'
 }

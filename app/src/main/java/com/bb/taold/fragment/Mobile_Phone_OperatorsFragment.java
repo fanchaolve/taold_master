@@ -1,15 +1,18 @@
 package com.bb.taold.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.activitiy.AuthInfoActivity;
-import com.bb.taold.activitiy.HomeActivity;
 import com.bb.taold.base.BaseFragment;
+import com.bb.taold.bean.UserInfo;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.CacheUtils;
+import com.bb.taold.utils.Constants;
 
 import butterknife.BindView;
 
@@ -53,6 +56,13 @@ public class Mobile_Phone_OperatorsFragment extends BaseFragment implements View
     protected void initdate(Bundle savedInstanceState) {
         if(getActivity() instanceof AuthInfoActivity){
             ((AuthInfoActivity) getActivity()).goStep(2);
+        }
+        UserInfo info = (UserInfo) CacheUtils.getDataCache(Constants.USER_INFO);
+        if(info!=null){
+            String mobile = info.getMobile();
+            if(!TextUtils.isEmpty(mobile)){
+                tv_tel.setText(mobile);
+            }
         }
     }
 

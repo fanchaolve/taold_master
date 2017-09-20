@@ -14,7 +14,6 @@ import com.bb.taold.adapter.UnpayBillAdapter;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseFragment;
-import com.bb.taold.bean.EventType;
 import com.bb.taold.bean.WaitRepayRecord;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
@@ -23,13 +22,12 @@ import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import retrofit2.Call;
+
+//import com.bb.taold.bean.EventType;
 
 /**
  * Created by zhucheng'an on 2017/9/13.
