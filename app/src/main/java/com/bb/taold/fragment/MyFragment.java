@@ -175,7 +175,7 @@ public class MyFragment extends BaseFragment {
 
             case R.id.lay_logout://退出登录或许是登陆
 //                getActivity().finish();
-
+                info = null;
                 AppManager.getInstance().logout();
                 break;
         }
