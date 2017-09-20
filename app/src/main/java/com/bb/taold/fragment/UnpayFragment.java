@@ -11,9 +11,13 @@ import com.bb.taold.adapter.UnpayBillAdapter;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseFragment;
+import com.bb.taold.bean.EventType;
 import com.bb.taold.bean.WaitRepayRecord;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -71,7 +75,7 @@ public class UnpayFragment extends BaseFragment {
             }
         });
         //页面初始获取未还账单页面
-        getUnpayInfo();
+        //getUnpayInfo();
 
     }
 
@@ -115,5 +119,12 @@ public class UnpayFragment extends BaseFragment {
         Bundle mBundle = new Bundle();
         mBundle.putString("billId", billId);
         AppManager.getInstance().showActivity(RepayDetailActivity.class, mBundle);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getUnpayInfo();
     }
 }

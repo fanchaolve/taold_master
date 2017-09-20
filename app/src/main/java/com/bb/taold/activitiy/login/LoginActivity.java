@@ -1,5 +1,6 @@
 package com.bb.taold.activitiy.login;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,6 +18,7 @@ import com.bb.taold.activitiy.HomeActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.EventType;
 import com.bb.taold.bean.Location;
 import com.bb.taold.bean.Session;
 import com.bb.taold.listener.Callexts;
@@ -26,6 +28,10 @@ import com.bb.taold.utils.DeviceUtils;
 import com.bb.taold.utils.PermissionUtil;
 import com.bb.taold.utils.gps.GPSUtil;
 import com.bb.taold.utils.PreferenceUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -56,6 +62,8 @@ public class LoginActivity extends BaseActivity {
     private String mobile_bding_code;//获取验证码之后的手机号码
 
     private PermissionUtil.onPermissionGentedListener listener;   //权限获取
+
+
 
 
     @Override
@@ -136,6 +144,8 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initdata() {
 
+
+
         MyApplication.getInstance().saveSession("");
         postCallback = new PostCallback<BaseActivity>(this) {
 
@@ -165,7 +175,10 @@ public class LoginActivity extends BaseActivity {
                         }
                     });
 
-                    AppManager.getInstance().showActivity(HomeActivity.class, null);
+                    EventBus.getDefault().post(new EventType(1));
+                    Bundle bundle =new Bundle();
+                    bundle.putInt("card",2);
+                    AppManager.getInstance().showActivity(HomeActivity.class, bundle);
                     //取消定时器
                     if (mTimer != null)
                         mTimer.cancel();
@@ -360,4 +373,6 @@ public class LoginActivity extends BaseActivity {
         }
         return true;
     }
+
+
 }

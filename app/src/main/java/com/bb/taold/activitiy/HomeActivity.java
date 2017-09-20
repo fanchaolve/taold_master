@@ -4,17 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 
 
 import com.bb.taold.R;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.EventType;
 import com.bb.taold.fragment.HomeFragment;
 import com.bb.taold.fragment.LoanFragment;
 import com.bb.taold.fragment.MyFragment;
 import com.bb.taold.fragment.RepayFragment;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.widget.BottomBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 
@@ -160,6 +166,9 @@ public class HomeActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
+
 
 }
 

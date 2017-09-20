@@ -6,10 +6,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.view.KeyEvent;
 
 import com.bb.taold.R;
 import com.bb.taold.adapter.BannerViewPagerAdapter;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.PreferenceUtil;
 import com.bb.taold.widget.AlphaPageTransformer;
@@ -127,5 +129,28 @@ public class BannerActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+    /**
+     * 实现再按一次退出提醒
+     */
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 3000) {
+                showTip(getString(R.string.snack_exit_once_more));
+                exitTime = System.currentTimeMillis();
+                return true;
+            } else {
+                AppManager.getInstance().AppExit(this);
+            }
+
+
+        }
+        return super.onKeyDown(keyCode, event);
+
+    }
+
+
 }
 

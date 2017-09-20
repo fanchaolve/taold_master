@@ -122,9 +122,9 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
 
     public void changeTab(int tab) {
         if (currentTab != tab) {
-            setbottombcdefail();
             switch (tab) {
                 case 0:
+                    setbottombcdefail();
                     ivTab1.setImageResource(R.drawable.btn_loan_sel);
                     tvTab1.setTextColor(getResources().getColor(R.color.black));
                     break;
@@ -132,6 +132,7 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
 
                     if(mContext instanceof HomeActivity){
                         if(AppManager.getInstance().isLogin()){
+                            setbottombcdefail();
                             ivTab2.setImageResource(R.drawable.btn_bill_sel);
                             tvTab2.setTextColor(getResources().getColor(R.color.black));
                         }else{
@@ -142,6 +143,7 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
 
                     break;
                 case 2:
+                    setbottombcdefail();
                     ivTab3.setImageResource(R.drawable.btn_mine_sel);
                     tvTab3.setTextColor(getResources().getColor(R.color.black));
                     break;

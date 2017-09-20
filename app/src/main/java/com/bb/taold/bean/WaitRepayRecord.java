@@ -29,7 +29,7 @@ public class WaitRepayRecord {
     private String shouldPayAmt = "";
     private String waitPayAmt = "";
     private String stages = "";
-    private BillItems billItems = null;
+    private BillItems billItems = new BillItems();
 
 
     public String getBillId() {
