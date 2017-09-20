@@ -23,7 +23,8 @@
         android:background="@drawable/click_bg">
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/version_update"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

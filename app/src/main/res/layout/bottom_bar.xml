@@ -35,7 +35,7 @@
                 android:id="@+id/tvTab1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:textSize="10sp"
                 android:textColor="#A4A5A8"
                 android:text="借款"/>
@@ -64,7 +64,7 @@
                 android:id="@+id/tvTab2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:textSize="10sp"
                 android:textColor="#A4A5A8"
                 android:text="账单"/>
@@ -90,7 +90,7 @@
                 android:id="@+id/tvTab3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:textSize="10sp"
                 android:textColor="#A4A5A8"
                 android:text="我的"/>
