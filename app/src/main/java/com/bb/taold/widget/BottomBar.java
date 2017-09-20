@@ -9,6 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.HomeActivity;
+import com.bb.taold.activitiy.login.LoginActivity;
+import com.bb.taold.fragment.RepayFragment;
+import com.bb.taold.utils.AppManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -125,8 +129,17 @@ public class BottomBar extends LinearLayout implements View.OnClickListener {
                     tvTab1.setTextColor(getResources().getColor(R.color.black));
                     break;
                 case 1:
-                    ivTab2.setImageResource(R.drawable.btn_bill_sel);
-                    tvTab2.setTextColor(getResources().getColor(R.color.black));
+
+                    if(mContext instanceof HomeActivity){
+                        if(AppManager.getInstance().isLogin()){
+                            ivTab2.setImageResource(R.drawable.btn_bill_sel);
+                            tvTab2.setTextColor(getResources().getColor(R.color.black));
+                        }else{
+                            AppManager.getInstance().showActivity(LoginActivity.class,null);
+                            return;
+                        }
+                    }
+
                     break;
                 case 2:
                     ivTab3.setImageResource(R.drawable.btn_mine_sel);
