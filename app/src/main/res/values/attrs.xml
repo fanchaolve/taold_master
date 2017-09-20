@@ -3,78 +3,78 @@
 
     <declare-styleable name="BGABanner">
         <!-- 指示点容器背景 -->
-        <attr name="banner_pointContainerBackground" format="reference|color" />
+        <attr name="banner_pointContainerBackground" format="reference|color"/>
         <!-- 指示点背景 -->
-        <attr name="banner_pointDrawable" format="reference" />
+        <attr name="banner_pointDrawable" format="reference"/>
         <!-- 指示点容器左右内间距 -->
-        <attr name="banner_pointContainerLeftRightPadding" format="dimension" />
+        <attr name="banner_pointContainerLeftRightPadding" format="dimension"/>
         <!-- 指示点上下外间距 -->
-        <attr name="banner_pointTopBottomMargin" format="dimension" />
+        <attr name="banner_pointTopBottomMargin" format="dimension"/>
         <!-- 指示点左右外间距 -->
-        <attr name="banner_pointLeftRightMargin" format="dimension" />
+        <attr name="banner_pointLeftRightMargin" format="dimension"/>
         <!-- 指示器的位置 -->
         <attr name="banner_indicatorGravity">
-            <flag name="top" value="0x30" />
-            <flag name="bottom" value="0x50" />
-            <flag name="left" value="0x03" />
-            <flag name="right" value="0x05" />
-            <flag name="center_horizontal" value="0x01" />
+            <flag name="top" value="0x30"/>
+            <flag name="bottom" value="0x50"/>
+            <flag name="left" value="0x03"/>
+            <flag name="right" value="0x05"/>
+            <flag name="center_horizontal" value="0x01"/>
         </attr>
         <!-- 是否开启自动轮播 -->
-        <attr name="banner_pointAutoPlayAble" format="boolean" />
+        <attr name="banner_pointAutoPlayAble" format="boolean"/>
         <!-- 自动轮播的时间间隔 -->
-        <attr name="banner_pointAutoPlayInterval" format="integer" />
+        <attr name="banner_pointAutoPlayInterval" format="integer"/>
         <!-- 页码切换过程的时间长度 -->
-        <attr name="banner_pageChangeDuration" format="integer" />
+        <attr name="banner_pageChangeDuration" format="integer"/>
         <!-- 页面切换的动画效果 -->
         <attr name="banner_transitionEffect" format="enum">
-            <enum name="defaultEffect" value="0" />
-            <enum name="alpha" value="1" />
-            <enum name="rotate" value="2" />
-            <enum name="cube" value="3" />
-            <enum name="flip" value="4" />
-            <enum name="accordion" value="5" />
-            <enum name="zoomFade" value="6" />
-            <enum name="fade" value="7" />
-            <enum name="zoomCenter" value="8" />
-            <enum name="zoomStack" value="9" />
-            <enum name="stack" value="10" />
-            <enum name="depth" value="11" />
-            <enum name="zoom" value="12" />
+            <enum name="defaultEffect" value="0"/>
+            <enum name="alpha" value="1"/>
+            <enum name="rotate" value="2"/>
+            <enum name="cube" value="3"/>
+            <enum name="flip" value="4"/>
+            <enum name="accordion" value="5"/>
+            <enum name="zoomFade" value="6"/>
+            <enum name="fade" value="7"/>
+            <enum name="zoomCenter" value="8"/>
+            <enum name="zoomStack" value="9"/>
+            <enum name="stack" value="10"/>
+            <enum name="depth" value="11"/>
+            <enum name="zoom" value="12"/>
         </attr>
         <!-- 提示文案的文字颜色 -->
-        <attr name="banner_tipTextColor" format="reference|color" />
+        <attr name="banner_tipTextColor" format="reference|color"/>
         <!-- 提示文案的文字大小 -->
-        <attr name="banner_tipTextSize" format="dimension" />
+        <attr name="banner_tipTextSize" format="dimension"/>
         <!-- 加载网络数据时覆盖在BGABanner最上层的占位图 -->
-        <attr name="banner_placeholderDrawable" format="reference" />
+        <attr name="banner_placeholderDrawable" format="reference"/>
         <!-- 是否是数字指示器 -->
-        <attr name="banner_isNumberIndicator" format="boolean" />
+        <attr name="banner_isNumberIndicator" format="boolean"/>
         <!-- 数字指示器文字颜色 -->
-        <attr name="banner_numberIndicatorTextColor" format="reference|color" />
+        <attr name="banner_numberIndicatorTextColor" format="reference|color"/>
         <!-- 数字指示器文字大小 -->
-        <attr name="banner_numberIndicatorTextSize" format="dimension" />
+        <attr name="banner_numberIndicatorTextSize" format="dimension"/>
         <!-- 数字指示器背景 -->
-        <attr name="banner_numberIndicatorBackground" format="reference" />
+        <attr name="banner_numberIndicatorBackground" format="reference"/>
         <!-- 当只有一页数据时是否显示指示器，默认值为false -->
-        <attr name="banner_isNeedShowIndicatorOnOnlyOnePage" format="boolean" />
+        <attr name="banner_isNeedShowIndicatorOnOnlyOnePage" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="LoginTelEdit">
 
         <!-- 输入框的开始说明图标和结束图标 -->
-        <attr name="edit_startDrawable" format="reference" />
-        <attr name="edit_endDrawable" format="reference" />
+        <attr name="edit_startDrawable" format="reference"/>
+        <attr name="edit_endDrawable" format="reference"/>
 
     </declare-styleable>
 
     <declare-styleable name="LoginPswEdit">
 
         <!-- 输入框的开始说明图标和结束图标 -->
-        <attr name="edit_Drawable" format="reference" />
-        <attr name="edit_lookDrawable" format="reference" />
-        <attr name="edit_unLookDrawable" format="reference" />
-        <attr name="islook" format="boolean" />
+        <attr name="edit_Drawable" format="reference"/>
+        <attr name="edit_lookDrawable" format="reference"/>
+        <attr name="edit_unLookDrawable" format="reference"/>
+        <attr name="islook" format="boolean"/>
 
     </declare-styleable>
 
@@ -87,22 +87,21 @@
         <!--坐标轴字体颜色-->
         <attr name="coordinatesTextColor" format="color"></attr>
         <!--折线颜色-->
-        <attr name="lineColor" format="color" />
+        <attr name="lineColor" format="color"/>
         <!--折线粗细-->
-        <attr name="lineWidth" format="dimension" />
+        <attr name="lineWidth" format="dimension"/>
         <!--小圆点半径-->
-        <attr name="averageCircleradius" format="dimension" />
+        <attr name="averageCircleradius" format="dimension"/>
         <!--表格的数据类型-->
-        <attr name="tableType" format="string" />
+        <attr name="tableType" format="string"/>
         <!--大圆点颜色-->
-        <attr name="maxcircleColor" format="color" />
+        <attr name="maxcircleColor" format="color"/>
         <!--小圆点颜色-->
-        <attr name="mincircleColor" format="color" />
+        <attr name="mincircleColor" format="color"/>
         <!--背景颜色-->
-        <attr name="bgColor" format="color" />
+        <attr name="bgColor" format="color"/>
 
     </declare-styleable>
-
 
 
     <declare-styleable name="ItemLayout2">
@@ -124,37 +123,36 @@
         <attr name="isline" format="boolean"></attr>
     </declare-styleable>
 
-    <attr name="textSize" format="dimension" />
+    <attr name="textSize" format="dimension"/>
 
     <declare-styleable name="IndexBar">
-        <attr name="textSize" />
-        <attr name="pressBackground" format="color" />
+        <attr name="textSize"/>
+        <attr name="pressBackground" format="color"/>
     </declare-styleable>
 
-    <attr name="borderRadius" format="dimension" />
+    <attr name="borderRadius" format="dimension"/>
     <attr name="type">
-        <enum name="circle" value="0" />
-        <enum name="round" value="1" />
+        <enum name="circle" value="0"/>
+        <enum name="round" value="1"/>
     </attr>
 
     <declare-styleable name="RoundImageView">
-        <attr name="borderRadius" />
-        <attr name="type" />
+        <attr name="borderRadius"/>
+        <attr name="type"/>
     </declare-styleable>
 
     <declare-styleable name="TextviewObserver">
 
         <!-- 输入框的开始说明图标和结束图标 -->
-        <attr name="format_string" format="reference" />
+        <attr name="format_string" format="reference"/>
         <attr name="getnumber" format="integer"></attr>
 
 
     </declare-styleable>
 
 
-
     <declare-styleable name="StepsView">
-        <attr name="numOfSteps" format="integer" />
+        <attr name="numOfSteps" format="integer"/>
         <attr name="completePosition" format="integer"/>
         <attr name="labels" format="reference"/>
         <attr name="barColor" format="reference"/>
@@ -174,6 +172,12 @@
         <attr name="left_name" format="string"></attr>
         <attr name="hint" format="string"></attr>
 
+    </declare-styleable>
+
+    <declare-styleable name="EmptyView">
+        <attr name="icon" format="reference"></attr>
+        <attr name="content_text" format="string|reference"></attr>
+        <attr name="btn_text" format="string|reference"></attr>
     </declare-styleable>
 
 </resources>

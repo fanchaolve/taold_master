@@ -1,8 +1,11 @@
 package com.bb.taold.fragment;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bb.taold.R;
@@ -15,12 +18,17 @@ import com.bb.taold.bean.EventType;
 import com.bb.taold.bean.WaitRepayRecord;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.widget.EmptyView;
+import com.github.jdsjlzx.interfaces.OnRefreshListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
-import butterknife.OnClick;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import retrofit2.Call;
 
 /**
@@ -32,19 +40,15 @@ import retrofit2.Call;
 
 public class UnpayFragment extends BaseFragment {
     @BindView(R.id.lv_unpay_bill)
-    ListView mLvUnpayBill;
+    LRecyclerView mLvUnpayBill;
+    TextView tvTiptext;
+    TextView tvTotalMoney;
+    TextView tvRestAmount;
+    RelativeLayout rlBillinfo;
+    Unbinder unbinder;
+    @BindView(R.id.empty_view) EmptyView emptyView;
+    Unbinder unbinder1;
 
-    @BindView(R.id.swiper_refresh)
-    SwipeRefreshLayout mSwiperRefresh;
-
-    @BindView(R.id.tv_totalMoney)
-    TextView mTvTotalMoney;
-
-    @BindView(R.id.tv_restAmount)
-    TextView mTvRestAmount;
-
-    @BindView(R.id.tv_tiptext)
-    TextView mTvTiptext;
 
     //接口返回接受
     private PostCallback postCallback;
@@ -53,6 +57,8 @@ public class UnpayFragment extends BaseFragment {
     //未还款账单的id
     private String billId = "";
     private UnpayBillAdapter unpayBillAdapter;
+    private LRecyclerViewAdapter recyclerViewAdapter;
+    private View headView;
 
     @Override
     public int getLayoutId() {
@@ -61,22 +67,41 @@ public class UnpayFragment extends BaseFragment {
 
     @Override
     public void initView() {
-
+        unpayBillAdapter = new UnpayBillAdapter(getActivity());
+        recyclerViewAdapter = new LRecyclerViewAdapter(unpayBillAdapter);
+        mLvUnpayBill.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mLvUnpayBill.setAdapter(recyclerViewAdapter);
+        mLvUnpayBill.setLoadMoreEnabled(false);
+        addHeadView();
+        mLvUnpayBill.setOnRefreshListener(new OnRefreshListener() {
+            @Override public void onRefresh() {
+                //页面初始获取未还账单页面
+                getUnpayInfo();
+            }
+        });
 
     }
 
     @Override
     protected void initdate(Bundle savedInstanceState) {
-        //列表刷新时重新获取数据
-        mSwiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getUnpayInfo();
+        mLvUnpayBill.forceToRefresh();
+
+    }
+
+    private void addHeadView() {
+        headView = LayoutInflater.from(getActivity()).inflate(R.layout.bill_layout, null);
+        tvTiptext = (TextView) headView.findViewById(R.id.tv_tiptext);
+        tvTotalMoney = (TextView) headView.findViewById(R.id.tv_totalMoney);
+        tvRestAmount = (TextView) headView.findViewById(R.id.tv_restAmount);
+        rlBillinfo = (RelativeLayout) headView.findViewById(R.id.rl_billinfo);
+        rlBillinfo.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Bundle mBundle = new Bundle();
+                mBundle.putString("billId", billId);
+                AppManager.getInstance().showActivity(RepayDetailActivity.class, mBundle);
             }
         });
-        //页面初始获取未还账单页面
-        getUnpayInfo();
-
+        recyclerViewAdapter.addHeaderView(headView);
     }
 
     /**
@@ -88,37 +113,54 @@ public class UnpayFragment extends BaseFragment {
         Call<Result_Api<WaitRepayRecord>> call = service.waitRepayRecord();
         Callexts.need_sessionPost(call, new PostCallback<BaseFragment>() {
             @Override public void successCallback(Result_Api api) {
-                mSwiperRefresh.setRefreshing(false);
+                mLvUnpayBill.refreshComplete(0);
                 if (api.getT() instanceof WaitRepayRecord) {
                     info = (WaitRepayRecord) api.getT();
                     billId = info.getBillId();
-                    //向列表中写入数据
-                    UnpayBillAdapter mAdapter = new UnpayBillAdapter(getActivity(), info);
-                    mLvUnpayBill.setAdapter(mAdapter);
-
                     //设置总共应还金额
-                    mTvTotalMoney.setText(info.getShouldPayAmt());
-                    mTvRestAmount.setText(info.getWaitPayAmt());
-                    if (info.getBillItems().size() > 0) {
-                        //设置提示
-                        mTvTiptext.setText(getString(R.string.unpay_text, info.getBillItems().get(0).getRepayDate()));
+                    tvTotalMoney.setText(info.getShouldPayAmt());
+                    tvRestAmount.setText(info.getWaitPayAmt());
+                    unpayBillAdapter.clear();
+                    if (info.getBillItems() != null) {
+                        if (info.getBillItems().size() > 0) {
+                            //向列表中写入数据
+                            unpayBillAdapter.setStages(info.getStages());
+                            unpayBillAdapter.addAll(info.getBillItems());
+                            //设置提示
+                            tvTiptext.setText(getString(R.string.unpay_text, info.getBillItems().get(0).getRepayDate()));
+                        }
+                    }
+                    unpayBillAdapter.notifyDataSetChanged();
+                    if (unpayBillAdapter.getItemCount() > 0) {
+                        emptyView.setVisibility(View.GONE);
+                        headView.setVisibility(View.VISIBLE);
+
+                    } else {
+                        headView.setVisibility(View.GONE);
+                        emptyView.setVisibility(View.VISIBLE);
                     }
                     return;
                 }
             }
 
             @Override public void failCallback() {
-                mSwiperRefresh.setRefreshing(false);
+
             }
         });
     }
 
-    @OnClick(R.id.rl_billinfo)
-    public void onViewClicked() {
-        //跳转到还款详情页面
-        Bundle mBundle = new Bundle();
-        mBundle.putString("billId", billId);
-        AppManager.getInstance().showActivity(RepayDetailActivity.class, mBundle);
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
 

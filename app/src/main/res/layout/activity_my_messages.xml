@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_backgroud"
     android:orientation="vertical">
+
     <include layout="@layout/layout_title2"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swiper_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_messages"
             android:layout_width="match_parent"
@@ -17,5 +21,13 @@
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <com.bb.taold.widget.EmptyView
+        android:id="@+id/edit_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:content_text="暂无消息"
+        app:icon="@drawable/no_news"/>
 
 </LinearLayout>

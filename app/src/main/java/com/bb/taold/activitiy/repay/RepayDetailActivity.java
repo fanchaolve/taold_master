@@ -2,6 +2,7 @@ package com.bb.taold.activitiy.repay;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,6 +23,8 @@ import com.bb.taold.bean.BillItems;
 import com.bb.taold.bean.BillProductInfo;
 import com.bb.taold.bean.RepayDetail;
 import com.bb.taold.listener.Callexts;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -82,7 +85,9 @@ public class RepayDetailActivity extends BaseActivity {
         if (getIntent() != null && getIntent().getExtras() != null) {
             //获取账单id
             billId = getIntent().getExtras().getString("billId");
-            Log.e("billIdbillId", billId);
+            if (TextUtils.isEmpty(billId)) {
+                return;
+            }
             getBillInfoDetail(billId);
         }
 

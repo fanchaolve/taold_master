@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bb.taold.R;
 import com.bb.taold.adapter.MessagesAdapter;
@@ -19,6 +18,7 @@ import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.MessageResult;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.widget.EmptyView;
 import com.bb.taold.widget.recyclerview.RecyclerUtils;
 
 import java.util.ArrayList;
@@ -46,6 +46,7 @@ public class MyMessagesActivity extends BaseActivity {
     RecyclerView mRvMessages;
     @BindView(R.id.swiper_refresh)
     SwipeRefreshLayout mSwiperRefresh;
+    @BindView(R.id.edit_view) EmptyView editView;
     private MessagesAdapter mMessagesAdapter;
     List<MessageResult> listMessage = new ArrayList<>();
 
@@ -110,12 +111,19 @@ public class MyMessagesActivity extends BaseActivity {
         Callexts.Unneed_sessionPost(call, new PostCallback<MyMessagesActivity>(this) {
             @Override
             public void successCallback(Result_Api api) {
-                if (api.getT() == null) {
-                    return;
+                if (api.getT() != null) {
+                    listMessage.clear();
+                    listMessage.addAll((List<MessageResult>) api.getT());
+                    mMessagesAdapter.notifyDataSetChanged();
                 }
-                listMessage.clear();
-                listMessage.addAll((List<MessageResult>) api.getT());
-                mMessagesAdapter.notifyDataSetChanged();
+                if (listMessage.size() <= 0) {
+                    editView.setVisibility(View.VISIBLE);
+                    mSwiperRefresh.setVisibility(View.GONE);
+                } else {
+                    editView.setVisibility(View.GONE);
+                    mSwiperRefresh.setVisibility(View.VISIBLE);
+                }
+
             }
 
             @Override
