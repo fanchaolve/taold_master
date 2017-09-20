@@ -67,6 +67,7 @@ public class AboutUsActivity extends BaseActivity {
                 finish();
             case R.id.lay_check_update:
                 final UpdateDialog dialog = new UpdateDialog(mContext);
+                dialog.show();
                 dialog.setOnPositiveListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
                         dialog.dismiss();
@@ -79,7 +80,7 @@ public class AboutUsActivity extends BaseActivity {
                         dialog.dismiss();
                     }
                 });
-                dialog.show();
+//                dialog.show();
 
                 break;
         }
