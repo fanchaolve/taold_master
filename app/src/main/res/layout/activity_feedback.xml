@@ -36,7 +36,6 @@
     <TextView
         android:id="@+id/tv_feedback_commit"
         style="@style/btn_normal"
-        android:layout_width="match_parent"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="25dp"
