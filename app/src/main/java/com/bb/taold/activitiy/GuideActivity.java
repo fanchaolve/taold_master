@@ -73,11 +73,11 @@ public class GuideActivity extends BaseActivity {
             }
 
             @Override public void onPageSelected(int position) {
-                if(position<3){
+                if (position < 3) {
                     mLayDots.check(mLayDots.getChildAt(position).getId());
                     mLayDots.setVisibility(View.VISIBLE);
                     mTvToNext.setVisibility(View.INVISIBLE);
-                }else{
+                } else {
                     mLayDots.setVisibility(View.INVISIBLE);
                     mTvToNext.setVisibility(View.VISIBLE);
                 }
@@ -96,10 +96,10 @@ public class GuideActivity extends BaseActivity {
 
     @OnClick(R.id.btn_to_main)
     public void onViewClicked(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_to_main:
                 AppManager.getInstance().showActivity(LoginActivity.class, null);
-                PreferenceUtil.saveSharedPreference(mContext, PreferenceUtil.isNewUser, Constants.NEW_USER_FLAG);
+                PreferenceUtil.saveBSharedPreference(mContext, PreferenceUtil.isNewUser, true);
                 finish();
                 break;
         }

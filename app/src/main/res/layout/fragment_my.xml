@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-    android:background="@color/common_backgroud">
+              android:background="@color/common_backgroud"
+              android:orientation="vertical">
+
     <include layout="@layout/layout_title"/>
     <!--Header-->
     <LinearLayout
         android:id="@+id/lay_my_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:background="#000000"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <ImageView
@@ -34,8 +35,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
@@ -61,57 +62,79 @@
         android:id="@+id/lay_apply_records"
         style="@style/tabmy_item"
         android:layout_marginTop="10dp">
+
         <ImageView
             style="@style/tabmy_icon"
             android:src="@drawable/my_loan_records"/>
+
         <TextView
             style="@style/tabmy_title"
             android:text="我的借款记录"/>
+
         <ImageView
             style="@style/tabmy_arrow"/>
 
     </LinearLayout>
+
     <View style="@style/view_line"/>
 
     <LinearLayout
         android:id="@+id/lay_my_messages"
         style="@style/tabmy_item">
+
         <ImageView
             style="@style/tabmy_icon"
             android:src="@drawable/my_message"/>
+
         <TextView
             style="@style/tabmy_title"
             android:text="我的消息"/>
+
+        <ImageView
+            android:id="@+id/red_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/unread_new"
+            android:visibility="gone"/>
+
         <ImageView
             style="@style/tabmy_arrow"/>
 
     </LinearLayout>
+
     <View style="@style/view_line"/>
     <!---->
     <LinearLayout
         android:id="@+id/lay_help"
         style="@style/tabmy_item">
+
         <ImageView
             style="@style/tabmy_icon"
             android:src="@drawable/help"/>
+
         <TextView
             style="@style/tabmy_title"
             android:text="帮助中心"/>
+
         <ImageView
             style="@style/tabmy_arrow"/>
 
     </LinearLayout>
+
     <View style="@style/view_line"/>
     <!---->
     <LinearLayout
         android:id="@+id/lay_feedback"
         style="@style/tabmy_item">
+
         <ImageView
             style="@style/tabmy_icon"
             android:src="@drawable/advice"/>
+
         <TextView
             style="@style/tabmy_title"
             android:text="意见反馈"/>
+
         <ImageView
             style="@style/tabmy_arrow"/>
 
@@ -120,15 +143,18 @@
     <!---->
     <LinearLayout
         android:id="@+id/lay_about_us"
-        android:layout_marginTop="10dp"
+        style="@style/tabmy_item"
         android:layout_marginBottom="10dp"
-        style="@style/tabmy_item">
+        android:layout_marginTop="10dp">
+
         <ImageView
             style="@style/tabmy_icon"
             android:src="@drawable/about_us"/>
+
         <TextView
             style="@style/tabmy_title"
             android:text="关于我们"/>
+
         <ImageView
             style="@style/tabmy_arrow"/>
 
@@ -137,17 +163,18 @@
     <LinearLayout
         android:id="@+id/lay_logout"
         android:layout_width="match_parent"
-        android:gravity="center"
+        android:layout_height="47dp"
         android:background="@drawable/click_bg"
-        android:onClick="onClick"
-        android:layout_height="47dp">
+        android:gravity="center"
+        android:onClick="onClick">
+
         <TextView
             android:id="@+id/tv_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:text="退出登录"
             android:textColor="#111111"
-            android:text="退出登录"/>
+            android:textSize="16sp"/>
     </LinearLayout>
 
 

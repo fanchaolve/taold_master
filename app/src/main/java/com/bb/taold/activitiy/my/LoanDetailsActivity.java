@@ -17,7 +17,6 @@ import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.LoanDetail;
 import com.bb.taold.listener.Callexts;
-import com.bb.taold.utils.AppManager;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 
@@ -81,7 +80,7 @@ public class LoanDetailsActivity extends BaseActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         loanId = extras.getString("loanId");
-        postCallback = new PostCallback<LoanDetailsActivity>() {
+        postCallback = new PostCallback<LoanDetailsActivity>(this) {
 
             @Override
             public void successCallback(Result_Api api) {

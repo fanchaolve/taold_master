@@ -1,6 +1,7 @@
 package com.bb.taold.activitiy.my;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -77,6 +78,10 @@ public class FeedbackActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_feedback_commit:
+                if (TextUtils.isEmpty(mEtFeedback.getText().toString().trim())) {
+                    showMsg("请输入反馈内容");
+                    return;
+                }
                 feedbackCommit();
                 break;
         }

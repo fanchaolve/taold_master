@@ -46,7 +46,7 @@ public class LoanRecordsActivity extends BaseActivity {
     private PostCallback postCallback;
     private List<LoanRecord> mRecordsList;
     /**已经获取到多少条数据了*/
-    private static int mCurrentCounter = 0;
+    private int mCurrentCounter = 0;
 
     private LRecyclerView mRecyclerView = null;
     private LRecyclerViewAdapter recyclerViewAdapter;

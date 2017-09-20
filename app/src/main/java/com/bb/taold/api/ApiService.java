@@ -11,6 +11,7 @@ import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
 import com.bb.taold.bean.LoadRecordResponse;
 import com.bb.taold.bean.LoanDetail;
+import com.bb.taold.bean.MessageResult;
 import com.bb.taold.bean.PayParams;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
@@ -18,6 +19,8 @@ import com.bb.taold.bean.Session;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
 import com.bb.taold.bean.WaitRepayRecord;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -351,4 +354,12 @@ public interface ApiService {
             @Field("payChannel") String payChannel,
             @Field("oidChnl") String oidChnl
     );
+
+    /**
+     * 还款支付
+     *
+     * @return
+     */
+    @POST("/gateway?method=message.queryMessageInfo")
+    Call<Result_Api<List<MessageResult>>> queryMessageInfo();
 }

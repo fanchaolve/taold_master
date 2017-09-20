@@ -58,8 +58,6 @@ public class LoginActivity extends BaseActivity {
     private PermissionUtil.onPermissionGentedListener listener;   //权限获取
 
 
-
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_login;
@@ -68,13 +66,17 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initView() {
         String phone = PreferenceUtil.getSharedPreference(mContext, PreferenceUtil.PHONE);
-        if(!TextUtils.isEmpty(phone)){
+        if (!TextUtils.isEmpty(phone)) {
             mEtMobile.setText(phone);
+            mTvConfirm.setAlpha(1f);
+            mTvConfirm.setClickable(true);
+        } else {
+            mTvConfirm.setAlpha(0.6f);
+            mTvConfirm.setClickable(false);
         }
         mEtCode.setText("1234");
         //设置"立即登录"按钮的背景透明度
-        mTvConfirm.setAlpha(0.6f);
-        mTvConfirm.setClickable(false);
+
         //设置editText监听
         mEtMobile.addTextChangedListener(new TextWatcher() {
             @Override
@@ -148,7 +150,7 @@ public class LoginActivity extends BaseActivity {
                     Session session = (Session) api.getT();
                     if (session != null) {
                         MyApplication.getInstance().saveSession(session.getSession());
-                        PreferenceUtil.saveSharedPreference(mContext,PreferenceUtil.PHONE,mEtMobile.getText().toString());
+                        PreferenceUtil.saveSharedPreference(mContext, PreferenceUtil.PHONE, mEtMobile.getText().toString());
                     }
 
                     //6.0以下系统在欢迎页未同意权限 则在登录按钮时再次获取定位
@@ -209,7 +211,7 @@ public class LoginActivity extends BaseActivity {
                 etMobileStr, mEtCode.getText().toString(), MyApplication.longitude + "-" + MyApplication.latitude,
                 "android", DeviceUtils.getDeviceIdentification(this),
                 DeviceUtils.getCurrVersionCode(this) + "", DeviceUtils.getManufacturer(),
-                DeviceUtils.getModel(), "TL", DeviceUtils.isRoot()+"", DeviceUtils.getNetworkStateName(mContext));
+                DeviceUtils.getModel(), "TL", DeviceUtils.isRoot() + "", DeviceUtils.getNetworkStateName(mContext));
         Callexts.Unneed_sessionPost(call, postCallback);
 
 
@@ -283,7 +285,7 @@ public class LoginActivity extends BaseActivity {
         switch (view.getId()) {
 
             case R.id.rl_close:
-               // ToastView("测试");
+                // ToastView("测试");
                 finish();
                 break;
             case R.id.tv_getcode:
