@@ -44,3 +44,7 @@
 -dontwarn com.igexin.**
 -keep class com.igexin.** { *; }
 -keep class org.json.** { *; }
+#TONGDUN
+-dontwarn android.os.**
+-dontwarn com.android.internal.**
+-keep class cn.tongdun.android.**{*;}

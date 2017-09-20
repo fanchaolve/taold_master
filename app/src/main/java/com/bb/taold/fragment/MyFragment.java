@@ -3,6 +3,7 @@ package com.bb.taold.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +28,7 @@ import com.bb.taold.utils.StringUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.tongdun.android.shell.FMAgent;
 import retrofit2.Call;
 
 
@@ -95,7 +97,7 @@ public class MyFragment extends BaseFragment {
             public void successCallback(Result_Api api) {
                 if (api.getT() instanceof UserInfo) {
                     info = (UserInfo) api.getT();
-                    if(info!=null){
+                    if (info != null) {
                         setViewData(info);
                     }
                 }
@@ -145,7 +147,7 @@ public class MyFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.lay_apply_records, R.id.lay_my_messages, R.id.lay_help, R.id.lay_feedback, R.id.lay_about_us, R.id.lay_logout,R.id.tv_user_phone})
+    @OnClick({R.id.lay_apply_records, R.id.lay_my_messages, R.id.lay_help, R.id.lay_feedback, R.id.lay_about_us, R.id.lay_logout, R.id.tv_user_phone})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lay_apply_records:
@@ -162,6 +164,8 @@ public class MyFragment extends BaseFragment {
                     AppManager.getInstance().showActivity(LoginActivity.class, null);
                 break;
             case R.id.lay_help:
+                String blackBox = FMAgent.onEvent(getActivity());
+                Log.e("blackBox=====", blackBox);
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.WEBVIEW_URL, "http://www.baidu.com");
                 AppManager.getInstance().showActivity(WebViewActivity.class, bundle);
@@ -186,7 +190,7 @@ public class MyFragment extends BaseFragment {
 
                 break;
             case R.id.tv_user_phone:
-                if(!AppManager.getInstance().isLogin()) {
+                if (!AppManager.getInstance().isLogin()) {
                     info = null;
                     AppManager.getInstance().logout();
                 }
