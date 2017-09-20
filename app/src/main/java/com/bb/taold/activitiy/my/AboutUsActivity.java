@@ -66,13 +66,20 @@ public class AboutUsActivity extends BaseActivity {
             case R.id.btn_back:
                 finish();
             case R.id.lay_check_update:
-                new UpdateDialog(mContext).setOnPositiveListener(new View.OnClickListener() {
+                final UpdateDialog dialog = new UpdateDialog(mContext);
+                dialog.setOnPositiveListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
+                        dialog.dismiss();
                         Intent intent = new Intent(mContext, UpdateService.class);
                         intent.putExtra("updateUrl","http://imtt.dd.qq.com/16891/51F06FB002018975678634859A0EC654.apk");
                         startService(intent);
                     }
+                }).setOnNegativeListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        dialog.dismiss();
+                    }
                 });
+                dialog.show();
 
                 break;
         }

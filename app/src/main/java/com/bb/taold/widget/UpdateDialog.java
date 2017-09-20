@@ -47,17 +47,14 @@ public class UpdateDialog extends Dialog {
     public UpdateDialog(Context context) {
         super(context, R.style.processDialog);
         mContext = context;
+        setContentView(R.layout.dialog_update);
+        ButterKnife.bind(this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-        setContentView(R.layout.dialog_update);
         setWindow();
-
-
-
     }
 
     //配置弹出框的大小和位置
@@ -73,20 +70,22 @@ public class UpdateDialog extends Dialog {
      * 添加提示语
      * @param memo
      */
-    public void setMemo(String memo){
+    public UpdateDialog setMemo(String memo){
         tv_memo.setText(memo);
+        return this;
     }
 
     //点击回调
-    public void setOnNegativeListener(View.OnClickListener paramOnClickListener)
+    public UpdateDialog setOnNegativeListener(View.OnClickListener paramOnClickListener)
     {
         this.tv_no.setOnClickListener(paramOnClickListener);
+        return this;
     }
 
     //点击回调
-    public void setOnPositiveListener(View.OnClickListener paramOnClickListener)
+    public UpdateDialog setOnPositiveListener(View.OnClickListener paramOnClickListener)
     {
         this.tv_ok.setOnClickListener(paramOnClickListener);
+        return this;
     }
-
 }
