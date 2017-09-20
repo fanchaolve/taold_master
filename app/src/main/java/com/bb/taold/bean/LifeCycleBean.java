@@ -15,7 +15,7 @@ public class LifeCycleBean {
      */
 
     private String title;
-    private long date;
+    private String date;
     private String description;
 
     public String getTitle() {
@@ -26,11 +26,11 @@ public class LifeCycleBean {
         this.title = title;
     }
 
-    public long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

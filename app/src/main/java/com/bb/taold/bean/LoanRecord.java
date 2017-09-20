@@ -16,7 +16,7 @@ public class LoanRecord {
 
     private String loanAmount;
     private int periods;
-    private long applyTime;
+    private String applyTime;
     private long id;
 
     public long getId() {
@@ -43,11 +43,11 @@ public class LoanRecord {
         this.periods = periods;
     }
 
-    public long getApplyTime() {
+    public String getApplyTime() {
         return applyTime;
     }
 
-    public void setApplyTime(long applyTime) {
+    public void setApplyTime(String applyTime) {
         this.applyTime = applyTime;
     }
 }
