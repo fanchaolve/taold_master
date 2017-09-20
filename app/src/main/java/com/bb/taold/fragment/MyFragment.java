@@ -140,9 +140,10 @@ public class MyFragment extends BaseFragment {
         mTvAuthStateName.setVisibility(View.GONE);
         mIvAuthFlag.setVisibility(View.GONE);
         tv_confirm.setText("登录");
+
     }
 
-    @OnClick({R.id.lay_apply_records, R.id.lay_my_messages, R.id.lay_help, R.id.lay_feedback, R.id.lay_about_us, R.id.lay_logout})
+    @OnClick({R.id.lay_apply_records, R.id.lay_my_messages, R.id.lay_help, R.id.lay_feedback, R.id.lay_about_us, R.id.lay_logout,R.id.tv_user_phone})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lay_apply_records:
@@ -174,9 +175,14 @@ public class MyFragment extends BaseFragment {
                 break;
 
             case R.id.lay_logout://退出登录或许是登陆
-//                getActivity().finish();
                 info = null;
                 AppManager.getInstance().logout();
+                break;
+            case R.id.tv_user_phone:
+                if(!AppManager.getInstance().isLogin()) {
+                    info = null;
+                    AppManager.getInstance().logout();
+                }
                 break;
         }
     }

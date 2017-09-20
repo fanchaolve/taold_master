@@ -36,6 +36,10 @@ public class LoanRecordsActivity extends BaseActivity {
     TextView mTvRight;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
+
+    private View mEmptyView;
+    private TextView tv_go_loan;
+
 //    @BindView(R.id.title)
 //    RelativeLayout mTitle;
 //    @BindView(R.id.rv_loan_records)
@@ -52,6 +56,7 @@ public class LoanRecordsActivity extends BaseActivity {
     private LRecyclerViewAdapter recyclerViewAdapter;
     private LoanRecordsAdapter adapter22;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +69,11 @@ public class LoanRecordsActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mEmptyView = findViewById(R.id.empty_view);
+        tv_go_loan= (TextView) mEmptyView.findViewById(R.id.tv_go_loan);
         mRecyclerView = (LRecyclerView) findViewById(R.id.list);
         adapter22 = new LoanRecordsAdapter(mContext);
+        //mRecyclerView.setEmptyView(mEmptyView);//设置在setAdapter之前才能生效
         recyclerViewAdapter = new LRecyclerViewAdapter(adapter22);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(recyclerViewAdapter);
@@ -100,6 +108,10 @@ public class LoanRecordsActivity extends BaseActivity {
                     mCurrentCounter += rows.size();
                 }else{
                     isNoMore = true;
+                }
+
+                if(mCurrentCounter==0){//为空页面处理
+                    mRecyclerView.setEmptyView(mEmptyView);//设置在setAdapter之前才能生效
                 }
                 recyclerViewAdapter.notifyDataSetChanged();
                 mRecyclerView.setNoMore(isNoMore);
@@ -136,11 +148,14 @@ public class LoanRecordsActivity extends BaseActivity {
         Callexts.Unneed_sessionPost(call, postCallback);
     }
 
-    @OnClick({R.id.btn_back})
+    @OnClick({R.id.btn_back,R.id.tv_go_loan})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
                 finish();
+                break;
+            case R.id.tv_go_loan:
+                //// TODO: 2017/9/20  
                 break;
         }
     }
