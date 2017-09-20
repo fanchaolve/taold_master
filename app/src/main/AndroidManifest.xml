@@ -166,7 +166,7 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/ACTAppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <!-- 友盟统计 -->
         <meta-data
@@ -187,21 +187,53 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="kX2RNGGzHaAFczwXOHU0BfR3GFT0w8wC"/> <!-- http://lbsyun.baidu.com/apiconsole/key -->
 
-        <activity android:name=".activitiy.my.LoanRecordsActivity">
+        <activity android:name=".activitiy.my.LoanRecordsActivity"
+                  android:configChanges="orientation|keyboardHidden|navigation"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/ACTAppTheme"
+                  android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.my.LoanDetailsActivity">
+        <activity android:name=".activitiy.my.LoanDetailsActivity"
+                  android:configChanges="orientation|keyboardHidden|navigation"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/ACTAppTheme"
+                  android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.my.MyMessagesActivity">
+        <activity android:name=".activitiy.my.MyMessagesActivity"
+                  android:configChanges="orientation|keyboardHidden|navigation"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/ACTAppTheme"
+                  android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.my.HelpAcitivity">
+        <activity android:name=".activitiy.my.HelpAcitivity"
+                  android:configChanges="orientation|keyboardHidden|navigation"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/ACTAppTheme"
+                  android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.my.FeedbackActivity">
+        <activity android:name=".activitiy.my.FeedbackActivity"
+                  android:configChanges="orientation|keyboardHidden|navigation"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/ACTAppTheme"
+                  android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.my.AboutUsActivity">
+        <activity android:name=".activitiy.my.AboutUsActivity"
+                  android:configChanges="orientation|keyboardHidden|navigation"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/ACTAppTheme"
+                  android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.webview.WebViewActivity">
+        <activity android:name=".activitiy.webview.WebViewActivity"
+                  android:configChanges="orientation|keyboardHidden|navigation"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/ACTAppTheme"
+                  android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.GuideActivity">
+        <activity android:name=".activitiy.GuideActivity"
+                  android:configChanges="orientation|keyboardHidden|navigation"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/ACTAppTheme"
+                  android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
 
 
@@ -307,6 +339,7 @@
             </intent-filter>
         </receiver>
         <service android:name=".update.UpdateService"/>
+        <!--下载apk到存储卡权限声明-->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.bb.taold"
