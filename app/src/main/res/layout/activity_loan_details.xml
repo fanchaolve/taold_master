@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/font_normal"
-                android:text="借款金额"/>
+                android:text="借款金额（元）"/>
 
             <TextView
                 android:layout_width="wrap_content"

@@ -24,6 +24,8 @@ public final class Constants {
     public static final int AUTO_STATE_OK = 20;
     //新用户flag
     public static final String NEW_USER_FLAG = "isNewUser";
+    //用户信息
+    public static final String USER_INFO = "userInfo";
 
 
 
