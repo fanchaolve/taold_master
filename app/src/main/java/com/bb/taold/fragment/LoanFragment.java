@@ -211,18 +211,18 @@ public class LoanFragment extends BaseFragment
                 //利息费
                 TextView tv_interestRates = (TextView)dialogView.findViewById(R.id.tv_interestRates);
                 tv_interestRates.setText("+"+mProductFee.getInterestRates()+"元");
-//                //额度审核费
-//                TextView tv_creditAuditRates = (TextView)dialogView.findViewById(R.id.tv_creditAuditRates);
-//                tv_creditAuditRates.setText("+"+mProductFee.getCreditAuditRates()+"元");
-//                //征信查询费
-//                TextView tv_creditInspectRates = (TextView)dialogView.findViewById(R.id.tv_creditInspectRates);
-//                tv_creditInspectRates.setText("+"+mProductFee.getCreditInspectRates()+"元");
+                //额度审核费
+                TextView tv_creditAuditRates = (TextView)dialogView.findViewById(R.id.tv_creditAuditRates);
+                tv_creditAuditRates.setText("+"+mProductFee.getCreditAuditRates()+"元");
+                //征信查询费
+                TextView tv_creditInspectRates = (TextView)dialogView.findViewById(R.id.tv_creditInspectRates);
+                tv_creditInspectRates.setText("+"+mProductFee.getCreditInspectRates()+"元");
                 //贷后管理费
                 TextView tv_manageRates = (TextView)dialogView.findViewById(R.id.tv_manageRates);
                 tv_manageRates.setText("+"+mProductFee.getManageRates()+"元");
-//                //介绍费
-//                TextView tv_introduceRates = (TextView)dialogView.findViewById(R.id.tv_introduceRates);
-//                tv_introduceRates.setText("+"+mProductFee.getIntroduceRates()+"元");
+                //介绍费
+                TextView tv_introduceRates = (TextView)dialogView.findViewById(R.id.tv_introduceRates);
+                tv_introduceRates.setText("+"+mProductFee.getIntroduceRates()+"元");
                 //合计
                 TextView tv_totalMoney = (TextView)dialogView.findViewById(R.id.tv_totalMoney);
                 tv_totalMoney.setText("+"+mProductFee.getTotalMoney()+"元");
