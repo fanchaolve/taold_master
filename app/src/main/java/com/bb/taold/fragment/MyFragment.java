@@ -1,5 +1,7 @@
 package com.bb.taold.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -176,7 +178,12 @@ public class MyFragment extends BaseFragment {
 
             case R.id.lay_logout://退出登录或许是登陆
                 info = null;
-                AppManager.getInstance().logout();
+                if(AppManager.getInstance().isLogin()){
+                    showAlert();
+                }else{
+                    AppManager.getInstance().logout();
+                }
+
                 break;
             case R.id.tv_user_phone:
                 if(!AppManager.getInstance().isLogin()) {
@@ -185,6 +192,24 @@ public class MyFragment extends BaseFragment {
                 }
                 break;
         }
+    }
+
+    public void showAlert(){
+        new AlertDialog.Builder(mContext).
+                setTitle("退出登录").
+                setMessage("小主确定要离开信趣贷吗？").
+                setPositiveButton("离开", new DialogInterface.OnClickListener() {
+                    @Override public void onClick(DialogInterface dialog, int which) {
+                        AppManager.getInstance().logout();
+                        dialog.dismiss();
+                    }
+                }).
+                setNegativeButton("不离开", new DialogInterface.OnClickListener() {
+                    @Override public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     @Override
