@@ -1,5 +1,9 @@
 package com.bb.taold.activitiy;
+
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.view.KeyEvent;
 
 
@@ -19,11 +23,11 @@ import butterknife.BindView;
  * Created by Administrator on 2016/12/20.
  */
 
-public class HomeActivity extends BaseActivity{
+public class HomeActivity extends BaseActivity {
 
 
     @BindView(R.id.bb)
-    BottomBar   bb;
+    BottomBar bb;
 
     //借款页
     private LoanFragment loanFragment;
@@ -50,28 +54,28 @@ public class HomeActivity extends BaseActivity{
             public void changeTab2(int tab) {
                 final FragmentTransaction transaction = obtainFragmentTransaction();
                 hideFragments(transaction);
-                switch (tab){
+                switch (tab) {
                     case 0:
-                        if(loanFragment == null){
+                        if (loanFragment == null) {
                             loanFragment = new LoanFragment();
                             transaction.add(R.id.tab_content, loanFragment, HomeFragment.class.getName());
-                        }else{
+                        } else {
                             transaction.show(loanFragment);
                         }
                         break;
                     case 1:
-                        if(repayFragment == null){
+                        if (repayFragment == null) {
                             repayFragment = new RepayFragment();
-                            transaction.add(R.id.tab_content,repayFragment,RepayFragment.class.getName());
-                        }else{
+                            transaction.add(R.id.tab_content, repayFragment, RepayFragment.class.getName());
+                        } else {
                             transaction.show(repayFragment);
                         }
                         break;
                     case 2:
-                        if(myFragment == null){
+                        if (myFragment == null) {
                             myFragment = new MyFragment();
                             transaction.add(R.id.tab_content, myFragment, MyFragment.class.getName());
-                        }else{
+                        } else {
                             transaction.show(myFragment);
                         }
                 }
@@ -85,6 +89,20 @@ public class HomeActivity extends BaseActivity{
     @Override
     public void initdata() {
         bb.changeTab(0);
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int give_tab = 0;
+        Bundle bundle = intent.getExtras();
+
+        if (bundle != null && bundle.containsKey("card")) {
+            give_tab = bundle.getInt("card", 0);
+        }
+        bb.changeTab(give_tab);
+
     }
 
     private FragmentTransaction obtainFragmentTransaction() {
@@ -104,13 +122,13 @@ public class HomeActivity extends BaseActivity{
      * @param transaction 用于对Fragment执行操作的事务
      */
     private void hideFragments(FragmentTransaction transaction) {
-        if(loanFragment != null){
+        if (loanFragment != null) {
             transaction.hide(loanFragment);
         }
-        if(repayFragment != null){
+        if (repayFragment != null) {
             transaction.hide(repayFragment);
         }
-        if(myFragment != null){
+        if (myFragment != null) {
             transaction.hide(myFragment);
         }
     }
@@ -136,7 +154,6 @@ public class HomeActivity extends BaseActivity{
         return super.onKeyDown(keyCode, event);
 
     }
-
 
 
     @Override

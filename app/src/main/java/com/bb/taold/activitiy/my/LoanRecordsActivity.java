@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.HomeActivity;
 import com.bb.taold.adapter.LoanRecordsAdapter;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
@@ -155,9 +156,14 @@ public class LoanRecordsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_go_loan:
-                //// TODO: 2017/9/20  
+                Bundle b=new Bundle();
+                b.putInt("card", 0);//借款
+                AppManager.getInstance().showActivity(HomeActivity.class,b);
+                finish();
                 break;
         }
     }
+
+
 
 }
