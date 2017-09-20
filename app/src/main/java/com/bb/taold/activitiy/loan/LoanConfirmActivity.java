@@ -241,7 +241,7 @@ public class LoanConfirmActivity extends BaseActivity {
                 cacuAmount(userId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.tv_confirm:
-                if (!mIvBtn1.isSelected() && !mIvBtn2.isSelected()) {
+                if (!mIvBtn1.isSelected() || !mIvBtn2.isSelected()) {
                     showTip("请阅读协议");
                     return;
                 }
