@@ -32,8 +32,7 @@ public interface Frag_LoanContract {
         String getTotalAmount();
         //使用计算费用的id
         String getCurrentId();
-        //7天id
-        String get7RateId();
+        boolean is7Id();
 
 
 

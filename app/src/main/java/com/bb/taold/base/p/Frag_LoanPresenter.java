@@ -55,7 +55,7 @@ public class Frag_LoanPresenter extends Frag_LoanContract.Presenter {
                         //总金额
                         mBundle.putString("loanAmount",mView.getTotalAmount());
                         //当前使用id
-                        if(mView.getCurrentId().equals(mView.get7RateId())){
+                        if(mView.is7Id()){
                             mBundle.putString("stage7Id",mView.getCurrentId());
                         }else{
                             mBundle.putString("stage14Id",mView.getCurrentId());

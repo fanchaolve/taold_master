@@ -70,6 +70,7 @@ public class LoanFragment extends BaseFragment
     //分期数的信息
     private String stage7Id = "";
     private String stage14Id = "";
+    private boolean is7Id = true;
     //使用分期id保存
     private String userId = "";
     //各项费用保存
@@ -251,6 +252,7 @@ public class LoanFragment extends BaseFragment
                 mTvStatus14.setTextColor(getResources().getColor(R.color.font_normal));
                 mTvStatus14.setBackgroundResource(R.drawable.bg_loan_text);
                 userId = stage7Id;
+                is7Id = true;
                 //重新获取接口计算各项费用
                 cacuAmount(userId,mTvLoanAmount.getText().toString());
                 break;
@@ -261,6 +263,7 @@ public class LoanFragment extends BaseFragment
                 mTvStatus7.setTextColor(getResources().getColor(R.color.font_normal));
                 mTvStatus7.setBackgroundResource(R.drawable.bg_loan_text);
                 userId = stage14Id;
+                is7Id = false;
                 //重新获取接口计算各项费用
                 cacuAmount(userId,mTvLoanAmount.getText().toString());
                 break;
@@ -278,7 +281,17 @@ public class LoanFragment extends BaseFragment
     }
 
     @Override
-    public String get7RateId() {
-        return stage7Id;
+    public boolean is7Id() {
+        return is7Id;
+    }
+
+    @Override
+    public void showLoading() {
+        super.showLoading();
+    }
+
+    @Override
+    public void dissmissLoading() {
+        super.dissmissLoading();
     }
 }
