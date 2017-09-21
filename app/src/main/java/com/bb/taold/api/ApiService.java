@@ -21,6 +21,7 @@ import com.bb.taold.bean.VersionBean;
 import com.bb.taold.bean.WaitRepayRecord;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -362,4 +363,13 @@ public interface ApiService {
      */
     @POST("/gateway?method=message.queryMessageInfo")
     Call<Result_Api<List<MessageResult>>> queryMessageInfo();
+    /**
+     * 自更新
+     *
+     * @return
+     */
+    @POST("/gateway?method=member.queryAppRelease")
+    Call<Result_Api<List<Objects>>> queryAppRelease(@Field("productCode")String productCode,
+                                                    @Field("devicetype")String devicetype,
+                                                    @Field("buildversion")String buildversion);
 }
