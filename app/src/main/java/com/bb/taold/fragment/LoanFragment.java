@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.activitiy.AuthInfoActivity;
+import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseFragment;
@@ -159,7 +159,7 @@ public class LoanFragment extends BaseFragment
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
-                AppManager.getInstance().showActivity(AuthInfoActivity.class,null);
+                AppManager.getInstance().showActivity(AddBankCardActivity.class,null);
 //                mPresenter.memberInfo();
                 //AppManager.getInstance().showActivity(AddBankCardActivity.class,null);
                 break;

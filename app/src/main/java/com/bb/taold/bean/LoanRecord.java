@@ -1,5 +1,7 @@
 package com.bb.taold.bean;
 
+import java.io.Serializable;
+
 /**
  * 类描述：
  * 创建时间：2017/9/17 0017
@@ -7,7 +9,7 @@ package com.bb.taold.bean;
  * @author chaochao
  */
 
-public class LoanRecord {
+public class LoanRecord implements Serializable{
     /**
      * loanAmount : 1.00
      * periods : 7

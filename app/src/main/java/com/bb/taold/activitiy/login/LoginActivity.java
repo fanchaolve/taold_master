@@ -172,12 +172,6 @@ public class LoginActivity extends BaseActivity {
                         //成功后，获取用户信息
                         Call<Result_Api<UserInfo>> call = service.user_info();
                         Callexts.need_sessionPost(call, postCallback);
-                    }else if(api.getT() instanceof UserInfo) {
-                        UserInfo info = (UserInfo) api.getT();
-                        //缓存用户信息，以便该登录用户全局使用。下次登录覆盖更新。
-                        if(info!=null){
-                            CacheUtils.saveDataToDiskLruCache(Constants.USER_INFO,info);
-                        }
                     }
 
                     //6.0以下系统在欢迎页未同意权限 则在登录按钮时再次获取定位
@@ -200,6 +194,12 @@ public class LoginActivity extends BaseActivity {
                     if (mTimer != null)
                         mTimer.cancel();
                     finish();
+                }else if(api.getT() instanceof UserInfo) {
+                    UserInfo info = (UserInfo) api.getT();
+                    //缓存用户信息，以便该登录用户全局使用。下次登录覆盖更新。
+                    if(info!=null){
+                        CacheUtils.saveDataToDiskLruCache(Constants.USER_INFO,info);
+                    }
                 }
 
             }

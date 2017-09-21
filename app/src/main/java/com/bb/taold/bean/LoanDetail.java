@@ -1,5 +1,6 @@
 package com.bb.taold.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * @author chaochao
  */
 
-public class LoanDetail {
+public class LoanDetail implements Serializable{
 
     /**
      * loanAmount :
