@@ -226,7 +226,7 @@ public class MyFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         if (AppManager.getInstance().isLogin()) {
-            if (info == null && isVisible()) {//如果登录了 就没必要重复调用接口了
+            if (info == null ) {//如果登录了 就没必要重复调用接口了
                 Call<Result_Api<UserInfo>> call = service.user_info();
                 Callexts.need_sessionPost(call, postCallback);
             }
