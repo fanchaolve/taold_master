@@ -3,7 +3,6 @@ package com.bb.taold.activitiy.addBankCard;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.activitiy.SetMainCardActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
@@ -22,6 +20,9 @@ import com.bb.taold.utils.CardNumScanUtil;
 import com.idcard.CardInfo;
 import com.idcard.TFieldID;
 import com.turui.bank.ocr.CaptureActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -90,7 +91,7 @@ public class AddBankCardActivity extends BaseActivity {
 
     @Override
     public void initdata() {
-
+        EventBus.getDefault().register(this);
         Intent intent =getIntent();
 
         if(intent != null ){
@@ -173,5 +174,12 @@ public class AddBankCardActivity extends BaseActivity {
     private void getCardState(String ordNo) {
         Call<Result_Api<CardCheck>> call=service.supportCard(ordNo);
         Callexts.need_sessionPost(call,postCallback);
+    }
+
+    @Subscribe
+    public void onEventMainThread(boolean isClose){
+        if(isClose){
+            finish();
+        }
     }
 }

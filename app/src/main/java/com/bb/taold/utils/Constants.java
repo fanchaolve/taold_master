@@ -26,6 +26,8 @@ public final class Constants {
     public static final String NEW_USER_FLAG = "isNewUser";
     //用户信息
     public static final String USER_INFO = "userInfo";
+    //卡认证后，关闭前边页面
+    public static final boolean AFTER_AUTH_CLOSE = true;
 
 
 

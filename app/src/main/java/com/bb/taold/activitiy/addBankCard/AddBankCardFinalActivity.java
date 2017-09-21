@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.loan.LoanConfirmActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
@@ -23,7 +24,9 @@ import com.bb.taold.lianlian.utils.LLPayConstants;
 import com.bb.taold.lianlian.utils.MobileSecurePayer;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.Constants;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -196,16 +199,21 @@ public class AddBankCardFinalActivity extends BaseActivity {
 
                         // 成功
                         if (LLPayConstants.RET_CODE_SUCCESS.equals(retCode)) {
-
-                            BaseHelper.showDialog(AddBankCardFinalActivity.this, "提示",
-                                    "支付成功，交易状态码：" + retCode + " 返回报文:" + strRet,
-                                    android.R.drawable.ic_dialog_alert);
+                            showMsg("绑定成功");
+                            //关闭所有认证页面事件
+                            EventBus.getDefault().post(Constants.AFTER_AUTH_CLOSE);
+                            AppManager.getInstance().showActivity(LoanConfirmActivity.class,null);
+                            finish();
+//                            BaseHelper.showDialog(AddBankCardFinalActivity.this, "提示",
+//                                    "支付成功，交易状态码：" + retCode + " 返回报文:" + strRet,
+//                                    android.R.drawable.ic_dialog_alert);
 
                         } else {
                             // TODO 失败
-                            BaseHelper.showDialog(AddBankCardFinalActivity.this, "错误提示", retMsg
-                                            + "，交易状态码:" + retCode + " 返回报文:" + strRet,
-                                    android.R.drawable.ic_dialog_alert);
+                            showMsg("绑定失败");
+//                            BaseHelper.showDialog(AddBankCardFinalActivity.this, "错误提示", retMsg
+//                                            + "，交易状态码:" + retCode + " 返回报文:" + strRet,
+//                                    android.R.drawable.ic_dialog_alert);
                         }
                     }
                     break;
