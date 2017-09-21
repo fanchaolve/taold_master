@@ -15,15 +15,14 @@
             android:id="@+id/empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/common_backgroud"
             android:visibility="gone"
             app:content_text="暂无账单"/>
 
         <com.github.jdsjlzx.recyclerview.LRecyclerView
             android:id="@+id/lv_unpay_bill"
             android:layout_width="match_parent"
-
-            android:layout_height="match_parent"/>
-
-
+            android:layout_height="match_parent"
+            android:visibility="visible"/>
     </RelativeLayout>
 </LinearLayout>
