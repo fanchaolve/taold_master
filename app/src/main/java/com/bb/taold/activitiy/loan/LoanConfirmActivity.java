@@ -155,16 +155,9 @@ public class LoanConfirmActivity extends BaseActivity {
                     ArrayList<CardInfo> cards = (ArrayList<CardInfo>) api.getT();
                     if (cards != null && cards.size() > 0) {
                         mCardInfo = cards.get(0);
-                        //银行名称
-                        mTvBankname.setText(mCardInfo.getCardName());
-                        //卡片类型
-                        mTvBanktype.setText("借记卡");
-                        //银行卡号
-                        String cardNo = mCardInfo.getCardno();
-                        if (cardNo.length() > 4) {
-                            cardNo = cardNo.substring(cardNo.length() - 4, cardNo.length());
+                        if(mCardInfo!=null){
+                            setCardInfoView(mCardInfo);
                         }
-                        mTvCardno.setText("**** **** **** " + cardNo);
                     }
 
                 }
@@ -246,7 +239,7 @@ public class LoanConfirmActivity extends BaseActivity {
                     return;
                 }
                 //调用小额贷款接口
-                Call<Result_Api> call = service.applyMiniLoan(mCardInfo.getId(), mTvLoanAmount.getText().toString(),
+                Call<Result_Api<LoanInfo>> call = service.applyMiniLoan(mCardInfo.getId(), mTvLoanAmount.getText().toString(),
                         mTvLoanDays.getText().toString().replace("天", ""), MyApplication.longitude + "-" + MyApplication.latitude,
                         DeviceUtils.getDeviceIdentification(this), "1", "1", "1", "1");
                 Callexts.need_sessionPost(call, postCallback);
@@ -269,5 +262,18 @@ public class LoanConfirmActivity extends BaseActivity {
                 AppManager.getInstance().showActivity(CardListActivity.class, null);
                 break;
         }
+    }
+
+    public void setCardInfoView(CardInfo cardInfo){
+        //银行名称
+        mTvBankname.setText(mCardInfo.getCardName());
+        //卡片类型
+        mTvBanktype.setText("借记卡");
+        //银行卡号
+        String cardNo = mCardInfo.getCardno();
+        if (cardNo.length() > 4) {
+            cardNo = cardNo.substring(cardNo.length() - 4, cardNo.length());
+        }
+        mTvCardno.setText("**** **** **** " + cardNo);
     }
 }

@@ -316,9 +316,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginBottom="10dp"
+                    android:paddingBottom="10dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp"
+                    android:paddingTop="10dp"
                     android:text="更换银行"
                     android:textColor="@color/color_111111"
                     android:textSize="14sp"/>

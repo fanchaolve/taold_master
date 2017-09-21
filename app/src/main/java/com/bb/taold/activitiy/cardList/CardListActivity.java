@@ -1,17 +1,16 @@
 package com.bb.taold.activitiy.cardList;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
 import com.bb.taold.activitiy.addBankCard.AddBankCardFinalActivity;
 import com.bb.taold.adapter.CardListAdapter;
 import com.bb.taold.api.PostCallback;
@@ -20,13 +19,13 @@ import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.CardInfo;
 import com.bb.taold.bean.Cardinfos;
-import com.bb.taold.bean.UserInfo;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.CardNumScanUtil;
 import com.bb.taold.widget.SwipeListLayout;
 import com.idcard.TFieldID;
-import com.turui.bank.ocr.CaptureActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -58,6 +57,7 @@ public class CardListActivity extends BaseActivity {
     private String cardNo = "";
 
     private PostCallback postCallback;
+    private ArrayList<CardInfo> mCards;
 
     @Override
     public int getLayoutId() {
@@ -87,9 +87,9 @@ public class CardListActivity extends BaseActivity {
             public void successCallback(Result_Api api) {
                 if(api.getT() instanceof Cardinfos){
 
-                    ArrayList<CardInfo> cards = (ArrayList<CardInfo>)api.getT();
+                    mCards = (ArrayList<CardInfo>)api.getT();
                     //设置列表适配器
-                    mLvCardlist.setAdapter(new CardListAdapter(CardListActivity.this, cards));
+                    mLvCardlist.setAdapter(new CardListAdapter(CardListActivity.this, mCards));
 
                     mSwiperRefresh.setRefreshing(false);
                 }
@@ -147,6 +147,15 @@ public class CardListActivity extends BaseActivity {
 
                 getCardData();
 
+            }
+        });
+        mLvCardlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CardInfo cardInfo = mCards.get(position);
+                if(cardInfo!=null){
+                    EventBus.getDefault().post(cardInfo);
+                }
             }
         });
     }

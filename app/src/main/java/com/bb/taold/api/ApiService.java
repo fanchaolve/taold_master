@@ -11,6 +11,7 @@ import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.Cardinfos;
 import com.bb.taold.bean.LoadRecordResponse;
 import com.bb.taold.bean.LoanDetail;
+import com.bb.taold.bean.LoanInfo;
 import com.bb.taold.bean.MessageResult;
 import com.bb.taold.bean.PayParams;
 import com.bb.taold.bean.ProductFee;
@@ -188,15 +189,15 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=loan.applyMiniLoan")
-    Call<Result_Api> applyMiniLoan(@Field("bankCardId") String bankCardId,
-                                   @Field("amtLoan") String amtLoan,
-                                   @Field("loanDays") String loanDays,
-                                   @Field("latLot") String latLot,
-                                   @Field("deviceId") String deviceId,
-                                   @Field("activityCode") String activityCode,
-                                   @Field("couponNo") String couponNo,
-                                   @Field("applyIp") String applyIp,
-                                   @Field("version") String version);
+    Call<Result_Api<LoanInfo>> applyMiniLoan(@Field("bankCardId") String bankCardId,
+                                             @Field("amtLoan") String amtLoan,
+                                             @Field("loanDays") String loanDays,
+                                             @Field("latLot") String latLot,
+                                             @Field("deviceId") String deviceId,
+                                             @Field("activityCode") String activityCode,
+                                             @Field("couponNo") String couponNo,
+                                             @Field("applyIp") String applyIp,
+                                             @Field("version") String version);
 
     /**
      * 借款申请详情

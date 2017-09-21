@@ -29,7 +29,7 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/font_normal"
             android:textSize="14sp"
-            android:text="28天"/>
+            android:text=""/>
         <TextView
             android:id="@+id/tv_loan_money"
             android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
             android:layout_alignParentBottom="true"
             android:textColor="@color/color_important"
             android:textSize="23dp"
-            android:text="1500.56"/>
+            android:text=""/>
         <TextView
             android:id="@+id/tv_loan_time"
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/color_hint"
             android:textSize="14sp"
-            android:text="2017/09/08 23:59"/>
+            android:text=""/>
 
     </RelativeLayout>
     <View android:layout_width="match_parent"

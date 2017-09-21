@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.api.PostCallback;
+import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.update.UpdateService;
 import com.bb.taold.widget.UpdateDialog;
@@ -35,6 +37,7 @@ public class AboutUsActivity extends BaseActivity {
     TextView mTvVersionName;
     @BindView(R.id.lay_check_update)
     LinearLayout mLayCheckUpdate;
+    private PostCallback postCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +61,29 @@ public class AboutUsActivity extends BaseActivity {
 
     @Override
     public void initdata() {
+        postCallback = new PostCallback<BaseActivity>(this) {
 
+            @Override public void successCallback(Result_Api api) {
+
+            }
+
+            @Override public void failCallback() {
+
+            }
+        };
+//        checkUpdateVersion();
     }
+
+    private void checkUpdateVersion(String productCode,String devicetype,String buildversion) {
+        service.queryAppRelease(productCode,devicetype,buildversion);
+    }
+
     @OnClick({R.id.btn_back,R.id.lay_check_update})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_back:
                 finish();
+                break;
             case R.id.lay_check_update:
                 final UpdateDialog dialog = new UpdateDialog(mContext);
                 dialog.show();
