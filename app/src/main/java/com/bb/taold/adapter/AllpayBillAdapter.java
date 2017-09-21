@@ -1,6 +1,7 @@
 package com.bb.taold.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.activitiy.repay.RepayDetailActivity;
+import com.bb.taold.adapter.recycleradapter.ListBaseAdapter;
+import com.bb.taold.adapter.recycleradapter.SuperViewHolder;
 import com.bb.taold.bean.BillInfo;
 import com.bb.taold.bean.RepayDetail;
 import com.bb.taold.utils.AppManager;
@@ -23,94 +26,55 @@ import java.util.ArrayList;
  * Package Name com.bb.taold.adapter
  * Class Name AllpayBillAdapter
  */
-public class AllpayBillAdapter extends BaseAdapter {
-
-    public Activity mActivity;
-    public ArrayList<BillInfo> list;
-
-    public AllpayBillAdapter(Activity mActivity, ArrayList<BillInfo> list){
-        this.mActivity = mActivity;
-        this.list = list;
+public class AllpayBillAdapter extends ListBaseAdapter<BillInfo> {
+    public AllpayBillAdapter(Context context) {
+        super(context);
     }
 
-    @Override
-    public int getCount() {
-        return list.size();
+    @Override public int getLayoutId() {
+        return R.layout.item_allpay;
     }
 
-    @Override
-    public Object getItem(int arg0) {
-        return list.get(arg0);
-    }
+    @Override public void onBindItemHolder(SuperViewHolder holder, int position) {
+        final BillInfo billInfo = getDataList().get(position);
+        RelativeLayout rl_billItem = holder.getView(R.id.rl_billitem);
+        ImageView iv_status = holder.getView(R.id.iv_status);
+        TextView tv_time = holder.getView(R.id.tv_time);
+        TextView tv_amount = holder.getView(R.id.tv_loanAmount);
+        TextView tv_status = holder.getView(R.id.tv_status);
 
-    @Override
-    public long getItemId(int arg0) {
-        return arg0;
-    }
-
-    @Override
-    public View getView(final int position, View convertView, ViewGroup arg2) {
-        ViewHolder holder = null;
-        if (convertView == null) {
-            convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_allpay, null);
-            holder = new ViewHolder();
-            //分期还款时间
-            holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
-            //应还金额
-            holder.tv_amount = (TextView) convertView.findViewById(R.id.tv_loanAmount);
-            //当前状态
-            holder.tv_status = (TextView) convertView.findViewById(R.id.tv_status);
-            //当前状态图标
-            holder.iv_status = (ImageView) convertView.findViewById(R.id.iv_status);
-
-            holder.rl_billItem = (RelativeLayout) convertView.findViewById(R.id.rl_billitem);
-
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        holder.rl_billItem.setOnClickListener(new View.OnClickListener() {
+        rl_billItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle mBundle = new Bundle();
-                mBundle.putString("billId",list.get(position).getId());
-                AppManager.getInstance().showActivity(RepayDetailActivity.class,mBundle);
+                mBundle.putString("billId", billInfo.getId());
+                AppManager.getInstance().showActivity(RepayDetailActivity.class, mBundle);
             }
         });
 
         //设置时间
-        holder.tv_time.setText("借款时间  "+list.get(position).getLoanTime().toString());
+        tv_time.setText("借款时间  " + billInfo.getLoanTime().toString());
         //设置金额
-        holder.tv_amount.setText(list.get(position).getTotals().toString());
+        tv_amount.setText(billInfo.getTotals().toString());
         //设置状态
 
         //先判断是否逾期
-        if(list.get(position).getIsOverdue().equals("0")){
+        if (billInfo.getIsOverdue().equals("0")) {
             //未逾期
-            if(list.get(position).getStatus().equals("10")){
-                holder.tv_status.setText("还款中");
-                holder.iv_status.setImageResource(R.drawable.iv_repaying);
-            }else{
-                holder.tv_status.setText("已还款");
-                holder.iv_status.setImageResource(R.drawable.icon_allpay);
+            if (billInfo.getStatus().equals("10")) {
+                tv_status.setText("还款中");
+                iv_status.setImageResource(R.drawable.iv_repaying);
+            } else {
+                tv_status.setText("已还款");
+                iv_status.setImageResource(R.drawable.icon_allpay);
             }
-        }else{
+        } else {
             //已逾期
-            holder.tv_status.setText("已逾期");
-            holder.iv_status.setImageResource(R.drawable.iv_overdue);
+            tv_status.setText("已逾期");
+            iv_status.setImageResource(R.drawable.iv_overdue);
         }
 
-
-        return convertView;
     }
 
-    static class ViewHolder {
-        RelativeLayout rl_billItem;
-        ImageView iv_status;
-        TextView tv_time;
-        TextView tv_amount;
-        TextView tv_status;
-    }
 
 }

@@ -46,10 +46,6 @@ public class UnpayFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.empty_view) EmptyView emptyView;
     Unbinder unbinder1;
-
-
-    //接口返回接受
-    private PostCallback postCallback;
     //获取未还账单分期
     private WaitRepayRecord info = null;
     //未还款账单的id
@@ -70,13 +66,13 @@ public class UnpayFragment extends BaseFragment {
         mLvUnpayBill.setLayoutManager(new LinearLayoutManager(getActivity()));
         mLvUnpayBill.setAdapter(recyclerViewAdapter);
         mLvUnpayBill.setLoadMoreEnabled(false);
-        addHeadView();
         mLvUnpayBill.setOnRefreshListener(new OnRefreshListener() {
             @Override public void onRefresh() {
                 //页面初始获取未还账单页面
                 getUnpayInfo();
             }
         });
+        addHeadView();
 
     }
 
@@ -88,6 +84,7 @@ public class UnpayFragment extends BaseFragment {
 
     private void addHeadView() {
         headView = LayoutInflater.from(getActivity()).inflate(R.layout.bill_layout, null);
+        headView.setVisibility(View.GONE);
         tvTiptext = (TextView) headView.findViewById(R.id.tv_tiptext);
         tvTotalMoney = (TextView) headView.findViewById(R.id.tv_totalMoney);
         tvRestAmount = (TextView) headView.findViewById(R.id.tv_restAmount);
@@ -129,15 +126,13 @@ public class UnpayFragment extends BaseFragment {
                         }
                     }
                     unpayBillAdapter.notifyDataSetChanged();
-                    if (unpayBillAdapter.getItemCount() > 0) {
+                    if (unpayBillAdapter.getDataList().size() > 0) {
                         emptyView.setVisibility(View.GONE);
                         headView.setVisibility(View.VISIBLE);
-
                     } else {
                         headView.setVisibility(View.GONE);
                         emptyView.setVisibility(View.VISIBLE);
                     }
-                    return;
                 }
             }
 
