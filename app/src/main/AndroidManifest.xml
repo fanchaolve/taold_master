@@ -17,47 +17,41 @@
 
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
+
     <uses-feature android:name="android.hardware.camera"/>
 
 
-
     <!-- 可选权限，不声明此部分权限将放弃部分设备信息的采集，对数据分析及设备指纹的精准度有一定影响 -->
-    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
     <!-- 个推iBeancon功能所需权限 -->;
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <!-- 魅族辅助 SDK -->
     <permission
         android:name="${applicationId}.push.permission.MESSAGE"
-        android:protectionLevel="signature" />
+        android:protectionLevel="signature"/>
     <permission
         android:name="${applicationId}.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" />
-    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="${applicationId}.push.permission.MESSAGE" />
-    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+        android:protectionLevel="signature"/>
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE"/>
+    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="${applicationId}.push.permission.MESSAGE"/>
+    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE"/>
 
     <!-- ⼩小⽶米辅助 SDK -->
     <permission
         android:name="${applicationId}.permission.MIPUSH_RECEIVE"
-        android:protectionLevel="signatureOrSystem" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="${applicationId}.permission.MIPUSH_RECEIVE" />
+        android:protectionLevel="signatureOrSystem"/>
 
-    <!-- ⼩小⽶米辅助 SDK -->
-    <meta-data
-        android:name="MIPUSH_APPID"
-        android:value="XM_${XIAOMI_APP_ID}" />
-    <meta-data
-        android:name="MIPUSH_APPKEY"
-        android:value="XM_${XIAOMI_APP_KEY}" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED"/>
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED"/>
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL"/>
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED"/>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="${applicationId}.permission.MIPUSH_RECEIVE"/>
 
 
     <meta-data
@@ -72,7 +66,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!-- 同盾 -->
-        <meta-data android:name="PARTNER_CODE" android:value="hedao" />
+        <meta-data
+            android:name="PARTNER_CODE"
+            android:value="hedao"/>
+
         <activity
             android:name=".activitiy.WelcomeActivity"
             android:label="@string/app_name"
@@ -100,10 +97,10 @@
         <activity
             android:name=".activitiy.HomeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:theme="@style/ACTAppTheme"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".activitiy.loan.LoanConfirmActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -116,21 +113,21 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/ACTAppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".activitiy.addBankCard.AddBankCardActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/ACTAppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name="com.bb.taold.activitiy.addBankCard.AddBankCardFinalActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/ACTAppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name=".activitiy.DemoActivity"
@@ -152,20 +149,20 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/ACTAppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
             android:name="com.bb.taold.activitiy.repay.RepayInfoActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/ACTAppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name="com.bb.taold.activitiy.repay.RepayDetailActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/ACTAppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".activitiy.EntireFactorPayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -192,53 +189,61 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="kX2RNGGzHaAFczwXOHU0BfR3GFT0w8wC"/> <!-- http://lbsyun.baidu.com/apiconsole/key -->
 
-        <activity android:name=".activitiy.my.LoanRecordsActivity"
-                  android:configChanges="orientation|keyboardHidden|navigation"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/ACTAppTheme"
-                  android:windowSoftInputMode="stateAlwaysHidden">
+        <activity
+            android:name=".activitiy.my.LoanRecordsActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.my.LoanDetailsActivity"
-                  android:configChanges="orientation|keyboardHidden|navigation"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/ACTAppTheme"
-                  android:windowSoftInputMode="stateAlwaysHidden">
+        <activity
+            android:name=".activitiy.my.LoanDetailsActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.my.MyMessagesActivity"
-                  android:configChanges="orientation|keyboardHidden|navigation"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/ACTAppTheme"
-                  android:windowSoftInputMode="stateAlwaysHidden">
+        <activity
+            android:name=".activitiy.my.MyMessagesActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.my.HelpAcitivity"
-                  android:configChanges="orientation|keyboardHidden|navigation"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/ACTAppTheme"
-                  android:windowSoftInputMode="stateAlwaysHidden">
+        <activity
+            android:name=".activitiy.my.HelpAcitivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.my.FeedbackActivity"
-                  android:configChanges="orientation|keyboardHidden|navigation"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/ACTAppTheme"
-                  android:windowSoftInputMode="stateAlwaysHidden">
+        <activity
+            android:name=".activitiy.my.FeedbackActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.my.AboutUsActivity"
-                  android:configChanges="orientation|keyboardHidden|navigation"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/ACTAppTheme"
-                  android:windowSoftInputMode="stateAlwaysHidden">
+        <activity
+            android:name=".activitiy.my.AboutUsActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.webview.WebViewActivity"
-                  android:configChanges="orientation|keyboardHidden|navigation"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/ACTAppTheme"
-                  android:windowSoftInputMode="stateAlwaysHidden">
+        <activity
+            android:name=".activitiy.webview.WebViewActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".activitiy.GuideActivity"
-                  android:configChanges="orientation|keyboardHidden|navigation"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/ACTAppTheme"
-                  android:windowSoftInputMode="stateAlwaysHidden">
+        <activity
+            android:name=".activitiy.GuideActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
 
 
@@ -263,86 +268,97 @@
             android:exported="true"
             android:label="PushService"
             android:process=":pushservice"></service>
-        <service android:name=".pushservice.IntentService" />
+        <service android:name=".pushservice.IntentService"/>
 
 
         <!-- 华为辅助 SDK -->
         <meta-data
             android:name="com.huawei.hms.client.appid"
-            android:value="${HUAWEI_APP_ID}" />
+            android:value="${HUAWEI_APP_ID}"/>
 
         <receiver
             android:name="com.igexin.sdk.HmsPushReceiver"
             android:process=":pushservice">
             <intent-filter>
-                <action android:name="com.huawei.android.push.intent.REGISTRATION" />
-                <action android:name="com.huawei.android.push.intent.RECEIVE" />
-                <action android:name="com.huawei.android.push.intent.CLICK" />
-                <action android:name="com.huawei.intent.action.PUSH_STATE" />
+                <action android:name="com.huawei.android.push.intent.REGISTRATION"/>
+                <action android:name="com.huawei.android.push.intent.RECEIVE"/>
+                <action android:name="com.huawei.android.push.intent.CLICK"/>
+                <action android:name="com.huawei.intent.action.PUSH_STATE"/>
             </intent-filter>
             <meta-data
                 android:name="CS_cloud_ablitity"
-                android:value="successRateAnalytics" />
+                android:value="successRateAnalytics"/>
         </receiver>
         <receiver
             android:name="com.huawei.hms.support.api.push.PushEventReceiver"
             android:process=":pushservice">
             <intent-filter>
-                <action android:name="com.huawei.intent.action.PUSH" />
+                <action android:name="com.huawei.intent.action.PUSH"/>
             </intent-filter>
         </receiver>
         <!-- 魅族辅助 SDK -->
         <service
             android:name="com.meizu.cloud.pushsdk.NotificationService"
             android:exported="true"
-            android:process=":pushservice" />
+            android:process=":pushservice"/>
 
         <receiver
             android:name="com.meizu.cloud.pushsdk.SystemReceiver"
             android:process=":pushservice">
             <intent-filter>
-                <action android:name="com.meizu.cloud.pushservice.action.PUSH_SERVICE_START" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="com.meizu.cloud.pushservice.action.PUSH_SERVICE_START"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.igexin.sdk.FlymePushReceiver"
             android:process=":pushservice">
             <intent-filter>
-                <action android:name="com.meizu.flyme.push.intent.MESSAGE" />
-                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK" />
-                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK" />
-                <action android:name="com.meizu.c2dm.intent.REGISTRATION" />
-                <action android:name="com.meizu.c2dm.intent.RECEIVE" />
+                <action android:name="com.meizu.flyme.push.intent.MESSAGE"/>
+                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK"/>
+                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK"/>
+                <action android:name="com.meizu.c2dm.intent.REGISTRATION"/>
+                <action android:name="com.meizu.c2dm.intent.RECEIVE"/>
 
-                <category android:name="${applicationId}" />
+                <category android:name="${applicationId}"/>
             </intent-filter>
         </receiver>
+
+
         <!-- ⼩小⽶米辅助 SDK -->
+        <meta-data
+            android:name="MIPUSH_APPID"
+            android:value="XM_${XIAOMI_APP_ID}"/>
+        <meta-data
+            android:name="MIPUSH_APPKEY"
+            android:value="XM_${XIAOMI_APP_KEY}"/>
+
         <service
             android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
             android:enabled="true"
             android:exported="true"
-            android:process=":pushservice" />
+            android:process=":pushservice"/>
         <service
             android:name="com.xiaomi.mipush.sdk.MessageHandleService"
             android:enabled="true"
-            android:process=":pushservice" />
+            android:process=":pushservice"/>
 
         <receiver
             android:name="com.igexin.sdk.MiuiPushReceiver"
             android:exported="true"
             android:process=":pushservice">
             <intent-filter>
-                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.xiaomi.mipush.ERROR" />
+                <action android:name="com.xiaomi.mipush.ERROR"/>
             </intent-filter>
         </receiver>
+        <!-- ⼩小⽶米辅助 SDK结束 -->
+
         <service android:name=".update.UpdateService"/>
         <!--下载apk到存储卡权限声明-->
         <provider
@@ -352,7 +368,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"/>
         </provider>
     </application>
 

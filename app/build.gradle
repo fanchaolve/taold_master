@@ -16,13 +16,13 @@ android {
                 GETUI_APP_KEY   : "mWFQtfmQPZ8spBxoMyoLD2",
                 GETUI_APP_SECRET: "VAx89dVemh77YPrnAWRxk9",
                 //华为推送id
-                HUAWEI_APP_ID   : "HW_APP_ID",
+                HUAWEI_APP_ID   : "100095153",
                 //魅族推送
                 MEIZU_APP_ID    : "MZ_APP_ID",
                 MEIZU_APP_KEY   : "MZ_APP_KEY",
                 //小米推送
-                XIAOMI_APP_ID   : "XM_APP_ID",
-                XIAOMI_APP_KEY  : "XM_APP_KEY"
+                XIAOMI_APP_ID   : "5621761999132",
+                XIAOMI_APP_KEY  : "EHDSZ529onOI4t/sElrXxw=="
         ]
         ndk {
             //选择要添加的对应cpu类型的.so库。

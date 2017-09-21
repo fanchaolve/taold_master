@@ -9,20 +9,20 @@ package com.bb.taold.bean;
 public class BillItem {
 
     /**
-     *  {
-     "statusDesc": "未还",
-     "isOverdue": false,
-     "amtMoney": 100,
-     "overdueStatusDesc": "",
-     "billItemId":7,
-     "stages": 1,
-     "repayDate": 1504773617000,
-     "status": 10
-     }
+     * {
+     * "statusDesc": "未还",
+     * "isOverdue": false,
+     * "amtMoney": 100,
+     * "overdueStatusDesc": "",
+     * "billItemId":7,
+     * "stages": 1,
+     * "repayDate": 1504773617000,
+     * "status": 10
+     * }
      */
 
     public String statusDesc = "";
-    public String isOverdue = "";
+    public boolean isOverdue;
     public String amtMoney = "";
     public String overdueStatusDesc = "";
     public String billItemId = "";
@@ -38,12 +38,13 @@ public class BillItem {
         this.statusDesc = statusDesc;
     }
 
-    public String getIsOverdue() {
+
+    public boolean isOverdue() {
         return isOverdue;
     }
 
-    public void setIsOverdue(String isOverdue) {
-        this.isOverdue = isOverdue;
+    public void setOverdue(boolean overdue) {
+        isOverdue = overdue;
     }
 
     public String getAmtMoney() {

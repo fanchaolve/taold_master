@@ -81,7 +81,7 @@ public class RepayDetailAdapter extends BaseAdapter {
         //设置金额
         holder.tv_amount.setText(list.get(position).getAmtMoney().toString());
         //设置状态
-        if(list.get(position).getIsOverdue().equals("true")){
+        if(list.get(position).isOverdue){
             holder.tv_status.setText("已逾期");
             holder.rl_detail.setBackgroundColor(mActivity.getResources().getColor(R.color.white));
         }else{
@@ -98,7 +98,7 @@ public class RepayDetailAdapter extends BaseAdapter {
                 Bundle mBundle = new Bundle();
                 mBundle.putString("billItemId",list.get(position).getBillItemId());
                 //跳转判断
-                if(list.get(position).getIsOverdue().equals("true")){
+                if(list.get(position).isOverdue){
                     //逾期
                     mBundle.putString("bill_status","2");
                 }else{

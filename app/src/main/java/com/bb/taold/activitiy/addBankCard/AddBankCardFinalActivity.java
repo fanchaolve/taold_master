@@ -199,6 +199,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
                         JSONObject objContent = BaseHelper.string2JSON(strRet);
                         String retCode = objContent.optString("ret_code");
                         String retMsg = objContent.optString("ret_msg");
+                        Log.e("lllllll", objContent.toString());
 
                         // 成功
                         if (LLPayConstants.RET_CODE_SUCCESS.equals(retCode)) {
