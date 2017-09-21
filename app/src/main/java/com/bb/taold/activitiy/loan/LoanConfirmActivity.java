@@ -22,6 +22,9 @@ import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.DeviceUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -101,7 +104,7 @@ public class LoanConfirmActivity extends BaseActivity {
 
     @Override
     public void initdata() {
-
+        EventBus.getDefault().register(mContext);
         //获取借款页面传递的值
         if (getIntent() != null) {
             Bundle mBundle = getIntent().getExtras();
@@ -275,5 +278,16 @@ public class LoanConfirmActivity extends BaseActivity {
             cardNo = cardNo.substring(cardNo.length() - 4, cardNo.length());
         }
         mTvCardno.setText("**** **** **** " + cardNo);
+    }
+    @Subscribe
+    public void onEventMainThread(CardInfo info){
+        if(info!=null){
+            setCardInfoView(info);
+        }
+    }
+
+    @Override protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(mContext);
     }
 }
