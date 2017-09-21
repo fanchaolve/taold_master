@@ -39,8 +39,7 @@ public class ApiServiveImpl {
      * @param cardNo
      * @return
      */
-    public Call<Result_Api<String>> updateAgreeNo(String llAgreeNo,
-                                                  String cardNo) {
+    public Call<Result_Api<String>> updateAgreeNo(String llAgreeNo, String cardNo) {
         return service.updateAgreeNo(llAgreeNo, cardNo);
 
     }

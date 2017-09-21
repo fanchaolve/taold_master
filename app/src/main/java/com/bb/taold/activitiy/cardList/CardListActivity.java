@@ -3,6 +3,7 @@ package com.bb.taold.activitiy.cardList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -85,9 +86,8 @@ public class CardListActivity extends BaseActivity {
         postCallback = new PostCallback<BaseActivity>(this) {
             @Override
             public void successCallback(Result_Api api) {
-                if(api.getT() instanceof Cardinfos){
-
-                    mCards = (ArrayList<CardInfo>)api.getT();
+                if (api.getT() instanceof Cardinfos) {
+                    mCards = (ArrayList<CardInfo>) api.getT();
                     //设置列表适配器
                     mLvCardlist.setAdapter(new CardListAdapter(CardListActivity.this, mCards));
 
@@ -95,14 +95,14 @@ public class CardListActivity extends BaseActivity {
                 }
 
                 if (api.getT() instanceof CardCheck) {
-                    CardCheck cardCheck= (CardCheck) api.getT();
+                    CardCheck cardCheck = (CardCheck) api.getT();
                     if (cardCheck == null)
                         return;
-                    Bundle bundle =new Bundle();
-                    bundle.putInt("from_Act",1);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("from_Act", 1);
                     cardCheck.setCardNo(cardNo);
-                    bundle.putSerializable("card",cardCheck);
-                    AppManager.getInstance().showActivity(AddBankCardFinalActivity.class,bundle);
+                    bundle.putSerializable("card", cardCheck);
+                    AppManager.getInstance().showActivity(AddBankCardFinalActivity.class, bundle);
 
                 }
 
@@ -118,7 +118,7 @@ public class CardListActivity extends BaseActivity {
 
     }
 
-    private void setListData(){
+    private void setListData() {
         mLvCardlist.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -153,26 +153,26 @@ public class CardListActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CardInfo cardInfo = mCards.get(position);
-                if(cardInfo!=null){
+                if (cardInfo != null) {
                     EventBus.getDefault().post(cardInfo);
                 }
             }
         });
     }
 
-    private void getCardData(){
+    private void getCardData() {
         //下拉刷新重新获取银行卡列表数据
-        Call<Result_Api<Cardinfos>> call=service.bankList("10");
-        Callexts.need_sessionPost(call,postCallback);
+        Call<Result_Api<Cardinfos>> call = service.bankList("10");
+        Callexts.need_sessionPost(call, postCallback);
     }
 
     /**
      * 解除绑定按钮
      */
-    public void removeCard(String cardId){
+    public void removeCard(String cardId) {
         //下拉刷新重新获取银行卡列表数据
-        Call<Result_Api<String>> call=service.removeCard(cardId);
-        Callexts.need_sessionPost(call,postCallback);
+        Call<Result_Api<String>> call = service.removeCard(cardId);
+        Callexts.need_sessionPost(call, postCallback);
     }
 
     /**
@@ -217,6 +217,7 @@ public class CardListActivity extends BaseActivity {
 
     /**
      * 监听银行卡识别回调
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -233,7 +234,9 @@ public class CardListActivity extends BaseActivity {
                 com.idcard.CardInfo cardInfo = (com.idcard.CardInfo) data.getSerializableExtra("cardinfo");
                 cardNo = cardInfo.getFieldString(TFieldID.TBANK_NUM);
                 cardNo = cardNo.replace(" ", "").trim();
-
+                if (TextUtils.isEmpty(cardNo)) {
+                    return;
+                }
                 getCardState(cardNo);
 
             }
@@ -242,11 +245,12 @@ public class CardListActivity extends BaseActivity {
 
     /**
      * 判断银行卡是否有效
+     *
      * @param ordNo
      */
     private void getCardState(String ordNo) {
-        Call<Result_Api<CardCheck>> call=service.supportCard(ordNo);
-        Callexts.need_sessionPost(call,postCallback);
+        Call<Result_Api<CardCheck>> call = service.supportCard(ordNo);
+        Callexts.need_sessionPost(call, postCallback);
     }
 
     @OnClick({R.id.btn_back, R.id.tv_addcard})

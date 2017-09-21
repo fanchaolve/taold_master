@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.login.LoginActivity;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.fragment.HomeFragment;
 import com.bb.taold.fragment.LoanFragment;
@@ -64,6 +65,9 @@ public class HomeActivity extends BaseActivity {
                         }
                         break;
                     case 1:
+                        if (!AppManager.getInstance().isLogin()) {
+                            AppManager.getInstance().showActivity(LoginActivity.class, null);
+                        }
                         if (repayFragment == null) {
                             repayFragment = new RepayFragment();
                             transaction.add(R.id.tab_content, repayFragment, RepayFragment.class.getName());
@@ -160,8 +164,6 @@ public class HomeActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-
-
 
 
 }

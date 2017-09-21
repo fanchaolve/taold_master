@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bb.taold.events.LoginEvent;
 import com.bb.taold.R;
 import com.bb.taold.activitiy.repay.RepayDetailActivity;
 import com.bb.taold.adapter.UnpayBillAdapter;
@@ -17,10 +18,16 @@ import com.bb.taold.base.BaseFragment;
 import com.bb.taold.bean.WaitRepayRecord;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.LojaDateUtils;
+import com.bb.taold.utils.StringUtils;
 import com.bb.taold.widget.EmptyView;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,7 +85,15 @@ public class UnpayFragment extends BaseFragment {
 
     @Override
     protected void initdate(Bundle savedInstanceState) {
-        mLvUnpayBill.forceToRefresh();
+        if (AppManager.getInstance().isLogin()) {
+            mLvUnpayBill.setVisibility(View.VISIBLE);
+            mLvUnpayBill.forceToRefresh();
+            emptyView.setVisibility(View.GONE);
+        } else {
+            mLvUnpayBill.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+
 
     }
 
@@ -122,7 +137,7 @@ public class UnpayFragment extends BaseFragment {
                             unpayBillAdapter.setStages(info.getStages());
                             unpayBillAdapter.addAll(info.getBillItems());
                             //设置提示
-                            tvTiptext.setText(getString(R.string.unpay_text, info.getBillItems().get(0).getRepayDate()));
+                            tvTiptext.setText(getString(R.string.unpay_text, StringUtils.getTime(info.getBillItems().get(0).getRepayDate(), LojaDateUtils.YYYY_MM_DD_DOT_FORMAT)));
                         }
                     }
                     unpayBillAdapter.notifyDataSetChanged();
@@ -146,6 +161,7 @@ public class UnpayFragment extends BaseFragment {
     @Override public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -153,6 +169,7 @@ public class UnpayFragment extends BaseFragment {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder1 = ButterKnife.bind(this, rootView);
+        EventBus.getDefault().register(this);
         return rootView;
     }
 
@@ -160,6 +177,18 @@ public class UnpayFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(LoginEvent messageEvent) {
+        if (messageEvent.isLogin()) {
+            emptyView.setVisibility(View.GONE);
+            mLvUnpayBill.setVisibility(View.VISIBLE);
+            mLvUnpayBill.forceToRefresh();
+        } else {
+            emptyView.setVisibility(View.VISIBLE);
+            mLvUnpayBill.setVisibility(View.GONE);
+        }
 
     }
 }

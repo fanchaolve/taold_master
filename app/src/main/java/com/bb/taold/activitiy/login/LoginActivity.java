@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bb.taold.events.LoginEvent;
 import com.bb.taold.MyApplication;
 import com.bb.taold.R;
 import com.bb.taold.activitiy.HomeActivity;
@@ -31,6 +32,8 @@ import com.bb.taold.utils.DeviceUtils;
 import com.bb.taold.utils.PermissionUtil;
 import com.bb.taold.utils.PreferenceUtil;
 import com.bb.taold.utils.gps.GPSUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -62,9 +65,7 @@ public class LoginActivity extends BaseActivity {
 
     private PermissionUtil.onPermissionGentedListener listener;   //权限获取
 
-    private int home_tab= 0;//首页卡片
-
-
+    private int home_tab = 0;//首页卡片
 
 
     @Override
@@ -146,10 +147,10 @@ public class LoginActivity extends BaseActivity {
     public void initdata() {
 
         Intent intent = getIntent();
-        if(intent!= null){
-            Bundle b=intent.getExtras();
-            if(b!=null && b.containsKey("card")){
-                home_tab=b.getInt("card");
+        if (intent != null) {
+            Bundle b = intent.getExtras();
+            if (b != null && b.containsKey("card")) {
+                home_tab = b.getInt("card");
             }
         }
 
@@ -187,18 +188,19 @@ public class LoginActivity extends BaseActivity {
                     });
 
 //                    EventBus.getDefault().post(new EventType(1));
-                    Bundle bundle =new Bundle();
-                    bundle.putInt("card",home_tab);
+                    EventBus.getDefault().post(new LoginEvent(true));
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("card", home_tab);
                     AppManager.getInstance().showActivity(HomeActivity.class, bundle);
                     //取消定时器
                     if (mTimer != null)
                         mTimer.cancel();
                     finish();
-                }else if(api.getT() instanceof UserInfo) {
+                } else if (api.getT() instanceof UserInfo) {
                     UserInfo info = (UserInfo) api.getT();
                     //缓存用户信息，以便该登录用户全局使用。下次登录覆盖更新。
-                    if(info!=null){
-                        CacheUtils.saveDataToDiskLruCache(Constants.USER_INFO,info);
+                    if (info != null) {
+                        CacheUtils.saveDataToDiskLruCache(Constants.USER_INFO, info);
                     }
                 }
 
@@ -393,7 +395,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override protected void onDestroy() {
         super.onDestroy();
-        if(mTimer!=null){
+        if (mTimer != null) {
             mTimer.cancel();
         }
     }

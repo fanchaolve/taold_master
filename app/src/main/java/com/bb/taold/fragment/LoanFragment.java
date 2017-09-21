@@ -35,7 +35,7 @@ import retrofit2.Call;
  */
 
 public class LoanFragment extends BaseFragment
-        <Frag_LoanPresenter,Frag_LoanModel> implements Frag_LoanContract.View{
+        <Frag_LoanPresenter, Frag_LoanModel> implements Frag_LoanContract.View {
     @BindView(R.id.tv_loanAmount)
     TextView mTvLoanAmount;
     @BindView(R.id.tv_status_7)
@@ -87,10 +87,10 @@ public class LoanFragment extends BaseFragment
         postCallback = new PostCallback<BaseFragment>(this) {
             @Override
             public void successCallback(Result_Api api) {
-                if(getActivity() == null)
+                if (getActivity() == null)
                     return;
                 //判断哪个接口回调
-                if(api.getT() instanceof ProductInfo){
+                if (api.getT() instanceof ProductInfo) {
                     //保存借款金额信息
                     ProductInfo mProductInfo = (ProductInfo) api.getT();
                     mProduct = mProductInfo.getProductInfo();
@@ -101,13 +101,13 @@ public class LoanFragment extends BaseFragment
                     mTvLoanAmount.setText(mProduct.getDefaultAmt());
                     //保存7天和14天对应的stagesId
                     ArrayList<StagesInfo> mList = mProductInfo.getStagesInfo();
-                    for(int state=0;state<mList.size();state++){
-                        if(mList.get(state).getStages().equals("7")){
+                    for (int state = 0; state < mList.size(); state++) {
+                        if (mList.get(state).getStages().equals("7")) {
                             //如果是7天
                             stage7Id = mList.get(state).getProductId();
                             continue;
                         }
-                        if(mList.get(state).getStages().equals("14")){
+                        if (mList.get(state).getStages().equals("14")) {
                             //如果是7天
                             stage14Id = mList.get(state).getProductId();
                             continue;
@@ -115,12 +115,12 @@ public class LoanFragment extends BaseFragment
                     }
                     //根据默认金额获取到账金额等信息
                     userId = stage7Id;
-                    cacuAmount(userId,mProduct.getDefaultAmt());
+                    cacuAmount(userId, mProduct.getDefaultAmt());
 
                     return;
                 }
 
-                if(api.getT() instanceof ProductFee){
+                if (api.getT() instanceof ProductFee) {
                     //获取各项费用
                     mProductFee = (ProductFee) api.getT();
                     mTvAllPay.setText(mProductFee.getTheActualToAccount());
@@ -136,24 +136,25 @@ public class LoanFragment extends BaseFragment
         };
 
         //初始页面获取借款金额信息
-        Call<Result_Api<ProductInfo>> call=service.productInfo("mini_loan");
-        Callexts.Unneed_sessionPost(call,postCallback);
+        Call<Result_Api<ProductInfo>> call = service.productInfo("mini_loan");
+        Callexts.Unneed_sessionPost(call, postCallback);
 
     }
 
     /**
      * 在更换金额或更换期数后重新获取各项费用
+     *
      * @param productId
      * @param amount
      */
-    public void cacuAmount(String productId,String amount){
+    public void cacuAmount(String productId, String amount) {
         //根据默认金额获取到账金额等信息
-        Call<Result_Api<ProductFee>> call=service.calProductFee(productId,amount);
-        Callexts.Unneed_sessionPost(call,postCallback);
+        Call<Result_Api<ProductFee>> call = service.calProductFee(productId, amount);
+        Callexts.Unneed_sessionPost(call, postCallback);
     }
 
 
-    @OnClick({R.id.iv_delete, R.id.iv_add, R.id.iv_question,R.id.tv_confirm,R.id.tv_status_7,R.id.tv_status_14})
+    @OnClick({R.id.iv_delete, R.id.iv_add, R.id.iv_question, R.id.tv_confirm, R.id.tv_status_7, R.id.tv_status_14})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
@@ -164,33 +165,33 @@ public class LoanFragment extends BaseFragment
                 //获取当前金额
                 int currentAmountDelete = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否小于最小金额
-                if(currentAmountDelete == minAmount){
+                if (currentAmountDelete == minAmount) {
                     mTvLoanAmount.setText(minAmount + "");
                     return;
                 }
                 if (currentAmountDelete - 100 < minAmount) {
                     mTvLoanAmount.setText(minAmount + "");
-                }else{
+                } else {
                     mTvLoanAmount.setText((currentAmountDelete - 100) + "");
                 }
                 //重新获取接口计算各项费用
-                cacuAmount(userId,mTvLoanAmount.getText().toString());
+                cacuAmount(userId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.iv_add:
                 //获取当前金额
                 int currentAmount = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否大于最大金额
-                if(currentAmount == maxAmount){
+                if (currentAmount == maxAmount) {
                     mTvLoanAmount.setText(maxAmount + "");
                     return;
                 }
                 if ((currentAmount + 100) > maxAmount) {
                     mTvLoanAmount.setText(maxAmount + "");
-                }else{
+                } else {
                     mTvLoanAmount.setText((currentAmount + 100) + "");
                 }
                 //重新获取接口计算各项费用
-                cacuAmount(userId,mTvLoanAmount.getText().toString());
+                cacuAmount(userId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.iv_question:
                 //提示对话框
@@ -199,26 +200,26 @@ public class LoanFragment extends BaseFragment
                 tipDialog.setContentView(dialogView);
 
                 //实际到账金额
-                TextView tv_theActualToAccount = (TextView)dialogView.findViewById(R.id.tv_theActualToAccount);
-                tv_theActualToAccount.setText("+"+mProductFee.getTheActualToAccount()+"元");
+                TextView tv_theActualToAccount = (TextView) dialogView.findViewById(R.id.tv_theActualToAccount);
+                tv_theActualToAccount.setText("+" + mProductFee.getTheActualToAccount() + "元");
                 //利息费
-                TextView tv_interestRates = (TextView)dialogView.findViewById(R.id.tv_interestRates);
-                tv_interestRates.setText("+"+mProductFee.getInterestRates()+"元");
+                TextView tv_interestRates = (TextView) dialogView.findViewById(R.id.tv_interestRates);
+                tv_interestRates.setText("+" + mProductFee.getInterestRates() + "元");
                 //额度审核费
-                TextView tv_creditAuditRates = (TextView)dialogView.findViewById(R.id.tv_creditAuditRates);
-                tv_creditAuditRates.setText("+"+mProductFee.getCreditAuditRates()+"元");
+                TextView tv_creditAuditRates = (TextView) dialogView.findViewById(R.id.tv_creditAuditRates);
+                tv_creditAuditRates.setText("+" + mProductFee.getCreditAuditRates() + "元");
                 //征信查询费
-                TextView tv_creditInspectRates = (TextView)dialogView.findViewById(R.id.tv_creditInspectRates);
-                tv_creditInspectRates.setText("+"+mProductFee.getCreditInspectRates()+"元");
+                TextView tv_creditInspectRates = (TextView) dialogView.findViewById(R.id.tv_creditInspectRates);
+                tv_creditInspectRates.setText("+" + mProductFee.getCreditInspectRates() + "元");
                 //贷后管理费
-                TextView tv_manageRates = (TextView)dialogView.findViewById(R.id.tv_manageRates);
-                tv_manageRates.setText("+"+mProductFee.getManageRates()+"元");
+                TextView tv_manageRates = (TextView) dialogView.findViewById(R.id.tv_manageRates);
+                tv_manageRates.setText("+" + mProductFee.getManageRates() + "元");
                 //介绍费
-                TextView tv_introduceRates = (TextView)dialogView.findViewById(R.id.tv_introduceRates);
-                tv_introduceRates.setText("+"+mProductFee.getIntroduceRates()+"元");
+                TextView tv_introduceRates = (TextView) dialogView.findViewById(R.id.tv_introduceRates);
+                tv_introduceRates.setText("+" + mProductFee.getIntroduceRates() + "元");
                 //合计
-                TextView tv_totalMoney = (TextView)dialogView.findViewById(R.id.tv_totalMoney);
-                tv_totalMoney.setText("+"+mProductFee.getTotalMoney()+"元");
+                TextView tv_totalMoney = (TextView) dialogView.findViewById(R.id.tv_totalMoney);
+                tv_totalMoney.setText("+" + mProductFee.getTotalMoney() + "元");
 
                 //"我知道了"按钮
                 TextView tv_confirm = (TextView) dialogView.findViewById(R.id.tv_confirm);
@@ -247,7 +248,7 @@ public class LoanFragment extends BaseFragment
                 userId = stage7Id;
                 is7Id = true;
                 //重新获取接口计算各项费用
-                cacuAmount(userId,mTvLoanAmount.getText().toString());
+                cacuAmount(userId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.tv_status_14:
                 //点击"借14天"按钮
@@ -258,7 +259,7 @@ public class LoanFragment extends BaseFragment
                 userId = stage14Id;
                 is7Id = false;
                 //重新获取接口计算各项费用
-                cacuAmount(userId,mTvLoanAmount.getText().toString());
+                cacuAmount(userId, mTvLoanAmount.getText().toString());
                 break;
         }
     }

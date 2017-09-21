@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.bb.taold.events.LoginEvent;
 import com.bb.taold.R;
 import com.bb.taold.adapter.AllpayBillAdapter;
 import com.bb.taold.api.PostCallback;
@@ -11,10 +12,15 @@ import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.bean.AllBill;
 import com.bb.taold.listener.Callexts;
+import com.bb.taold.utils.AppManager;
 import com.bb.taold.widget.EmptyView;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.Unbinder;
@@ -55,7 +61,14 @@ public class AllpayFragment extends BaseFragment {
                 getAllpayInfo();
             }
         });
-        mLvAllpay.forceToRefresh();
+        if (AppManager.getInstance().isLogin()) {
+            mLvAllpay.forceToRefresh();
+            mLvAllpay.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.VISIBLE);
+            mLvAllpay.setVisibility(View.GONE);
+        }
+
     }
 
     public void getAllpayInfo() {
@@ -93,9 +106,27 @@ public class AllpayFragment extends BaseFragment {
     protected void initdate(Bundle savedInstanceState) {
     }
 
+    @Override public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(LoginEvent messageEvent) {
+        if (messageEvent.isLogin()) {
+            emptyView.setVisibility(View.GONE);
+            mLvAllpay.forceToRefresh();
+            mLvAllpay.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.VISIBLE);
+            mLvAllpay.setVisibility(View.GONE);
+        }
+
     }
 }

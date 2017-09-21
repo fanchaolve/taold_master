@@ -14,21 +14,19 @@ import java.util.Map;
 import java.util.UUID;
 
 
-
 /**
  * Reason: TODO ADD REASON.
  *
  * @author Chen Lingang
  * @version $Id: SignUtils, v 0.1 2017/9/5 下午5:02
- * from 服务端
- *
+ *          from 服务端
  */
 public class SignUtils {
 
     public static final String UTF8 = "UTF-8";
-    private  List<String> ignoreParamNames=new ArrayList<>();
+    private List<String> ignoreParamNames = new ArrayList<>();
 
-    public SignUtils(){
+    public SignUtils() {
         ignoreParamNames.add("type");
         ignoreParamNames.add("device_id");
         ignoreParamNames.add("version");
@@ -51,8 +49,10 @@ public class SignUtils {
         //意见反馈接口忽略
         ignoreParamNames.add("device");
         ignoreParamNames.add("deviceNumber");
+        //连连绑定接口
+        ignoreParamNames.add("llAgreeNo");
+        ignoreParamNames.add("cardNo");
     }
-
 
 
     /**
@@ -63,7 +63,7 @@ public class SignUtils {
      * @param secret
      * @return
      */
-    public  String sign(Map<String, String> paramValues, String secret) {
+    public String sign(Map<String, String> paramValues, String secret) {
         return sign(paramValues, ignoreParamNames, secret);
     }
 
@@ -75,7 +75,7 @@ public class SignUtils {
      * @param secret
      * @return
      */
-    public  String sign(Map<String, String> paramValues, List<String> ignoreParamNames, String secret) {
+    public String sign(Map<String, String> paramValues, List<String> ignoreParamNames, String secret) {
         try {
             StringBuilder sb = new StringBuilder();
             List<String> paramNames = new ArrayList<String>(paramValues.size());
@@ -92,7 +92,7 @@ public class SignUtils {
                 sb.append(paramName).append(paramValues.get(paramName));
             }
             sb.append(secret);
-            Log.i("fancl","签名的数据:"+sb.toString());
+            Log.i("fancl", "签名的数据:" + sb.toString());
             byte[] sha1Digest = getSHA1Digest(sb.toString());
             return byte2hex(sha1Digest);
         } catch (IOException e) {
@@ -101,7 +101,7 @@ public class SignUtils {
         }
     }
 
-    public  String utf8Encoding(String value, String sourceCharsetName) {
+    public String utf8Encoding(String value, String sourceCharsetName) {
         try {
             return new String(value.getBytes(sourceCharsetName), UTF8);
         } catch (UnsupportedEncodingException e) {
@@ -120,7 +120,7 @@ public class SignUtils {
         return bytes;
     }
 
-    private  byte[] getMD5Digest(String data) throws IOException {
+    private byte[] getMD5Digest(String data) throws IOException {
         byte[] bytes = null;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -137,7 +137,7 @@ public class SignUtils {
      * @param bytes
      * @return
      */
-    private  String byte2hex(byte[] bytes) {
+    private String byte2hex(byte[] bytes) {
         StringBuilder sign = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
             String hex = Integer.toHexString(bytes[i] & 0xFF);
@@ -154,8 +154,8 @@ public class SignUtils {
         return uuid.toString().toUpperCase();
     }
 
-    public  void addIgnoreParamName(String key){
-        if(ignoreParamNames!=null) {
+    public void addIgnoreParamName(String key) {
+        if (ignoreParamNames != null) {
             ignoreParamNames.add(key);
         }
     }

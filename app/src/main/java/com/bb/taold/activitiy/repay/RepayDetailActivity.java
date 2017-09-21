@@ -1,9 +1,7 @@
 package com.bb.taold.activitiy.repay;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -11,25 +9,14 @@ import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.adapter.RepayDetailAdapter;
-import com.bb.taold.adapter.UnpayBillAdapter;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
-import com.bb.taold.bean.BillInfo;
 import com.bb.taold.bean.BillInfoDetail;
-import com.bb.taold.bean.BillInfos;
-import com.bb.taold.bean.BillItem;
-import com.bb.taold.bean.BillItems;
 import com.bb.taold.bean.BillProductInfo;
-import com.bb.taold.bean.RepayDetail;
 import com.bb.taold.listener.Callexts;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 

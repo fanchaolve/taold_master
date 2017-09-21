@@ -2,6 +2,8 @@ package com.bb.taold.utils;
 
 import android.text.TextUtils;
 
+import java.text.SimpleDateFormat;
+
 /**
  *
  */
@@ -180,17 +182,27 @@ public class StringUtils {
         return true;
     }
 
-    public static String hideMobileMiddle(String phone){
+    public static String hideMobileMiddle(String phone) {
         String mobile = "";
-        if(!TextUtils.isEmpty(phone)&&phone.length()>=11){
+        if (!TextUtils.isEmpty(phone) && phone.length() >= 11) {
             mobile = phone.substring(0, 3) + "****" + phone.substring(7, 11);
         }
         return mobile;
     }
 
+    public static String getTime(String time, SimpleDateFormat format) {
+        String date = "";
+        if (!TextUtils.isEmpty(time)) {
+            try {
+                long dateTime = Long.parseLong(time);
+                date = LojaDateUtils.format(dateTime, format);
+            } catch (Exception e) {
+                date = "";
+            }
+
+        }
+        return date;
+    }
 
 
-
-
-   
 }

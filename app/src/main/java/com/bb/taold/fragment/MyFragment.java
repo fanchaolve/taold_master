@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bb.taold.events.LoginEvent;
+import com.bb.taold.MyApplication;
 import com.bb.taold.R;
 import com.bb.taold.activitiy.login.LoginActivity;
 import com.bb.taold.activitiy.my.AboutUsActivity;
@@ -24,6 +26,10 @@ import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.Constants;
 import com.bb.taold.utils.StringUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -75,8 +81,6 @@ public class MyFragment extends BaseFragment {
 
     private UserInfo info;
 
-    PostCallback postCallback;
-
 
     @Override
     public int getLayoutId() {
@@ -90,26 +94,6 @@ public class MyFragment extends BaseFragment {
 
     @Override
     protected void initdate(Bundle savedInstanceState) {
-        setLogoutViewData();
-
-        postCallback = new PostCallback<MyFragment>(this) {
-            @Override
-            public void successCallback(Result_Api api) {
-                if (api.getT() instanceof UserInfo) {
-                    info = (UserInfo) api.getT();
-                    if (info != null) {
-                        setViewData(info);
-                    }
-                }
-            }
-
-
-            @Override
-            public void failCallback() {
-
-            }
-        };
-
     }
 
     //
@@ -182,9 +166,9 @@ public class MyFragment extends BaseFragment {
 
             case R.id.lay_logout://退出登录或许是登陆
                 info = null;
-                if(AppManager.getInstance().isLogin()){
+                if (AppManager.getInstance().isLogin()) {
                     showAlert();
-                }else{
+                } else {
                     AppManager.getInstance().logout();
                 }
 
@@ -198,14 +182,18 @@ public class MyFragment extends BaseFragment {
         }
     }
 
-    public void showAlert(){
+    public void showAlert() {
         new AlertDialog.Builder(mContext).
                 setTitle("退出登录").
                 setMessage("小主确定要离开信趣贷吗？").
                 setPositiveButton("离开", new DialogInterface.OnClickListener() {
                     @Override public void onClick(DialogInterface dialog, int which) {
-                        AppManager.getInstance().logout();
                         dialog.dismiss();
+                        MyApplication.getInstance().saveSession("");
+                        info = null;
+                        EventBus.getDefault().post(new LoginEvent(false));
+                        setLoginView();
+
                     }
                 }).
                 setNegativeButton("不离开", new DialogInterface.OnClickListener() {
@@ -219,17 +207,48 @@ public class MyFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
     }
 
+    @Override public void onResume() {
+        super.onResume();
+        setLoginView();
+    }
 
     @Override
     public void onStart() {
         super.onStart();
+
+    }
+
+    @Override public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+
+    private void setLoginView() {
         if (AppManager.getInstance().isLogin()) {
-            if (info == null ) {//如果登录了 就没必要重复调用接口了
-                Call<Result_Api<UserInfo>> call = service.user_info();
-                Callexts.need_sessionPost(call, postCallback);
+            if (info != null) {
+                return;
             }
+            Call<Result_Api<UserInfo>> call = service.user_info();
+            Callexts.need_sessionPost(call, new PostCallback<MyFragment>(this) {
+                @Override
+                public void successCallback(Result_Api api) {
+                    if (api.getT() instanceof UserInfo) {
+                        info = (UserInfo) api.getT();
+                        if (info != null) {
+                            setViewData(info);
+                        }
+                    }
+                }
+
+                @Override
+                public void failCallback() {
+
+                }
+            });
         } else {
             info = null;
             setLogoutViewData();

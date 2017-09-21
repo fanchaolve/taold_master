@@ -11,6 +11,8 @@ import com.bb.taold.adapter.recycleradapter.ListBaseAdapter;
 import com.bb.taold.adapter.recycleradapter.SuperViewHolder;
 import com.bb.taold.bean.BillItem;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.LojaDateUtils;
+import com.bb.taold.utils.StringUtils;
 
 /**
  * Created by zhucheng'an on 2017/9/12.
@@ -38,7 +40,7 @@ public class UnpayBillAdapter extends ListBaseAdapter<BillItem> {
         //设置期数
         tv_period.setText(billItem.getStages().toString() + "/" + stages + "期");
         //设置时间
-        tv_time.setText(billItem.getRepayDate().toString());
+        tv_time.setText(StringUtils.getTime(billItem.getRepayDate(), LojaDateUtils.YYYY_MM_DD_DOT_FORMAT));
         //设置金额
         tv_amount.setText(billItem.getAmtMoney().toString());
         //设置状态

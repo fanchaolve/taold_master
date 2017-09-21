@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.activitiy.loan.LoanConfirmActivity;
+import com.bb.taold.api.ApiServiveImpl;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
@@ -199,25 +200,23 @@ public class AddBankCardFinalActivity extends BaseActivity {
                         JSONObject objContent = BaseHelper.string2JSON(strRet);
                         String retCode = objContent.optString("ret_code");
                         String retMsg = objContent.optString("ret_msg");
+                        String no_agree = objContent.optString("no_agree");
                         Log.e("lllllll", objContent.toString());
 
                         // 成功
                         if (LLPayConstants.RET_CODE_SUCCESS.equals(retCode)) {
                             showMsg("绑定成功");
                             //关闭所有认证页面事件
-                            EventBus.getDefault().post(Constants.AFTER_AUTH_CLOSE);
-                            Map<String,String> map = (Map<String, String>) CacheUtils.getDataCache(Constants.TO_CONFIRM_ACTIVIY);
+                            Map<String, String> map = (Map<String, String>) CacheUtils.getDataCache(Constants.TO_CONFIRM_ACTIVIY);
                             Bundle mBundle = new Bundle();
-                            mBundle.putString("loanAmount",map.get("loanAmount"));
+                            mBundle.putString("loanAmount", map.get("loanAmount"));
                             if (map.containsKey("stage7Id")) {
-                                mBundle.putString("stage7Id",map.get("stage7Id"));
-                            }else{
-                                mBundle.putString("stage4Id",map.get("stage4Id"));
+                                mBundle.putString("stage7Id", map.get("stage7Id"));
+                            } else {
+                                mBundle.putString("stage4Id", map.get("stage4Id"));
                             }
+                            updateAgreeNo(no_agree, mEtAcctNo.getText().toString().replace(" ", ""), mBundle);
 
-                            AppManager.getInstance().showActivity(LoanConfirmActivity.class,mBundle);
-                            CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY,null);
-                            finish();
 //                            BaseHelper.showDialog(AddBankCardFinalActivity.this, "提示",
 //                                    "支付成功，交易状态码：" + retCode + " 返回报文:" + strRet,
 //                                    android.R.drawable.ic_dialog_alert);
@@ -237,4 +236,21 @@ public class AddBankCardFinalActivity extends BaseActivity {
         };
 
     }
+
+    private void updateAgreeNo(String llAgreeNo, String cardNo, final Bundle bundle) {
+        Call<Result_Api<String>> call = new ApiServiveImpl().updateAgreeNo(llAgreeNo, cardNo);
+        Callexts.need_sessionPost(call, new PostCallback() {
+            @Override public void successCallback(Result_Api api) {
+                EventBus.getDefault().post(Constants.AFTER_AUTH_CLOSE);
+                AppManager.getInstance().showActivity(LoanConfirmActivity.class, bundle);
+                CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY, null);
+                finish();
+            }
+
+            @Override public void failCallback() {
+
+            }
+        });
+    }
+
 }
