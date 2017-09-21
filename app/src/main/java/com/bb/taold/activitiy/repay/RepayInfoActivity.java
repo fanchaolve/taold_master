@@ -140,7 +140,7 @@ public class RepayInfoActivity extends BaseActivity {
                     //需要判断是否逾期来确定是否显示逾期金额
                     mTvDueAmount.setText(mDetail.getDueAmount());
                     mTvAbateAmt.setText(mDetail.getAbateAmt());
-                    getPayParams(mDetail.getBillId(), mDetail.getBillAmount(), Constants.PAY_CHANNEL_ALIPAY, Constants.PLATFORM);
+                    getPayParams(mDetail.getId(), mDetail.getBillAmount(), Constants.PAY_CHANNEL_ALIPAY, Constants.PLATFORM);
                     return;
                 } else if (api.getT() instanceof PayParams) {
                     mPayParams = (PayParams) api.getT();
@@ -188,7 +188,7 @@ public class RepayInfoActivity extends BaseActivity {
                 dialog.dismiss();
                 if (mPayParams != null) {
                     EBJPayUtil ebjPayUtil = new EBJPayUtil(mContext, mPayParams.getMerchantOutOrderNo(), mPayParams.getMerId(),
-                            mPayParams.getNoncestr(), mPayParams.getOrderMoney(), mPayParams.getOrderTime());
+                            mPayParams.getNoncestr(), "0.01", mPayParams.getOrderTime());
                     ebjPayUtil.startPay();
                 }
 
