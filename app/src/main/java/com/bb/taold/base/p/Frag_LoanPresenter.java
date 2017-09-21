@@ -5,14 +5,16 @@ import android.os.Bundle;
 import com.bb.taold.activitiy.AuthInfoActivity;
 import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
 import com.bb.taold.activitiy.loan.LoanConfirmActivity;
-import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
-import com.bb.taold.activitiy.loan.LoanConfirmActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.v.Frag_LoanContract;
 import com.bb.taold.bean.AuthInfo;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.CacheUtils;
 import com.bb.taold.utils.Constants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ==============================================
@@ -52,14 +54,21 @@ public class Frag_LoanPresenter extends Frag_LoanContract.Presenter {
                     } else {
                         //条件满足，跳转到确认借款页面
                         Bundle mBundle = new Bundle();
+                        //银行卡认证后使用
+                        Map<String,String> map = new HashMap<>();
                         //总金额
                         mBundle.putString("loanAmount",mView.getTotalAmount());
+                        map.put("loanAmount",mView.getTotalAmount());
+
                         //当前使用id
                         if(mView.is7Id()){
                             mBundle.putString("stage7Id",mView.getCurrentId());
+                            map.put("stage7Id",mView.getCurrentId());
                         }else{
                             mBundle.putString("stage14Id",mView.getCurrentId());
+                            map.put("stage14Id",mView.getCurrentId());
                         }
+                        CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY,map);
                         AppManager.getInstance().showActivity(LoanConfirmActivity.class,mBundle);
                     }
                 }

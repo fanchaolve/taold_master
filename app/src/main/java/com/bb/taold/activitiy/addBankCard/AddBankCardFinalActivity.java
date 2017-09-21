@@ -24,11 +24,14 @@ import com.bb.taold.lianlian.utils.LLPayConstants;
 import com.bb.taold.lianlian.utils.MobileSecurePayer;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.CacheUtils;
 import com.bb.taold.utils.Constants;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -202,7 +205,17 @@ public class AddBankCardFinalActivity extends BaseActivity {
                             showMsg("绑定成功");
                             //关闭所有认证页面事件
                             EventBus.getDefault().post(Constants.AFTER_AUTH_CLOSE);
-                            AppManager.getInstance().showActivity(LoanConfirmActivity.class,null);
+                            Map<String,String> map = (Map<String, String>) CacheUtils.getDataCache(Constants.TO_CONFIRM_ACTIVIY);
+                            Bundle mBundle = new Bundle();
+                            mBundle.putString("loanAmount",map.get("loanAmount"));
+                            if (mBundle.containsKey("stage7Id")) {
+                                mBundle.putString("stage7Id",map.get("stage7Id"));
+                            }else{
+                                mBundle.putString("stage4Id",map.get("stage4Id"));
+                            }
+
+                            AppManager.getInstance().showActivity(LoanConfirmActivity.class,mBundle);
+                            CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY,null);
                             finish();
 //                            BaseHelper.showDialog(AddBankCardFinalActivity.this, "提示",
 //                                    "支付成功，交易状态码：" + retCode + " 返回报文:" + strRet,
