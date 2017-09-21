@@ -208,7 +208,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
                             Map<String,String> map = (Map<String, String>) CacheUtils.getDataCache(Constants.TO_CONFIRM_ACTIVIY);
                             Bundle mBundle = new Bundle();
                             mBundle.putString("loanAmount",map.get("loanAmount"));
-                            if (mBundle.containsKey("stage7Id")) {
+                            if (map.containsKey("stage7Id")) {
                                 mBundle.putString("stage7Id",map.get("stage7Id"));
                             }else{
                                 mBundle.putString("stage4Id",map.get("stage4Id"));
