@@ -22,9 +22,11 @@
         android:gravity="center_vertical"
         android:background="@drawable/click_bg">
         <ImageView
+            android:id="@+id/iv_can_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/version_update"/>
+            android:src="@drawable/version_update"
+            android:visibility="gone"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -17,12 +17,12 @@ import com.bb.taold.bean.PayParams;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.Session;
+import com.bb.taold.bean.UpdateInfo;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.VersionBean;
 import com.bb.taold.bean.WaitRepayRecord;
 
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -378,10 +378,11 @@ public interface ApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST("/gateway?method=member.queryAppRelease")
-    Call<Result_Api<List<Objects>>> queryAppRelease(@Field("productCode") String productCode,
-                                                    @Field("devicetype") String devicetype,
-                                                    @Field("buildversion") String buildversion);
+    Call<Result_Api<UpdateInfo>> queryAppRelease(@Field("productCode") String productCode,
+                                                 @Field("devicetype") String devicetype,
+                                                 @Field("buildversion") String buildversion);
 
     /**
      * 还款支付

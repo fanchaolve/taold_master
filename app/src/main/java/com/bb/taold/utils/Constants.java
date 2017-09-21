@@ -30,6 +30,13 @@ public final class Constants {
     public static final boolean AFTER_AUTH_CLOSE = true;
     //银行卡认证成功后，进入借款确认页面数据
     public static final String TO_CONFIRM_ACTIVIY = "toConfirm";
+    public static final String PRODUCT_CODE = "10";
+    public static final String DEVICE_TYPE = "10";
+
+    //时间格式常量
+    public static final String yyyyMMddHHmm = "yyyy/MM/dd/ HH:mm";
+    public static final String yyyyMMddHHmmss = "yyyy/MM/dd/ HH:mm:ss";
+    public static final String yyyyMMdd = "yyyy/MM/dd/";
 
 
 

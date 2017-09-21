@@ -10,6 +10,8 @@ import com.bb.taold.R;
 import com.bb.taold.adapter.recycleradapter.ListBaseAdapter;
 import com.bb.taold.adapter.recycleradapter.SuperViewHolder;
 import com.bb.taold.bean.LifeCycleBean;
+import com.bb.taold.utils.Constants;
+import com.bb.taold.utils.StringUtils;
 
 /**
  * 类描述：
@@ -38,7 +40,9 @@ public class RecordStageAdapter extends ListBaseAdapter<LifeCycleBean> {
         LifeCycleBean lifeCycleBean = mDataList.get(position);
         tvStageName.setText(lifeCycleBean.getTitle());
         if(!TextUtils.isEmpty(lifeCycleBean.getDate())){
-            tvStageTime.setText(lifeCycleBean.getDate()+"");
+            tvStageTime.setText(StringUtils.getTime(lifeCycleBean.getDate(), Constants.yyyyMMddHHmm));
+        }else{
+            tvStageTime.setText("");
         }
         tvStagePrompt.setText(lifeCycleBean.getDescription());
         layGrayCicle.setVisibility(View.GONE);

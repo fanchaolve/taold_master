@@ -3,6 +3,7 @@ package com.bb.taold.utils;
 import android.text.TextUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -202,6 +203,26 @@ public class StringUtils {
 
         }
         return date;
+    }
+
+    public static String getTime(long time,String format){
+        String dateStr = "";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        Date date = new Date(time);
+        dateStr = simpleDateFormat.format(date);
+        return dateStr;
+    }
+
+    public static String getTime(String time,String format){
+        String dateStr = "";
+        try {
+            long l = Long.parseLong(time);
+            dateStr = getTime(l,format);
+        }catch (Exception e){
+            dateStr = "";
+        }
+
+        return dateStr;
     }
 
 

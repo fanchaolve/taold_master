@@ -1,5 +1,7 @@
 package com.bb.taold.utils;
 
+import android.text.TextUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,6 +17,14 @@ public class TimeUtils {
         Date d = new Date(time);
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sf.format(d);
+    }
+
+    public static String getDateToString(String time){
+        long l=0L;
+        if(!TextUtils.isEmpty(time)){
+            l = Long.parseLong(time);
+        }
+        return getDateToString(l);
     }
 
     public static String getDateToStringWithLine(long time) {

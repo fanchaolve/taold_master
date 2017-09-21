@@ -13,11 +13,16 @@ import com.bb.taold.R;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.UpdateInfo;
+import com.bb.taold.listener.Callexts;
 import com.bb.taold.update.UpdateService;
+import com.bb.taold.utils.Constants;
+import com.bb.taold.utils.DeviceUtils;
 import com.bb.taold.widget.UpdateDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class AboutUsActivity extends BaseActivity {
 
@@ -37,7 +42,10 @@ public class AboutUsActivity extends BaseActivity {
     TextView mTvVersionName;
     @BindView(R.id.lay_check_update)
     LinearLayout mLayCheckUpdate;
+    @BindView(R.id.iv_can_update)
+    ImageView mIvCanUpdate;
     private PostCallback postCallback;
+    private UpdateInfo mUpdateInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,44 +72,65 @@ public class AboutUsActivity extends BaseActivity {
         postCallback = new PostCallback<BaseActivity>(this) {
 
             @Override public void successCallback(Result_Api api) {
-
+                if (api.getT() instanceof UpdateInfo) {
+                    mUpdateInfo = (UpdateInfo) api.getT();
+                    setViewData(mUpdateInfo);
+                }
             }
 
             @Override public void failCallback() {
 
             }
         };
-//        checkUpdateVersion();
+        checkUpdateVersion(Constants.PRODUCT_CODE, Constants.DEVICE_TYPE, DeviceUtils.getCurrVersionCode(mContext) + "");
     }
 
-    private void checkUpdateVersion(String productCode,String devicetype,String buildversion) {
-        service.queryAppRelease(productCode,devicetype,buildversion);
+    private void setViewData(UpdateInfo updateInfo) {
+        if(canUpdate(updateInfo.getBuildversion())){
+            mIvCanUpdate.setVisibility(View.VISIBLE);
+        }else{
+            mIvCanUpdate.setVisibility(View.GONE);
+        }
     }
 
-    @OnClick({R.id.btn_back,R.id.lay_check_update})
-    public void onClick(View view){
-        switch (view.getId()){
+    private void checkUpdateVersion(String productCode, String devicetype, String buildversion) {
+        Call<Result_Api<UpdateInfo>> call = service.queryAppRelease(productCode, devicetype, buildversion);
+        Callexts.need_sessionPost(call,postCallback);
+    }
+
+    @OnClick({R.id.btn_back, R.id.lay_check_update})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_back:
                 finish();
                 break;
             case R.id.lay_check_update:
-                final UpdateDialog dialog = new UpdateDialog(mContext);
-                dialog.show();
-                dialog.setOnPositiveListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
-                        dialog.dismiss();
-                        Intent intent = new Intent(mContext, UpdateService.class);
-                        intent.putExtra("updateUrl","http://imtt.dd.qq.com/16891/51F06FB002018975678634859A0EC654.apk");
-                        startService(intent);
-                    }
-                }).setOnNegativeListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-//                dialog.show();
+                if (canUpdate(mUpdateInfo.getBuildversion())) {
+                    showUpdateAlert();
+                }
 
                 break;
         }
+    }
+
+    private void showUpdateAlert() {
+        final UpdateDialog dialog = new UpdateDialog(mContext);
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent(mContext, UpdateService.class);
+                intent.putExtra("updateUrl", "http://imtt.dd.qq.com/16891/51F06FB002018975678634859A0EC654.apk");
+                startService(intent);
+            }
+        }).setOnNegativeListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                dialog.dismiss();
+            }
+        }).setMemo(mUpdateInfo.getDescriptionText());
+        dialog.show();
+    }
+
+    public boolean canUpdate(int romoteVersion){
+        return romoteVersion>DeviceUtils.getCurrVersionCode(mContext);
     }
 }

@@ -7,6 +7,8 @@ import com.bb.taold.R;
 import com.bb.taold.adapter.recycleradapter.ListBaseAdapter;
 import com.bb.taold.adapter.recycleradapter.SuperViewHolder;
 import com.bb.taold.bean.LoanRecord;
+import com.bb.taold.utils.Constants;
+import com.bb.taold.utils.StringUtils;
 
 /**
  * 类描述：
@@ -28,7 +30,11 @@ public class LoanRecordsAdapter extends ListBaseAdapter<LoanRecord>{
     @Override
     public void onBindItemHolder(SuperViewHolder holder, int position) {
         LoanRecord item = mDataList.get(position);
-        TextView titleText = holder.getView(R.id.tv_loan_days);
-        titleText.setText(item.getPeriods()+"");
+        TextView tvLoanDays = holder.getView(R.id.tv_loan_days);
+        TextView tvLoanMoney = holder.getView(R.id.tv_loan_money);
+        TextView tvLoanTime = holder.getView(R.id.tv_loan_time);
+        tvLoanDays.setText(item.getPeriods()+"");
+        tvLoanMoney.setText(item.getLoanAmount()+"");
+        tvLoanTime.setText(StringUtils.getTime(item.getApplyTime(), Constants.yyyyMMddHHmm));
     }
 }
