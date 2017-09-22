@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
@@ -20,8 +21,8 @@ import java.io.File;
 public class UpdateService extends Service {
     private DownloadManager downloadManager;
     private long mTaskId;
-    private String downloadUrl = "";
-
+    private String mDownloadUrl = "";
+    public static final String UPDATE_URL_KEY = "updateUrl";
     public UpdateService() {
     }
 
@@ -32,16 +33,20 @@ public class UpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        this.downloadUrl = intent.getStringExtra("updateUrl");
-        initDownload();
+        this.mDownloadUrl = intent.getStringExtra(UPDATE_URL_KEY);
+        if(!TextUtils.isEmpty(this.mDownloadUrl)){
+            initDownload();
+        }else{
+            Log.i("updateUrl",this.mDownloadUrl +"");
+        }
         Log.i("updateservice","onStartCommand");
         return START_STICKY;
     }
 
     private void initDownload() {
         //创建下载任务,downloadUrl就是下载链接
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadUrl));
-        String extension = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(downloadUrl));
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(mDownloadUrl));
+        String extension = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(mDownloadUrl));
         Log.i("getMimeTypeExtension",extension);
         //指定下载路径和下载文件名
 
