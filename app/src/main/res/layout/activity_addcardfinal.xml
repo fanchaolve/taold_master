@@ -85,18 +85,31 @@
                     android:textSize="15sp"/>
 
                 <EditText
-                    android:id="@+id/tv_acctNo"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/et_acctNo"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView3"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="19"
                     android:layout_alignBottom="@+id/textView3"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_toLeftOf="@+id/iv_scan_card"
+                    android:layout_toRightOf="@id/textView3"
                     android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
                     android:background="@null"
                     android:textColor="@color/color_111111"
                     android:textSize="15sp"
+                    android:gravity="right"
+                    android:hint="请输入或扫描获取您的银行卡号"
                     />
+                <ImageView
+                    android:id="@+id/iv_scan_card"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="11dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/card_shooting"/>
             </RelativeLayout>
 
             <include layout="@layout/line_e"/>
@@ -152,6 +165,9 @@
                     android:layout_toLeftOf="@+id/iv_tip_phone"
                     android:layout_toRightOf="@id/tv_sjh"
                     android:background="@null"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:maxLength="11"
                     android:gravity="right"
                     android:hint="银行预留号码"
                     android:textColor="@color/color_111111"
