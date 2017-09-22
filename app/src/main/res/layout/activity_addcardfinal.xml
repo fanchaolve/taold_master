@@ -94,7 +94,6 @@
                     android:layout_alignBottom="@+id/textView3"
                     android:layout_toLeftOf="@+id/iv_scan_card"
                     android:layout_toRightOf="@id/textView3"
-                    android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
                     android:background="@null"
                     android:textColor="@color/color_111111"
@@ -102,14 +101,21 @@
                     android:gravity="right"
                     android:hint="请输入或扫描获取您的银行卡号"
                     />
-                <ImageView
+                <LinearLayout
                     android:id="@+id/iv_scan_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="11dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="11dp"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/card_shooting"/>
+                    android:layout_centerVertical="true">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_gravity="center"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/card_shooting"/>
+                </LinearLayout>
+
             </RelativeLayout>
 
             <include layout="@layout/line_e"/>

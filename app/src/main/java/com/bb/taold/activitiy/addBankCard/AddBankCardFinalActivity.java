@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
@@ -70,8 +69,6 @@ public class AddBankCardFinalActivity extends BaseActivity {
     TextView mEtAcctName;
     @BindView(R.id.et_acctPhone)
     EditText mEtAcctPhone;
-    @BindView(R.id.iv_scan_card)
-    ImageView mIvScanCard;
 
     private int from_Act = 0;//0绑卡,1添加
 
