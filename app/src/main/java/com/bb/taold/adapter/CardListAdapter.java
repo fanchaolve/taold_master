@@ -12,6 +12,8 @@ import com.bb.taold.activitiy.cardList.CardListActivity;
 import com.bb.taold.bean.CardInfo;
 import com.bb.taold.widget.SwipeListLayout;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 /**
@@ -54,8 +56,8 @@ public class CardListAdapter extends BaseAdapter {
 
             holder.sll_main = (SwipeListLayout)convertView.findViewById(R.id.sll_main);
             holder.tv_delete = (TextView) convertView.findViewById(R.id.tv_delete);
-            holder.sll_main.setOnSwipeStatusListener(new CardListActivity.MyOnSlipStatusListener(
-                    holder.sll_main));
+//            holder.sll_main.setOnSwipeStatusListener(new CardListActivity.MyOnSlipStatusListener(
+//                    holder.sll_main));
             holder.tv_delete.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -88,7 +90,15 @@ public class CardListAdapter extends BaseAdapter {
         }
         holder.tv_cardinfo.setText("尾号"+cardNo+" "+"借记卡");
         holder.tv_cardtype.setText("借款卡");
-
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                CardInfo cardInfo = list.get(position);
+                if (cardInfo != null) {
+                    EventBus.getDefault().post(cardInfo);
+                    mActivity.finish();
+                }
+            }
+        });
         return convertView;
     }
 

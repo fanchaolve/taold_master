@@ -2,18 +2,15 @@ package com.bb.taold.activitiy.cardList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
 import com.bb.taold.activitiy.addBankCard.AddBankCardFinalActivity;
-import com.bb.taold.adapter.CardListAdapter;
+import com.bb.taold.adapter.SwiperMenuAdapter;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
@@ -24,12 +21,14 @@ import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.CardNumScanUtil;
 import com.bb.taold.widget.SwipeListLayout;
+import com.github.jdsjlzx.interfaces.OnRefreshListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.idcard.TFieldID;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -47,10 +46,8 @@ public class CardListActivity extends BaseActivity {
     ImageButton mBtnBack;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
-    @BindView(R.id.swiper_refresh)
-    SwipeRefreshLayout mSwiperRefresh;
-    @BindView(R.id.lv_cardlist)
-    ListView mLvCardlist;
+    @BindView(R.id.rv_card_list)
+    LRecyclerView mRecyclerView;
 
     private static Set<SwipeListLayout> sets = new HashSet();
 
@@ -58,7 +55,9 @@ public class CardListActivity extends BaseActivity {
     private String cardNo = "";
 
     private PostCallback postCallback;
-    private ArrayList<CardInfo> mCards;
+    private List<CardInfo> mCards = new ArrayList<>();
+    private SwiperMenuAdapter mSwiperAdapter;
+    private LRecyclerViewAdapter mLRecyclerViewAdapter;
 
     @Override
     public int getLayoutId() {
@@ -66,32 +65,15 @@ public class CardListActivity extends BaseActivity {
     }
 
     @Override
-    public void initView() {
-        mBtnBack.setVisibility(View.VISIBLE);
-        mTvTitle.setText("管理银行卡");
-    }
-
-    @Override
-    public void initListener() {
-
-    }
-
-
-    @Override
     public void initdata() {
-
-        //设置列表滑动监听和下拉刷新
-        setListData();
 
         postCallback = new PostCallback<BaseActivity>(this) {
             @Override
             public void successCallback(Result_Api api) {
+                mRecyclerView.refreshComplete(0);
                 if (api.getT() instanceof Cardinfos) {
-                    mCards = (ArrayList<CardInfo>) api.getT();
-                    //设置列表适配器
-                    mLvCardlist.setAdapter(new CardListAdapter(CardListActivity.this, mCards));
-
-                    mSwiperRefresh.setRefreshing(false);
+                    List<CardInfo> cards = (ArrayList<CardInfo>) api.getT();
+                    mSwiperAdapter.addAll(cards);
                 }
 
                 if (api.getT() instanceof CardCheck) {
@@ -118,44 +100,23 @@ public class CardListActivity extends BaseActivity {
 
     }
 
-    private void setListData() {
-        mLvCardlist.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                switch (scrollState) {
-                    //当listview开始滑动时，若有item的状态为Open，则Close，然后移除
-                    case SCROLL_STATE_TOUCH_SCROLL:
-                        if (sets.size() > 0) {
-                            for (SwipeListLayout s : sets) {
-                                s.setStatus(SwipeListLayout.Status.Close, true);
-                                sets.remove(s);
-                            }
-                        }
-                        break;
+    @Override
+    public void initView() {
+        mBtnBack.setVisibility(View.VISIBLE);
+        mTvTitle.setText("管理银行卡");
+        mSwiperAdapter = new SwiperMenuAdapter(mContext);
+        mSwiperAdapter.setDataList(mCards);
+        mLRecyclerViewAdapter = new LRecyclerViewAdapter(mSwiperAdapter);
+        mRecyclerView.setAdapter(mLRecyclerViewAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
 
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-        });
-        mSwiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
+    @Override
+    public void initListener() {
+        mRecyclerView.setOnRefreshListener(new OnRefreshListener() {
+            @Override public void onRefresh() {
+                mSwiperAdapter.clear();
                 getCardData();
-
-            }
-        });
-        mLvCardlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CardInfo cardInfo = mCards.get(position);
-                if (cardInfo != null) {
-                    EventBus.getDefault().post(cardInfo);
-                }
             }
         });
     }
@@ -173,46 +134,6 @@ public class CardListActivity extends BaseActivity {
         //下拉刷新重新获取银行卡列表数据
         Call<Result_Api<String>> call = service.removeCard(cardId);
         Callexts.need_sessionPost(call, postCallback);
-    }
-
-    /**
-     * 监听侧滑事件
-     */
-    public static class MyOnSlipStatusListener implements SwipeListLayout.OnSwipeStatusListener {
-
-        private SwipeListLayout slipListLayout;
-
-        public MyOnSlipStatusListener(SwipeListLayout slipListLayout) {
-            this.slipListLayout = slipListLayout;
-        }
-
-        @Override
-        public void onStatusChanged(SwipeListLayout.Status status) {
-            if (status == SwipeListLayout.Status.Open) {
-                //若有其他的item的状态为Open，则Close，然后移除
-                if (sets.size() > 0) {
-                    for (SwipeListLayout s : sets) {
-                        s.setStatus(SwipeListLayout.Status.Close, true);
-                        sets.remove(s);
-                    }
-                }
-                sets.add(slipListLayout);
-            } else {
-                if (sets.contains(slipListLayout))
-                    sets.remove(slipListLayout);
-            }
-        }
-
-        @Override
-        public void onStartCloseAnimation() {
-
-        }
-
-        @Override
-        public void onStartOpenAnimation() {
-
-        }
-
     }
 
     /**
