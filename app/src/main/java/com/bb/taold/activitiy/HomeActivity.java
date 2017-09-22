@@ -3,17 +3,24 @@ package com.bb.taold.activitiy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import com.bb.taold.R;
 import com.bb.taold.activitiy.login.LoginActivity;
 import com.bb.taold.base.BaseActivity;
+import com.bb.taold.bean.UserInfo;
 import com.bb.taold.fragment.HomeFragment;
 import com.bb.taold.fragment.LoanFragment;
 import com.bb.taold.fragment.MyFragment;
 import com.bb.taold.fragment.RepayFragment;
+import com.bb.taold.pushservice.IntentService;
+import com.bb.taold.pushservice.PushService;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.CacheUtils;
+import com.bb.taold.utils.Constants;
 import com.bb.taold.widget.BottomBar;
+import com.igexin.sdk.PushManager;
 
 import butterknife.BindView;
 
@@ -44,7 +51,6 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
     }
 
 

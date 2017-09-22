@@ -6,6 +6,7 @@ import com.bb.taold.R;
 import com.bb.taold.adapter.recycleradapter.CommonRecyclerAdapter;
 import com.bb.taold.bean.MessageResult;
 import com.bb.taold.utils.LojaDateUtils;
+import com.bb.taold.utils.StringUtils;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class MessagesAdapter extends CommonRecyclerAdapter<MessageResult> {
 
     @Override
     public void convert(MyViewHolder holder, MessageResult item) {
-        holder.setText(R.id.tv_message_time, item.getGmtCreate())
+        holder.setText(R.id.tv_message_time, StringUtils.getTime(item.getGmtCreate(), LojaDateUtils.YYYY_MM_DD_DOT_FORMAT2))
                 .setText(R.id.tv_message_content, item.getContent());
     }
 }

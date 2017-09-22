@@ -205,7 +205,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
 
                         // 成功
                         if (LLPayConstants.RET_CODE_SUCCESS.equals(retCode)) {
-                            showMsg("绑定成功");
+
                             //关闭所有认证页面事件
                             Map<String, String> map = (Map<String, String>) CacheUtils.getDataCache(Constants.TO_CONFIRM_ACTIVIY);
                             Bundle mBundle = new Bundle();
@@ -238,8 +238,10 @@ public class AddBankCardFinalActivity extends BaseActivity {
     }
 
     private void updateAgreeNo(String llAgreeNo, String cardNo, final Bundle bundle) {
+//        2017092133093907
+        showMsg("绑定成功");
         Call<Result_Api<String>> call = new ApiServiveImpl().updateAgreeNo(llAgreeNo, cardNo);
-        Callexts.need_sessionPost(call, new PostCallback() {
+        Callexts.need_sessionPost(call, new PostCallback<AddBankCardFinalActivity>(this) {
             @Override public void successCallback(Result_Api api) {
                 EventBus.getDefault().post(Constants.AFTER_AUTH_CLOSE);
                 AppManager.getInstance().showActivity(LoanConfirmActivity.class, bundle);

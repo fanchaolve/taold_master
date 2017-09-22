@@ -70,9 +70,6 @@ public class MyApplication extends Application {
         //推送设置
         PushManager.getInstance().initialize(this.getApplicationContext(), PushService.class);
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), IntentService.class);
-        PushManager.getInstance().bindAlias(getAppContext(), "abc123");
-
-
         try {
             if (BuildConfig.DEBUG) {
                 FMAgent.init(context, FMAgent.ENV_SANDBOX);

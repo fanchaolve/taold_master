@@ -198,6 +198,7 @@ public class StringUtils {
                 long dateTime = Long.parseLong(time);
                 date = LojaDateUtils.format(dateTime, format);
             } catch (Exception e) {
+                e.printStackTrace();
                 date = "";
             }
 

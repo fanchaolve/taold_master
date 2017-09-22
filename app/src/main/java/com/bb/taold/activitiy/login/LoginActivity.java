@@ -32,6 +32,7 @@ import com.bb.taold.utils.DeviceUtils;
 import com.bb.taold.utils.PermissionUtil;
 import com.bb.taold.utils.PreferenceUtil;
 import com.bb.taold.utils.gps.GPSUtil;
+import com.igexin.sdk.PushManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -145,6 +146,17 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initdata() {
+        //6.0以下系统在欢迎页未同意权限 则在登录按钮时再次获取定位
+        GPSUtil.tryStart(new Act1<Location>() {
+            @Override
+            public void run(Location location) {
+                if (location != null) {
+                    MyApplication.latitude = location.latitude + "";
+                    MyApplication.longitude = location.lontitude + "";
+                    GPSUtil.tryStop();
+                }
+            }
+        });
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -174,34 +186,21 @@ public class LoginActivity extends BaseActivity {
                         Call<Result_Api<UserInfo>> call = service.user_info();
                         Callexts.need_sessionPost(call, postCallback);
                     }
-
-                    //6.0以下系统在欢迎页未同意权限 则在登录按钮时再次获取定位
-                    GPSUtil.tryStart(new Act1<Location>() {
-                        @Override
-                        public void run(Location location) {
-                            if (location != null) {
-                                MyApplication.latitude = location.latitude + "";
-                                MyApplication.longitude = location.lontitude + "";
-                                GPSUtil.tryStop();
-                            }
-                        }
-                    });
-
-//                    EventBus.getDefault().post(new EventType(1));
+                } else if (api.getT() instanceof UserInfo) {
+                    UserInfo info = (UserInfo) api.getT();
                     EventBus.getDefault().post(new LoginEvent(true));
+                    PushManager.getInstance().bindAlias(LoginActivity.this, info.getId() + "");
+
+
                     Bundle bundle = new Bundle();
                     bundle.putInt("card", home_tab);
                     AppManager.getInstance().showActivity(HomeActivity.class, bundle);
-                    //取消定时器
-                    if (mTimer != null)
-                        mTimer.cancel();
-                    finish();
-                } else if (api.getT() instanceof UserInfo) {
-                    UserInfo info = (UserInfo) api.getT();
+
                     //缓存用户信息，以便该登录用户全局使用。下次登录覆盖更新。
                     if (info != null) {
                         CacheUtils.saveDataToDiskLruCache(Constants.USER_INFO, info);
                     }
+                    finish();
                 }
 
             }
@@ -212,6 +211,7 @@ public class LoginActivity extends BaseActivity {
             }
         };
     }
+
 
     /**
      * 请求登录时判断条件
