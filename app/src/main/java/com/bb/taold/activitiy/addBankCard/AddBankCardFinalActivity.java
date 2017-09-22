@@ -23,6 +23,7 @@ import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.BandCardResult;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.UserInfo;
+import com.bb.taold.events.AddCard;
 import com.bb.taold.lianlian.utils.BaseHelper;
 import com.bb.taold.lianlian.utils.LLPayConstants;
 import com.bb.taold.lianlian.utils.MobileSecurePayer;
@@ -132,6 +133,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
         }
     };
     private CardInfo cardInfo;
+    private String mFrom;
 
     @Override
     public int getLayoutId() {
@@ -169,18 +171,11 @@ public class AddBankCardFinalActivity extends BaseActivity {
 
     @Override
     public void initdata() {
-//        Intent intent = getIntent();
-//        if (intent != null) {
-//            Bundle bundle = intent.getExtras();
-//            if (bundle != null && bundle.containsKey("card")) {
-//                cardCheck = (CardCheck) bundle.getSerializable("card");
-//
-//            }
-//
-//            if (bundle != null && bundle.containsKey("from_Act")) {
-//                from_Act = bundle.getInt("from_Act");
-//            }
-//        }
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle bundle = intent.getExtras();
+            mFrom = bundle.getString(Constants.ADD_CARD_FROM);
+        }
 //
 //        if (from_Act == 0) {
             mTvTitle.setText("绑定银行卡");
@@ -283,13 +278,15 @@ public class AddBankCardFinalActivity extends BaseActivity {
 
     private void updateAgreeNo(String llAgreeNo, String cardNo, final Bundle bundle) {
 //        2017092133093907
-        showMsg("绑定成功");
         Call<Result_Api<String>> call = new ApiServiveImpl().updateAgreeNo(llAgreeNo, cardNo);
         Callexts.need_sessionPost(call, new PostCallback<AddBankCardFinalActivity>(this) {
             @Override public void successCallback(Result_Api api) {
-                EventBus.getDefault().post(Constants.AFTER_AUTH_CLOSE);
-                AppManager.getInstance().showActivity(LoanConfirmActivity.class, bundle);
-                CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY, null);
+                showMsg("绑定成功");
+                if(mFrom.equals(Constants.FROM_AUTU)){
+                    AppManager.getInstance().showActivity(LoanConfirmActivity.class, bundle);
+                    CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY, null);
+                }
+                EventBus.getDefault().post(new AddCard());
                 finish();
             }
 

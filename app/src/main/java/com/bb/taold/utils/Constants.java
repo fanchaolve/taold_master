@@ -58,4 +58,8 @@ public final class Constants {
     public static final String APP_ID = "wxc7473dec7d6ffdc0";
     //聚合-支付宝支付
     public static final String EBJ_ALIPAY_URL = "http://pay.ebjfinance.com/alijspay.php";
+
+    public static final String ADD_CARD_FROM = "add_card_from";
+    public static final String FROM_CARD_LIST = "cards_list";
+    public static final String FROM_AUTU = "from_autu";
 }

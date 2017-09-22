@@ -3,13 +3,11 @@ package com.bb.taold.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bb.taold.events.LoginEvent;
 import com.bb.taold.MyApplication;
 import com.bb.taold.R;
 import com.bb.taold.activitiy.login.LoginActivity;
@@ -22,19 +20,17 @@ import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.bean.UserInfo;
+import com.bb.taold.events.LoginEvent;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.Constants;
 import com.bb.taold.utils.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import cn.tongdun.android.shell.FMAgent;
 import retrofit2.Call;
 
 
@@ -148,8 +144,6 @@ public class MyFragment extends BaseFragment {
                     AppManager.getInstance().showActivity(LoginActivity.class, null);
                 break;
             case R.id.lay_help:
-                String blackBox = FMAgent.onEvent(getActivity());
-                Log.e("blackBox=====", blackBox);
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.WEBVIEW_URL, "http://www.baidu.com");
                 AppManager.getInstance().showActivity(WebViewActivity.class, bundle);

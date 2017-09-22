@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bb.taold.R;
-import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
+import com.bb.taold.activitiy.addBankCard.AddBankCardFinalActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
@@ -21,7 +21,7 @@ import com.bb.taold.bean.DataUtils;
 import com.bb.taold.bean.UserParam;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
-import com.bb.taold.utils.GsonUtils;
+import com.bb.taold.utils.Constants;
 import com.bb.taold.utils.PermissionUtil;
 import com.bb.taold.widget.Line_ItemView;
 import com.bb.taold.widget.NumberPickViewDialog;
@@ -224,8 +224,10 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
                 Callexts.need_sessionPost(call, new PostCallback<PersonInfoFragment>(this) {
                     @Override
                     public void successCallback(Result_Api api) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.ADD_CARD_FROM,Constants.FROM_AUTU);
+                        AppManager.getInstance().showActivity(AddBankCardFinalActivity.class, bundle);
                         getActivity().finish();
-                        AppManager.getInstance().showActivity(AddBankCardActivity.class, null);
                     }
 
                     @Override

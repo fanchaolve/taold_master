@@ -3,7 +3,6 @@ package com.bb.taold.activitiy.cardList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,13 +16,15 @@ import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.CardCheck;
 import com.bb.taold.bean.CardInfo;
 import com.bb.taold.bean.Cardinfos;
+import com.bb.taold.events.AddCard;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
-import com.bb.taold.utils.CardNumScanUtil;
+import com.bb.taold.utils.Constants;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
-import com.idcard.TFieldID;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,22 +135,22 @@ public class CardListActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-            if (resultCode == CardNumScanUtil.RESULT_GET_OK) {
-                // 处理银行卡扫描结果（在界面上显示）
-                if (data == null) {
-                    return;
-                }
-                com.idcard.CardInfo cardInfo = (com.idcard.CardInfo) data.getSerializableExtra("cardinfo");
-                cardNo = cardInfo.getFieldString(TFieldID.TBANK_NUM);
-                cardNo = cardNo.replace(" ", "").trim();
-                if (TextUtils.isEmpty(cardNo)) {
-                    return;
-                }
-                getCardState(cardNo);
-
-            }
-        }
+//        if (data != null) {
+//            if (resultCode == CardNumScanUtil.RESULT_GET_OK) {
+//                // 处理银行卡扫描结果（在界面上显示）
+//                if (data == null) {
+//                    return;
+//                }
+//                com.idcard.CardInfo cardInfo = (com.idcard.CardInfo) data.getSerializableExtra("cardinfo");
+//                cardNo = cardInfo.getFieldString(TFieldID.TBANK_NUM);
+//                cardNo = cardNo.replace(" ", "").trim();
+//                if (TextUtils.isEmpty(cardNo)) {
+//                    return;
+//                }
+//                getCardState(cardNo);
+//
+//            }
+//        }
     }
 
     /**
@@ -170,8 +171,16 @@ public class CardListActivity extends BaseActivity {
                 break;
             case R.id.tv_addcard:
                 //添加银行卡
-                CardNumScanUtil.getINSTANCE().doScan();
+//                CardNumScanUtil.getINSTANCE().doScan();
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.ADD_CARD_FROM,Constants.FROM_CARD_LIST);
+                AppManager.getInstance().showActivity(AddBankCardFinalActivity.class,bundle);
                 break;
         }
+    }
+
+    @Subscribe
+    public void onEventMainThread(AddCard addCard){
+        mRecyclerView.forceToRefresh();
     }
 }
