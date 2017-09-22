@@ -77,7 +77,6 @@
     <string name="feedback_hint">请描述您遇到的问题和建议</string>
 
 
-
     <string name="no_escalation">暂不升级</string>
     <string name="lj_escalation">立即升级</string>
 
@@ -94,5 +93,8 @@
     <string name="app_name_stand">连连四要素SDK</string>
     <string name="sdk_introduction">SDK支持两种接入方式（标准版和卡前置），请按menu键进行选择所需要的支付方式，默认方式是标准版接入</string>
     <string name="loan_stage">借款进度</string>
+    <string name="card_text">1.您需要(时间)18:00之前存入%1$s到此银行卡内，系统会在还款日自动扣款。请在当日18：00钱确保卡上余额充足。</string>
+    <string name="card2_text">2.如果您已采用其他方式还款，在还款日不会自动扣款请放心使用</string>
+
 
 </resources>

@@ -50,7 +50,7 @@ public class Authorized_SesameFragment extends BaseFragment implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_confirm:
-                AppManager.getInstance().showBase_Info((AuthInfoActivity)getActivity(),new BaseInfoFragment());
+                AppManager.getInstance().showBase_Info((AuthInfoActivity)getActivity(),new PersonInfoFragment());
                 ((AuthInfoActivity) getActivity()).goStep(4);
                 break;
             default:

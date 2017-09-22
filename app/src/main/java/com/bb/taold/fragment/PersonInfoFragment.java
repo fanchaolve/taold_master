@@ -35,20 +35,9 @@ import butterknife.BindView;
 import retrofit2.Call;
 
 /**
- * ==============================================
- * <p>
- * 包名：com.bb.taold.fragment
- * <p>
- * 说明：TODO
- * <p>
- * 作者：fancl
- * <p>
- * 时间：2017/9/10
- * <p>
- * ==============================================
+ * 认证个人信息界面
  */
-
-public class BaseInfoFragment extends BaseFragment implements View.OnClickListener {
+public class PersonInfoFragment extends BaseFragment implements View.OnClickListener {
 
     private PermissionUtil.onPermissionGentedListener listener;   //权限获取
     protected PermissionUtil permissionUtil;
@@ -379,6 +368,10 @@ public class BaseInfoFragment extends BaseFragment implements View.OnClickListen
         }
         contact2.setName(li_realname2.getValue().toString());
         contact2.setRelativeType(ship2);
+        if (contact1.getTelphone().equals(contact2.getTelphone())) {
+            ((BaseActivity) getActivity()).showMsg("两个联系人的号码不能相同");
+            return false;
+        }
 
         List<Contact> contacts = new ArrayList<>();
         contacts.add(contact1);

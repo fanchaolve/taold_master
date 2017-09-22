@@ -20,16 +20,13 @@ import com.bb.taold.bean.Cardinfos;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.CardNumScanUtil;
-import com.bb.taold.widget.SwipeListLayout;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.idcard.TFieldID;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,16 +45,12 @@ public class CardListActivity extends BaseActivity {
     TextView mTvTitle;
     @BindView(R.id.rv_card_list)
     LRecyclerView mRecyclerView;
-
-    private static Set<SwipeListLayout> sets = new HashSet();
-
     //银行卡卡号
     private String cardNo = "";
 
     private PostCallback postCallback;
     private List<CardInfo> mCards = new ArrayList<>();
     private SwiperMenuAdapter mSwiperAdapter;
-    private LRecyclerViewAdapter mLRecyclerViewAdapter;
 
     @Override
     public int getLayoutId() {
@@ -106,8 +99,7 @@ public class CardListActivity extends BaseActivity {
         mTvTitle.setText("管理银行卡");
         mSwiperAdapter = new SwiperMenuAdapter(mContext);
         mSwiperAdapter.setDataList(mCards);
-        mLRecyclerViewAdapter = new LRecyclerViewAdapter(mSwiperAdapter);
-        mRecyclerView.setAdapter(mLRecyclerViewAdapter);
+        mRecyclerView.setAdapter(new LRecyclerViewAdapter(mSwiperAdapter));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -123,7 +115,7 @@ public class CardListActivity extends BaseActivity {
 
     private void getCardData() {
         //下拉刷新重新获取银行卡列表数据
-        Call<Result_Api<Cardinfos>> call = service.bankList("10");
+        Call<Result_Api<Cardinfos>> call = service.bankList("100");
         Callexts.need_sessionPost(call, postCallback);
     }
 
@@ -138,10 +130,6 @@ public class CardListActivity extends BaseActivity {
 
     /**
      * 监听银行卡识别回调
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

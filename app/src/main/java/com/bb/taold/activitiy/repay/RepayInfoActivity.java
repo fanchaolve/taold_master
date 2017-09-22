@@ -19,8 +19,10 @@ import com.bb.taold.bean.BillItemDetail;
 import com.bb.taold.bean.BillItemInfo;
 import com.bb.taold.bean.PayParams;
 import com.bb.taold.listener.Callexts;
+import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.Constants;
 import com.bb.taold.utils.EBJPayUtil;
+import com.bb.taold.utils.IntentUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -202,6 +204,7 @@ public class RepayInfoActivity extends BaseActivity {
             public void onClick(View v) {
                 //银行卡还款点击事件
                 dialog.dismiss();
+                AppManager.getInstance().showActivity(RepayBankCardActivity.class, null);
                 showTip("银行卡还款");
             }
         });

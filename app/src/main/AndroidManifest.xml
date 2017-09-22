@@ -245,6 +245,13 @@
             android:theme="@style/ACTAppTheme"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
+        <activity
+            android:name=".activitiy.repay.RepayBankCardActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/ACTAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
 
 
         <!--扫描银行卡-->

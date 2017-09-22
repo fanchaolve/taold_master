@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_f0f2f5"
-    android:orientation="vertical">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_f0f2f5"
+              android:orientation="vertical">
 
 
     <LinearLayout
@@ -22,11 +22,11 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/tel_name"
                 android:textAppearance="@style/TextAppear.Theme.111111_Size15"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tv_tel"
@@ -38,7 +38,7 @@
 
         </LinearLayout>
 
-        <include layout="@layout/line_e" />
+        <include layout="@layout/line_e"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,22 +48,22 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/service_passworld"
                 android:textAppearance="@style/TextAppear.Theme.111111_Size15"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <EditText
-                android:gravity="right"
                 android:id="@+id/et_password"
-                android:background="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/color_hint"
+                android:background="@null"
+                android:gravity="right"
                 android:hint="@string/please_sp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppear.Theme.111111_Size15"
+                android:textColorHint="@color/color_hint"
                 />
 
         </LinearLayout>
@@ -71,20 +71,20 @@
     </LinearLayout>
 
     <LinearLayout
-        android:paddingLeft="15dp"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="15dp">
 
         <CheckBox
             android:id="@+id/ck_agree"
             style="@style/mycheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_hint"
-            android:textAppearance="@style/TextAppear.Theme.hint_Size15"
+            android:checked="true"
             android:text="@string/agreement1"
-            android:checked="true" />
+            android:textAppearance="@style/TextAppear.Theme.hint_Size15"
+            android:textColor="@color/color_hint"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -102,33 +102,32 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="25dp"
-        android:textSize="16sp"
-        android:textColor="#FEFEFE"
+        android:background="@drawable/bg_loan_button"
         android:gravity="center"
         android:text="@string/next"
-        android:background="@drawable/bg_loan_button"/>
+        android:textColor="#FEFEFE"
+        android:textSize="16sp"/>
 
 
     <TextView
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:gravity="center_horizontal"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
         android:text="@string/query_detail"
         android:textSize="14sp"
         />
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="42dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/query_detail2"
         android:lineSpacingExtra="8dp"
+        android:text="@string/query_detail2"
         android:textSize="14sp"
         />
-
 
 
 </LinearLayout>

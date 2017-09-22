@@ -16,7 +16,7 @@ import com.bb.taold.base.BaseFragment;
 import com.bb.taold.fragment.Auth_StateFragment;
 import com.bb.taold.fragment.Authorized_IdFragment;
 import com.bb.taold.fragment.Authorized_SesameFragment;
-import com.bb.taold.fragment.BaseInfoFragment;
+import com.bb.taold.fragment.PersonInfoFragment;
 import com.bb.taold.fragment.Mobile_Phone_OperatorsFragment;
 
 import java.util.Stack;
@@ -210,7 +210,7 @@ public class AppManager {
         doReplaceTran(from, toFragment, bundle);
     }
 
-    public void showBase_Info(BaseActivity from, BaseInfoFragment toFragment) {
+    public void showBase_Info(BaseActivity from, PersonInfoFragment toFragment) {
         doReplaceTran(from, toFragment, null);
     }
 

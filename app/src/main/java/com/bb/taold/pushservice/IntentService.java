@@ -37,7 +37,7 @@ public class IntentService extends GTIntentService {
     public void onReceiveMessageData(Context context, GTTransmitMessage msg) {
         String string = new String(msg.getPayload());
         Log.e("-------getPayload----", string);
-        showNotifictionIcon(context);
+        showNotifictionIcon(context, string);
 
     }
 
@@ -55,15 +55,15 @@ public class IntentService extends GTIntentService {
         Log.e(TAG, "onReceiveClientId -> " + "clientid = " + cmdMessage.getAction());
     }
 
-    public static void showNotifictionIcon(Context context) {
+    public static void showNotifictionIcon(Context context, String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         Intent intent = new Intent(context, MyMessagesActivity.class);//将要跳转的界面
         builder.setAutoCancel(true);//点击后消失
         builder.setSmallIcon(R.drawable.icon);//设置通知栏消息标题的头像
         builder.setDefaults(NotificationCompat.DEFAULT_SOUND);//设置通知铃声
         builder.setTicker("消息");
-        builder.setContentText("今天天气真好");//通知内容
-        builder.setContentTitle("天气");
+        builder.setContentText(message);//通知内容
+        builder.setContentTitle("消息");
         //利用PendingIntent来包装我们的intent对象,使其延迟跳转
         PendingIntent intentPend = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(intentPend);
