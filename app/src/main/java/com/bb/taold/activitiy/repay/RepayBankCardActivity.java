@@ -99,8 +99,8 @@ public class RepayBankCardActivity extends BaseActivity {
         if (cardNo.length() > 4) {
             cardNo = cardNo.substring(cardNo.length() - 4, cardNo.length());
         }
-        tvCardinfo.setText("尾号" + cardNo + " " + "借记卡???");
-        tvCardtype.setText("借款卡????");
+        tvCardinfo.setText("尾号" + cardNo + " " + "借记卡");
+        tvCardtype.setText("借款卡");
     }
 
     private void getCardData() {

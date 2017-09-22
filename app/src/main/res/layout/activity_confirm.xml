@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -316,8 +317,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:paddingBottom="10dp"
                     android:layout_marginRight="15dp"
+                    android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:text="更换银行"
                     android:textColor="@color/color_111111"
@@ -365,9 +366,9 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
                         android:layout_toRightOf="@id/iv_bankicon"
-                        android:text="借记卡"
                         android:textColor="@color/white"
                         android:textSize="11sp"
+                        tools:text="借记卡"
                         />
 
                     <TextView
@@ -454,6 +455,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+
                         android:text="我保证借款用于合法的消费或经营途径，而非任何非法用途（如股票，房地产，赌博）"/>
                 </LinearLayout>
             </LinearLayout>

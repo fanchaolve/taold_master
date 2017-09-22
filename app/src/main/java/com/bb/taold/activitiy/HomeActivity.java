@@ -19,6 +19,7 @@ import com.bb.taold.pushservice.PushService;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.CacheUtils;
 import com.bb.taold.utils.Constants;
+import com.bb.taold.view.UtilDialog;
 import com.bb.taold.widget.BottomBar;
 import com.igexin.sdk.PushManager;
 
@@ -43,6 +44,7 @@ public class HomeActivity extends BaseActivity {
     private RepayFragment repayFragment;
     //我的页面
     private MyFragment myFragment;
+    private UtilDialog utilDialog;
 
     @Override
     public int getLayoutId() {
@@ -51,6 +53,16 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        utilDialog = new UtilDialog(this).setMessage("").setDialogLister(new UtilDialog.DialogLister() {
+            @Override public void onCancel() {
+
+            }
+
+            @Override public void onConfirm() {
+
+            }
+        });
+
     }
 
 

@@ -54,7 +54,7 @@ public class Auth_StateFragment extends BaseFragment implements View.OnClickList
     private AuthParam param;
 
 
-    private PostCallback postCallback =new PostCallback(this) {
+    private PostCallback postCallback =new PostCallback<Auth_StateFragment>(this) {
         @Override
         public void successCallback(Result_Api api) {
             if(api.getT() instanceof AuthInfo){

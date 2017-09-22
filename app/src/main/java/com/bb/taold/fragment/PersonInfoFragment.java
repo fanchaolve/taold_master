@@ -97,18 +97,6 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
 
     private UserParam param = new UserParam();
 
-    private PostCallback postCallback = new PostCallback(this) {
-        @Override
-        public void successCallback(Result_Api api) {
-            getActivity().finish();
-            AppManager.getInstance().showActivity(AddBankCardActivity.class, null);
-        }
-
-        @Override
-        public void failCallback() {
-
-        }
-    };
 
     @Override
     public int getLayoutId() {
@@ -233,7 +221,18 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
                 }
                 Call<Result_Api<String>> call = service.member_commitMemberContactInfo(param.getEducation(),
                         param.getAddress(), param.getCompany(), param.getCompanyAddress(), param.getMemberContactInfo());
-                Callexts.need_sessionPost(call, postCallback);
+                Callexts.need_sessionPost(call, new PostCallback<PersonInfoFragment>(this) {
+                    @Override
+                    public void successCallback(Result_Api api) {
+                        getActivity().finish();
+                        AppManager.getInstance().showActivity(AddBankCardActivity.class, null);
+                    }
+
+                    @Override
+                    public void failCallback() {
+
+                    }
+                });
                 break;
         }
     }

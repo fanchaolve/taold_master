@@ -13,23 +13,16 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/icon_imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:src="@drawable/new_update"/>
+            android:src="@drawable/icon_image"/>
+
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:text="@string/update_version"
-            android:textAppearance="@style/TextAppear.Theme.font111111_Size16"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tv_memo"
+            android:id="@+id/content_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
@@ -37,8 +30,9 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
             android:lineSpacingExtra="3dp"
-            android:text="升级功能:\n1.首页新增贷款功能\n2.增加人脸识别\n3.增加借款额度"
-            android:textAppearance="@style/TextAppear.Theme.111111_Size14"/>
+            android:text=""
+            android:textAppearance="@style/TextAppear.Theme.111111_Size14"
+            android:textColor="@color/color_price"/>
 
         <include layout="@layout/line_e"/>
 

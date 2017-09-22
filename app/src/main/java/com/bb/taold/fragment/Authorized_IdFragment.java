@@ -59,7 +59,7 @@ public class Authorized_IdFragment extends BaseFragment implements View.OnClickL
     @Override
     public void initView() {
         tv_confirm.setOnClickListener(this);
-        postCallback = new PostCallback(this) {
+        postCallback = new PostCallback<Authorized_IdFragment>(this) {
             @Override
             public void successCallback(Result_Api api) {
 
