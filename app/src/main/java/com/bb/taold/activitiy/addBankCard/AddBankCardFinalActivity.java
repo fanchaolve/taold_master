@@ -1,7 +1,6 @@
 package com.bb.taold.activitiy.addBankCard;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,13 +32,10 @@ import com.bb.taold.utils.CardNumScanUtil;
 import com.bb.taold.utils.Constants;
 import com.idcard.CardInfo;
 import com.idcard.TFieldID;
-import com.turui.bank.ocr.CaptureActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -73,66 +69,8 @@ public class AddBankCardFinalActivity extends BaseActivity {
     EditText mEtAcctPhone;
 
     private int from_Act = 0;//0绑卡,1添加
-
-
     private UserInfo info;//
-
     private CardCheck mCardCheck;
-    private PostCallback postCallback = new PostCallback<BaseActivity>(this) {
-        @Override
-        public void successCallback(Result_Api api) {
-            if (mContext == null)
-                return;
-
-            if (api.getT() instanceof UserInfo) {
-                info = (UserInfo) api.getT();
-                if (info == null)
-                    return;
-                mEtAcctUser.setText(info.getRealName());
-            } else if (api.getT() instanceof BandCardResult) {
-                BandCardResult bandCardResult = (BandCardResult) api.getT();
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("no_order", bandCardResult.getNo_order());
-                    jsonObject.put("oid_partner", bandCardResult.getOid_partner());
-                    jsonObject.put("user_id", bandCardResult.getUser_id());
-                    jsonObject.put("token", bandCardResult.getToken());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                Log.i("fancl", ((BandCardResult) api.getT()).getToken());
-                MobileSecurePayer payer = new MobileSecurePayer();
-//                            payer.setCAPTCHA_Switch(true);
-                payer.setCallbackHandler(mHandler, LLPayConstants.RQF_SIGN);
-                payer.setTestMode(false);
-                boolean bRet = payer.doTokenSign(jsonObject, AddBankCardFinalActivity.this);
-//                finish();
-                AppManager.getInstance().finishParticularActivity(AddBankCardActivity.class);
-            }
-        }
-
-        @Override
-        public void failCallback() {
-
-        }
-    };
-
-    private PostCallback checkCardPost = new PostCallback<BaseActivity>(this) {
-        @Override public void successCallback(Result_Api api) {
-            if (api.getT() instanceof CardCheck) {
-                mCardCheck = (CardCheck) api.getT();
-                if (!TextUtils.isEmpty(mCardCheck.getBankName())) {
-                    mEtAcctName.setText(mCardCheck.getBankName());
-                }
-
-            }
-        }
-
-        @Override public void failCallback() {
-
-        }
-    };
     private CardInfo cardInfo;
     private String mFrom;
 
@@ -150,14 +88,6 @@ public class AddBankCardFinalActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-//        mEtAcctNo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override public void onFocusChange(View v, boolean hasFocus) {
-//                String cardNo = mEtAcctNo.getText().toString();
-//                if(cardNo.length()>0&&!hasFocus){
-//                    getCardState(cardNo);
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -167,62 +97,126 @@ public class AddBankCardFinalActivity extends BaseActivity {
             Bundle bundle = intent.getExtras();
             mFrom = bundle.getString(Constants.ADD_CARD_FROM);
         }
-//
-//        if (from_Act == 0) {
         mTvTitle.setText("绑定银行卡");
-//        } else if (from_Act == 1) {
-//            mTvTitle.setText("添加银行卡");
-//        }
-//
-//        if (cardCheck == null)
-//            return;
-//        mEtAcctNo.setText(cardCheck.getCardNo().replaceAll("\\d{4}(?!$)", "$0 "));
-//        mEtAcctName.setText(cardCheck.getBankName());
-        Call<Result_Api<UserInfo>> call = service.user_info();
-        Callexts.need_sessionPost(call, postCallback);
-
-
+        getUserInfo();
     }
 
 
-    @OnClick({R.id.btn_back, R.id.iv_tip_name, R.id.iv_tip_phone, R.id.tv_next, R.id.iv_scan_card, R.id.tv_acctName})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_back:
+    /**
+     * 绑卡
+     */
+    private void createNewBankCard(String llAgreeNo, final Bundle mBundle) {
+        Call<Result_Api> call = service.createNewBankCard(mCardCheck.getBankCode(),
+                info.getRealName(), mEtAcctNo.getText().toString().replace(" ", ""),
+                info.getIdCard(), mCardCheck.getBankName(),
+                mEtAcctPhone.getText().toString(), "0", llAgreeNo);
+        Callexts.need_sessionPost(call, new PostCallback<AddBankCardFinalActivity>(this) {
+            @Override public void successCallback(Result_Api api) {
+                showMsg("绑定成功");
+                if (mFrom.equals(Constants.FROM_AUTU)) {
+                    AppManager.getInstance().showActivity(LoanConfirmActivity.class, mBundle);
+                    CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY, null);
+                }
+                EventBus.getDefault().post(new AddCard());
                 finish();
-                break;
-            case R.id.iv_tip_name:
-                break;
-            case R.id.iv_tip_phone:
-                break;
-            case R.id.tv_next:
-                if (TextUtils.isEmpty(mEtAcctPhone.getText().toString())) {
-                    showTip("请填写预留手机号");
-                    break;
-                }
-                if (mCardCheck == null || info == null) {
-                    showTip("未获取卡片或者个人信息");
-                    return;
-                }
+            }
 
-                Call<Result_Api<BandCardResult>> call = service.createNewBankCard(mCardCheck.getBankCode(),
-                        info.getRealName(), mEtAcctNo.getText().toString().replace(" ", ""),
-                        info.getIdCard(), mCardCheck.getBankName(),
-                        mEtAcctPhone.getText().toString(), "0");
-                Callexts.need_sessionPost(call, postCallback);
-                break;
-            case R.id.iv_scan_card:
-                //添加银行卡页面
-                CardNumScanUtil.getINSTANCE().doScan();
-                break;
-            case R.id.tv_acctName:
-                String cardNum = mEtAcctNo.getText().toString();
-                if (cardNum.length() > 0) {
-                    getCardState(mEtAcctNo.getText().toString());
-                }
-                break;
-        }
+            @Override public void failCallback() {
+
+            }
+        });
     }
+
+    private void getLLToken() {
+        Call<Result_Api<BandCardResult>> call = new ApiServiveImpl().getLLToken(mEtAcctNo.getText().toString(), mEtAcctPhone.getText().toString());
+        Callexts.need_sessionPost(call, new PostCallback<AddBankCardFinalActivity>(this) {
+            @Override public void successCallback(Result_Api api) {
+                if (api.getT() instanceof BandCardResult) {
+                    BandCardResult bandCardResult = (BandCardResult) api.getT();
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("no_order", bandCardResult.getNo_order());
+                        jsonObject.put("oid_partner", bandCardResult.getOid_partner());
+                        jsonObject.put("user_id", bandCardResult.getUser_id());
+                        jsonObject.put("token", bandCardResult.getToken());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    MobileSecurePayer payer = new MobileSecurePayer();
+                    payer.setCallbackHandler(mHandler, LLPayConstants.RQF_SIGN);
+                    payer.setTestMode(false);
+                    boolean bRet = payer.doTokenSign(jsonObject, AddBankCardFinalActivity.this);
+                }
+            }
+
+            @Override public void failCallback() {
+
+            }
+        });
+    }
+
+    private void getCardInfo(String ordNo) {
+        Call<Result_Api<CardCheck>> call = service.supportCard(ordNo);
+        Callexts.need_sessionPost(call, new PostCallback() {
+            @Override public void successCallback(Result_Api api) {
+                if (api.getT() instanceof CardCheck) {
+                    mCardCheck = (CardCheck) api.getT();
+                    if (!TextUtils.isEmpty(mCardCheck.getBankName())) {
+                        mEtAcctName.setText(mCardCheck.getBankName());
+                    }
+
+                }
+            }
+
+            @Override public void failCallback() {
+
+            }
+        });
+    }
+
+    private void getUserInfo() {
+        Call<Result_Api<UserInfo>> call = service.user_info();
+        Callexts.need_sessionPost(call, new PostCallback<BaseActivity>(this) {
+            @Override
+            public void successCallback(Result_Api api) {
+                if (mContext == null)
+                    return;
+
+                if (api.getT() instanceof UserInfo) {
+                    info = (UserInfo) api.getT();
+                    if (info == null)
+                        return;
+                    mEtAcctUser.setText(info.getRealName());
+                }
+            }
+
+            @Override
+            public void failCallback() {
+
+            }
+        });
+    }
+
+
+//    private void updateAgreeNo(String llAgreeNo, String cardNo, final Bundle bundle) {
+//        Call<Result_Api<String>> call = new ApiServiveImpl().updateAgreeNo(llAgreeNo, cardNo);
+//        Callexts.need_sessionPost(call, new PostCallback<AddBankCardFinalActivity>(this) {
+//            @Override public void successCallback(Result_Api api) {
+//                showMsg("绑定成功");
+//                if (mFrom.equals(Constants.FROM_AUTU)) {
+//                    AppManager.getInstance().showActivity(LoanConfirmActivity.class, bundle);
+//                    CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY, null);
+//                }
+//                EventBus.getDefault().post(new AddCard());
+//                finish();
+//            }
+//
+//            @Override public void failCallback() {
+//
+//            }
+//        });
+//    }
+
 
     private Handler mHandler = createHandler();
 
@@ -244,7 +238,8 @@ public class AddBankCardFinalActivity extends BaseActivity {
                             LoanBundle loanBundle = (LoanBundle) CacheUtils.getDataCache(Constants.TO_CONFIRM_ACTIVIY);
                             Bundle mBundle = new Bundle();
                             mBundle.putSerializable("key", loanBundle);
-                            updateAgreeNo(no_agree, mEtAcctNo.getText().toString().replace(" ", ""), mBundle);
+                            createNewBankCard(no_agree, mBundle);
+//                            updateAgreeNo(no_agree, mEtAcctNo.getText().toString().replace(" ", ""), mBundle);
 
 //                            BaseHelper.showDialog(AddBankCardFinalActivity.this, "提示",
 //                                    "支付成功，交易状态码：" + retCode + " 返回报文:" + strRet,
@@ -266,29 +261,38 @@ public class AddBankCardFinalActivity extends BaseActivity {
 
     }
 
-    private void updateAgreeNo(String llAgreeNo, String cardNo, final Bundle bundle) {
-//        2017092133093907
-        Call<Result_Api<String>> call = new ApiServiveImpl().updateAgreeNo(llAgreeNo, cardNo);
-        Callexts.need_sessionPost(call, new PostCallback<AddBankCardFinalActivity>(this) {
-            @Override public void successCallback(Result_Api api) {
-                showMsg("绑定成功");
-                if (mFrom.equals(Constants.FROM_AUTU)) {
-                    AppManager.getInstance().showActivity(LoanConfirmActivity.class, bundle);
-                    CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY, null);
-                }
-                EventBus.getDefault().post(new AddCard());
+    @OnClick({R.id.btn_back, R.id.iv_tip_name, R.id.iv_tip_phone, R.id.tv_next, R.id.iv_scan_card, R.id.tv_acctName})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_back:
                 finish();
-            }
-
-            @Override public void failCallback() {
-
-            }
-        });
-    }
-
-    private void getCardState(String ordNo) {
-        Call<Result_Api<CardCheck>> call = service.supportCard(ordNo);
-        Callexts.need_sessionPost(call, checkCardPost);
+                break;
+            case R.id.iv_tip_name:
+                break;
+            case R.id.iv_tip_phone:
+                break;
+            case R.id.tv_next:
+                if (TextUtils.isEmpty(mEtAcctPhone.getText().toString())) {
+                    showTip("请填写预留手机号");
+                    break;
+                }
+                if (mCardCheck == null || info == null) {
+                    showTip("未获取卡片或者个人信息");
+                    return;
+                }
+                getLLToken();
+                break;
+            case R.id.iv_scan_card:
+                //添加银行卡页面
+                CardNumScanUtil.getINSTANCE().doScan();
+                break;
+            case R.id.tv_acctName:
+                String cardNum = mEtAcctNo.getText().toString();
+                if (cardNum.length() > 0) {
+                    getCardInfo(mEtAcctNo.getText().toString());
+                }
+                break;
+        }
     }
 
     @Override
@@ -305,13 +309,8 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(cardNo)) {
                     cardNo = cardNo.replace(" ", "").trim();
                     mEtAcctNo.setText(cardNo);
-                    getCardState(cardNo);
+                    getCardInfo(cardNo);
                 }
-                //银行卡照片
-                Bitmap bitmap = CaptureActivity.TakeBitmap;
-//                if (bitmap == null)
-//                    return;
-//                iv_take.setImageBitmap(bitmap);
             }
         }
     }

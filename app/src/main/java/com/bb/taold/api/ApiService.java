@@ -122,13 +122,15 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=member.createNewBankCard_mobile_platform")
-    Call<Result_Api<BandCardResult>> createNewBankCard(@Field("bankCode") String bankCode,
-                                                       @Field("owner") String owner,
-                                                       @Field("cardno") String cardno,
-                                                       @Field("idno") String idno,
-                                                       @Field("cardName") String cardName,
-                                                       @Field("mobile") String mobile,
-                                                       @Field("platform") String platform
+    Call<Result_Api> createNewBankCard(@Field("bankCode") String bankCode,
+                                       @Field("owner") String owner,
+                                       @Field("cardno") String cardno,
+                                       @Field("idno") String idno,
+                                       @Field("cardName") String cardName,
+                                       @Field("mobile") String mobile,
+                                       @Field("platform") String platform,
+                                       @Field("llAgreeNo") String llAgreeNo
+
     );
 
     /**
@@ -385,14 +387,22 @@ public interface ApiService {
                                                  @Field("buildversion") String buildversion);
 
     /**
-     * 还款支付
-     *
      * @return
      */
     @FormUrlEncoded
     @POST("/gateway?method=member.updateAgreeNo")
     Call<Result_Api<String>> updateAgreeNo(@Field("llAgreeNo") String llAgreeNo,
                                            @Field("cardNo") String cardNo);
+
+    /**
+     * 还款支付
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/gateway?method=member.getLLToken")
+    Call<Result_Api<BandCardResult>> getLLToken(@Field("platform") String platform,
+                                                @Field("cardno") String cardNo, @Field("mobile") String mobile);
 
 
 }

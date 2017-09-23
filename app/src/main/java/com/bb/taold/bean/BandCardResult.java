@@ -28,7 +28,7 @@ public class BandCardResult {
     private String oid_partner;
     private int user_id;
     private String token;
-
+    
     public String getNo_order() {
         return no_order;
     }
