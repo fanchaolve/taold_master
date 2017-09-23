@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.bb.taold.adapter.recycleradapter.SwipeMenuView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sll_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
@@ -15,11 +16,11 @@
 
         <ImageView
             android:id="@+id/iv_bankicon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/icon"/>
+            android:src="@drawable/card_default"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -34,7 +35,7 @@
                 android:textColor="@color/color_111111"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:text="工商银行"/>
+                tools:text="工商银行"/>
             <TextView
                 android:id="@+id/tv_cardinfo"
                 android:layout_width="wrap_content"
@@ -42,17 +43,17 @@
                 android:textColor="@color/font_normal"
                 android:textSize="11sp"
                 android:layout_marginTop="5dp"
-                android:text="尾号6220 借记卡"/>
+                tools:text="尾号6220 借记卡"/>
         </LinearLayout>
         <TextView
             android:id="@+id/tv_cardtype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="放款卡"
             android:layout_toLeftOf="@id/icon"
             android:layout_centerVertical="true"
             android:textSize="15sp"
             android:layout_marginRight="15dp"
+            tools:text="放款卡"
             android:textColor="@color/color_price"/>
         <ImageView
             android:id="@+id/icon"

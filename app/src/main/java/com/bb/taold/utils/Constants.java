@@ -62,4 +62,8 @@ public final class Constants {
     public static final String ADD_CARD_FROM = "add_card_from";
     public static final String FROM_CARD_LIST = "cards_list";
     public static final String FROM_AUTU = "from_autu";
+
+    //银行卡类型  10,银行卡;20,信用卡
+    public static final String CARD_TYPE_DEBIT = "10";
+    public static final String CARD_TYPE_CREDIT = "20";
 }
