@@ -32,7 +32,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/login_logo"/>
     
     <TextView
         android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:layout_toRightOf="@id/text"
+            android:layout_toRightOf="@+id/text"
             android:hint="请输入短信验证码"
             android:maxLength="4"
             android:inputType="number"

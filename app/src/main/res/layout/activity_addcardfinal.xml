@@ -126,6 +126,7 @@
                 android:background="@color/white">
 
                 <TextView
+                    android:id="@+id/tv_card_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -135,11 +136,13 @@
 
                 <TextView
                     android:id="@+id/tv_acctName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_card_title"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
+                    android:gravity="right"
                     android:background="@null"
                     android:textColor="@color/color_111111"
                     android:textSize="15sp"

@@ -5,9 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -46,6 +44,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 
+import static com.bb.taold.R.id.tv_acctName;
+
 /**
  * Created by zhucheng'an on 2017/9/11.
  * 添加银行卡页面
@@ -66,7 +66,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
     /**
      * 银行名称
      */
-    @BindView(R.id.tv_acctName)
+    @BindView(tv_acctName)
     TextView mEtAcctName;
     @BindView(R.id.et_acctPhone)
     EditText mEtAcctPhone;
@@ -117,7 +117,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
         }
     };
 
-    private PostCallback checkCardPost = new PostCallback() {
+    private PostCallback checkCardPost = new PostCallback<BaseActivity>(this) {
         @Override public void successCallback(Result_Api api) {
             if (api.getT() instanceof CardCheck) {
                 mCardCheck = (CardCheck) api.getT();
@@ -149,24 +149,14 @@ public class AddBankCardFinalActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-        mEtAcctNo.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override public void afterTextChanged(Editable s) {
-                int len = s.toString().length();
-                //银行卡号长度
-                if(len>=16&&len<=19){
-                    getCardState(s.toString());
-                }
-            }
-        });
+//        mEtAcctNo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override public void onFocusChange(View v, boolean hasFocus) {
+//                String cardNo = mEtAcctNo.getText().toString();
+//                if(cardNo.length()>0&&!hasFocus){
+//                    getCardState(cardNo);
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -194,7 +184,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_back, R.id.iv_tip_name, R.id.iv_tip_phone, R.id.tv_next,R.id.iv_scan_card})
+    @OnClick({R.id.btn_back, R.id.iv_tip_name, R.id.iv_tip_phone, R.id.tv_next,R.id.iv_scan_card,R.id.tv_acctName})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
@@ -223,6 +213,12 @@ public class AddBankCardFinalActivity extends BaseActivity {
             case R.id.iv_scan_card:
                 //添加银行卡页面
                 CardNumScanUtil.getINSTANCE().doScan();
+                break;
+            case R.id.tv_acctName:
+                String cardNum = mEtAcctNo.getText().toString();
+                if(cardNum.length()>0){
+                    getCardState(mEtAcctNo.getText().toString());
+                }
                 break;
         }
     }
