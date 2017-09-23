@@ -10,6 +10,18 @@ public class LoanBundle implements Serializable {
     private String loanType;
     private String stageId;
     private String loanAmount;
+    /**
+     * 借款天数
+     */
+    private String loanDays;
+
+    public String getLoanDays() {
+        return loanDays;
+    }
+
+    public void setLoanDays(String loanDays) {
+        this.loanDays = loanDays;
+    }
 
     public String getLoanAmount() {
         return loanAmount;

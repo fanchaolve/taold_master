@@ -191,7 +191,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("/gateway?method=loan.applyMiniLoan")
-    Call<Result_Api<LoanInfo>> applyMiniLoan(@Field("bankCardId") String bankCardId,
+    Call<Result_Api<String>> applyMiniLoan(@Field("bankCardId") String bankCardId,
                                              @Field("amtLoan") String amtLoan,
                                              @Field("loanDays") String loanDays,
                                              @Field("latLot") String latLot,

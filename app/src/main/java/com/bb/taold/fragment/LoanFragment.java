@@ -79,8 +79,10 @@ public class LoanFragment extends BaseFragment {
     //使用分期id保存
     private String stageId = "";
 
+
     //各项费用保存
     private ProductFee mProductFee = null;
+
 
     @Override
     public int getLayoutId() {
@@ -233,12 +235,17 @@ public class LoanFragment extends BaseFragment {
                     LoanBundle loanBundle = new LoanBundle();
                     loanBundle.setStageId(stageId);
                     loanBundle.setLoanAmount(mTvLoanAmount.getText().toString());
+                    //借款天数
+                    String tag = "";
                     //当前使用id
                     if (mTvStatus7.isSelected()) {
+                        tag = (String) mTvStatus7.getTag();
                         loanBundle.setLoanType("7天");
                     } else {
+                        tag = (String) mTvStatus14.getTag();
                         loanBundle.setLoanType("14天");
                     }
+                    loanBundle.setLoanDays(tag);
                     Bundle mBundle = new Bundle();
                     mBundle.putSerializable("key", loanBundle);
                     CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY, loanBundle);
@@ -268,7 +275,7 @@ public class LoanFragment extends BaseFragment {
      */
     private void productInfo() {
         Call<Result_Api<ProductInfo>> call = service.productInfo("mini_loan");
-        Callexts.Unneed_sessionPost(call, new PostCallback() {
+        Callexts.Unneed_sessionPost(call, new PostCallback<LoanFragment>(this) {
             @Override public void successCallback(Result_Api api) {
                 if (api.getT() instanceof ProductInfo) {
                     //保存借款金额信息
@@ -286,10 +293,14 @@ public class LoanFragment extends BaseFragment {
                         if (stagesInfo.getStages().equals("7")) {
                             //如果是7天
                             stage7Id = stagesInfo.getId();
+                            mTvStatus7.setText(stagesInfo.getStagesName());
+                            mTvStatus7.setTag(stagesInfo.getStages());
                         }
                         if (stagesInfo.getStages().equals("14")) {
                             //如果是7天
                             stage14Id = stagesInfo.getId();
+                            mTvStatus14.setText(stagesInfo.getStagesName());
+                            mTvStatus14.setTag(stagesInfo.getStages());
                         }
 
                     }

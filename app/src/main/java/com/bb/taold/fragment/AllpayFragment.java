@@ -39,7 +39,7 @@ public class AllpayFragment extends BaseFragment {
     @BindView(R.id.empty_view) EmptyView emptyView;
     Unbinder unbinder;
     //记录当前查询历史记录的页数
-    private int currentPage = 1;
+    private int currentPage = 0;
     private AllpayBillAdapter allpayBillAdapter;
     private LRecyclerViewAdapter recyclerViewAdapter;
 

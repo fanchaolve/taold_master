@@ -87,6 +87,7 @@ public class LoanConfirmActivity extends BaseActivity {
     //保存主卡信息
     private CardInfo mCardInfo = null;
     private LoanBundle loanBundle;
+    private String loanDays = "";
 
     @Override
     public int getLayoutId() {
@@ -113,6 +114,7 @@ public class LoanConfirmActivity extends BaseActivity {
             loanBundle = (LoanBundle) mBundle.getSerializable("key");
             mTvLoanAmount.setText(loanBundle.getLoanAmount());
             mTvLoanDays.setText(loanBundle.getLoanType());
+            loanDays = loanBundle.getLoanDays();
             stageId = loanBundle.getStageId();
         }
 
@@ -240,8 +242,8 @@ public class LoanConfirmActivity extends BaseActivity {
                     return;
                 }
                 //调用小额贷款接口
-                Call<Result_Api<LoanInfo>> call = service.applyMiniLoan(mCardInfo.getId(), mTvLoanAmount.getText().toString(),
-                        mTvLoanDays.getText().toString().replace("天", ""), MyApplication.longitude + "-" + MyApplication.latitude,
+                Call<Result_Api<String>> call = service.applyMiniLoan(mCardInfo.getId(), mTvLoanAmount.getText().toString(),
+                        loanDays, MyApplication.longitude + "-" + MyApplication.latitude,
                         DeviceUtils.getDeviceIdentification(this), "1", "1", "1", "1");
                 Callexts.need_sessionPost(call, postCallback);
                 break;

@@ -13,7 +13,7 @@ public class StagesInfo {
     private String productId = "";
     //分期数
     private String stages = "";
-    private String stagesNames = "";
+    private String stagesName = "";
     //利息利率
     private String interestRates = "";
     //额度审核费率
@@ -53,12 +53,12 @@ public class StagesInfo {
         this.stages = stages;
     }
 
-    public String getStagesNames() {
-        return stagesNames;
+    public String getStagesName() {
+        return stagesName;
     }
 
-    public void setStagesNames(String stagesNames) {
-        this.stagesNames = stagesNames;
+    public void setStagesName(String stagesName) {
+        this.stagesName = stagesName;
     }
 
     public String getInterestRates() {
