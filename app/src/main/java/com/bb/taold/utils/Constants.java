@@ -10,7 +10,7 @@ public final class Constants {
     public static final String INVALID_SESSION = "INVALID_SESSION";//登陆失效
     public static final String OSNAME = "A";//操作系统
 
-    public static final String APP_KEY="taolidai";
+    public static final String APP_KEY="xqd";
     public static final String SECRET="lU9ZCkpxiL9PW86QevPXhs";
     //支付渠道   支付宝 10 ，银行卡 20
     public static final String PAY_CHANNEL_ALIPAY="10";
