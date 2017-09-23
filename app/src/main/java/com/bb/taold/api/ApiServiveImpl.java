@@ -2,6 +2,7 @@ package com.bb.taold.api;
 
 import android.content.Context;
 
+import com.bb.taold.bean.BandCardResult;
 import com.bb.taold.bean.LoadRecordResponse;
 import com.bb.taold.bean.MessageResult;
 import com.bb.taold.utils.DeviceUtils;
@@ -43,5 +44,12 @@ public class ApiServiveImpl {
         return service.updateAgreeNo(llAgreeNo, cardNo);
 
     }
+
+    public Call<Result_Api<BandCardResult>> getLLToken(
+            String cardNo, String mobile) {
+        return service.getLLToken("0", cardNo, mobile);
+
+    }
+
 
 }

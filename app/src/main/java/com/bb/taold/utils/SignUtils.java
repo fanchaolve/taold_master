@@ -49,9 +49,9 @@ public class SignUtils {
         //意见反馈接口忽略
         ignoreParamNames.add("device");
         ignoreParamNames.add("deviceNumber");
-        //连连绑定接口
-        ignoreParamNames.add("llAgreeNo");
-        ignoreParamNames.add("cardNo");
+//        //连连绑定接口
+//        ignoreParamNames.add("llAgreeNo");
+//        ignoreParamNames.add("cardNo");
     }
 
 

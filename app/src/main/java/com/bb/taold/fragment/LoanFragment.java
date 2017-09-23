@@ -138,7 +138,6 @@ public class LoanFragment extends BaseFragment {
                 if (currentAmount >= maxAmount) {
                     mIvAdd.setImageResource(R.drawable.stop_add_plus);
                     mTvLoanAmount.setText(maxAmount + "");
-                    return;
                 } else {
                     mIvDelete.setImageResource(R.drawable.delete_icon);
                     mTvLoanAmount.setText(currentAmount + "");
