@@ -243,7 +243,6 @@ public class LoanFragment extends BaseFragment {
                     Bundle mBundle = new Bundle();
                     mBundle.putSerializable("key", loanBundle);
                     CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY, loanBundle);
-
                     //步骤视图里面
                     if (info.getFlag() > 0 && info.getFlag() < 6) {
                         Bundle bundle = new Bundle();

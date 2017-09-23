@@ -1,248 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="应还金额"
-        android:textStyle="bold"
-        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
+        android:text="应还金额"
         android:textColor="@color/color_111111"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="实际到账:"
-            android:textSize="14sp"
-            android:textColor="@color/color_111111"/>
+            android:textColor="@color/color_111111"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_theActualToAccount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+1000.00元"
             android:paddingLeft="30dp"
+            android:textColor="@color/color_hint"
             android:textSize="14sp"
-            android:textColor="@color/color_hint"/>
+            tools:text="+00.00元"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="借款利息:"
-            android:textSize="14sp"
-            android:textColor="@color/color_111111"/>
+            android:textColor="@color/color_111111"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_interestRates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+5.00元"
             android:paddingLeft="30dp"
+            android:textColor="@color/color_hint"
             android:textSize="14sp"
-            android:textColor="@color/color_hint"/>
+            tools:text="+00.00元"/>
 
     </LinearLayout>
+
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        >
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="额度审核费:"
-            android:textSize="14sp"
-            android:textColor="@color/color_111111"/>
+            android:textColor="@color/color_111111"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_creditAuditRates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+51.00元"
             android:paddingLeft="30dp"
+            android:textColor="@color/color_hint"
             android:textSize="14sp"
-            android:textColor="@color/color_hint"/>
+            tools:text="+00.00元"/>
 
     </LinearLayout>
+
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        >
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="征信查询费:"
-            android:textSize="14sp"
-            android:textColor="@color/color_111111"/>
+            android:textColor="@color/color_111111"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_creditInspectRates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+5.00元"
             android:paddingLeft="30dp"
+            android:text=""
+            android:textColor="@color/color_hint"
             android:textSize="14sp"
-            android:textColor="@color/color_hint"/>
+            tools:text="+00.00元"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="贷后管理费:"
-            android:textSize="14sp"
-            android:textColor="@color/color_111111"/>
+            android:textColor="@color/color_111111"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_manageRates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+100.00元"
             android:paddingLeft="30dp"
+            android:textColor="@color/color_hint"
             android:textSize="14sp"
-            android:textColor="@color/color_hint"/>
+            tools:text="+00.00元"/>
 
     </LinearLayout>
+
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="介绍费:"
-            android:textSize="14sp"
-            android:textColor="@color/color_111111"/>
+            android:textColor="@color/color_111111"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_introduceRates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+20.00元"
             android:paddingLeft="30dp"
+            android:textColor="@color/color_hint"
             android:textSize="14sp"
-            android:textColor="@color/color_hint"/>
+            tools:text="+00.00元"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="合计:"
-            android:textStyle="bold"
+            android:textColor="#F1A942"
             android:textSize="14sp"
-            android:textColor="@color/color_111111"/>
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_totalMoney"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+1300.00元"
             android:paddingLeft="30dp"
+            android:text=""
+            android:textColor="#F1A942"
             android:textSize="14sp"
-            android:textColor="@color/color_hint"/>
+            tools:text="+1300.00元"/>
 
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="特别说明:"
-        android:textSize="12sp"
-        android:textColor="@color/color_hint"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"/>
+        android:text="特别说明:"
+        android:textColor="@color/color_hint"
+        android:textSize="12sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
         android:text="1.只向18-40周岁用户提供借款服务"
-        android:textSize="12sp"
         android:textColor="@color/color_hint"
-        android:layout_marginLeft="30dp"/>
+        android:textSize="12sp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
         android:text="2.借款人需要有芝麻信用分"
-        android:textSize="12sp"
         android:textColor="@color/color_hint"
-        android:layout_marginLeft="30dp"/>
+        android:textSize="12sp"/>
+
     <TextView
         android:id="@+id/tv_confirm"
         android:layout_width="fill_parent"
         android:layout_height="44dp"
         android:layout_marginTop="18dp"
-        android:textSize="16sp"
-        android:textColor="#F1A942"
         android:background="#cccccc"
         android:gravity="center"
-        android:text="我知道了"/>
+        android:text="我知道了"
+        android:textColor="#F1A942"
+        android:textSize="16sp"/>
 
 </LinearLayout>
