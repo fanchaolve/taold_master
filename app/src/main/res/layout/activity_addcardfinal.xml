@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
               android:orientation="vertical">
 
     <include layout="@layout/layout_title_normal"/>
@@ -19,9 +20,9 @@
             android:paddingBottom="10dp"
             android:paddingLeft="15dp"
             android:paddingTop="10dp"
-            android:text="信息确认"
+            android:text="请绑定您的借记卡，用于借款到账"
             android:textColor="@color/font_normal"
-            android:textSize="16sp"/>
+            android:textSize="14sp"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -40,7 +41,7 @@
                     android:layout_centerVertical="true"
                     android:text="持卡人"
                     android:textColor="@color/color_111111"
-
+                    android:textStyle="bold"
                     android:textSize="15sp"/>
 
                 <TextView
@@ -81,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="卡号"
+                    android:textStyle="bold"
                     android:textColor="@color/color_111111"
                     android:textSize="15sp"/>
 
@@ -99,7 +101,7 @@
                     android:textColor="@color/color_111111"
                     android:textSize="15sp"
                     android:gravity="right"
-                    android:hint="请输入或扫描获取您的银行卡号"
+                    android:hint="请输入您的银行卡号"
                     />
                 <LinearLayout
                     android:id="@+id/iv_scan_card"
@@ -131,6 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="银行"
+                    android:textStyle="bold"
                     android:textColor="@color/color_111111"
                     android:textSize="15sp"/>
 
@@ -164,6 +167,7 @@
                     android:layout_centerVertical="true"
                     android:text="手机号"
                     android:textColor="@color/color_111111"
+                    android:textStyle="bold"
                     android:textSize="15sp"/>
 
                 <EditText
@@ -196,7 +200,17 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
+    <View style="@style/view_line"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        android:textSize="14sp"
+        android:textColor="#999"
 
+        android:text="请务必输入正确的手机号，否则放款可能失败。"/>
     <TextView
         android:id="@+id/tv_next"
         android:layout_width="fill_parent"
@@ -208,7 +222,7 @@
         android:textColor="#FEFEFE"
         android:textSize="16sp"/>
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -234,5 +248,5 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="15dp"
-        android:text="3.该银行卡必须是借记卡，信用卡无效"/>
+        android:text="3.该银行卡必须是借记卡，信用卡无效"/>-->
 </LinearLayout>

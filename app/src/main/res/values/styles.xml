@@ -487,7 +487,7 @@
     </style>
     <style name="view_line">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_height">0.5dp</item>
         <item name="android:background">@color/cutline</item>
     </style>
     <style name="tab">
@@ -538,7 +538,7 @@
     </style>
     <style name="view_line_left15">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_height">0.5dp</item>
         <item name="android:layout_marginLeft">15dp</item>
         <item name="android:background">@color/cutline</item>
     </style>
