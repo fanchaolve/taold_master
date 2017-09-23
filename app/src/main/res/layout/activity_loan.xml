@@ -70,7 +70,6 @@
                 android:layout_width="199dp"
                 android:layout_height="1dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
                 android:background="@color/color_line"
                 />
 
@@ -129,11 +128,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="15dp"
-                        android:text="435.00元"
+                        android:text="0.00元"
                         android:textColor="@color/font_normal"
                         android:textSize="18sp"/>
                 </LinearLayout>
-
+                <View
+                    android:layout_centerInParent="true"
+                    android:layout_width="1dp"
+                    android:layout_height="18dp"
+                    android:background="@color/cutline"/>
                 <LinearLayout
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
@@ -153,7 +156,7 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="15dp"
                         android:orientation="horizontal">
@@ -163,7 +166,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="138.00元"
+                            android:text="0.00元"
                             android:textColor="@color/font_normal"
                             android:textSize="18sp"/>
 
@@ -199,6 +202,14 @@
                 android:text="立即申请"
                 android:textColor="#FEFEFE"
                 android:textSize="16sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="已加入芝麻信用“信用＋联盟”，上报失信数据"
+                android:textColor="@color/color_hint"
+                android:textSize="12sp"/>
 
             <View
                 android:layout_width="fill_parent"
