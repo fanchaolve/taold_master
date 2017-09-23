@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_f0f2f5"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_f0f2f5"
+              android:orientation="vertical">
 
 
     <ScrollView
@@ -25,7 +25,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="3dp"
                 android:text="@string/base_info"
-                android:textAppearance="@style/TextAppear.Theme.111111_Size14" />
+                android:textAppearance="@style/TextAppear.Theme.111111_Size14"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,9 +40,9 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="15dp"
                     app:hint="@string/pleaseselect"
-                    app:left_name="@string/edu" />
+                    app:left_name="@string/edu"/>
 
-                <include layout="@layout/line_e" />
+                <include layout="@layout/line_e"/>
 
                 <com.bb.taold.widget.Line_ItemView
                     android:id="@+id/item_address"
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="15dp"
                     app:hint="@string/address_hint"
-                    app:left_name="@string/address" />
+                    app:left_name="@string/address"/>
 
 
             </LinearLayout>
@@ -69,9 +69,9 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="15dp"
                     app:hint="@string/company_name_hint"
-                    app:left_name="@string/company_name" />
+                    app:left_name="@string/company_name"/>
 
-                <include layout="@layout/line_e" />
+                <include layout="@layout/line_e"/>
 
                 <com.bb.taold.widget.Line_ItemView
                     android:id="@+id/li_company_address"
@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="15dp"
                     app:hint="@string/company_address_hint"
-                    app:left_name="@string/company_address" />
+                    app:left_name="@string/company_address"/>
 
 
             </LinearLayout>
@@ -91,7 +91,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="3dp"
                 android:text="@string/contact_info"
-                android:textAppearance="@style/TextAppear.Theme.111111_Size14" />
+                android:textAppearance="@style/TextAppear.Theme.111111_Size14"/>
 
 
             <LinearLayout
@@ -101,25 +101,6 @@
                 android:orientation="vertical"
                 android:paddingLeft="15dp">
 
-                <com.bb.taold.widget.Line_ItemView
-                    android:id="@+id/li_tel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="15dp"
-                    app:hint="@string/pleaseselect"
-                    app:left_name="@string/phone" />
-
-                <include layout="@layout/line_e" />
-
-                <com.bb.taold.widget.Line_ItemView
-                    android:id="@+id/li_realname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="15dp"
-                    app:hint="@string/pleasereal_name"
-                    app:left_name="@string/real_name" />
-
-                <include layout="@layout/line_e" />
 
                 <com.bb.taold.widget.Line_ItemView
                     android:id="@+id/li_relship"
@@ -127,7 +108,28 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="15dp"
                     app:hint="@string/pleaseselect"
-                    app:left_name="@string/rela" />
+                    app:left_name="@string/rela"/>
+
+                <include layout="@layout/line_e"/>
+
+                <com.bb.taold.widget.Line_ItemView
+                    android:id="@+id/li_tel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="15dp"
+                    app:hint="@string/pleaseselect"
+                    app:left_name="@string/phone"/>
+
+                <include layout="@layout/line_e"/>
+
+                <com.bb.taold.widget.Line_ItemView
+                    android:id="@+id/li_realname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="15dp"
+                    app:hint="@string/pleasereal_name"
+                    app:left_name="@string/real_name"/>
+
 
             </LinearLayout>
 
@@ -141,14 +143,24 @@
                 android:paddingLeft="15dp">
 
                 <com.bb.taold.widget.Line_ItemView
+                    android:id="@+id/li_relship2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="15dp"
+                    app:hint="@string/pleaseselect"
+                    app:left_name="@string/rela"/>
+
+                <include layout="@layout/line_e"/>
+
+                <com.bb.taold.widget.Line_ItemView
                     android:id="@+id/li_tel2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingRight="15dp"
                     app:hint="@string/pleaseselect"
-                    app:left_name="@string/phone" />
+                    app:left_name="@string/phone"/>
 
-                <include layout="@layout/line_e" />
+                <include layout="@layout/line_e"/>
 
                 <com.bb.taold.widget.Line_ItemView
                     android:id="@+id/li_realname2"
@@ -156,33 +168,24 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="15dp"
                     app:hint="@string/pleasereal_name"
-                    app:left_name="@string/real_name" />
+                    app:left_name="@string/real_name"/>
 
-                <include layout="@layout/line_e" />
-
-                <com.bb.taold.widget.Line_ItemView
-                    android:id="@+id/li_relship2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="15dp"
-                    app:hint="@string/pleaseselect"
-                    app:left_name="@string/rela" />
 
             </LinearLayout>
 
             <TextView
-                android:layout_marginBottom="15dp"
                 android:id="@+id/tv_confirm"
                 android:layout_width="fill_parent"
                 android:layout_height="42dp"
+                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="25dp"
-                android:textSize="16sp"
-                android:textColor="#FEFEFE"
+                android:background="@drawable/bg_loan_button"
                 android:gravity="center"
                 android:text="@string/submit"
-                android:background="@drawable/bg_loan_button"/>
+                android:textColor="#FEFEFE"
+                android:textSize="16sp"/>
 
         </LinearLayout>
 

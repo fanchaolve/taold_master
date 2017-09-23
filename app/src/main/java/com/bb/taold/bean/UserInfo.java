@@ -62,6 +62,15 @@ public class UserInfo implements Serializable {
     private int startLevel;
     private int status;
     private int unReadMessageCount;
+    private MapInfo map;
+
+    public MapInfo getMap() {
+        return map;
+    }
+
+    public void setMap(MapInfo map) {
+        this.map = map;
+    }
 
     public int getAuthentication() {
         return authentication;

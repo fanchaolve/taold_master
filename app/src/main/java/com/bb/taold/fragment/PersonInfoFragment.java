@@ -18,6 +18,9 @@ import com.bb.taold.base.BaseActivity;
 import com.bb.taold.base.BaseFragment;
 import com.bb.taold.bean.Contact;
 import com.bb.taold.bean.DataUtils;
+import com.bb.taold.bean.MapInfo;
+import com.bb.taold.bean.MemberContactInfo;
+import com.bb.taold.bean.UserInfo;
 import com.bb.taold.bean.UserParam;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
@@ -147,10 +150,11 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
 
             @Override
             public void onFalied() {
-                ((BaseActivity) getActivity()).showTip("请在设置中打开本App通讯录权限");
+                ((BaseActivity) getActivity()).showTip("您关闭了“信趣贷”的通讯录访问权限，开启后才能添加联系人");
             }
         };
         permissionUtil.setListener(listener);
+        getUserInfo();
     }
 
     /**
@@ -177,6 +181,7 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
                 String usernumber = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 usernumber = usernumber.replace("-", "");
                 usernumber = usernumber.replace(" ", "");
+                usernumber = usernumber.replace("+86", "");
                 if (usernumber.length() < 11)
                     break;
                 else
@@ -291,16 +296,28 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
             Uri contactData = data.getData();
             contact1 = getContact(contactData);
             if (contact1 != null) {
+                if (contact2 != null) {
+                    if (contact1.getTelphone().equals(contact2.getTelphone())) {
+                        ((BaseActivity) getActivity()).showMsg("两个联系人的号码不能相同");
+                        return;
+                    }
+                }
                 li_tel.setText(contact1.getTelphone());
                 li_realname.setText(contact1.getName());
+
 
             }
         }
         if (requestCode == Second_Contact_REQUEST && resultCode == getActivity().RESULT_OK) {
             Uri contactData = data.getData();
             contact2 = getContact(contactData);
-
             if (contact2 != null) {
+                if (contact1 != null) {
+                    if (contact1.getTelphone().equals(contact2.getTelphone())) {
+                        ((BaseActivity) getActivity()).showMsg("两个联系人的号码不能相同");
+                        return;
+                    }
+                }
                 li_tel2.setText(contact2.getTelphone());
                 li_realname2.setText(contact2.getName());
             }
@@ -380,5 +397,57 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
         String json_list = gson.toJson(contacts);
         param.setMemberContactInfo(json_list);
         return true;
+    }
+
+    private void getUserInfo() {
+        Call<Result_Api<UserInfo>> call = service.user_info();
+        Callexts.need_sessionPost(call, new PostCallback<PersonInfoFragment>(this) {
+            @Override
+            public void successCallback(Result_Api api) {
+                if (api.getT() instanceof UserInfo) {
+                    UserInfo info = (UserInfo) api.getT();
+                    if (info != null) {
+                        if (info.getMap() != null) {
+                            MapInfo mapInfo = info.getMap();
+                            item_address.setText(mapInfo.getAddress());
+                            li_company_name.setText(mapInfo.getCompany());
+                            li_company_address.setText(mapInfo.getCompanyAddress());
+                            param.setEducation(mapInfo.getEducation() + "");
+                            item_edu.setText(DataUtils.getEduText(mapInfo.getEducation()));
+                            if (mapInfo.getMemberContactInfo() != null) {
+                                for (int i = 0; i < mapInfo.getMemberContactInfo().size(); i++) {
+                                    MemberContactInfo mberContactInfo = mapInfo.getMemberContactInfo().get(i);
+                                    if (i == 0) {
+                                        contact1 = new Contact();
+                                        contact1.setName(mberContactInfo.getName());
+                                        contact1.setTelphone(mberContactInfo.getTelphone());
+                                        ship1 = mberContactInfo.getRelativeType() + "";
+                                        li_realname.setText(mberContactInfo.getName());
+                                        li_tel.setText(mberContactInfo.getTelphone());
+                                        li_relship.setText(DataUtils.getShipText(mberContactInfo.getRelativeType()));
+                                    } else {
+                                        contact2 = new Contact();
+                                        contact2.setName(mberContactInfo.getName());
+                                        contact2.setTelphone(mberContactInfo.getTelphone());
+                                        ship2 = mberContactInfo.getRelativeType() + "";
+                                        li_realname2.setText(mberContactInfo.getName());
+                                        li_tel2.setText(mberContactInfo.getTelphone());
+                                        li_relship2.setText(DataUtils.getShipText(mberContactInfo.getRelativeType()));
+
+                                    }
+
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void failCallback() {
+
+            }
+        });
     }
 }
