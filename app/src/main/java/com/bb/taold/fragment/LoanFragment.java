@@ -10,19 +10,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bb.taold.R;
+import com.bb.taold.activitiy.AuthInfoActivity;
+import com.bb.taold.activitiy.addBankCard.AddBankCardActivity;
+import com.bb.taold.activitiy.loan.LoanConfirmActivity;
 import com.bb.taold.api.PostCallback;
 import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseFragment;
-import com.bb.taold.base.m.Frag_LoanModel;
-import com.bb.taold.base.p.Frag_LoanPresenter;
-import com.bb.taold.base.v.Frag_LoanContract;
+import com.bb.taold.bean.AuthInfo;
+import com.bb.taold.bean.LoanBundle;
 import com.bb.taold.bean.Product;
 import com.bb.taold.bean.ProductFee;
 import com.bb.taold.bean.ProductInfo;
 import com.bb.taold.bean.StagesInfo;
 import com.bb.taold.listener.Callexts;
+import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.CacheUtils;
+import com.bb.taold.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,8 +41,7 @@ import retrofit2.Call;
  * Class Name LoanFragment
  */
 
-public class LoanFragment extends BaseFragment
-        <Frag_LoanPresenter, Frag_LoanModel> implements Frag_LoanContract.View {
+public class LoanFragment extends BaseFragment {
     @BindView(R.id.tv_loanAmount)
     TextView mTvLoanAmount;
     @BindView(R.id.tv_status_7)
@@ -61,12 +67,18 @@ public class LoanFragment extends BaseFragment
     private PostCallback postCallback;
     //保存最大金额和最小金额
     private Product mProduct = null;
-    //分期数的信息
+    /**
+     * 7天分期数
+     */
     private String stage7Id = "";
+    /**
+     * 14天分期
+     */
     private String stage14Id = "";
-    private boolean is7Id = true;
+
     //使用分期id保存
-    private String userId = "";
+    private String stageId = "";
+
     //各项费用保存
     private ProductFee mProductFee = null;
 
@@ -77,80 +89,15 @@ public class LoanFragment extends BaseFragment
 
     @Override
     public void initView() {
-
         mTvAllPay.getText();
     }
 
     @Override
     protected void initdate(Bundle savedInstanceState) {
+        mTvStatus7.setSelected(true);
+        mTvStatus14.setSelected(false);
+        productInfo();
 
-        postCallback = new PostCallback<BaseFragment>(this) {
-            @Override
-            public void successCallback(Result_Api api) {
-                if (getActivity() == null)
-                    return;
-                //判断哪个接口回调
-                if (api.getT() instanceof ProductInfo) {
-                    //保存借款金额信息
-                    ProductInfo mProductInfo = (ProductInfo) api.getT();
-                    mProduct = mProductInfo.getProductInfo();
-                    //设置最大金额和最小金额
-                    maxAmount = Integer.parseInt(mProduct.getMaxAmt());
-                    minAmount = Integer.parseInt(mProduct.getMinAmt());
-                    //设置默认金额
-                    mTvLoanAmount.setText(mProduct.getDefaultAmt());
-                    //保存7天和14天对应的stagesId
-                    ArrayList<StagesInfo> mList = mProductInfo.getStagesInfo();
-                    for (int state = 0; state < mList.size(); state++) {
-                        if (mList.get(state).getStages().equals("7")) {
-                            //如果是7天
-                            stage7Id = mList.get(state).getProductId();
-                            continue;
-                        }
-                        if (mList.get(state).getStages().equals("14")) {
-                            //如果是7天
-                            stage14Id = mList.get(state).getProductId();
-                            continue;
-                        }
-                    }
-                    //根据默认金额获取到账金额等信息
-                    userId = stage7Id;
-                    cacuAmount(userId, mProduct.getDefaultAmt());
-
-                    return;
-                }
-
-                if (api.getT() instanceof ProductFee) {
-                    //获取各项费用
-                    mProductFee = (ProductFee) api.getT();
-                    mTvAllPay.setText(mProductFee.getTheActualToAccount());
-                    mTvNeedPay.setText(mProductFee.getTotalMoney());
-                    return;
-                }
-            }
-
-            @Override
-            public void failCallback() {
-
-            }
-        };
-
-        //初始页面获取借款金额信息
-        Call<Result_Api<ProductInfo>> call = service.productInfo("mini_loan");
-        Callexts.Unneed_sessionPost(call, postCallback);
-
-    }
-
-    /**
-     * 在更换金额或更换期数后重新获取各项费用
-     *
-     * @param productId
-     * @param amount
-     */
-    public void cacuAmount(String productId, String amount) {
-        //根据默认金额获取到账金额等信息
-        Call<Result_Api<ProductFee>> call = service.calProductFee(productId, amount);
-        Callexts.Unneed_sessionPost(call, postCallback);
     }
 
 
@@ -158,40 +105,48 @@ public class LoanFragment extends BaseFragment
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_confirm://申请之前
-                mPresenter.memberInfo();
+                memberInfo();
                 break;
 
             case R.id.iv_delete:
                 //获取当前金额
                 int currentAmountDelete = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否小于最小金额
-                if (currentAmountDelete == minAmount) {
-                    mTvLoanAmount.setText(minAmount + "");
+                if (currentAmountDelete <= minAmount) {
                     return;
                 }
-                if (currentAmountDelete - 100 < minAmount) {
+                currentAmountDelete = currentAmountDelete - 100;
+                if (currentAmountDelete <= minAmount) {
                     mTvLoanAmount.setText(minAmount + "");
+                    mTvLoanAmount.setText(minAmount + "");
+                    mIvDelete.setImageResource(R.drawable.stop_delete_icon);
                 } else {
-                    mTvLoanAmount.setText((currentAmountDelete - 100) + "");
+                    mIvAdd.setImageResource(R.drawable.add_icon);
+                    mTvLoanAmount.setText(currentAmountDelete + "");
                 }
                 //重新获取接口计算各项费用
-                cacuAmount(userId, mTvLoanAmount.getText().toString());
+                cacuAmount(stageId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.iv_add:
                 //获取当前金额
                 int currentAmount = Integer.parseInt(mTvLoanAmount.getText().toString());
-                //判断金额是否大于最大金额
-                if (currentAmount == maxAmount) {
-                    mTvLoanAmount.setText(maxAmount + "");
+                if (currentAmount >= maxAmount) {
                     return;
                 }
-                if ((currentAmount + 100) > maxAmount) {
+                //判断金额是否大于最大金额
+                currentAmount = currentAmount + 100;
+                if (currentAmount >= maxAmount) {
+                    mIvAdd.setImageResource(R.drawable.stop_add_plus);
                     mTvLoanAmount.setText(maxAmount + "");
+                    return;
                 } else {
-                    mTvLoanAmount.setText((currentAmount + 100) + "");
+                    mIvDelete.setImageResource(R.drawable.delete_icon);
+                    mTvLoanAmount.setText(currentAmount + "");
                 }
+
+
                 //重新获取接口计算各项费用
-                cacuAmount(userId, mTvLoanAmount.getText().toString());
+                cacuAmount(stageId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.iv_question:
                 //提示对话框
@@ -241,51 +196,143 @@ public class LoanFragment extends BaseFragment
                 break;
             case R.id.tv_status_7:
                 //点击"借7天"按钮
+                mTvStatus7.setSelected(true);
+                mTvStatus14.setSelected(false);
                 mTvStatus7.setTextColor(getResources().getColor(R.color.color_price));
                 mTvStatus7.setBackgroundResource(R.drawable.bg_loan_text_2);
                 mTvStatus14.setTextColor(getResources().getColor(R.color.font_normal));
                 mTvStatus14.setBackgroundResource(R.drawable.bg_loan_text);
-                userId = stage7Id;
-                is7Id = true;
+                stageId = stage7Id;
                 //重新获取接口计算各项费用
-                cacuAmount(userId, mTvLoanAmount.getText().toString());
+                cacuAmount(stageId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.tv_status_14:
                 //点击"借14天"按钮
+                mTvStatus7.setSelected(false);
+                mTvStatus14.setSelected(true);
                 mTvStatus14.setTextColor(getResources().getColor(R.color.color_price));
                 mTvStatus14.setBackgroundResource(R.drawable.bg_loan_text_2);
                 mTvStatus7.setTextColor(getResources().getColor(R.color.font_normal));
                 mTvStatus7.setBackgroundResource(R.drawable.bg_loan_text);
-                userId = stage14Id;
-                is7Id = false;
+                stageId = stage14Id;
                 //重新获取接口计算各项费用
-                cacuAmount(userId, mTvLoanAmount.getText().toString());
+                cacuAmount(stageId, mTvLoanAmount.getText().toString());
                 break;
         }
     }
 
-    @Override
-    public String getTotalAmount() {
-        return mTvLoanAmount.getText().toString();
+    private void memberInfo() {
+        Call call = service.member_identityAuthInfo();
+        Callexts.need_sessionPost(call, postCallback = new PostCallback<LoanFragment>(this) {
+            @Override
+            public void successCallback(Result_Api api) {
+                if (api.getT() instanceof AuthInfo) {
+                    AuthInfo info = (AuthInfo) api.getT();
+                    if (info == null)
+                        return;
+                    //银行卡认证后使用
+                    LoanBundle loanBundle = new LoanBundle();
+                    loanBundle.setStageId(stageId);
+                    loanBundle.setLoanAmount(mTvLoanAmount.getText().toString());
+                    //当前使用id
+                    if (mTvStatus7.isSelected()) {
+                        loanBundle.setLoanType("7天");
+                    } else {
+                        loanBundle.setLoanType("14天");
+                    }
+                    Bundle mBundle = new Bundle();
+                    mBundle.putSerializable("key", loanBundle);
+                    CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY, loanBundle);
+
+                    //步骤视图里面
+                    if (info.getFlag() > 0 && info.getFlag() < 6) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("flag", info.getFlag());
+                        bundle.putSerializable(Constants.AUTHOINFO, info);
+                        AppManager.getInstance().showActivity(AuthInfoActivity.class, bundle);
+                    } else if (info.getFlag() == 6) {//绑定主卡
+                        AppManager.getInstance().showActivity(AddBankCardActivity.class, null);
+                    } else {
+                        AppManager.getInstance().showActivity(LoanConfirmActivity.class, mBundle);
+                    }
+                }
+            }
+
+            @Override
+            public void failCallback() {
+
+            }
+        });
     }
 
-    @Override
-    public String getCurrentId() {
-        return userId;
+    /**
+     * 初始页面获取借款金额信息
+     */
+    private void productInfo() {
+        Call<Result_Api<ProductInfo>> call = service.productInfo("mini_loan");
+        Callexts.Unneed_sessionPost(call, new PostCallback() {
+            @Override public void successCallback(Result_Api api) {
+                if (api.getT() instanceof ProductInfo) {
+                    //保存借款金额信息
+                    ProductInfo mProductInfo = (ProductInfo) api.getT();
+                    mProduct = mProductInfo.getProductInfo();
+                    //设置最大金额和最小金额
+                    maxAmount = Integer.parseInt(mProduct.getMaxAmt());
+                    minAmount = Integer.parseInt(mProduct.getMinAmt());
+                    //设置默认金额
+                    mTvLoanAmount.setText(mProduct.getDefaultAmt());
+                    //保存7天和14天对应的stagesId
+                    ArrayList<StagesInfo> mList = mProductInfo.getStagesInfo();
+                    for (StagesInfo stagesInfo : mList
+                            ) {
+                        if (stagesInfo.getStages().equals("7")) {
+                            //如果是7天
+                            stage7Id = stagesInfo.getId();
+                        }
+                        if (stagesInfo.getStages().equals("14")) {
+                            //如果是7天
+                            stage14Id = stagesInfo.getId();
+                        }
+
+                    }
+
+                    //根据默认金额获取到账金额等信息
+                    stageId = stage7Id;
+                    cacuAmount(stage7Id, mProduct.getDefaultAmt());
+                    return;
+                }
+            }
+
+            @Override public void failCallback() {
+
+            }
+        });
     }
 
-    @Override
-    public boolean is7Id() {
-        return is7Id;
+    /**
+     * 在更换金额或更换期数后重新获取各项费用
+     *
+     * @param productId
+     * @param amount
+     */
+    public void cacuAmount(String productId, String amount) {
+        //根据默认金额获取到账金额等信息
+        Call<Result_Api<ProductFee>> call = service.calProductFee(productId, amount);
+        Callexts.Unneed_sessionPost(call, new PostCallback<LoanFragment>(this) {
+            @Override public void successCallback(Result_Api api) {
+                if (api.getT() instanceof ProductFee) {
+                    //获取各项费用
+                    mProductFee = (ProductFee) api.getT();
+                    mTvAllPay.setText(mProductFee.getTheActualToAccount());
+                    mTvNeedPay.setText(mProductFee.getTotalMoney());
+                    return;
+                }
+            }
+
+            @Override public void failCallback() {
+
+            }
+        });
     }
 
-    @Override
-    public void showLoading() {
-        super.showLoading();
-    }
-
-    @Override
-    public void dissmissLoading() {
-        super.dissmissLoading();
-    }
 }

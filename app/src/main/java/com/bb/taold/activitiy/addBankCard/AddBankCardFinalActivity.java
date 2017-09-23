@@ -20,6 +20,7 @@ import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.BandCardResult;
 import com.bb.taold.bean.CardCheck;
+import com.bb.taold.bean.LoanBundle;
 import com.bb.taold.bean.UserInfo;
 import com.bb.taold.events.AddCard;
 import com.bb.taold.lianlian.utils.BaseHelper;
@@ -121,7 +122,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
         @Override public void successCallback(Result_Api api) {
             if (api.getT() instanceof CardCheck) {
                 mCardCheck = (CardCheck) api.getT();
-                if(!TextUtils.isEmpty(mCardCheck.getBankName())){
+                if (!TextUtils.isEmpty(mCardCheck.getBankName())) {
                     mEtAcctName.setText(mCardCheck.getBankName());
                 }
 
@@ -168,7 +169,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
         }
 //
 //        if (from_Act == 0) {
-            mTvTitle.setText("绑定银行卡");
+        mTvTitle.setText("绑定银行卡");
 //        } else if (from_Act == 1) {
 //            mTvTitle.setText("添加银行卡");
 //        }
@@ -184,7 +185,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_back, R.id.iv_tip_name, R.id.iv_tip_phone, R.id.tv_next,R.id.iv_scan_card,R.id.tv_acctName})
+    @OnClick({R.id.btn_back, R.id.iv_tip_name, R.id.iv_tip_phone, R.id.tv_next, R.id.iv_scan_card, R.id.tv_acctName})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
@@ -216,7 +217,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 break;
             case R.id.tv_acctName:
                 String cardNum = mEtAcctNo.getText().toString();
-                if(cardNum.length()>0){
+                if (cardNum.length() > 0) {
                     getCardState(mEtAcctNo.getText().toString());
                 }
                 break;
@@ -240,16 +241,9 @@ public class AddBankCardFinalActivity extends BaseActivity {
 
                         // 成功
                         if (LLPayConstants.RET_CODE_SUCCESS.equals(retCode)) {
-
-                            //关闭所有认证页面事件
-                            Map<String, String> map = (Map<String, String>) CacheUtils.getDataCache(Constants.TO_CONFIRM_ACTIVIY);
+                            LoanBundle loanBundle = (LoanBundle) CacheUtils.getDataCache(Constants.TO_CONFIRM_ACTIVIY);
                             Bundle mBundle = new Bundle();
-                            mBundle.putString("loanAmount", map.get("loanAmount"));
-                            if (map.containsKey("stage7Id")) {
-                                mBundle.putString("stage7Id", map.get("stage7Id"));
-                            } else {
-                                mBundle.putString("stage4Id", map.get("stage4Id"));
-                            }
+                            mBundle.putSerializable("key", loanBundle);
                             updateAgreeNo(no_agree, mEtAcctNo.getText().toString().replace(" ", ""), mBundle);
 
 //                            BaseHelper.showDialog(AddBankCardFinalActivity.this, "提示",
@@ -278,7 +272,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
         Callexts.need_sessionPost(call, new PostCallback<AddBankCardFinalActivity>(this) {
             @Override public void successCallback(Result_Api api) {
                 showMsg("绑定成功");
-                if(mFrom.equals(Constants.FROM_AUTU)){
+                if (mFrom.equals(Constants.FROM_AUTU)) {
                     AppManager.getInstance().showActivity(LoanConfirmActivity.class, bundle);
                     CacheUtils.saveDataToDiskLruCache(Constants.TO_CONFIRM_ACTIVIY, null);
                 }
@@ -293,8 +287,8 @@ public class AddBankCardFinalActivity extends BaseActivity {
     }
 
     private void getCardState(String ordNo) {
-        Call<Result_Api<CardCheck>> call=service.supportCard(ordNo);
-        Callexts.need_sessionPost(call,checkCardPost);
+        Call<Result_Api<CardCheck>> call = service.supportCard(ordNo);
+        Callexts.need_sessionPost(call, checkCardPost);
     }
 
     @Override
@@ -308,7 +302,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 }
                 cardInfo = (CardInfo) data.getSerializableExtra("cardinfo");
                 String cardNo = cardInfo.getFieldString(TFieldID.TBANK_NUM);
-                if(!TextUtils.isEmpty(cardNo)){
+                if (!TextUtils.isEmpty(cardNo)) {
                     cardNo = cardNo.replace(" ", "").trim();
                     mEtAcctNo.setText(cardNo);
                     getCardState(cardNo);

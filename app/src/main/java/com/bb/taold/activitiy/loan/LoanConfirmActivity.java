@@ -14,6 +14,7 @@ import com.bb.taold.api.Result_Api;
 import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.CardInfo;
 import com.bb.taold.bean.Cardinfos;
+import com.bb.taold.bean.LoanBundle;
 import com.bb.taold.bean.LoanInfo;
 import com.bb.taold.bean.Product;
 import com.bb.taold.bean.ProductFee;
@@ -80,11 +81,12 @@ public class LoanConfirmActivity extends BaseActivity {
     //保存最大金额和最小金额
     private Product mProduct = null;
     //当前分期数id
-    private String userId = "";
+    private String stageId = "";
     //各项费用保存
     private ProductFee mProductFee = null;
     //保存主卡信息
     private CardInfo mCardInfo = null;
+    private LoanBundle loanBundle;
 
     @Override
     public int getLayoutId() {
@@ -108,14 +110,10 @@ public class LoanConfirmActivity extends BaseActivity {
         //获取借款页面传递的值
         if (getIntent() != null) {
             Bundle mBundle = getIntent().getExtras();
-            mTvLoanAmount.setText(mBundle.getString("loanAmount"));
-            if (mBundle.containsKey("stage7Id")) {
-                mTvLoanDays.setText("7天");
-                userId = mBundle.getString("stage7Id");
-            } else {
-                mTvLoanDays.setText("14天");
-                userId = mBundle.getString("stage14Id");
-            }
+            loanBundle = (LoanBundle) mBundle.getSerializable("key");
+            mTvLoanAmount.setText(loanBundle.getLoanAmount());
+            mTvLoanDays.setText(loanBundle.getLoanType());
+            stageId = loanBundle.getStageId();
         }
 
         postCallback = new PostCallback<LoanConfirmActivity>(this) {
@@ -129,7 +127,7 @@ public class LoanConfirmActivity extends BaseActivity {
                     //设置最大金额和最小金额
                     maxAmount = Integer.parseInt(mProduct.getMaxAmt());
                     minAmount = Integer.parseInt(mProduct.getMinAmt());
-                    cacuAmount(userId, mTvLoanAmount.getText().toString());
+                    cacuAmount(stageId, mTvLoanAmount.getText().toString());
 
                     return;
                 }
@@ -158,7 +156,7 @@ public class LoanConfirmActivity extends BaseActivity {
                     ArrayList<CardInfo> cards = (ArrayList<CardInfo>) api.getT();
                     if (cards != null && cards.size() > 0) {
                         mCardInfo = cards.get(0);
-                        if(mCardInfo!=null){
+                        if (mCardInfo != null) {
                             setCardInfoView(mCardInfo);
                         }
                     }
@@ -218,7 +216,7 @@ public class LoanConfirmActivity extends BaseActivity {
                     mTvLoanAmount.setText((currentAmount + 100) + "");
                 }
                 //刷新所有的费用
-                cacuAmount(userId, mTvLoanAmount.getText().toString());
+                cacuAmount(stageId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.iv_delete:
                 //获取当前金额
@@ -234,7 +232,7 @@ public class LoanConfirmActivity extends BaseActivity {
                     mTvLoanAmount.setText((currentAmountDelete - 100) + "");
                 }
                 //刷新所有的费用
-                cacuAmount(userId, mTvLoanAmount.getText().toString());
+                cacuAmount(stageId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.tv_confirm:
                 if (!mIvBtn1.isSelected() || !mIvBtn2.isSelected()) {
@@ -267,7 +265,7 @@ public class LoanConfirmActivity extends BaseActivity {
         }
     }
 
-    public void setCardInfoView(CardInfo cardInfo){
+    public void setCardInfoView(CardInfo cardInfo) {
         //银行名称
         mTvBankname.setText(mCardInfo.getCardName());
         //卡片类型
@@ -279,9 +277,10 @@ public class LoanConfirmActivity extends BaseActivity {
         }
         mTvCardno.setText("**** **** **** " + cardNo);
     }
+
     @Subscribe
-    public void onEventMainThread(CardInfo info){
-        if(info!=null){
+    public void onEventMainThread(CardInfo info) {
+        if (info != null) {
             setCardInfoView(info);
         }
     }

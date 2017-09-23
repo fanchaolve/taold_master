@@ -206,10 +206,9 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
                 btnTag = 1;
                 permissionUtil.ReadPhoneContactsTask2();
                 break;
-
             case R.id.li_relship:
                 dialog_Type = 1;
-                showDialog(DataUtils.getShipsMap().keySet());
+                showDialog(DataUtils.fristShipsMap().keySet());
                 break;
             case R.id.li_relship2:
                 dialog_Type = 2;
@@ -225,7 +224,7 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
                     @Override
                     public void successCallback(Result_Api api) {
                         Bundle bundle = new Bundle();
-                        bundle.putString(Constants.ADD_CARD_FROM,Constants.FROM_AUTU);
+                        bundle.putString(Constants.ADD_CARD_FROM, Constants.FROM_AUTU);
                         AppManager.getInstance().showActivity(AddBankCardFinalActivity.class, bundle);
                         getActivity().finish();
                     }

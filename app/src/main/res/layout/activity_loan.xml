@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <include layout="@layout/layout_title"/>
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="借款金额（元）"
-                android:layout_marginTop="32dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp"
+                android:text="借款金额（元）"
                 android:textAppearance="@style/TextAppear.Theme.font111111_Size16"/>
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp">
+
                 <TextView
                     android:id="@+id/tv_loanAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10000"
-                    android:textSize="50sp"
+                    android:layout_centerHorizontal="true"
+                    android:text="0"
                     android:textColor="#F1A942"
-                    android:layout_centerHorizontal="true"/>
+                    android:textSize="50sp"/>
 
                 <ImageView
                     android:id="@+id/iv_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="34dp"
+                    android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:src="@drawable/stop_delete_icon"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="34dp"/>
+                    android:src="@drawable/delete_icon"/>
 
                 <ImageView
                     android:id="@+id/iv_add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="34dp"
+                    android:paddingBottom="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/add_icon"
-                    android:layout_marginRight="34dp"/>
+                    android:src="@drawable/add_icon"/>
             </RelativeLayout>
+
             <View
                 android:layout_width="199dp"
                 android:layout_height="1dp"
@@ -67,95 +73,106 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/color_line"
                 />
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp">
+
                 <TextView
                     android:id="@+id/tv_status_7"
                     android:layout_width="100dp"
                     android:layout_height="32dp"
                     android:layout_marginLeft="64dp"
-                    android:textColor="#F1A942"
-                    android:textSize="14sp"
                     android:background="@drawable/bg_loan_text_2"
                     android:gravity="center"
-                    android:text="借7天"/>
+                    android:text="借7天"
+                    android:textColor="#F1A942"
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/tv_status_14"
                     android:layout_width="100dp"
                     android:layout_height="32dp"
-                    android:textAppearance="@style/TextAppear.Theme.font40_Size14"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="54dp"
                     android:background="@drawable/bg_loan_text"
                     android:gravity="center"
-                    android:layout_alignParentRight="true"
                     android:text="借14天"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="54dp"/>
+                    android:textAppearance="@style/TextAppear.Theme.font40_Size14"/>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp">
+
                 <LinearLayout
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="64dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_hint"
                         android:text="到账金额"
+                        android:textColor="@color/color_hint"
+                        android:textSize="14sp"
                         />
+
                     <TextView
                         android:id="@+id/tv_allPay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
-                        android:textSize="18sp"
-                        android:textColor="@color/font_normal"
                         android:layout_gravity="center_horizontal"
-                        android:text="435.00元"/>
+                        android:layout_marginTop="18dp"
+                        android:text="435.00元"
+                        android:textColor="@color/font_normal"
+                        android:textSize="18sp"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="54dp"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="54dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_hint"
                         android:layout_marginRight="10dp"
                         android:text="应还金额"
+                        android:textColor="@color/color_hint"
+                        android:textSize="14sp"
                         />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="18dp"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/tv_needPay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/font_normal"
                             android:layout_gravity="center_horizontal"
-                            android:text="138.00元"/>
+                            android:text="138.00元"
+                            android:textColor="@color/font_normal"
+                            android:textSize="18sp"/>
+
                         <ImageView
                             android:id="@+id/iv_question"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_marginLeft="5dp"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="5dp"
                             android:src="@drawable/loan_question"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -164,139 +181,152 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="不向学生提供贷款"
-                android:textSize="12sp"
-                android:textColor="@color/color_hint"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="32dp"/>
+                android:layout_marginTop="32dp"
+                android:text="不向学生提供贷款"
+                android:textColor="@color/color_hint"
+                android:textSize="12sp"/>
+
             <TextView
                 android:id="@+id/tv_confirm"
                 android:layout_width="fill_parent"
                 android:layout_height="42dp"
-                android:layout_marginTop="10dp"
-                android:textSize="16sp"
-                android:textColor="#FEFEFE"
-                android:gravity="center"
-                android:text="立即申请"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/selector_btn_yellow"/>
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selector_btn_yellow"
+                android:gravity="center"
+                android:text="立即申请"
+                android:textColor="#FEFEFE"
+                android:textSize="16sp"/>
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/color_line"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:text="安全，高效，值得信赖"
-                android:textSize="12sp"
                 android:textColor="@color/font_normal"
-                android:layout_gravity="center_horizontal"/>
+                android:textSize="12sp"/>
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:background="#F9F9F9"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="#F9F9F9">
 
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@drawable/data_safe"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/data_safe"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="65dp"
                         android:text="数据安全"
-                        android:layout_marginTop="65dp"
-                        android:layout_centerHorizontal="true"
-                        android:textSize="12sp"
-                        android:textColor="@color/color_111111"/>
+                        android:textColor="@color/color_111111"
+                        android:textSize="12sp"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="10sp"
                         android:layout_marginTop="83dp"
+                        android:text="公安部监制，银行级数据加密"
                         android:textColor="@color/color_hint"
-                        android:text="公安部监制，银行级数据加密"/>
+                        android:textSize="10sp"/>
 
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:background="#F9F9F9"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="#F9F9F9">
 
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@drawable/quick_loan"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:layout_centerHorizontal="true"/>
+                        android:src="@drawable/quick_loan"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="65dp"
                         android:text="闪电放贷"
-                        android:layout_marginTop="65dp"
-                        android:layout_centerHorizontal="true"
-                        android:textSize="12sp"
-                        android:textColor="@color/color_111111"/>
+                        android:textColor="@color/color_111111"
+                        android:textSize="12sp"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="10sp"
                         android:layout_marginTop="83dp"
+                        android:text="提交申请后，30分钟内审核并放贷"
                         android:textColor="@color/color_hint"
-                        android:text="提交申请后，30分钟内审核并放贷"/>
+                        android:textSize="10sp"/>
 
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:background="#F9F9F9"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="#F9F9F9">
 
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@drawable/money_keep"
-                        android:layout_marginTop="10dp"
-                        android:layout_centerHorizontal="true"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="资金监管"
-                        android:layout_marginTop="65dp"
                         android:layout_centerHorizontal="true"
-                        android:textSize="12sp"
-                        android:textColor="@color/color_111111"/>
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/money_keep"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="65dp"
+                        android:text="资金监管"
+                        android:textColor="@color/color_111111"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="10sp"
                         android:layout_marginTop="83dp"
+                        android:text="资金银行监管，值得信赖"
                         android:textColor="@color/color_hint"
-                        android:text="资金银行监管，值得信赖"/>
+                        android:textSize="10sp"/>
 
                 </RelativeLayout>
             </LinearLayout>
