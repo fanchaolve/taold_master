@@ -22,7 +22,6 @@ import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.Constants;
 import com.bb.taold.utils.EBJPayUtil;
-import com.bb.taold.utils.IntentUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,7 +73,6 @@ public class RepayInfoActivity extends BaseActivity {
     private PostCallback postCallback;
     //保存billItemId
     private String billItemId = "";
-    private PayParams mPayParams;
     private BillItemDetail mDetail;
 
     @Override
@@ -142,11 +140,15 @@ public class RepayInfoActivity extends BaseActivity {
                     //需要判断是否逾期来确定是否显示逾期金额
                     mTvDueAmount.setText(mDetail.getDueAmount());
                     mTvAbateAmt.setText(mDetail.getAbateAmt());
-                    getPayParams(mDetail.getId(), mDetail.getBillAmount(), Constants.PAY_CHANNEL_ALIPAY, Constants.PLATFORM);
+//                    getPayParams(mDetail.getId(), mDetail.getBillAmount(), Constants.PAY_CHANNEL_ALIPAY, Constants.PLATFORM);
                     return;
                 } else if (api.getT() instanceof PayParams) {
-                    mPayParams = (PayParams) api.getT();
-                    mTvConfirm.setEnabled(true);
+                    PayParams mPayParams = (PayParams) api.getT();
+                    if (mPayParams != null) {
+                        EBJPayUtil ebjPayUtil = new EBJPayUtil(mContext, mPayParams.getMerchantOutOrderNo(), mPayParams.getMerId(),
+                                mPayParams.getNoncestr(), mPayParams.getOrderMoney(), mPayParams.getOrderTime());
+                        ebjPayUtil.startPay();
+                    }
                 }
             }
 
@@ -167,7 +169,6 @@ public class RepayInfoActivity extends BaseActivity {
      */
     private void getBillItemInfo(String billItemId) {
         //
-        mTvConfirm.setEnabled(false);
         Call<Result_Api<BillItemInfo>> call = service.fundDetail(billItemId);
         Callexts.need_sessionPost(call, postCallback);
     }
@@ -187,13 +188,8 @@ public class RepayInfoActivity extends BaseActivity {
             public void onClick(View v) {
                 //支付宝还款监听事件
                 showTip("支付宝还款");
+                getPayParams(mDetail.getId(), mDetail.getBillAmount(), Constants.PAY_CHANNEL_ALIPAY, Constants.PLATFORM);
                 dialog.dismiss();
-                if (mPayParams != null) {
-                    EBJPayUtil ebjPayUtil = new EBJPayUtil(mContext, mPayParams.getMerchantOutOrderNo(), mPayParams.getMerId(),
-                            mPayParams.getNoncestr(), "0.01", mPayParams.getOrderTime());
-                    ebjPayUtil.startPay();
-                }
-
             }
         });
 
