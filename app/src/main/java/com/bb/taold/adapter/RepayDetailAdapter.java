@@ -17,6 +17,8 @@ import com.bb.taold.bean.BillItem;
 import com.bb.taold.bean.BillProductInfo;
 import com.bb.taold.bean.RepayDetail;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.LojaDateUtils;
+import com.bb.taold.utils.StringUtils;
 import com.bb.taold.widget.SwipeListLayout;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class RepayDetailAdapter extends BaseAdapter {
     public ArrayList<BillItem> list;
     public BillProductInfo productInfo;
 
-    public RepayDetailAdapter(Activity mActivity, BillInfoDetail info){
+    public RepayDetailAdapter(Activity mActivity, BillInfoDetail info) {
         this.mActivity = mActivity;
         this.list = info.getBillItems();
         this.productInfo = info.getProductInfo();
@@ -73,46 +75,45 @@ public class RepayDetailAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        final BillItem billItem = list.get(position);
         //设置期数
-        holder.tv_period.setText(list.get(position).getStages().toString()+"/"+productInfo.getTotalStages()+"期");
+        holder.tv_period.setText(billItem.getStages() + "/" + productInfo.getTotalStages() + "期");
         //设置时间
-        holder.tv_time.setText(list.get(position).getRepayDate().toString());
+        holder.tv_time.setText(StringUtils.getTime(billItem.getRepayDate(), LojaDateUtils.YYYY_MM_DD_CN_FORMAT));
         //设置金额
-        holder.tv_amount.setText(list.get(position).getAmtMoney().toString());
+        holder.tv_amount.setText(billItem.getAmtMoney().toString());
         //设置状态
-        if(list.get(position).isOverdue){
+        if (billItem.isOverdue) {
             holder.tv_status.setText("已逾期");
             holder.rl_detail.setBackgroundColor(mActivity.getResources().getColor(R.color.white));
-        }else{
-            if(list.get(position).getStatus().equals("10")){
-                holder.tv_status.setText("待还款");
+        } else {
+            holder.tv_status.setText(billItem.getStatusDesc());
+            if (billItem.equals("0")) {
                 holder.rl_detail.setBackgroundColor(mActivity.getResources().getColor(R.color.white));
-            }else{
-                holder.tv_status.setText("已还清");
             }
         }
         holder.rl_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle mBundle = new Bundle();
-                mBundle.putString("billItemId",list.get(position).getBillItemId());
+                mBundle.putString("billItemId", billItem.getBillItemId());
                 //跳转判断
-                if(list.get(position).isOverdue){
+                if (billItem.isOverdue) {
                     //逾期
-                    mBundle.putString("bill_status","2");
-                }else{
-                    if(list.get(position).getStatus().equals("10")){
-                        mBundle.putString("bill_status","0");
-                    }else{
-                        mBundle.putString("bill_status","1");
+                    mBundle.putString("bill_status", "2");
+                } else {
+                    if (billItem.getStatus().equals("0")) {
+                        mBundle.putString("bill_status", "0");
+                    } else {
+                        mBundle.putString("bill_status", "1");//已还
                     }
                 }
-                AppManager.getInstance().showActivity(RepayInfoActivity.class,mBundle);
+                AppManager.getInstance().showActivity(RepayInfoActivity.class, mBundle);
             }
         });
         return convertView;
     }
+
     static class ViewHolder {
         RelativeLayout rl_detail;
         TextView tv_period;

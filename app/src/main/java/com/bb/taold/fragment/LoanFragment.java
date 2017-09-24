@@ -150,6 +150,9 @@ public class LoanFragment extends BaseFragment {
                 cacuAmount(stageId, mTvLoanAmount.getText().toString());
                 break;
             case R.id.iv_question:
+                if (mProductFee == null) {
+                    return;
+                }
                 //提示对话框
                 View dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_act_pay, null);
                 final Dialog tipDialog = new Dialog(getActivity(), R.style.processDialog);

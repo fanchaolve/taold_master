@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bb.taold.MyApplication;
@@ -29,6 +30,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
@@ -71,6 +73,13 @@ public class LoanConfirmActivity extends BaseActivity {
     ImageView mIvBtn1;
     @BindView(R.id.iv_btn2)
     ImageView mIvBtn2;
+    @BindView(R.id.iv_add) ImageView ivAdd;
+    @BindView(R.id.iv_delete) ImageView ivDelete;
+    @BindView(R.id.tv_changeCard) TextView tvChangeCard;
+    @BindView(R.id.tv_confirm) TextView tvConfirm;
+    @BindView(R.id.agree_layout1) LinearLayout agreeLayout1;
+    @BindView(R.id.agree_layout2) LinearLayout agreeLayout2;
+    @BindView(R.id.tv_title) TextView tvTitle;
 
     //借款最大金额
     private int maxAmount = 20000;
@@ -98,10 +107,12 @@ public class LoanConfirmActivity extends BaseActivity {
     public void initView() {
         mBtnBack.setVisibility(View.VISIBLE);
         mIvBtn2.setSelected(true);
+        tvTitle.setText("确认借款");
     }
 
     @Override
     public void initListener() {
+
 
     }
 
@@ -207,16 +218,28 @@ public class LoanConfirmActivity extends BaseActivity {
             case R.id.iv_add:
                 //获取当前金额
                 int currentAmount = Integer.parseInt(mTvLoanAmount.getText().toString());
-                //判断金额是否大于最大金额
-                if (currentAmount == maxAmount) {
-                    mTvLoanAmount.setText(maxAmount + "");
+                if (currentAmount >= maxAmount) {
                     return;
                 }
-                if ((currentAmount + 100) > maxAmount) {
+                //判断金额是否大于最大金额
+                currentAmount = currentAmount + 100;
+                if (currentAmount >= maxAmount) {
+                    ivAdd.setSelected(true);
                     mTvLoanAmount.setText(maxAmount + "");
                 } else {
-                    mTvLoanAmount.setText((currentAmount + 100) + "");
+                    ivDelete.setSelected(false);
+                    mTvLoanAmount.setText(currentAmount + "");
                 }
+//                //判断金额是否大于最大金额
+//                if (currentAmount == maxAmount) {
+//                    mTvLoanAmount.setText(maxAmount + "");
+//                    return;
+//                }
+//                if ((currentAmount + 100) > maxAmount) {
+//                    mTvLoanAmount.setText(maxAmount + "");
+//                } else {
+//                    mTvLoanAmount.setText((currentAmount + 100) + "");
+//                }
                 //刷新所有的费用
                 cacuAmount(stageId, mTvLoanAmount.getText().toString());
                 break;
@@ -224,15 +247,32 @@ public class LoanConfirmActivity extends BaseActivity {
                 //获取当前金额
                 int currentAmountDelete = Integer.parseInt(mTvLoanAmount.getText().toString());
                 //判断金额是否小于最小金额
-                if (currentAmountDelete == minAmount) {
-                    mTvLoanAmount.setText(minAmount + "");
+                if (currentAmountDelete <= minAmount) {
                     return;
                 }
-                if (currentAmountDelete - 100 < minAmount) {
+                currentAmountDelete = currentAmountDelete - 100;
+                if (currentAmountDelete <= minAmount) {
                     mTvLoanAmount.setText(minAmount + "");
+                    mTvLoanAmount.setText(minAmount + "");
+                    ivDelete.setSelected(true);
                 } else {
-                    mTvLoanAmount.setText((currentAmountDelete - 100) + "");
+                    ivAdd.setSelected(false);
+                    mTvLoanAmount.setText(currentAmountDelete + "");
                 }
+
+
+//                //获取当前金额
+//                int currentAmountDelete = Integer.parseInt(mTvLoanAmount.getText().toString());
+//                //判断金额是否小于最小金额
+//                if (currentAmountDelete == minAmount) {
+//                    mTvLoanAmount.setText(minAmount + "");
+//                    return;
+//                }
+//                if (currentAmountDelete - 100 < minAmount) {
+//                    mTvLoanAmount.setText(minAmount + "");
+//                } else {
+//                    mTvLoanAmount.setText((currentAmountDelete - 100) + "");
+//                }
                 //刷新所有的费用
                 cacuAmount(stageId, mTvLoanAmount.getText().toString());
                 break;
@@ -290,5 +330,11 @@ public class LoanConfirmActivity extends BaseActivity {
     @Override protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(mContext);
+    }
+
+    @Override protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

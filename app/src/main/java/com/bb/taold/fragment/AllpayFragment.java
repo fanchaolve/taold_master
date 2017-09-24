@@ -80,7 +80,7 @@ public class AllpayFragment extends BaseFragment {
                 mLvAllpay.refreshComplete(0);
                 //判断哪个接口回调
                 if (api.getT() instanceof AllBill) {
-
+                    allpayBillAdapter.clear();
                     AllBill mBill = (AllBill) api.getT();
                     //添加数据
                     if (mBill != null) {

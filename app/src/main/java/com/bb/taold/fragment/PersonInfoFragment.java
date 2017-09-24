@@ -27,12 +27,14 @@ import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.Constants;
 import com.bb.taold.utils.PermissionUtil;
+import com.bb.taold.utils.StringUtils;
 import com.bb.taold.widget.Line_ItemView;
 import com.bb.taold.widget.NumberPickViewDialog;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -214,11 +216,20 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
                 break;
             case R.id.li_relship:
                 dialog_Type = 1;
-                showDialog(DataUtils.fristShipsMap().keySet());
+                Map<String, String> map = DataUtils.fristShipsMap();
+                if (!TextUtils.isEmpty(ship2)) {
+                    map.remove(DataUtils.getShipText(StringUtils.getIntegerValue(ship2)));
+                }
+                showDialog(map.keySet());
+
                 break;
             case R.id.li_relship2:
                 dialog_Type = 2;
-                showDialog(DataUtils.getShipsMap().keySet());
+                Map<String, String> map2 = DataUtils.getShipsMap();
+                if (!TextUtils.isEmpty(ship1)) {
+                    map2.remove(DataUtils.getShipText(StringUtils.getIntegerValue(ship1)));
+                }
+                showDialog(map2.keySet());
                 break;
             case R.id.tv_confirm:
                 if (!confirm()) {

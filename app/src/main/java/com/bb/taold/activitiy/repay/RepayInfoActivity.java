@@ -18,10 +18,16 @@ import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.BillItemDetail;
 import com.bb.taold.bean.BillItemInfo;
 import com.bb.taold.bean.PayParams;
+import com.bb.taold.bean.RepayChannelInfo;
 import com.bb.taold.listener.Callexts;
 import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.Constants;
 import com.bb.taold.utils.EBJPayUtil;
+
+import com.bb.taold.utils.IntentUtils;
+import com.bb.taold.utils.LojaDateUtils;
+import com.bb.taold.utils.StringUtils;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,15 +138,24 @@ public class RepayInfoActivity extends BaseActivity {
                 if (api.getT() instanceof BillItemInfo) {
                     BillItemInfo info = (BillItemInfo) api.getT();
                     mDetail = info.getBillInfo();
-                    //设置金额数据
-                    mTvLoanAmount.setText(mDetail.getBillAmount());
-                    mTvPrincipal.setText(mDetail.getPrincipal());
-                    mTvLoanInterestCost.setText(mDetail.getLoanInterestCost());
-                    mTvManageCost.setText(mDetail.getManageCost());
-                    //需要判断是否逾期来确定是否显示逾期金额
-                    mTvDueAmount.setText(mDetail.getDueAmount());
-                    mTvAbateAmt.setText(mDetail.getAbateAmt());
-//                    getPayParams(mDetail.getId(), mDetail.getBillAmount(), Constants.PAY_CHANNEL_ALIPAY, Constants.PLATFORM);
+
+                    if (info.getBillInfo() != null) {
+                        //设置金额数据
+                        mTvLoanAmount.setText(mDetail.getBillAmount());
+                        mTvPrincipal.setText(mDetail.getPrincipal());
+                        mTvLoanInterestCost.setText(mDetail.getLoanInterestCost());
+                        mTvManageCost.setText(mDetail.getManageCost());
+                        //需要判断是否逾期来确定是否显示逾期金额
+                        mTvDueAmount.setText(mDetail.getDueAmount());
+                        mTvAbateAmt.setText(mDetail.getAbateAmt());
+                    }
+
+                    if (info.getRepayChannelInfo() != null) {
+                        RepayChannelInfo repayChannelInfo = info.getRepayChannelInfo();
+                        tvPayway.setText(repayChannelInfo.getPayChannel());
+                        tvPayDate.setText(StringUtils.getTime(repayChannelInfo.getPaySuccessDate(), LojaDateUtils.YYYY_MM_DD_CN_FORMAT));
+                    }
+
                     return;
                 } else if (api.getT() instanceof PayParams) {
                     PayParams mPayParams = (PayParams) api.getT();

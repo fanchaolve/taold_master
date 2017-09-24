@@ -18,6 +18,8 @@ import com.bb.taold.adapter.recycleradapter.SuperViewHolder;
 import com.bb.taold.bean.BillInfo;
 import com.bb.taold.bean.RepayDetail;
 import com.bb.taold.utils.AppManager;
+import com.bb.taold.utils.LojaDateUtils;
+import com.bb.taold.utils.StringUtils;
 
 import java.util.ArrayList;
 
@@ -53,24 +55,23 @@ public class AllpayBillAdapter extends ListBaseAdapter<BillInfo> {
         });
 
         //设置时间
-        tv_time.setText("借款时间  " + billInfo.getLoanTime().toString());
+        tv_time.setText("借款时间  " + StringUtils.getTime(billInfo.getLoanTime(), LojaDateUtils.YYYY_MM_DD_FORMAT2));
         //设置金额
         tv_amount.setText(billInfo.getTotals().toString());
+        tv_status.setText(billInfo.getDescribe());
         //设置状态
 
         //先判断是否逾期
         if (billInfo.getIsOverdue().equals("0")) {
             //未逾期
-            if (billInfo.getStatus().equals("10")) {
-                tv_status.setText("还款中");
+            if (billInfo.getStatus().equals("0")) {
                 iv_status.setImageResource(R.drawable.iv_repaying);
             } else {
-                tv_status.setText("已还款");
+                tv_status.setText(billInfo.getDescribe());
                 iv_status.setImageResource(R.drawable.icon_allpay);
             }
         } else {
             //已逾期
-            tv_status.setText("已逾期");
             iv_status.setImageResource(R.drawable.iv_overdue);
         }
 

@@ -3,6 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
               android:orientation="vertical">
 
     <include layout="@layout/layout_title_normal"/>
@@ -37,32 +38,33 @@
 
                 <ImageView
                     android:id="@+id/iv_add"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:src="@drawable/add_icon"/>
+                    android:src="@drawable/add_select"/>
 
                 <TextView
                     android:id="@+id/tv_loanAmount"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="17dp"
                     android:layout_toLeftOf="@id/iv_add"
-                    android:text="10000"
+                    android:gravity="center"
+                    android:text="0"
                     android:textColor="@color/color_price"
                     android:textSize="20sp"/>
 
                 <ImageView
                     android:id="@+id/iv_delete"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="17dp"
                     android:layout_toLeftOf="@id/tv_loanAmount"
-                    android:src="@drawable/delete_icon"/>
+                    android:src="@drawable/delete_select"/>
             </RelativeLayout>
 
             <View
@@ -91,7 +93,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:text="14天"
+                    android:text="-天"
                     android:textColor="@color/color_111111"
                     android:textSize="15sp"/>
             </RelativeLayout>
@@ -123,7 +125,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:text="900元"
+                    android:text="-元"
                     android:textColor="@color/color_111111"
                     android:textSize="15sp"/>
             </RelativeLayout>
@@ -161,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="4.5元"
+                        android:text="-元"
                         android:textColor="@color/font_normal"
                         android:textSize="14sp"/>
                 </RelativeLayout>
@@ -185,7 +187,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="30元"
+                        android:text="-元"
                         android:textColor="@color/font_normal"
                         android:textSize="14sp"/>
                 </RelativeLayout>
@@ -209,7 +211,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="8元"
+                        android:text="-元"
                         android:textColor="@color/font_normal"
                         android:textSize="14sp"/>
                 </RelativeLayout>
@@ -233,7 +235,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="100元"
+                        android:text="-元"
                         android:textColor="@color/font_normal"
                         android:textSize="14sp"/>
                 </RelativeLayout>
@@ -257,7 +259,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="100元"
+                        android:text="-元"
                         android:textColor="@color/font_normal"
                         android:textSize="14sp"/>
                 </RelativeLayout>
@@ -292,7 +294,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:text="1000元"
+                    android:text="-元"
                     android:textColor="@color/color_111111"
                     android:textSize="15sp"/>
             </RelativeLayout>
@@ -379,7 +381,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="20dp"
                         android:layout_marginRight="20dp"
-                        android:text="**** **** **** 8934"
+                        android:text="**** **** **** ****"
                         android:textColor="@color/white"
                         android:textSize="14sp"/>
 
@@ -395,7 +397,7 @@
                     android:id="@+id/tv_confirm"
                     android:layout_width="fill_parent"
                     android:layout_height="42dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="25dp"
                     android:background="@drawable/button_bg"
                     android:gravity="center"
                     android:text="确认借款"
@@ -455,7 +457,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-
                         android:text="我保证借款用于合法的消费或经营途径，而非任何非法用途（如股票，房地产，赌博）"/>
                 </LinearLayout>
             </LinearLayout>

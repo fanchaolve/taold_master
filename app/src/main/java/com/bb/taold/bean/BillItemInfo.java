@@ -8,6 +8,7 @@ package com.bb.taold.bean;
 
 public class BillItemInfo {
     public BillItemDetail billInfo = null;
+    private RepayChannelInfo repayChannelInfo;
 
     public BillItemDetail getBillInfo() {
         return billInfo;
@@ -15,5 +16,13 @@ public class BillItemInfo {
 
     public void setBillInfo(BillItemDetail billInfo) {
         this.billInfo = billInfo;
+    }
+
+    public RepayChannelInfo getRepayChannelInfo() {
+        return repayChannelInfo;
+    }
+
+    public void setRepayChannelInfo(RepayChannelInfo repayChannelInfo) {
+        this.repayChannelInfo = repayChannelInfo;
     }
 }

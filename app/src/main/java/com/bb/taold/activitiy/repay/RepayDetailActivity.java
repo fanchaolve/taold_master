@@ -15,6 +15,7 @@ import com.bb.taold.base.BaseActivity;
 import com.bb.taold.bean.BillInfoDetail;
 import com.bb.taold.bean.BillProductInfo;
 import com.bb.taold.listener.Callexts;
+import com.bb.taold.utils.StringUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -95,7 +96,7 @@ public class RepayDetailActivity extends BaseActivity {
     private void getBillInfoDetail(String billId) {
         //获取未还款账单详情
         Call<Result_Api<BillInfoDetail>> call = service.detail(billId);
-        Callexts.need_sessionPost(call, new PostCallback() {
+        Callexts.need_sessionPost(call, new PostCallback<RepayDetailActivity>(this) {
             @Override public void successCallback(Result_Api api) {
                 mSwiperRefresh.setRefreshing(false);
                 if (api.getT() instanceof BillInfoDetail) {
@@ -108,8 +109,7 @@ public class RepayDetailActivity extends BaseActivity {
                     //设置借款期限
                     mTvLoanDays.setText(productInfo.getLoanDays() + "天");
                     //设置年利率
-                    mTvYearrate.setText((Double.parseDouble(productInfo.getYearRates()) * 100) + "%");
-
+                    mTvYearrate.setText((StringUtils.getDoubleValue(productInfo.getYearRates()) * 100) + "%");
                     RepayDetailAdapter mAdapter = new RepayDetailAdapter(RepayDetailActivity.this, details);
 
                     mLvRepayDetail.setAdapter(mAdapter);

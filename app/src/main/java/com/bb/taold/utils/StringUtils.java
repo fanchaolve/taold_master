@@ -206,7 +206,7 @@ public class StringUtils {
         return date;
     }
 
-    public static String getTime(long time,String format){
+    public static String getTime(long time, String format) {
         String dateStr = "";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         Date date = new Date(time);
@@ -214,16 +214,44 @@ public class StringUtils {
         return dateStr;
     }
 
-    public static String getTime(String time,String format){
+    public static String getTime(String time, String format) {
         String dateStr = "";
         try {
             long l = Long.parseLong(time);
-            dateStr = getTime(l,format);
-        }catch (Exception e){
+            dateStr = getTime(l, format);
+        } catch (Exception e) {
             dateStr = "";
         }
 
         return dateStr;
+    }
+
+    public static double getDoubleValue(String valueString) {
+        if (TextUtils.isEmpty(valueString)) {
+            return 0;
+        }
+        double value = 0;
+        try {
+            value = Double.parseDouble(valueString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return value;
+
+    }
+
+    public static int getIntegerValue(String valueString) {
+        if (TextUtils.isEmpty(valueString)) {
+            return 0;
+        }
+        int value = 0;
+        try {
+            value = Integer.parseInt(valueString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return value;
+
     }
 
 

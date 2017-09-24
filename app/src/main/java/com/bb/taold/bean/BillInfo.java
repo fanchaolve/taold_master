@@ -24,7 +24,7 @@ public class BillInfo {
     //是否逾期 0未逾期 1已逾期
     public String isOverdue = "";
     //描述
-    public String description = "";
+    public String describe = "";
     //总借款金额
     public String totals = "";
     //借款Id
@@ -48,12 +48,13 @@ public class BillInfo {
         this.isOverdue = isOverdue;
     }
 
-    public String getDescription() {
-        return description;
+
+    public String getDescribe() {
+        return describe;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 
     public String getTotals() {
