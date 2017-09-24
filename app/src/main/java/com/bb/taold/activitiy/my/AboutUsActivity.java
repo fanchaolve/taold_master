@@ -2,8 +2,6 @@ package com.bb.taold.activitiy.my;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -107,9 +105,11 @@ public class AboutUsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.lay_check_update:
-                if (canUpdate(mUpdateInfo.getBuildversion())) {
+                if (mUpdateInfo!=null&&canUpdate(mUpdateInfo.getBuildversion())) {
                     showUpdateAlert();
                 }
+//                EBJPayUtil ebjPayUtil = new EBJPayUtil(mContext, "10001", "100100102", "8098902", "0.01", LojaDateUtils.getNow()-60000+"");
+//                ebjPayUtil.startPay();
 
                 break;
         }
@@ -121,13 +121,8 @@ public class AboutUsActivity extends BaseActivity {
             @Override public void onClick(View v) {
                 dialog.dismiss();
                 Intent intent = new Intent(mContext, UpdateService.class);
-                if(TextUtils.isEmpty(mUpdateInfo.getDownloadurl())){
-                    intent.putExtra(UpdateService.UPDATE_URL_KEY, mUpdateInfo.getDownloadurl());
-                    startService(intent);
-                }else{
-                    Log.i("updateUrl",mUpdateInfo.getDownloadurl());
-                }
-
+                intent.putExtra("updateUrl", "http://imtt.dd.qq.com/16891/51F06FB002018975678634859A0EC654.apk");
+                startService(intent);
             }
         }).setOnNegativeListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
