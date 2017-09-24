@@ -144,7 +144,10 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks {
      * status权限和读取本地文件权限
      */
     @AfterPermissionGranted(RC_LOCATION_CAMERA_RAEDPHONE)
-    public void needPermission() {
+    public void needPermission(String[] perms) {
+        if(perms==null||perms.length<=0){
+            return;
+        }
         //不是6.0以上的版本 直接运行
         if (!isAndroidM()) {
             if (listener != null) {
@@ -152,7 +155,7 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks {
             }
             return;
         }
-        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE};
+//        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE};
         //两个权限同时满足才执行接下去的任务
         if (EasyPermissions.hasPermissions(mActivity, perms)) {
             // Have permission, do the thing!

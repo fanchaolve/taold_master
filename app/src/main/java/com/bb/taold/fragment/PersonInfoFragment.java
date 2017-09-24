@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Set;
 
 import butterknife.BindView;
+import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
 
 /**
@@ -42,7 +44,6 @@ import retrofit2.Call;
  */
 public class PersonInfoFragment extends BaseFragment implements View.OnClickListener {
 
-    private PermissionUtil.onPermissionGentedListener listener;   //权限获取
     protected PermissionUtil permissionUtil;
 
     private final static int Emergency_Contact_REQUEST = 100;
@@ -129,7 +130,7 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
     @Override
     protected void initdate(Bundle savedInstanceState) {
         permissionUtil = new PermissionUtil(getActivity());
-        listener = new PermissionUtil.onPermissionGentedListener() {
+        PermissionUtil.onPermissionGentedListener listener = new PermissionUtil.onPermissionGentedListener() {
             @Override
             public void onGented() {
                 //魅族之类的手机为获取权限做的处理
@@ -449,5 +450,11 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
 
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

@@ -49,20 +49,8 @@ public class WelcomeActivity extends BaseActivity {
         PermissionUtil.onPermissionGentedListener listener = new PermissionUtil.onPermissionGentedListener() {
             @Override
             public void onGented() {
-
-                GPSUtil.tryStart(new Act1<Location>() {
-                    @Override
-                    public void run(Location location) {
-                        if (location != null) {
-                            Log.i("fancl", "loc:" + location.latitude + "-" + location.lontitude);
-                            MyApplication.latitude = location.latitude + "";
-                            MyApplication.longitude = location.lontitude + "";
-                            GPSUtil.tryStop();
-                        }
-                    }
-                });
+                queryLocation();
                 toNextPage();
-
             }
 
             @Override
@@ -77,6 +65,20 @@ public class WelcomeActivity extends BaseActivity {
 
 
 
+    }
+
+    private void queryLocation() {
+        GPSUtil.tryStart(new Act1<Location>() {
+            @Override
+            public void run(Location location) {
+                if (location != null) {
+                    Log.i("fancl", "loc:" + location.latitude + "-" + location.lontitude);
+                    MyApplication.latitude = location.latitude + "";
+                    MyApplication.longitude = location.lontitude + "";
+                    GPSUtil.tryStop();
+                }
+            }
+        });
     }
 
     private void toNextPage() {
