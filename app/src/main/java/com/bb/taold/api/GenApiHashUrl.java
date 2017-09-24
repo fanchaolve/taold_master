@@ -16,8 +16,8 @@ import java.net.URL;
 
 public class GenApiHashUrl {
     private static GenApiHashUrl INSTANCE = null;
-//    public static final String apiUrl = "http://59.110.228.218:5555";
-        public static final String apiUrl = "http://192.168.1.107:5555";
+    public static final String apiUrl = "http://59.110.228.218:5555";
+//    public static final String apiUrl = "http://192.168.1.107:5555";
     public static final String md5_key = "md5_key";
     public static final String uploadUrl = "";
 

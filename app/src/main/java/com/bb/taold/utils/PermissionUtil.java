@@ -21,7 +21,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  *
  */
 
-public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
+public class PermissionUtil implements EasyPermissions.PermissionCallbacks {
 
     private static final String TAG = "PermissionUtil";
     private static final int RC_CAMERA_PERM = 123;         //打开相机和文件读取权限
@@ -33,36 +33,34 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     private static final int RC_LOCATION = 130;       //获取定位信息
     private static final int RC_LOCATION_AND_PHONE_READ_STATUS = 131;       //获取定位信息和手机基础信息
 
-    private static final int RC_LOCATION_CAMERA_RAEDPHONE=132;//获取所需的信息
+    private static final int RC_LOCATION_CAMERA_RAEDPHONE = 132;//获取所需的信息
 
 
-    private static final int RC_READ_CONTTACT=131;//读取联系人权限
-    private static PermissionUtil instance;
+    private static final int RC_READ_CONTTACT = 131;//读取联系人权限
+    private Activity mActivity;
+    //    private static PermissionUtil instance;
     public onPermissionGentedListener listener;
 
 
-    private PermissionUtil(){
+    private PermissionUtil() {
 
     }
 
-    public static synchronized PermissionUtil getInstance(){
-        if (instance == null){
-            instance = new PermissionUtil();
-        }
-        return instance;
+    public PermissionUtil(Activity activity) {
+        mActivity = activity;
     }
 
-    public void setListener(onPermissionGentedListener listener){
+    public void setListener(onPermissionGentedListener listener) {
         this.listener = listener;
     }
 
     /**
      * Api 版本判断
      */
-    private boolean isAndroidM(){
+    private boolean isAndroidM() {
         //判断当前api是否为23以上版本
-        Log.v("api", Build.VERSION.SDK_INT+"");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        Log.v("api", Build.VERSION.SDK_INT + "");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return true;
         }
         return false;
@@ -74,44 +72,44 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     @AfterPermissionGranted(RC_CAMERA_PERM)
     public void cameraTask() {
         //不是6.0以上的版本 直接运行
-        if (!isAndroidM()){
-            if (listener != null){
+        if (!isAndroidM()) {
+            if (listener != null) {
                 listener.onGented();
             }
             return;
         }
         //Log.v("camera","two permission");
-        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA };
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
         //两个权限同时满足才执行接下去的任务
-        if (EasyPermissions.hasPermissions(MyApplication.getAppContext(),perms)) {
+        if (EasyPermissions.hasPermissions(MyApplication.getAppContext(), perms)) {
             // Have permission, do the thing!
             //Log.v("camera","two permission");
-            if (listener != null){
+            if (listener != null) {
                 listener.onGented();
             }
         } else {
             //获取多个权限
-            ActivityCompat.requestPermissions((Activity) MyApplication.getAppContext(),perms, RC_CAMERA_PERM);
+            ActivityCompat.requestPermissions(mActivity, perms, RC_CAMERA_PERM);
         }
     }
 
     @AfterPermissionGranted(RC_CAMERA_OPEN)
     public void cameraOpenTask() {
         //不是6.0以上的版本 直接运行
-        if (!isAndroidM()){
-            if (listener != null){
+        if (!isAndroidM()) {
+            if (listener != null) {
                 listener.onGented();
             }
             return;
         }
-        String[] perms = {Manifest.permission.CAMERA };
-        if (EasyPermissions.hasPermissions(MyApplication.getAppContext(),perms)) {
-            if (listener != null){
+        String[] perms = {Manifest.permission.CAMERA};
+        if (EasyPermissions.hasPermissions(MyApplication.getAppContext(), perms)) {
+            if (listener != null) {
                 listener.onGented();
             }
         } else {
             //获取多个权限
-            ActivityCompat.requestPermissions((Activity) MyApplication.getAppContext(), new String[]{Manifest.permission.CAMERA},RC_CAMERA_OPEN);
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.CAMERA}, RC_CAMERA_OPEN);
         }
     }
 
@@ -121,23 +119,23 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     @AfterPermissionGranted(RC_PHONE_READ_STATUS)
     public void statusAndRead() {
         //不是6.0以上的版本 直接运行
-        if (!isAndroidM()){
-            if (listener != null){
+        if (!isAndroidM()) {
+            if (listener != null) {
                 listener.onGented();
             }
             return;
         }
-        String[] perms = { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE };
+        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE};
         //两个权限同时满足才执行接下去的任务
-        if (EasyPermissions.hasPermissions(AppManager.getInstance().currentActivity(),perms)) {
+        if (EasyPermissions.hasPermissions(mActivity, perms)) {
             // Have permission, do the thing!
             //Log.v("camera","two permission");
-            if (listener != null){
+            if (listener != null) {
                 listener.onGented();
             }
         } else {
             //获取多个权限
-            ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE}, RC_PHONE_READ_STATUS);
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE}, RC_PHONE_READ_STATUS);
         }
     }
 
@@ -148,23 +146,23 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     @AfterPermissionGranted(RC_LOCATION_CAMERA_RAEDPHONE)
     public void needPermission() {
         //不是6.0以上的版本 直接运行
-        if (!isAndroidM()){
-            if (listener != null){
+        if (!isAndroidM()) {
+            if (listener != null) {
                 listener.onGented();
             }
             return;
         }
-        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE };
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE};
         //两个权限同时满足才执行接下去的任务
-        if (EasyPermissions.hasPermissions(AppManager.getInstance().currentActivity(),perms)) {
+        if (EasyPermissions.hasPermissions(mActivity, perms)) {
             // Have permission, do the thing!
             //Log.v("camera","two permission");
-            if (listener != null){
+            if (listener != null) {
                 listener.onGented();
             }
         } else {
             //获取多个权限
-            ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA,Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE}, RC_PHONE_READ_STATUS);
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE}, RC_PHONE_READ_STATUS);
         }
     }
 
@@ -175,23 +173,23 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     @AfterPermissionGranted(RC_LOCATION_AND_PHONE_READ_STATUS)
     public void loc_read_phone_P() {
         //不是6.0以上的版本 直接运行
-        if (!isAndroidM()){
-            if (listener != null){
+        if (!isAndroidM()) {
+            if (listener != null) {
                 listener.onGented();
             }
             return;
         }
-        String[] perms = { Manifest.permission.READ_PHONE_STATE };
+        String[] perms = {Manifest.permission.READ_PHONE_STATE};
         //两个权限同时满足才执行接下去的任务
-        if (EasyPermissions.hasPermissions(AppManager.getInstance().currentActivity(),perms)) {
+        if (EasyPermissions.hasPermissions(mActivity, perms)) {
             // Have permission, do the thing!
             //Log.v("camera","two permission");
-            if (listener != null){
+            if (listener != null) {
                 listener.onGented();
             }
         } else {
             //获取多个权限
-            ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE}, RC_LOCATION_AND_PHONE_READ_STATUS);
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE}, RC_LOCATION_AND_PHONE_READ_STATUS);
         }
     }
 
@@ -201,21 +199,21 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     @AfterPermissionGranted(RC_LOCATION_CONTACTS_PERM)
     public void locationAndContactsTask() {
         //不是6.0以上的版本 直接运行
-        if (!isAndroidM()){
-            if (listener != null){
+        if (!isAndroidM()) {
+            if (listener != null) {
                 listener.onGented();
             }
             return;
         }
-        String[] perms = { Manifest.permission.ACCESS_FINE_LOCATION};
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
         if (EasyPermissions.hasPermissions(MyApplication.getAppContext(), perms)) {
             // Have permissions, do the thing!
-            if (listener != null){
+            if (listener != null) {
                 listener.onGented();
             }
         } else {
             // Ask for both permissions
-            ActivityCompat.requestPermissions((Activity) MyApplication.getAppContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, RC_LOCATION_CONTACTS_PERM);
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, RC_LOCATION_CONTACTS_PERM);
         }
     }
 
@@ -223,20 +221,20 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     @AfterPermissionGranted(RC_LOCATION)
     public void GetLocationTask() {
         //不是6.0以上的版本 直接运行
-        if (!isAndroidM()){
-            if (listener != null){
+        if (!isAndroidM()) {
+            if (listener != null) {
                 listener.onGented();
             }
             return;
         }
-        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION };
-        if (EasyPermissions.hasPermissions(AppManager.getInstance().currentActivity(),perms)) {
-            if (listener != null){
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
+        if (EasyPermissions.hasPermissions(mActivity, perms)) {
+            if (listener != null) {
                 listener.onGented();
             }
         } else {
             //获取多个权限
-            ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},RC_LOCATION);
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, RC_LOCATION);
         }
     }
 
@@ -247,21 +245,21 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     @AfterPermissionGranted(RC_READ_CONTTACT)
     public void ReadPhoneContactsTask2() {
         //不是6.0以上的版本 直接运行
-        if (!isAndroidM()){
-            if (listener != null){
+        if (!isAndroidM()) {
+            if (listener != null) {
                 listener.onGented();
             }
             return;
         }
-        String[] perms = { Manifest.permission.READ_CONTACTS};
-        if (EasyPermissions.hasPermissions(AppManager.getInstance().currentActivity(), perms)) {
+        String[] perms = {Manifest.permission.READ_CONTACTS};
+        if (EasyPermissions.hasPermissions(mActivity, perms)) {
             // Have permissions, do the thing!
-            if (listener != null){
+            if (listener != null) {
                 listener.onGented();
             }
         } else {
             // Ask for both permissions
-            ActivityCompat.requestPermissions(AppManager.getInstance().currentActivity(), new String[]{Manifest.permission.READ_CONTACTS}, RC_READ_CONTTACT);
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.READ_CONTACTS}, RC_READ_CONTTACT);
         }
     }
 
@@ -272,32 +270,32 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     @AfterPermissionGranted(RC_RAED_PHONE)
     public void ReadPhoneContactsTask() {
         //不是6.0以上的版本 直接运行
-        if (!isAndroidM()){
-            if (listener != null){
+        if (!isAndroidM()) {
+            if (listener != null) {
                 listener.onGented();
             }
             return;
         }
-        String[] perms = { Manifest.permission.READ_EXTERNAL_STORAGE};
+        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(MyApplication.getAppContext(), perms)) {
             // Have permissions, do the thing!
-            if (listener != null){
+            if (listener != null) {
                 listener.onGented();
             }
         } else {
             // Ask for both permissions
-            ActivityCompat.requestPermissions((Activity) MyApplication.getAppContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, RC_RAED_PHONE);
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, RC_RAED_PHONE);
         }
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         //MyApplication.getAppContext().onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.d(TAG, "onPermissionsResult:" );
+        Log.d(TAG, "onPermissionsResult:");
         // EasyPermissions handles the request result.
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
         //单次被拒绝
-        if (grantResults[0] != PackageManager.PERMISSION_GRANTED){
-            if (listener != null){
+        if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            if (listener != null) {
                 listener.onFalied();
             }
         }
@@ -324,29 +322,34 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
 //                listener.onGented();
 //            }
 //        }
+        if (listener != null) {
+            listener.onGented();
+        }
+
+
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         Log.d(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
-        if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_CAMERA_PERM) {
-            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"相机\"和\"存储空间\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_CAMERA_OPEN){
-            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"相机\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_PHONE_READ_STATUS){
-            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"存储空间\"和\"电话\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_LOCATION_CONTACTS_PERM) {
-            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"位置信息\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_RAED_PHONE) {
-            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"存储空间\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_LOCATION) {
-            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"定位\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_READ_CONTTACT) {
-            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"通讯录\"权限").setTitle("获取权限").build().show();
-        }else if (EasyPermissions.somePermissionPermanentlyDenied(AppManager.getInstance().currentActivity(), perms) && requestCode == RC_LOCATION_AND_PHONE_READ_STATUS) {
-            new AppSettingsDialog.Builder(AppManager.getInstance().currentActivity(),"权限已被拒绝，要想使用该功能请在设置-权限中打开\"定位\"和\"手机基础\"权限").setTitle("获取权限").build().show();
+        if (EasyPermissions.somePermissionPermanentlyDenied(mActivity, perms) && requestCode == RC_CAMERA_PERM) {
+            new AppSettingsDialog.Builder(mActivity, "权限已被拒绝，要想使用该功能请在设置-权限中打开\"相机\"和\"存储空间\"权限").setTitle("获取权限").build().show();
+        } else if (EasyPermissions.somePermissionPermanentlyDenied(mActivity, perms) && requestCode == RC_CAMERA_OPEN) {
+            new AppSettingsDialog.Builder(mActivity, "权限已被拒绝，要想使用该功能请在设置-权限中打开\"相机\"权限").setTitle("获取权限").build().show();
+        } else if (EasyPermissions.somePermissionPermanentlyDenied(mActivity, perms) && requestCode == RC_PHONE_READ_STATUS) {
+            new AppSettingsDialog.Builder(mActivity, "权限已被拒绝，要想使用该功能请在设置-权限中打开\"存储空间\"和\"电话\"权限").setTitle("获取权限").build().show();
+        } else if (EasyPermissions.somePermissionPermanentlyDenied(mActivity, perms) && requestCode == RC_LOCATION_CONTACTS_PERM) {
+            new AppSettingsDialog.Builder(mActivity, "权限已被拒绝，要想使用该功能请在设置-权限中打开\"位置信息\"权限").setTitle("获取权限").build().show();
+        } else if (EasyPermissions.somePermissionPermanentlyDenied(mActivity, perms) && requestCode == RC_RAED_PHONE) {
+            new AppSettingsDialog.Builder(mActivity, "权限已被拒绝，要想使用该功能请在设置-权限中打开\"存储空间\"权限").setTitle("获取权限").build().show();
+        } else if (EasyPermissions.somePermissionPermanentlyDenied(mActivity, perms) && requestCode == RC_LOCATION) {
+            new AppSettingsDialog.Builder(mActivity, "权限已被拒绝，要想使用该功能请在设置-权限中打开\"定位\"权限").setTitle("获取权限").build().show();
+        } else if (EasyPermissions.somePermissionPermanentlyDenied(mActivity, perms) && requestCode == RC_READ_CONTTACT) {
+            new AppSettingsDialog.Builder(mActivity, "权限已被拒绝，要想使用该功能请在设置-权限中打开\"通讯录\"权限").setTitle("获取权限").build().show();
+        } else if (EasyPermissions.somePermissionPermanentlyDenied(mActivity, perms) && requestCode == RC_LOCATION_AND_PHONE_READ_STATUS) {
+            new AppSettingsDialog.Builder(mActivity, "权限已被拒绝，要想使用该功能请在设置-权限中打开\"定位\"和\"手机基础\"权限").setTitle("获取权限").build().show();
         }
-        if (listener != null){
+        if (listener != null) {
             listener.onFalied();
         }
     }
@@ -357,26 +360,27 @@ public class PermissionUtil implements EasyPermissions.PermissionCallbacks{
     @AfterPermissionGranted(RC_WRITE)
     public void writeContactsTask() {
         //不是6.0以上的版本 直接运行
-        if (!isAndroidM()){
-            if (listener != null){
+        if (!isAndroidM()) {
+            if (listener != null) {
                 listener.onGented();
             }
             return;
         }
-        String[] perms = { Manifest.permission.READ_EXTERNAL_STORAGE};
+        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(MyApplication.getAppContext(), perms)) {
             // Have permissions, do the thing!
-            if (listener != null){
+            if (listener != null) {
                 listener.onGented();
             }
         } else {
             // Ask for both permissions
-            ActivityCompat.requestPermissions((Activity) MyApplication.getAppContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, RC_WRITE);
+            ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, RC_WRITE);
         }
     }
 
-    public interface onPermissionGentedListener{
+    public interface onPermissionGentedListener {
         void onGented();
+
         void onFalied();
     }
 

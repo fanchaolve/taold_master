@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.bb.taold.utils.AppManager;
 import com.bb.taold.utils.CacheUtils;
 import com.bb.taold.utils.CardNumScanUtil;
 import com.bb.taold.utils.Constants;
+import com.bb.taold.utils.PermissionUtil;
 import com.idcard.CardInfo;
 import com.idcard.TFieldID;
 
@@ -73,6 +75,7 @@ public class AddBankCardFinalActivity extends BaseActivity {
     private CardCheck mCardCheck;
     private CardInfo cardInfo;
     private String mFrom;
+    private PermissionUtil permissionUtil;
 
     @Override
     public int getLayoutId() {
@@ -284,7 +287,8 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 break;
             case R.id.iv_scan_card:
                 //添加银行卡页面
-                CardNumScanUtil.getINSTANCE().doScan();
+                getPermission();
+
                 break;
             case R.id.tv_acctName:
                 String cardNum = mEtAcctNo.getText().toString();
@@ -293,6 +297,23 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    private void getPermission() {
+        PermissionUtil.onPermissionGentedListener permissionGentedListener = new PermissionUtil.onPermissionGentedListener() {
+
+            @Override public void onGented() {
+                CardNumScanUtil.getINSTANCE().doScan();
+            }
+
+            @Override public void onFalied() {
+
+            }
+        };
+        permissionUtil = new PermissionUtil(this);
+        permissionUtil.setListener(permissionGentedListener);
+        permissionUtil.cameraOpenTask();
+
     }
 
     @Override
@@ -313,6 +334,12 @@ public class AddBankCardFinalActivity extends BaseActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionUtil.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 }

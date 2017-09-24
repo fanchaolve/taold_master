@@ -128,7 +128,7 @@ public class PersonInfoFragment extends BaseFragment implements View.OnClickList
 
     @Override
     protected void initdate(Bundle savedInstanceState) {
-        permissionUtil = PermissionUtil.getInstance();
+        permissionUtil = new PermissionUtil(getActivity());
         listener = new PermissionUtil.onPermissionGentedListener() {
             @Override
             public void onGented() {
